@@ -1,0 +1,73 @@
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <a class="logo" routerLink="/" aria-label="BraveFx Home">
+        <img src="/Logo.png" alt="BraveFx Logo" class="logo-img" />
+        <span class="logo-text">Brave<span class="highlight">Fx</span></span>
+      </a>
+
+      <nav class="nav-desktop">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a routerLink="/about" routerLinkActive="active">About</a>
+        <a routerLink="/glossary" routerLinkActive="active">Glossary</a>
+
+
+        <ng-container *ngIf="currentUser$ | async as user; else authLinks">
+          <div class="user-dropdown">
+            <div class="user-trigger">
+              <img [src]="user.avatar" [alt]="user.name" class="avatar" />
+              <span class="user-name">{{ user.name }}</span>
+              <lucide-icon [img]="ChevronDown" class="chevron-icon"></lucide-icon>
+            </div>
+            <div class="dropdown-menu">
+              <a routerLink="/student-dashboard" class="dropdown-item">
+                <lucide-icon [img]="LayoutDashboard" class="dropdown-icon"></lucide-icon>
+                Dashboard
+              </a>
+              <a *ngIf="user.role === 'admin'" routerLink="/admin-dashboard" class="dropdown-item">
+                <lucide-icon [img]="Shield" class="dropdown-icon"></lucide-icon>
+                Admin
+              </a>
+              <button (click)="logout()" class="dropdown-item logout">
+                <lucide-icon [img]="LogOut" class="dropdown-icon"></lucide-icon>
+                Logout
+              </button>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-template #authLinks>
+          <a routerLink="/login" class="btn-login">Login</a>
+          <a routerLink="/" fragment="enroll" class="btn-join-academy">Join Our Academy</a>
+        </ng-template>
+
+        <div class="theme-separator"></div>
+        <button class="theme-toggle" (click)="toggleTheme()" title="Toggle theme">
+          <lucide-icon *ngIf="isDarkMode" [img]="Sun" class="icon"></lucide-icon>
+          <lucide-icon *ngIf="!isDarkMode" [img]="Moon" class="icon"></lucide-icon>
+        </button>
+      </nav>
+
+      <button class="mobile-menu-btn" (click)="toggleMenu()" aria-label="Open Menu">
+        <lucide-icon [img]="isMenuOpen ? X : Menu" class="menu-icon"></lucide-icon>
+      </button>
+    </div>
+
+    <nav class="nav-mobile" [class.open]="isMenuOpen">
+      <a routerLink="/" (click)="toggleMenu()">Home</a>
+      <a routerLink="/glossary" (click)="toggleMenu()">Glossary</a>
+      <a routerLink="/about" (click)="toggleMenu()">About</a>
+
+      <ng-container *ngIf="currentUser$ | async as user; else mobileAuthLinks">
+        <a routerLink="/student-dashboard" (click)="toggleMenu()">Dashboard</a>
+        <a *ngIf="user.role === 'admin'" routerLink="/admin-dashboard" (click)="toggleMenu()">Admin</a>
+        <button (click)="logout(); toggleMenu()" class="btn-logout-mobile">Logout</button>
+      </ng-container>
+
+      <ng-template #mobileAuthLinks>
+        <a routerLink="/login" (click)="toggleMenu()">Login</a>
+        <a routerLink="/register" (click)="toggleMenu()">Join Our Academy</a>
+      </ng-template>
+    </nav>
+  </div>
+</header>

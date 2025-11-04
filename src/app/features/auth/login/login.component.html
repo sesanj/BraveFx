@@ -1,0 +1,29 @@
+<div class="login-container">
+    <div class="login-card">
+        <h1>Welcome Back</h1>
+        <p class="subtitle">Sign in to access your Forex mastery journey</p>
+
+        <form (ngSubmit)="onSubmit()" class="login-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="your@email.com" required />
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="••••••••"
+                    required />
+            </div>
+
+            <div class="error-message" *ngIf="errorMessage">
+                {{ errorMessage }}
+            </div>
+
+            <button type="submit" class="login-btn">Sign In</button>
+        </form>
+
+        <div class="footer-links">
+            <p>Don't have an account? <a routerLink="/register">Register now</a></p>
+        </div>
+    </div>
+</div>

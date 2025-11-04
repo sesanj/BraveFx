@@ -1,0 +1,288 @@
+.about-page {
+  padding-bottom: 4rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Hero Section */
+.about-hero {
+  text-align: center;
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  margin: 0 -2rem 4rem;
+  padding: 4rem 2rem;
+}
+
+.about-hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.tagline {
+  font-size: 1.5rem;
+  opacity: 0.95;
+}
+
+/* Story Section */
+.story-section {
+  margin-bottom: 5rem;
+}
+
+.story-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.story-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.story-text p {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #4b5563;
+  margin-bottom: 1.25rem;
+}
+
+.story-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.stat-card {
+  background: #f9fafb;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 2px solid #e5e7eb;
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: #2563eb;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.1);
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* Values Section */
+.values-section {
+  margin-bottom: 5rem;
+}
+
+.values-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.value-card {
+  background: white;
+  padding: 2.5rem 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  transition: all 0.3s;
+}
+
+.value-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.value-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.value-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.value-card p {
+  color: #6b7280;
+  line-height: 1.7;
+}
+
+/* Social Section */
+.social-section {
+  margin-bottom: 5rem;
+}
+
+.social-section h2 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.social-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #6b7280;
+  margin-bottom: 3rem;
+}
+
+.social-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.social-card {
+  padding: 2.5rem;
+  border-radius: 16px;
+  text-align: center;
+  color: white;
+  transition: all 0.3s;
+}
+
+.social-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.3);
+}
+
+.instagram {
+  background: linear-gradient(
+    135deg,
+    #f09433 0%,
+    #e6683c 25%,
+    #dc2743 50%,
+    #cc2366 75%,
+    #bc1888 100%
+  );
+}
+
+.youtube {
+  background: linear-gradient(135deg, #ff0000 0%, #cc0000 100%);
+}
+
+.udemy {
+  background: linear-gradient(135deg, #a435f0 0%, #7c2cb5 100%);
+}
+
+.social-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.social-card h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: white;
+}
+
+.social-stat {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.social-card p {
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+/* CTA Section */
+.cta-section {
+  text-align: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 4rem 3rem;
+  border-radius: 24px;
+}
+
+.cta-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.cta-section p {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+}
+
+.btn-cta {
+  display: inline-block;
+  background: white;
+  color: #667eea;
+  padding: 1rem 3rem;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  transition: all 0.3s;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.btn-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .about-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .story-content {
+    grid-template-columns: 1fr;
+  }
+
+  .story-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .values-section h2,
+  .social-section h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .about-hero h1 {
+    font-size: 2rem;
+  }
+
+  .tagline {
+    font-size: 1.1rem;
+  }
+
+  .story-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-number {
+    font-size: 2rem;
+  }
+}

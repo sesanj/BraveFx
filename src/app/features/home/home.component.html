@@ -1,0 +1,864 @@
+<!-- Hero Section with Cinematic Design -->
+<section class="hero">
+  <div class="hero-background">
+    <div class="gradient-orb orb-1"></div>
+    <div class="gradient-orb orb-2"></div>
+    <div class="gradient-orb orb-3"></div>
+  </div>
+
+  <div class="container hero-content">
+    <div class="hero-text animate-fade-in">
+      <div class="badge">
+        <lucide-icon [img]="Sparkles" class="badge-icon"></lucide-icon>
+        <span>Trusted by 6,000+ Traders Worldwide</span>
+      </div>
+
+      <h1 class="hero-title">
+        <span class="title-small">The Complete</span>
+        Forex Trading Course<br />
+        <span class="gradient-text">With Brave FX</span>
+      </h1>
+
+      <p class="hero-description">
+        Learn proven strategies, master risk management,
+        and join the ranks of successful traders with our comprehensive, battle-tested course.
+      </p>
+
+      <p class="hero-subtext">
+        <lucide-icon [img]="CheckCircle" class="inline-icon"></lucide-icon>
+        Perfect for beginners to advance traders
+      </p>
+
+      <div class="hero-cta">
+        <button class="btn-hero-primary" (click)="scrollToEnroll()">
+          <span>Start Learning Today</span>
+          <lucide-icon [img]="ChevronRight" class="btn-icon"></lucide-icon>
+        </button>
+        <button class="btn-hero-secondary" (click)="openPreview()">
+          <lucide-icon [img]="PlayCircle" class="btn-icon"></lucide-icon>
+          <span>Watch Preview</span>
+        </button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-icon-bg">
+            <lucide-icon [img]="Users" class="stat-icon"></lucide-icon>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">6,000+</div>
+            <div class="stat-label">Active Students</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon-bg">
+            <lucide-icon [img]="Star" class="stat-icon"></lucide-icon>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">4.6★</div>
+            <div class="stat-label">Average Rating</div>
+          </div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon-bg">
+            <lucide-icon [img]="PlayCircle" class="stat-icon"></lucide-icon>
+          </div>
+          <div class="stat-content">
+            <div class="stat-number">200+</div>
+            <div class="stat-label">Video Lessons</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-proof">
+        <div class="social-item">
+          <lucide-icon [img]="Instagram" class="social-icon"></lucide-icon>
+          <span>38K Instagram Followers</span>
+        </div>
+        <div class="social-item">
+          <lucide-icon [img]="Youtube" class="social-icon"></lucide-icon>
+          <span>70K YouTube Subscribers</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-image animate-fade-in">
+      <div class="video-card glass-card">
+        <div class="video-thumbnail">
+          <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=1200&auto=format&fit=crop"
+            alt="Course preview" />
+          <button class="play-button" (click)="openPreview()" aria-label="Play preview video">
+            <lucide-icon [img]="PlayCircle" class="play-icon"></lucide-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Video Modal -->
+<div class="modal-overlay" *ngIf="isPreviewOpen" (click)="closePreview()">
+  <div class="modal-dialog" (click)="$event.stopPropagation()">
+    <button class="modal-close" (click)="closePreview()" aria-label="Close">
+      ✕
+    </button>
+    <div class="modal-content">
+      <iframe width="100%" height="100%" [src]="sanitizedPreviewUrl" title="Course Preview" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- What You'll Learn Section -->
+<section class="what-youll-learn">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">
+        <lucide-icon [img]="Target" class="badge-icon"></lucide-icon>
+        <span>Learning Outcomes</span>
+      </div>
+      <h2 class="section-title">
+        What You'll Learn<br />
+        <span class="gradient-text">From Zero to Profitable Trader</span>
+      </h2>
+      <p class="section-description">
+        Everything you need to go from complete beginner to confident, profitable trader.
+      </p>
+    </div>
+
+    <div class="learning-grid">
+      <div class="learning-card" *ngFor="let outcome of learningOutcomes">
+        <div class="learning-icon-wrapper">
+          <div class="learning-icon-glow"></div>
+          <lucide-icon [img]="outcome.icon" class="learning-icon"></lucide-icon>
+        </div>
+        <h3 class="learning-title">{{ outcome.title }}</h3>
+        <p class="learning-description">{{ outcome.description }}</p>
+      </div>
+    </div>
+
+    <div class="cta-inline">
+      <button class="btn-secondary" (click)="scrollToCurriculum()">
+        <span>See Course Curriculum</span>
+        <lucide-icon [img]="ChevronRight" class="btn-icon"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Course Contents Section (Udemy Style) -->
+<section class="course-contents" id="curriculum">
+  <div class="container">
+    <div class="contents-layout">
+      <div class="contents-header">
+        <div class="badge">
+          <lucide-icon [img]="BookOpen" class="badge-icon"></lucide-icon>
+          <span>Complete Curriculum</span>
+        </div>
+        <h2 class="section-title">
+          Course<br />
+          <span class="gradient-text">Curriculum</span>
+        </h2>
+
+        <div class="course-stats-summary">
+          <div class="stat-summary-item">
+            <lucide-icon [img]="PlayCircle" class="stat-summary-icon"></lucide-icon>
+            <div>
+              <div class="stat-summary-number">200+</div>
+              <div class="stat-summary-label">Video Lessons</div>
+            </div>
+          </div>
+          <div class="stat-summary-item">
+            <lucide-icon [img]="FileText" class="stat-summary-icon"></lucide-icon>
+            <div>
+              <div class="stat-summary-number">45+</div>
+              <div class="stat-summary-label">PDF Resources</div>
+            </div>
+          </div>
+          <div class="stat-summary-item">
+            <lucide-icon [img]="Infinity" class="stat-summary-icon"></lucide-icon>
+            <div>
+              <div class="stat-summary-number">Lifetime</div>
+              <div class="stat-summary-label">Access</div>
+            </div>
+          </div>
+          <div class="stat-summary-item">
+            <lucide-icon [img]="Users" class="stat-summary-icon"></lucide-icon>
+            <div>
+              <div class="stat-summary-number">24/7</div>
+              <div class="stat-summary-label">Learning Support</div>
+            </div>
+          </div>
+          <div class="stat-summary-item">
+            <lucide-icon [img]="Award" class="stat-summary-icon"></lucide-icon>
+            <div>
+              <div class="stat-summary-number">Certificate</div>
+              <div class="stat-summary-label">Of Completion</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contents-accordion">
+        <div class="accordion-item" *ngFor="let section of courseSections.slice(0, 8); let i = index"
+          [class.active]="section.isOpen">
+          <button class="accordion-header" (click)="toggleSection(i)">
+            <div class="accordion-title-wrapper">
+              <lucide-icon [img]="section.isOpen ? ChevronDown : ChevronRight" class="accordion-icon"></lucide-icon>
+              <div>
+                <h3 class="accordion-title">{{ section.title }}</h3>
+                <p class="accordion-meta">{{ section.lessons }} lessons • {{ section.duration }}</p>
+              </div>
+            </div>
+            <div class="accordion-badge">{{ i + 1 }}</div>
+          </button>
+
+          <div class="accordion-content" *ngIf="section.isOpen">
+            <div class="lesson-item" *ngFor="let lesson of section.lessonsList">
+              <div class="lesson-info">
+                <lucide-icon [img]="lesson.type === 'video' ? PlayCircle : FileText" class="lesson-icon"></lucide-icon>
+                <span class="lesson-title">{{ lesson.title }}</span>
+              </div>
+              <span class="lesson-duration">{{ lesson.duration }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- See All Sections Button -->
+        <div class="see-all-sections" *ngIf="courseSections.length > 8">
+          <button class="btn-see-all" (click)="openAllSectionsModal()">
+            <lucide-icon [img]="BookOpen" class="btn-icon"></lucide-icon>
+            <span>See All {{ courseSections.length }} Sections</span>
+            <lucide-icon [img]="ChevronRight" class="btn-icon"></lucide-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- All Sections Modal -->
+<div class="modal-overlay" *ngIf="isAllSectionsModalOpen" (click)="closeAllSectionsModal()">
+  <div class="modal-dialog modal-sections" (click)="$event.stopPropagation()">
+    <div class="modal-header-sections">
+      <div>
+        <h3 class="modal-title-sections">Complete Course Curriculum</h3>
+        <p class="modal-subtitle-sections">{{ courseSections.length }} sections • 200+ lessons</p>
+      </div>
+      <button class="modal-close" (click)="closeAllSectionsModal()" aria-label="Close">
+        ✕
+      </button>
+    </div>
+    <div class="modal-content-sections">
+      <div class="contents-accordion">
+        <div class="accordion-item" *ngFor="let section of courseSections; let i = index"
+          [class.active]="section.isOpen">
+          <button class="accordion-header" (click)="toggleSection(i)">
+            <div class="accordion-title-wrapper">
+              <lucide-icon [img]="section.isOpen ? ChevronDown : ChevronRight" class="accordion-icon"></lucide-icon>
+              <div>
+                <h3 class="accordion-title">{{ section.title }}</h3>
+                <p class="accordion-meta">{{ section.lessons }} lessons • {{ section.duration }}</p>
+              </div>
+            </div>
+            <div class="accordion-badge">{{ i + 1 }}</div>
+          </button>
+
+          <div class="accordion-content" *ngIf="section.isOpen">
+            <div class="lesson-item" *ngFor="let lesson of section.lessonsList">
+              <div class="lesson-info">
+                <lucide-icon [img]="lesson.type === 'video' ? PlayCircle : FileText" class="lesson-icon"></lucide-icon>
+                <span class="lesson-title">{{ lesson.title }}</span>
+              </div>
+              <span class="lesson-duration">{{ lesson.duration }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Features Section -->
+<section class="features">
+  <div class="container">
+    <div class="section-header-center">
+      <div class="badge">
+        <lucide-icon [img]="Sparkles" class="badge-icon"></lucide-icon>
+        <span>Why Learn From Us</span>
+      </div>
+      <h2 class="section-title">
+        Why <span class="gradient-text">BraveFX Academy?</span>
+      </h2>
+    </div>
+
+    <div class="bento-grid">
+      <!-- Large Stats Card (Left) -->
+      <div class="bento-card-large glass-card">
+        <div class="stats-hero">
+          <div class="stats-hero-header">
+            <lucide-icon [img]="TrendingUp" class="stats-hero-icon"></lucide-icon>
+            <h3 class="stats-hero-title">Trusted by Thousands</h3>
+          </div>
+          <p class="stats-hero-description">Join a proven community of successful traders worldwide</p>
+
+          <div class="stats-grid">
+            <div class="stat-box">
+              <div class="bento-stat-number">{{ whyBraveFxStats.students }}</div>
+              <div class="bento-stat-label">Enrolled Students</div>
+            </div>
+            <div class="stat-box">
+              <div class="bento-stat-number">{{ whyBraveFxStats.youtubeFollowers }}</div>
+              <div class="bento-stat-label">YouTube Followers</div>
+            </div>
+            <div class="stat-box">
+              <div class="bento-stat-number">{{ whyBraveFxStats.instagramFollowers }}</div>
+              <div class="bento-stat-label">Instagram Followers</div>
+            </div>
+            <div class="stat-box">
+              <div class="bento-stat-number">{{ whyBraveFxStats.tiktokFollowers }}</div>
+              <div class="bento-stat-label">TikTok Followers</div>
+            </div>
+            <div class="stat-box">
+              <div class="bento-stat-number">{{ whyBraveFxStats.discordMembers }}</div>
+              <div class="bento-stat-label">Discord Members</div>
+            </div>
+            <div class="stat-box">
+              <div class="bento-stat-number">{{ whyBraveFxStats.reviews }}</div>
+              <div class="bento-stat-label">Student Reviews</div>
+            </div>
+            <div class="stat-box stat-box-wide">
+              <div class="stat-rating">
+                <span class="bento-stat-number">{{ whyBraveFxStats.rating }}</span>
+                <div class="bento-stars">
+                  <span class="star-filled" *ngFor="let star of [1,2,3,4]">★</span>
+                  <span class="star-half">★</span>
+                </div>
+              </div>
+              <div class="bento-stat-label">Average Rating</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Small Feature Cards (Right) -->
+      <div class="bento-cards-small">
+        <div class="bento-card-small glass-card" *ngFor="let feature of whyBraveFx">
+          <div class="feature-compact-icon">
+            <lucide-icon [img]="feature.icon" class="feature-icon"></lucide-icon>
+          </div>
+          <h3 class="feature-compact-title">{{ feature.title }}</h3>
+          <p class="feature-compact-description">{{ feature.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="transition-text">
+      <p>Don't just take our word for it — hear from successful students...</p>
+    </div>
+  </div>
+</section>
+
+<!-- Premium Reviews Section -->
+<section class="reviews-section">
+  <div class="container">
+    <!-- Section Header with Stats -->
+    <div class="section-header-center">
+      <div class="badge">
+        <lucide-icon [img]="MessageCircle" class="badge-icon"></lucide-icon>
+        <span>Student Success Stories</span>
+      </div>
+      <h2 class="section-title">
+        Loved by <span class="gradient-text">{{ (reviewsData?.stats?.totalReviews || 1787) | number }}+ Traders</span>
+        Worldwide
+      </h2>
+      <p class="section-description" *ngIf="reviewsData">
+        {{ reviewsData.stats.totalReviews | number }}+ total reviews •
+        {{ reviewsData.stats.averageRating + 0.1}} <span class="star-inline">★</span> average rating
+      </p>
+    </div>
+
+    <!-- Regional Breakdown Stats -->
+    <div class="regional-stats" *ngIf="reviewsData?.regionalBreakdown">
+      <div class="stat-pill" *ngFor="let region of getTopRegions()">
+        <lucide-icon [img]="Globe" class="region-icon"></lucide-icon>
+        <span class="region-name">{{ region.name }}</span>
+        <span class="region-percentage">{{ region.percentage }}%</span>
+      </div>
+    </div>
+
+    <!-- Featured Reviews Carousel -->
+    <div class="featured-reviews-carousel" *ngIf="featuredReviews.length > 0">
+      <!-- Carousel Track -->
+      <div class="carousel-wrapper">
+        <div class="carousel-track" [style.transform]="'translateX(-' + (currentCarouselIndex * 100) + '%)'">
+          <!-- Slide 1: Reviews 0-2 -->
+          <div>
+            <div class="review-card premium-card" *ngFor="let review of featuredReviews.slice(0, 3)">
+              <div class="review-header">
+                <div class="rating-stars">
+                  <span class="star-filled" *ngFor="let star of getStarArray(review.rating)">★</span>
+                </div>
+                <div class="verified-badge-premium">
+                  <lucide-icon [img]="CheckCircle2" class="verified-icon"></lucide-icon>
+                  <span>Verified Purchase</span>
+                </div>
+              </div>
+              <div>
+                <p class="review-comment truncated">"{{ review.comment }}"</p>
+                <button class="read-more-btn" (click)="openSingleReviewModal(review)">
+                  <span>Read full review</span>
+                  <lucide-icon [img]="ArrowRight"></lucide-icon>
+                </button>
+              </div>
+              <div class="review-footer">
+                <div class="reviewer-info">
+                  <div class="reviewer-name">{{ review.name }}</div>
+                  <div class="reviewer-meta">
+                    <lucide-icon [img]="MapPin" class="meta-icon"></lucide-icon>
+                    <span>{{ review.location }}</span>
+                    <span class="separator">•</span>
+                    <span>{{ review.date | date: 'MMM yyyy' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 2: Reviews 3-5 -->
+          <div>
+            <div class="review-card premium-card" *ngFor="let review of featuredReviews.slice(3, 6)">
+              <div class="review-header">
+                <div class="rating-stars">
+                  <span class="star-filled" *ngFor="let star of getStarArray(review.rating)">★</span>
+                </div>
+                <div class="verified-badge-premium">
+                  <lucide-icon [img]="CheckCircle2" class="verified-icon"></lucide-icon>
+                  <span>Verified Purchase</span>
+                </div>
+              </div>
+              <div>
+                <p class="review-comment truncated">"{{ review.comment }}"</p>
+                <button class="read-more-btn" (click)="openSingleReviewModal(review)">
+                  <span>Read full review</span>
+                  <lucide-icon [img]="ArrowRight"></lucide-icon>
+                </button>
+              </div>
+              <div class="review-footer">
+                <div class="reviewer-info">
+                  <div class="reviewer-name">{{ review.name }}</div>
+                  <div class="reviewer-meta">
+                    <lucide-icon [img]="MapPin" class="meta-icon"></lucide-icon>
+                    <span>{{ review.location }}</span>
+                    <span class="separator">•</span>
+                    <span>{{ review.date | date: 'MMM yyyy' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 3: Reviews 6-8 -->
+          <div>
+            <div class="review-card premium-card" *ngFor="let review of featuredReviews.slice(6, 9)">
+              <div class="review-header">
+                <div class="rating-stars">
+                  <span class="star-filled" *ngFor="let star of getStarArray(review.rating)">★</span>
+                </div>
+                <div class="verified-badge-premium">
+                  <lucide-icon [img]="CheckCircle2" class="verified-icon"></lucide-icon>
+                  <span>Verified Purchase</span>
+                </div>
+              </div>
+              <div>
+                <p class="review-comment truncated">"{{ review.comment }}"</p>
+                <button class="read-more-btn" (click)="openSingleReviewModal(review)">
+                  <span>Read full review</span>
+                  <lucide-icon [img]="ArrowRight"></lucide-icon>
+                </button>
+              </div>
+              <div class="review-footer">
+                <div class="reviewer-info">
+                  <div class="reviewer-name">{{ review.name }}</div>
+                  <div class="reviewer-meta">
+                    <lucide-icon [img]="MapPin" class="meta-icon"></lucide-icon>
+                    <span>{{ review.location }}</span>
+                    <span class="separator">•</span>
+                    <span>{{ review.date | date: 'MMM yyyy' }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Carousel Navigation (Bottom) -->
+      <div class="carousel-controls">
+        <button class="carousel-nav-btn carousel-prev" (click)="previousSlide()" [disabled]="!canGoPrevious"
+          [class.disabled]="!canGoPrevious">
+          <lucide-icon [img]="ChevronLeft"></lucide-icon>
+        </button>
+
+        <div class="carousel-indicators">
+          <span class="indicator-text">{{ currentCarouselIndex + 1 }} of {{ totalCarouselSlides }}</span>
+        </div>
+
+        <button class="carousel-nav-btn carousel-next" (click)="nextSlide()" [disabled]="!canGoNext"
+          [class.disabled]="!canGoNext">
+          <lucide-icon [img]="ChevronRight"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- View All Reviews Button -->
+    <div class="view-all-container">
+      <button class="btn-view-all" (click)="openReviewsModal()">
+        <span>View All {{ (reviewsData?.stats?.totalReviews || 1787) | number }}+ Reviews</span>
+        <lucide-icon [img]="ArrowRight" class="btn-icon"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Reviews Modal -->
+<div class="modal-overlay reviews-modal-open" *ngIf="isReviewsModalOpen" (click)="closeReviewsModal()">
+  <div class="modal-content reviews-modal" (click)="$event.stopPropagation()">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <div class="modal-title-section">
+        <h2>All Student Reviews</h2>
+        <p class="modal-subtitle">
+          {{ (reviewsData?.stats?.totalReviews || 1787) | number }}+ reviews •
+          {{ reviewsData?.stats?.averageRating + 0.1 }} <span class="star-inline">★</span> average
+        </p>
+      </div>
+      <button class="close-btn" (click)="closeReviewsModal()">
+        <lucide-icon [img]="X" class="close-icon"></lucide-icon>
+      </button>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters-section">
+      <div class="filter-group">
+        <label class="filter-label">
+          <lucide-icon [img]="Filter" class="filter-icon"></lucide-icon>
+          <span>Filters</span>
+        </label>
+        <div class="filter-controls">
+          <!-- Rating Filter -->
+          <select class="filter-select" [(ngModel)]="selectedRatingFilter" (change)="applyReviewFilters()">
+            <option value="all">All Ratings</option>
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+          </select>
+
+          <!-- Region Filter -->
+          <select class="filter-select" [(ngModel)]="selectedRegionFilter" (change)="applyReviewFilters()">
+            <option value="all">All Regions</option>
+            <option *ngFor="let region of uniqueRegions" [value]="region">{{ region }}</option>
+          </select>
+
+          <!-- Sort Filter -->
+          <select class="filter-select" [(ngModel)]="selectedSortFilter" (change)="applyReviewFilters()">
+            <option value="recent">Most Recent</option>
+            <option value="highest">Highest Rated</option>
+            <option value="lowest">Lowest Rated</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews Grid -->
+    <div class="modal-reviews-grid">
+      <div class="modal-review-card" *ngFor="let review of paginatedReviews">
+        <div class="review-card-header">
+          <div class="rating-stars">
+            <span class="star-filled" *ngFor="let star of getStarArray(review.rating)">★</span>
+          </div>
+          <div class="verified-badge-small">
+            <lucide-icon [img]="CheckCircle2" class="verified-icon-small"></lucide-icon>
+            <span>Verified Purchase</span>
+          </div>
+        </div>
+        <p class="modal-review-comment">"{{ review.comment }}"</p>
+        <div class="modal-review-footer">
+          <div class="reviewer-details">
+            <span class="reviewer-name-modal">{{ review.name }}</span>
+            <div class="reviewer-location-modal">
+              <lucide-icon [img]="MapPin" class="location-icon-small"></lucide-icon>
+              <span>{{ review.location }}, {{ review.region }}</span>
+            </div>
+          </div>
+          <div class="review-date-modal">{{ review.date | date: 'MMM d, yyyy' }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination-controls" *ngIf="totalReviewPages > 1">
+      <button class="pagination-btn" [disabled]="currentReviewsPage === 1" (click)="previousReviewsPage()">
+        <lucide-icon [img]="ChevronLeft" class="pagination-icon"></lucide-icon>
+        Previous
+      </button>
+      <span class="pagination-info">
+        Page {{ currentReviewsPage }} of {{ totalReviewPages }}
+      </span>
+      <button class="pagination-btn" [disabled]="currentReviewsPage === totalReviewPages" (click)="nextReviewsPage()">
+        Next
+        <lucide-icon [img]="ChevronRight" class="pagination-icon"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Single Review Modal -->
+<div class="modal-overlay single-review-open" *ngIf="isSingleReviewModalOpen" (click)="closeSingleReviewModal()">
+  <div class="single-review-modal" (click)="$event.stopPropagation()">
+    <!-- Modal Header -->
+    <div class="single-review-header">
+      <div class="single-review-rating">
+        <span class="star-filled" *ngFor="let star of getStarArray(selectedReview?.rating || 5)">★</span>
+      </div>
+      <div class="single-review-actions">
+        <div class="verified-badge-premium" *ngIf="selectedReview?.verified">
+          <lucide-icon [img]="CheckCircle2" class="verified-icon"></lucide-icon>
+          <span>Verified Purchase</span>
+        </div>
+        <button class="close-btn" (click)="closeSingleReviewModal()" aria-label="Close">
+          <lucide-icon [img]="X" class="close-icon"></lucide-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal Content -->
+    <div class="single-review-content">
+      <p class="single-review-text">"{{ selectedReview?.comment }}"</p>
+
+      <div class="single-review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-name">{{ selectedReview?.name }}</div>
+          <div class="reviewer-meta">
+            <lucide-icon [img]="MapPin" class="meta-icon"></lucide-icon>
+            <span>{{ selectedReview?.location }}</span>
+            <span class="separator">•</span>
+            <span>{{ selectedReview?.date | date: 'MMM yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pricing Section -->
+<section class="pricing" id="enroll">
+  <div class="container-pricing">
+    <div class="section-header-center">
+      <div class="badge-glow">
+        <lucide-icon [img]="Sparkles" class="badge-icon"></lucide-icon>
+        <span>70% OFF - Today Only</span>
+      </div>
+      <h2 class="section-title-lg">
+        Transform Your Trading <span class="gradient-text">Today</span>
+      </h2>
+      <p class="section-description">
+        Join 6,000+ successful students. Lifetime access. One-time payment.
+      </p>
+    </div>
+
+    <!-- 2-Column Bento Grid -->
+    <div class="pricing-bento-grid">
+      <!-- Left Column: Price Card -->
+      <div class="pricing-price-card glass-card">
+        <div class="pricing-glow"></div>
+
+        <div class="pricing-badge-epic">
+          <lucide-icon [img]="Award" class="badge-icon-sm"></lucide-icon>
+          <span>Limited Offer</span>
+        </div>
+
+        <h3 class="pricing-plan-title">Complete Forex Mastery</h3>
+
+        <div class="price-display">
+          <div class="price-old">
+            <span class="strike-through">$499</span>
+            <span class="save-badge">Save $350</span>
+          </div>
+          <div class="price-current">
+            <span class="currency">$</span>
+            <span class="amount">149</span>
+            <span class="period">.00</span>
+          </div>
+          <p class="price-subtitle">One-time payment • Lifetime access</p>
+        </div>
+
+        <button class="btn-enroll-epic" routerLink="/checkout">
+          <span>Enroll Now - Save $350</span>
+          <lucide-icon [img]="ArrowRight" class="btn-icon-epic"></lucide-icon>
+        </button>
+
+        <div class="trust-signals">
+          <div class="trust-item">
+            <lucide-icon [img]="Shield" class="trust-icon-sm"></lucide-icon>
+            <span>30-Day Guarantee</span>
+          </div>
+          <div class="trust-item">
+            <lucide-icon [img]="Lock" class="trust-icon-sm"></lucide-icon>
+            <span>Secure Payment</span>
+          </div>
+          <div class="trust-item">
+            <lucide-icon [img]="Zap" class="trust-icon-sm"></lucide-icon>
+            <span>Instant Access</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Value Grid (2x4) -->
+      <div class="pricing-value-grid">
+        <div class="value-card glass-card">
+          <div class="value-icon-wrapper">
+            <lucide-icon [img]="PlayCircle" class="value-icon"></lucide-icon>
+          </div>
+          <div class="value-text">
+            <div class="value-title">200+ HD Video Lessons</div>
+            <div class="value-description">Comprehensive education</div>
+          </div>
+        </div>
+
+        <div class="value-card glass-card">
+          <div class="value-icon-wrapper">
+            <lucide-icon [img]="Infinity" class="value-icon"></lucide-icon>
+          </div>
+          <div class="value-text">
+            <div class="value-title">Lifetime Access</div>
+            <div class="value-description">Learn at your own pace</div>
+          </div>
+        </div>
+
+        <div class="value-card glass-card">
+          <div class="value-icon-wrapper">
+            <lucide-icon [img]="MessageCircle" class="value-icon"></lucide-icon>
+          </div>
+          <div class="value-text">
+            <div class="value-title">24/7 Learning Support</div>
+            <div class="value-description">Help whenever you need</div>
+          </div>
+        </div>
+
+        <div class="value-card glass-card">
+          <div class="value-icon-wrapper">
+            <lucide-icon [img]="ClipboardCheck" class="value-icon"></lucide-icon>
+          </div>
+          <div class="value-text">
+            <div class="value-title">Trading Plan Templates</div>
+            <div class="value-description">Risk management tools</div>
+          </div>
+        </div>
+
+        <div class="value-card glass-card">
+          <div class="value-icon-wrapper">
+            <lucide-icon [img]="FileText" class="value-icon"></lucide-icon>
+          </div>
+          <div class="value-text">
+            <div class="value-title">45+ Downloadable PDFs</div>
+            <div class="value-description">Reference guides & checklists</div>
+          </div>
+        </div>
+
+        <div class="value-card glass-card">
+          <div class="value-icon-wrapper">
+            <lucide-icon [img]="CheckCircle" class="value-icon"></lucide-icon>
+          </div>
+          <div class="value-text">
+            <div class="value-title">Skill Tests & Quizzes</div>
+            <div class="value-description">Track your progress</div>
+          </div>
+        </div>
+
+        <div class="value-card glass-card">
+          <div class="value-icon-wrapper">
+            <lucide-icon [img]="Award" class="value-icon"></lucide-icon>
+          </div>
+          <div class="value-text">
+            <div class="value-title">Certificate of Completion</div>
+            <div class="value-description">Showcase your achievement</div>
+          </div>
+        </div>
+
+        <div class="value-card glass-card">
+          <div class="value-icon-wrapper">
+            <lucide-icon [img]="Smartphone" class="value-icon"></lucide-icon>
+          </div>
+          <div class="value-text">
+            <div class="value-title">Access on Any Device</div>
+            <div class="value-description">Desktop, tablet, or mobile</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Money-Back Guarantee -->
+    <div class="money-back-guarantee">
+      <div class="guarantee-badge">
+        <lucide-icon [img]="ShieldCheck" class="guarantee-icon"></lucide-icon>
+      </div>
+      <div class="guarantee-content">
+        <h4>100% Risk-Free 30-Day Money-Back Guarantee</h4>
+        <p>Try the course for 30 days. If you're not completely satisfied, get a full refund. No questions asked.</p>
+      </div>
+    </div>
+
+    <!-- FAQ Accordion (Below Bento Grid) -->
+    <div class="faq-section-standalone">
+      <h4 class="faq-heading">Frequently Asked Questions</h4>
+      <div class="faq-accordion">
+        <div class="faq-item" *ngFor="let faq of faqs; let i = index" [class.active]="faq.isOpen">
+          <button class="faq-question" (click)="toggleFaq(i)">
+            <span>{{ faq.question }}</span>
+            <lucide-icon [img]="faq.isOpen ? Minus : Plus" class="faq-icon"></lucide-icon>
+          </button>
+          <div class="faq-answer" *ngIf="faq.isOpen">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Final CTA Section -->
+<section class="final-cta">
+  <div class="container">
+    <div class="cta-content-simple glass-card">
+      <div class="cta-glow"></div>
+
+      <h2 class="cta-title-simple">
+        Ready to Start Your Trading Journey?
+      </h2>
+
+      <p class="cta-description-simple">
+        Join 6,000+ traders who transformed their skills with BraveFx Academy.
+        Start learning today with our 30-day money-back guarantee.
+      </p>
+
+      <div class="cta-buttons-row">
+        <button class="btn-cta-primary" routerLink="/checkout">
+          <span>Get Started Now</span>
+          <lucide-icon [img]="ArrowRight" class="btn-icon-cta"></lucide-icon>
+        </button>
+        <a routerLink="/about" class="btn-cta-secondary">
+          <span>Learn More</span>
+        </a>
+      </div>
+
+      <div class="cta-footer-note">
+        <lucide-icon [img]="Shield" class="note-icon"></lucide-icon>
+        <span>30-Day Money-Back Guarantee • Secure Payment • Instant Access</span>
+      </div>
+    </div>
+  </div>
+</section>
