@@ -155,9 +155,16 @@
 .quiz-navigation {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   gap: 1rem;
   padding-top: 1.5rem;
   border-top: 1px solid var(--border-color);
+}
+
+.nav-left,
+.nav-right {
+  display: flex;
+  gap: 1rem;
 }
 
 .btn-nav {
@@ -182,6 +189,18 @@
 .btn-secondary:hover:not(:disabled) {
   background: var(--bg-elevated);
   border-color: var(--color-primary);
+}
+
+.btn-skip {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.btn-skip:hover {
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  border-color: var(--text-tertiary);
 }
 
 .btn-primary {
@@ -410,9 +429,17 @@
     padding-top: 1.25rem;
   }
 
+  .nav-left,
+  .nav-right {
+    flex-direction: column;
+    width: 100%;
+  }
+
   .btn-nav {
     padding: 0.75rem 1.5rem;
     font-size: 0.9375rem;
+    width: 100%;
+    justify-content: center;
   }
 
   .btn-primary,

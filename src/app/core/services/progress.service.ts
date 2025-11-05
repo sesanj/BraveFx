@@ -74,6 +74,8 @@ export class ProgressService {
     this.lastWatchedLessons.set(courseId, lessonId);
     // In a real app, this would be saved to backend/localStorage
     localStorage.setItem(`lastWatchedLesson_${courseId}`, lessonId);
+    // Clear active quiz when watching a lesson
+    localStorage.removeItem(`activeQuiz_${courseId}`);
   }
 
   // Get the last watched lesson for a course
@@ -91,5 +93,24 @@ export class ProgressService {
     }
 
     return of(lastLessonId || null);
+  }
+
+  // Save the active quiz for a course
+  saveActiveQuiz(courseId: string, moduleId: string): void {
+    localStorage.setItem(`activeQuiz_${courseId}`, moduleId);
+    // Clear last watched lesson when viewing a quiz
+    localStorage.removeItem(`lastWatchedLesson_${courseId}`);
+    this.lastWatchedLessons.delete(courseId);
+  }
+
+  // Get the active quiz for a course
+  getActiveQuiz(courseId: string): Observable<string | null> {
+    const moduleId = localStorage.getItem(`activeQuiz_${courseId}`);
+    return of(moduleId || null);
+  }
+
+  // Clear active quiz (when quiz is completed or skipped)
+  clearActiveQuiz(courseId: string): void {
+    localStorage.removeItem(`activeQuiz_${courseId}`);
   }
 }

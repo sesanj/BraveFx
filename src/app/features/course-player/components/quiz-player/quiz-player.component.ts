@@ -29,6 +29,7 @@ export class QuizPlayerComponent implements OnInit {
   @Output() completed = new EventEmitter<QuizResult>();
   @Output() retake = new EventEmitter<void>();
   @Output() continue = new EventEmitter<void>();
+  @Output() skip = new EventEmitter<void>();
 
   // Icons
   CheckCircle = CheckCircle;
@@ -149,5 +150,9 @@ export class QuizPlayerComponent implements OnInit {
 
   onContinue(): void {
     this.continue.emit();
+  }
+
+  onSkipQuiz(): void {
+    this.skip.emit();
   }
 }

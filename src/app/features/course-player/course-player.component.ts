@@ -130,38 +130,57 @@ export class CoursePlayerComponent implements OnInit {
       // Load passed quizzes
       this.loadPassedQuizzes(course);
 
-      // Try to load the last watched lesson
+      // First check if there's an active quiz
       this.progressService
-        .getLastWatchedLesson(courseId)
-        .subscribe((lastLessonId) => {
-          let lessonToLoad: Lesson | null = null;
-          let moduleToLoad: Module | null = null;
+        .getActiveQuiz(courseId)
+        .subscribe((activeQuizModuleId) => {
+          if (activeQuizModuleId) {
+            // User was on a quiz, load it
+            const module = course.modules.find(
+              (m) => m.id === activeQuizModuleId
+            );
+            if (module && module.hasQuiz) {
+              this.expandedModules.add(module.id);
+              this.loadModuleQuiz(module.id);
+              return;
+            }
+          }
 
-          // If there's a last watched lesson, find it
-          if (lastLessonId) {
-            for (const module of course.modules) {
-              const lesson = module.lessons.find((l) => l.id === lastLessonId);
-              if (lesson) {
-                lessonToLoad = lesson;
-                moduleToLoad = module;
-                break;
+          // If no active quiz, try to load the last watched lesson
+          this.progressService
+            .getLastWatchedLesson(courseId)
+            .subscribe((lastLessonId) => {
+              let lessonToLoad: Lesson | null = null;
+              let moduleToLoad: Module | null = null;
+
+              // If there's a last watched lesson, find it
+              if (lastLessonId) {
+                for (const module of course.modules) {
+                  const lesson = module.lessons.find(
+                    (l) => l.id === lastLessonId
+                  );
+                  if (lesson) {
+                    lessonToLoad = lesson;
+                    moduleToLoad = module;
+                    break;
+                  }
+                }
               }
-            }
-          }
 
-          // If no last watched lesson found, default to first lesson
-          if (!lessonToLoad && course.modules.length > 0) {
-            moduleToLoad = course.modules[0];
-            if (moduleToLoad.lessons.length > 0) {
-              lessonToLoad = moduleToLoad.lessons[0];
-            }
-          }
+              // If no last watched lesson found, default to first lesson
+              if (!lessonToLoad && course.modules.length > 0) {
+                moduleToLoad = course.modules[0];
+                if (moduleToLoad.lessons.length > 0) {
+                  lessonToLoad = moduleToLoad.lessons[0];
+                }
+              }
 
-          // Load the lesson and expand its module (without autoplay on initial load)
-          if (lessonToLoad && moduleToLoad) {
-            this.expandedModules.add(moduleToLoad.id);
-            this.selectLesson(lessonToLoad, moduleToLoad, false);
-          }
+              // Load the lesson and expand its module (without autoplay on initial load)
+              if (lessonToLoad && moduleToLoad) {
+                this.expandedModules.add(moduleToLoad.id);
+                this.selectLesson(lessonToLoad, moduleToLoad, false);
+              }
+            });
         });
     });
   }
@@ -308,6 +327,10 @@ export class CoursePlayerComponent implements OnInit {
         this.currentModule
       );
     }
+    // If this is the last lesson and module has quiz, load the quiz
+    else if (this.currentModule.hasQuiz) {
+      this.loadModuleQuiz();
+    }
     // Check if there's a next module
     else if (currentModuleIndex < this.course.modules.length - 1) {
       const nextModule = this.course.modules[currentModuleIndex + 1];
@@ -335,10 +358,16 @@ export class CoursePlayerComponent implements OnInit {
         this.currentModule
       );
     }
-    // Check if there's a previous module
+    // If this is the first lesson and there's a previous module
     else if (currentModuleIndex > 0) {
       const prevModule = this.course.modules[currentModuleIndex - 1];
-      if (prevModule.lessons.length > 0) {
+      // If previous module has a quiz, load the quiz
+      if (prevModule.hasQuiz) {
+        this.expandedModules.add(prevModule.id);
+        this.loadModuleQuiz(prevModule.id);
+      }
+      // Otherwise go to the last lesson of the previous module
+      else if (prevModule.lessons.length > 0) {
         this.expandedModules.add(prevModule.id);
         this.selectLesson(
           prevModule.lessons[prevModule.lessons.length - 1],
@@ -390,6 +419,15 @@ export class CoursePlayerComponent implements OnInit {
     // Find the module
     const module = this.course?.modules.find((m) => m.id === targetModuleId);
     if (!module) return;
+
+    // Clear current lesson selection when showing quiz
+    this.currentLesson = null;
+    this.videoUrl = null;
+
+    // Save active quiz state
+    if (this.course) {
+      this.progressService.saveActiveQuiz(this.course.id, targetModuleId);
+    }
 
     this.quizService.getModuleQuiz(targetModuleId).subscribe((quiz) => {
       if (quiz) {
@@ -479,6 +517,11 @@ export class CoursePlayerComponent implements OnInit {
     this.currentQuiz = null;
     this.lastQuizResult = null;
 
+    // Clear active quiz state
+    if (this.course) {
+      this.progressService.clearActiveQuiz(this.course.id);
+    }
+
     // After completing quiz, go to the first lesson of the next module
     if (this.course && this.currentModule) {
       const currentModuleIndex = this.course.modules.findIndex(
@@ -489,6 +532,33 @@ export class CoursePlayerComponent implements OnInit {
       if (currentModuleIndex < this.course.modules.length - 1) {
         const nextModule = this.course.modules[currentModuleIndex + 1];
         if (nextModule.lessons.length > 0) {
+          this.selectLesson(nextModule.lessons[0], nextModule);
+        }
+      }
+    }
+  }
+
+  onQuizSkip(): void {
+    this.showQuiz = false;
+    this.currentQuiz = null;
+    this.lastQuizResult = null;
+
+    // Clear active quiz state
+    if (this.course) {
+      this.progressService.clearActiveQuiz(this.course.id);
+    }
+
+    // Skip quiz and go to the first lesson of the next module
+    if (this.course && this.currentModule) {
+      const currentModuleIndex = this.course.modules.findIndex(
+        (m) => m.id === this.currentModule!.id
+      );
+
+      // If there's a next module, go to its first lesson
+      if (currentModuleIndex < this.course.modules.length - 1) {
+        const nextModule = this.course.modules[currentModuleIndex + 1];
+        if (nextModule.lessons.length > 0) {
+          this.expandedModules.add(nextModule.id);
           this.selectLesson(nextModule.lessons[0], nextModule);
         }
       }

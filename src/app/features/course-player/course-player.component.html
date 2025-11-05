@@ -48,7 +48,7 @@
       <!-- Quiz Player Component -->
       <app-quiz-player *ngIf="showQuiz && currentQuiz" [quiz]="currentQuiz" [attemptNumber]="quizAttemptNumber"
         [previousResult]="lastQuizResult" (completed)="onQuizCompleted($event)" (retake)="onQuizRetake()"
-        (continue)="onQuizContinue()">
+        (continue)="onQuizContinue()" (skip)="onQuizSkip()">
       </app-quiz-player>
 
       <!-- Tab Navigation -->

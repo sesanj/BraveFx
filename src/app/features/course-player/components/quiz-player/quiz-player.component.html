@@ -33,22 +33,30 @@
 
         <!-- Navigation -->
         <div class="quiz-navigation">
-            <button class="btn-nav btn-secondary" [disabled]="isFirstQuestion" (click)="previousQuestion()">
-                <lucide-icon [img]="ChevronLeft" [size]="18"></lucide-icon>
-                Previous
-            </button>
+            <div class="nav-left">
+                <button class="btn-nav btn-secondary" [disabled]="isFirstQuestion" (click)="previousQuestion()">
+                    <lucide-icon [img]="ChevronLeft" [size]="18"></lucide-icon>
+                    Previous
+                </button>
+            </div>
 
-            <button *ngIf="!isLastQuestion" class="btn-nav btn-primary" [disabled]="!hasAnsweredCurrentQuestion"
-                (click)="nextQuestion()">
-                Next
-                <lucide-icon [img]="ChevronRight" [size]="18"></lucide-icon>
-            </button>
+            <div class="nav-right">
+                <button class="btn-nav btn-skip" (click)="onSkipQuiz()">
+                    Skip Quiz
+                </button>
 
-            <button *ngIf="isLastQuestion" class="btn-nav btn-submit" [disabled]="!hasAnsweredAllQuestions"
-                (click)="submitQuiz()">
-                Submit Quiz
-                <lucide-icon [img]="CheckCircle" [size]="18"></lucide-icon>
-            </button>
+                <button *ngIf="!isLastQuestion" class="btn-nav btn-primary" [disabled]="!hasAnsweredCurrentQuestion"
+                    (click)="nextQuestion()">
+                    Next
+                    <lucide-icon [img]="ChevronRight" [size]="18"></lucide-icon>
+                </button>
+
+                <button *ngIf="isLastQuestion" class="btn-nav btn-submit" [disabled]="!hasAnsweredAllQuestions"
+                    (click)="submitQuiz()">
+                    Submit Quiz
+                    <lucide-icon [img]="CheckCircle" [size]="18"></lucide-icon>
+                </button>
+            </div>
         </div>
     </div>
 
