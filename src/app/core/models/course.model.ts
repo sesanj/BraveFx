@@ -21,6 +21,8 @@ export interface Module {
   description: string;
   order: number;
   lessons: Lesson[];
+  hasQuiz?: boolean;
+  quiz?: any; // Will be populated with ModuleQuiz when needed
 }
 
 export interface Lesson {

@@ -40,13 +40,19 @@
     <!-- Video Player Section (LEFT) -->
     <main class="main-content">
       <!-- Video Player Component -->
-      <app-video-player [videoUrl]="videoUrl" [lessonProgress]="lessonProgress" [canGoPrevious]="canGoPrevious()"
-        [canGoNext]="canGoNext()" [isLoading]="isLoadingVideo" (previous)="goToPreviousLesson()"
-        (next)="goToNextLesson()" (markComplete)="markAsComplete()">
+      <app-video-player *ngIf="!showQuiz" [videoUrl]="videoUrl" [lessonProgress]="lessonProgress"
+        [canGoPrevious]="canGoPrevious()" [canGoNext]="canGoNext()" [isLoading]="isLoadingVideo"
+        (previous)="goToPreviousLesson()" (next)="goToNextLesson()" (markComplete)="markAsComplete()">
       </app-video-player>
 
+      <!-- Quiz Player Component -->
+      <app-quiz-player *ngIf="showQuiz && currentQuiz" [quiz]="currentQuiz" [attemptNumber]="quizAttemptNumber"
+        [previousResult]="lastQuizResult" (completed)="onQuizCompleted($event)" (retake)="onQuizRetake()"
+        (continue)="onQuizContinue()">
+      </app-quiz-player>
+
       <!-- Tab Navigation -->
-      <div class="lesson-content-section" *ngIf="currentLesson">
+      <div class="lesson-content-section" *ngIf="currentLesson || showQuiz">
         <!-- Tab Headers -->
         <div class="tab-navigation">
           <button class="tab-btn" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
@@ -67,8 +73,12 @@
         <div class="tab-content">
           <!-- Overview Tab -->
           <div class="tab-pane" *ngIf="activeTab === 'overview'">
-            <h2 class="lesson-title">{{ currentLesson.title }}</h2>
-            <p class="lesson-description">{{ currentLesson.description }}</p>
+            <h2 class="lesson-title" *ngIf="currentLesson">{{ currentLesson.title }}</h2>
+            <p class="lesson-description" *ngIf="currentLesson">{{ currentLesson.description }}</p>
+            <div *ngIf="!currentLesson && currentModule">
+              <h2 class="lesson-title">{{ currentModule.title }} - Quiz</h2>
+              <p class="lesson-description">Complete the quiz to test your understanding of this module.</p>
+            </div>
           </div>
 
           <!-- Reviews Tab -->
@@ -104,7 +114,7 @@
           <div class="tab-pane" *ngIf="activeTab === 'resources'">
             <h3 class="tab-heading">Lesson Resources</h3>
 
-            <div *ngIf="currentLesson.resources.length > 0; else noResources">
+            <div *ngIf="currentLesson && currentLesson.resources.length > 0; else noResources">
               <div class="resource-list">
                 <a *ngFor="let resource of currentLesson.resources" [href]="resource.url" target="_blank"
                   class="resource-item">
@@ -136,8 +146,10 @@
     <!-- Lesson Sidebar (RIGHT) -->
     <app-lesson-sidebar [modules]="course.modules" [currentLessonId]="currentLesson?.id || null"
       [expandedModules]="expandedModules" [isSidebarOpen]="isSidebarOpen" [completedLessonIds]="completedLessonIds"
-      (lessonSelected)="onLessonSelected($event)" (moduleToggled)="onModuleToggled($event)"
-      (sidebarClosed)="toggleSidebar()" (lessonCompleted)="markAsComplete()">
+      [passedQuizModuleIds]="passedQuizModuleIds" [isQuizActive]="showQuiz"
+      [activeQuizModuleId]="currentModule?.id || null" (lessonSelected)="onLessonSelected($event)"
+      (moduleToggled)="onModuleToggled($event)" (sidebarClosed)="toggleSidebar()" (lessonCompleted)="markAsComplete()"
+      (quizSelected)="onQuizSelected($event)">
     </app-lesson-sidebar>
   </div>
 </div>

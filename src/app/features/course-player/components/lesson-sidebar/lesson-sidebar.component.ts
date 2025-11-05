@@ -16,6 +16,7 @@ import {
   Play,
   Clock,
   X,
+  ClipboardList,
   LucideAngularModule,
 } from 'lucide-angular';
 
@@ -32,6 +33,9 @@ export class LessonSidebarComponent implements OnChanges, AfterViewChecked {
   @Input() expandedModules: Set<string> = new Set();
   @Input() isSidebarOpen: boolean = true;
   @Input() completedLessonIds: Set<string> = new Set();
+  @Input() passedQuizModuleIds: Set<string> = new Set();
+  @Input() isQuizActive: boolean = false;
+  @Input() activeQuizModuleId: string | null = null;
 
   private shouldScrollToLesson = false;
   private previousLessonId: string | null = null;
@@ -43,6 +47,7 @@ export class LessonSidebarComponent implements OnChanges, AfterViewChecked {
   @Output() moduleToggled = new EventEmitter<string>();
   @Output() sidebarClosed = new EventEmitter<void>();
   @Output() lessonCompleted = new EventEmitter<string>();
+  @Output() quizSelected = new EventEmitter<Module>();
 
   // Icons
   ChevronRight = ChevronRight;
@@ -50,6 +55,7 @@ export class LessonSidebarComponent implements OnChanges, AfterViewChecked {
   Play = Play;
   Clock = Clock;
   X = X;
+  ClipboardList = ClipboardList;
 
   constructor(private elementRef: ElementRef) {}
 
@@ -160,5 +166,17 @@ export class LessonSidebarComponent implements OnChanges, AfterViewChecked {
   onMarkComplete(event: Event, lessonId: string): void {
     event.stopPropagation(); // Prevent lesson selection when clicking complete button
     this.lessonCompleted.emit(lessonId);
+  }
+
+  onSelectQuiz(module: Module): void {
+    this.quizSelected.emit(module);
+  }
+
+  isQuizPassed(moduleId: string): boolean {
+    return this.passedQuizModuleIds.has(moduleId);
+  }
+
+  isQuizActiveForModule(moduleId: string): boolean {
+    return this.isQuizActive && this.activeQuizModuleId === moduleId;
   }
 }

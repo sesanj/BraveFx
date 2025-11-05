@@ -21,7 +21,10 @@ import { ThemeService } from '../../core/services/theme.service';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { LessonSidebarComponent } from './components/lesson-sidebar/lesson-sidebar.component';
+import { QuizPlayerComponent } from './components/quiz-player/quiz-player.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
+import { QuizService } from '../../core/services/quiz.service';
+import { ModuleQuiz, QuizResult } from '../../core/models/quiz.model';
 
 @Component({
   selector: 'app-course-player',
@@ -32,6 +35,7 @@ import { FooterComponent } from '../../shared/components/footer/footer.component
     LucideAngularModule,
     VideoPlayerComponent,
     LessonSidebarComponent,
+    QuizPlayerComponent,
     FooterComponent,
   ],
   templateUrl: './course-player.component.html',
@@ -71,11 +75,19 @@ export class CoursePlayerComponent implements OnInit {
   isLoadingVideo: boolean = false;
   shouldAutoplay: boolean = false;
 
+  // Quiz state
+  showQuiz: boolean = false;
+  currentQuiz: ModuleQuiz | null = null;
+  quizAttemptNumber: number = 1;
+  passedQuizModuleIds: Set<string> = new Set();
+  lastQuizResult: QuizResult | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private courseService: CourseService,
     private progressService: ProgressService,
+    private quizService: QuizService,
     private sanitizer: DomSanitizer,
     public themeService: ThemeService
   ) {}
@@ -94,6 +106,9 @@ export class CoursePlayerComponent implements OnInit {
 
       // Load completed lessons
       this.loadCompletedLessons(course);
+
+      // Load passed quizzes
+      this.loadPassedQuizzes(course);
 
       // Try to load the last watched lesson
       this.progressService
@@ -152,7 +167,36 @@ export class CoursePlayerComponent implements OnInit {
     });
   }
 
+  loadPassedQuizzes(course: Course): void {
+    // Load all passed quizzes for modules that have quizzes
+    course.modules.forEach((module) => {
+      if (module.hasQuiz) {
+        this.quizService
+          .hasPassedQuiz(module.id, '1')
+          .subscribe((hasPassed) => {
+            if (hasPassed) {
+              this.passedQuizModuleIds.add(module.id);
+            }
+          });
+      }
+    });
+  }
+
   selectLesson(lesson: Lesson, module: Module, autoplay: boolean = true): void {
+    // Don't reload if the same lesson is already playing (unless quiz is showing)
+    if (
+      !this.showQuiz &&
+      this.currentLesson?.id === lesson.id &&
+      this.currentModule?.id === module.id
+    ) {
+      return;
+    }
+
+    // Hide quiz if it's currently showing
+    this.showQuiz = false;
+    this.currentQuiz = null;
+    this.lastQuizResult = null;
+
     this.currentLesson = lesson;
     this.currentModule = module;
     this.shouldAutoplay = autoplay;
@@ -302,11 +346,142 @@ export class CoursePlayerComponent implements OnInit {
           this.loadProgress(this.course.id);
         }
 
-        // Automatically navigate to the next lesson
-        if (this.canGoNext()) {
+        // Check if this is the last lesson in the module and module has quiz
+        if (this.isLastLessonInModule() && this.currentModule?.hasQuiz) {
+          this.loadModuleQuiz();
+        } else if (this.canGoNext()) {
+          // Automatically navigate to the next lesson
           this.goToNextLesson();
         }
       });
+  }
+
+  isLastLessonInModule(): boolean {
+    if (!this.currentModule || !this.currentLesson) return false;
+    const lastLesson =
+      this.currentModule.lessons[this.currentModule.lessons.length - 1];
+    return lastLesson.id === this.currentLesson.id;
+  }
+
+  loadModuleQuiz(moduleId?: string): void {
+    const targetModuleId = moduleId || this.currentModule?.id;
+    if (!targetModuleId) return;
+
+    // Find the module
+    const module = this.course?.modules.find((m) => m.id === targetModuleId);
+    if (!module) return;
+
+    this.quizService.getModuleQuiz(targetModuleId).subscribe((quiz) => {
+      if (quiz) {
+        this.currentQuiz = quiz;
+        this.currentModule = module;
+
+        // Check if user has already passed this quiz
+        this.quizService
+          .hasPassedQuiz(targetModuleId, '1')
+          .subscribe((hasPassed) => {
+            if (hasPassed) {
+              // Get the last quiz result to display
+              this.quizService
+                .getUserAttempts(quiz.id, '1')
+                .subscribe((attempts) => {
+                  if (attempts.length > 0) {
+                    const lastAttempt = attempts[attempts.length - 1];
+                    this.lastQuizResult = {
+                      score: lastAttempt.score,
+                      passed: lastAttempt.passed,
+                      correctAnswers: lastAttempt.correctAnswers,
+                      totalQuestions: lastAttempt.totalQuestions,
+                      attemptNumber: lastAttempt.attemptNumber,
+                    };
+                  }
+                });
+            } else {
+              this.lastQuizResult = null;
+            }
+
+            this.showQuiz = true;
+
+            // Get attempt number
+            this.quizService
+              .getUserAttempts(quiz.id, '1')
+              .subscribe((attempts) => {
+                this.quizAttemptNumber = attempts.length + 1;
+              });
+          });
+      }
+    });
+  }
+
+  onQuizCompleted(result: QuizResult): void {
+    console.log('Quiz completed:', result);
+
+    // Save quiz result
+    if (this.currentQuiz && this.currentModule) {
+      const attempt = {
+        userId: '1', // TODO: Use actual user ID from auth service
+        quizId: this.currentQuiz.id,
+        moduleId: this.currentModule.id,
+        score: result.score,
+        totalQuestions: result.totalQuestions,
+        correctAnswers: result.correctAnswers,
+        passed: result.passed,
+        attemptNumber: result.attemptNumber,
+        answers: [], // TODO: Include actual answers
+        completedAt: new Date().toISOString(),
+      };
+
+      this.quizService.saveQuizAttempt(attempt).subscribe(() => {
+        console.log('Quiz attempt saved successfully');
+      });
+    }
+
+    // If passed, add to passed quizzes set
+    if (result.passed && this.currentModule) {
+      this.passedQuizModuleIds.add(this.currentModule.id);
+      this.lastQuizResult = result;
+    }
+
+    // Update course progress
+    if (this.course) {
+      this.loadProgress(this.course.id);
+    }
+  }
+
+  onQuizRetake(): void {
+    this.quizAttemptNumber++;
+    this.lastQuizResult = null;
+    // Quiz player component will reset itself
+  }
+
+  onQuizContinue(): void {
+    this.showQuiz = false;
+    this.currentQuiz = null;
+    this.lastQuizResult = null;
+
+    // After completing quiz, go to the first lesson of the next module
+    if (this.course && this.currentModule) {
+      const currentModuleIndex = this.course.modules.findIndex(
+        (m) => m.id === this.currentModule!.id
+      );
+
+      // If there's a next module, go to its first lesson
+      if (currentModuleIndex < this.course.modules.length - 1) {
+        const nextModule = this.course.modules[currentModuleIndex + 1];
+        if (nextModule.lessons.length > 0) {
+          this.selectLesson(nextModule.lessons[0], nextModule);
+        }
+      }
+    }
+  }
+
+  onQuizSelected(module: Module): void {
+    // Clear current lesson selection when viewing quiz
+    this.currentLesson = null;
+    this.videoUrl = null;
+
+    // Hide video player and show quiz
+    this.loadModuleQuiz(module.id);
   }
 
   isLessonCompleted(lessonId: string): boolean {

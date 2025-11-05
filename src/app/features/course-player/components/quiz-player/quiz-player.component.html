@@ -1,0 +1,99 @@
+<div class="quiz-container">
+    <!-- Quiz Question View -->
+    <div class="quiz-content" *ngIf="!showResults">
+        <!-- Quiz Header -->
+        <div class="quiz-header">
+            <div class="quiz-info">
+                <h2 class="quiz-title">{{ quiz.title }}</h2>
+                <p class="quiz-description" *ngIf="quiz.description">{{ quiz.description }}</p>
+            </div>
+            <div class="quiz-progress">
+                <span class="progress-text">Question {{ currentQuestionIndex + 1 }} of {{ quiz.questions.length
+                    }}</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" [style.width.%]="progressPercentage"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Section -->
+        <div class="question-section">
+            <h3 class="question-text">{{ currentQuestion.questionText }}</h3>
+
+            <div class="options-list">
+                <button *ngFor="let option of currentQuestion.options" class="option-btn"
+                    [class.selected]="selectedOptionForCurrentQuestion === option.id" (click)="selectOption(option.id)">
+                    <div class="option-radio">
+                        <div class="radio-inner" *ngIf="selectedOptionForCurrentQuestion === option.id"></div>
+                    </div>
+                    <span class="option-text">{{ option.optionText }}</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="quiz-navigation">
+            <button class="btn-nav btn-secondary" [disabled]="isFirstQuestion" (click)="previousQuestion()">
+                <lucide-icon [img]="ChevronLeft" [size]="18"></lucide-icon>
+                Previous
+            </button>
+
+            <button *ngIf="!isLastQuestion" class="btn-nav btn-primary" [disabled]="!hasAnsweredCurrentQuestion"
+                (click)="nextQuestion()">
+                Next
+                <lucide-icon [img]="ChevronRight" [size]="18"></lucide-icon>
+            </button>
+
+            <button *ngIf="isLastQuestion" class="btn-nav btn-submit" [disabled]="!hasAnsweredAllQuestions"
+                (click)="submitQuiz()">
+                Submit Quiz
+                <lucide-icon [img]="CheckCircle" [size]="18"></lucide-icon>
+            </button>
+        </div>
+    </div>
+
+    <!-- Quiz Results View -->
+    <div class="quiz-results" *ngIf="showResults && quizResult">
+        <!-- Results Header -->
+        <div class="results-header">
+            <div class="result-icon" [class.success]="quizResult.passed" [class.fail]="!quizResult.passed">
+                <lucide-icon [img]="quizResult.passed ? CheckCircle : XCircle" [size]="64"></lucide-icon>
+            </div>
+            <h2 class="result-title">{{ quizResult.passed ? 'Congratulations!' : 'Keep Practicing!' }}</h2>
+            <p class="result-message">
+                {{ quizResult.passed ? 'You passed the quiz!' : 'You need ' + quiz.passingScore + '% to pass. Don\'t
+                give up!' }}
+            </p>
+        </div>
+
+        <!-- Results Stats -->
+        <div class="results-stats">
+            <div class="stat-card">
+                <div class="stat-value" [class.success]="quizResult.passed" [class.fail]="!quizResult.passed">
+                    {{ quizResult.score }}%
+                </div>
+                <div class="stat-label">Your Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ quizResult.correctAnswers }}/{{ quizResult.totalQuestions }}</div>
+                <div class="stat-label">Correct Answers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">{{ quiz.passingScore }}%</div>
+                <div class="stat-label">Passing Score</div>
+            </div>
+        </div>
+
+        <!-- Results Actions -->
+        <div class="results-actions">
+            <button class="btn-action btn-secondary" (click)="onRetakeQuiz()">
+                <lucide-icon [img]="RotateCw" [size]="18"></lucide-icon>
+                Retake Quiz
+            </button>
+            <button class="btn-action btn-primary" (click)="onContinue()">
+                Continue
+                <lucide-icon [img]="ChevronRight" [size]="18"></lucide-icon>
+            </button>
+        </div>
+    </div>
+</div>

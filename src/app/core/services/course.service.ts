@@ -27,6 +27,7 @@ export class CourseService {
         title: 'Introduction to Forex Trading',
         description: 'Understanding the basics of forex market',
         order: 1,
+        hasQuiz: true,
         lessons: [
           {
             id: 'l1',
