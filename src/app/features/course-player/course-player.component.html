@@ -73,11 +73,89 @@
         <div class="tab-content">
           <!-- Overview Tab -->
           <div class="tab-pane" *ngIf="activeTab === 'overview'">
-            <h2 class="lesson-title" *ngIf="currentLesson">{{ currentLesson.title }}</h2>
-            <p class="lesson-description" *ngIf="currentLesson">{{ currentLesson.description }}</p>
-            <div *ngIf="!currentLesson && currentModule">
-              <h2 class="lesson-title">{{ currentModule.title }} - Quiz</h2>
-              <p class="lesson-description">Complete the quiz to test your understanding of this module.</p>
+            <div class="course-overview">
+              <h2 class="course-overview-title">{{ course.title }}</h2>
+              <p class="course-overview-description">{{ course.description }}</p>
+
+              <!-- Course Progress Bar -->
+              <div class="course-progress-section">
+                <div class="progress-header">
+                  <span class="progress-label">Course Progress</span>
+                  <span class="progress-value">{{ courseProgress }}%</span>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="progress-bar-fill" [style.width.%]="courseProgress"></div>
+                </div>
+              </div>
+
+              <!-- Course Stats Grid -->
+              <div class="course-stats-grid">
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="Users" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ course.studentsEnrolled.toLocaleString() }}</span>
+                    <span class="stat-label">Students Enrolled</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="Star" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ course.rating }} / 5.0</span>
+                    <span class="stat-label">Course Rating</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="BookOpen" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ course.totalLessons }}</span>
+                    <span class="stat-label">Total Lessons</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="Clock" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ formatCourseDuration(course.duration) }}</span>
+                    <span class="stat-label">Total Duration</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="MessageSquare" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ course.modules.length }}</span>
+                    <span class="stat-label">Modules</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="Calendar" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ formatDate(course.updatedAt) }}</span>
+                    <span class="stat-label">Last Updated</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Instructor Info -->
+              <div class="instructor-section">
+                <h3 class="section-heading">Instructor</h3>
+                <p class="instructor-name">{{ course.instructor }}</p>
+              </div>
             </div>
           </div>
 
@@ -92,7 +170,12 @@
                 <div class="star-rating">
                   <button *ngFor="let star of [1, 2, 3, 4, 5]" class="star-btn" [class.filled]="star <= reviewRating"
                     (click)="setRating(star)" type="button">
-                    <lucide-icon [img]="Star" [size]="24"></lucide-icon>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                      [attr.fill]="star <= reviewRating ? 'currentColor' : 'none'" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
                   </button>
                 </div>
               </div>

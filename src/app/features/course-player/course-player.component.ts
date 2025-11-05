@@ -12,6 +12,11 @@ import {
   Star,
   Download,
   FileText,
+  Users,
+  MessageSquare,
+  Clock,
+  BookOpen,
+  Calendar,
   LucideAngularModule,
 } from 'lucide-angular';
 import { Course, Lesson, Module } from '../../core/models/course.model';
@@ -52,6 +57,11 @@ export class CoursePlayerComponent implements OnInit {
   Star = Star;
   Download = Download;
   FileText = FileText;
+  Users = Users;
+  MessageSquare = MessageSquare;
+  Clock = Clock;
+  BookOpen = BookOpen;
+  Calendar = Calendar;
 
   course: Course | null = null;
   currentLesson: Lesson | null = null;
@@ -97,6 +107,16 @@ export class CoursePlayerComponent implements OnInit {
     if (courseId) {
       this.loadCourse(courseId);
       this.loadProgress(courseId);
+    }
+
+    // Close sidebar by default on mobile
+    this.checkMobileView();
+    window.addEventListener('resize', () => this.checkMobileView());
+  }
+
+  checkMobileView(): void {
+    if (window.innerWidth <= 768) {
+      this.isSidebarOpen = false;
     }
   }
 
@@ -482,6 +502,11 @@ export class CoursePlayerComponent implements OnInit {
 
     // Hide video player and show quiz
     this.loadModuleQuiz(module.id);
+
+    // Auto-close sidebar on mobile after selecting a quiz
+    if (window.innerWidth <= 768) {
+      this.isSidebarOpen = false;
+    }
   }
 
   isLessonCompleted(lessonId: string): boolean {
@@ -499,6 +524,11 @@ export class CoursePlayerComponent implements OnInit {
 
   onLessonSelected(event: { lesson: Lesson; module: Module }): void {
     this.selectLesson(event.lesson, event.module);
+
+    // Auto-close sidebar on mobile after selecting a lesson
+    if (window.innerWidth <= 768) {
+      this.isSidebarOpen = false;
+    }
   }
 
   onModuleToggled(moduleId: string): void {
@@ -559,5 +589,27 @@ export class CoursePlayerComponent implements OnInit {
     // Reset form
     this.reviewRating = 0;
     this.reviewText = '';
+  }
+
+  formatCourseDuration(durationInMinutes: number): string {
+    if (durationInMinutes < 60) {
+      return `${durationInMinutes} mins`;
+    }
+
+    const hours = Math.floor(durationInMinutes / 60);
+    const minutes = durationInMinutes % 60;
+
+    if (minutes === 0) {
+      return `${hours}h`;
+    }
+
+    return `${hours}h ${minutes}m`;
+  }
+
+  formatDate(date: Date | string): string {
+    const dateObj = typeof date === 'string' ? new Date(date) : date;
+    const month = dateObj.toLocaleString('en-US', { month: 'short' });
+    const year = dateObj.getFullYear();
+    return `${month} ${year}`;
   }
 }
