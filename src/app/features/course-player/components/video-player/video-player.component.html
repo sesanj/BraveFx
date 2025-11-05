@@ -1,0 +1,30 @@
+<div class="video-section">
+  <div class="video-wrapper">
+    <iframe *ngIf="videoUrl && !isLoading" [src]="videoUrl" class="video-frame" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>
+
+    <!-- Loading State -->
+    <div class="video-loading" *ngIf="isLoading">
+      <div class="loader-spinner"></div>
+      <p>Loading video...</p>
+    </div>
+
+    <!-- Placeholder State -->
+    <div class="video-placeholder" *ngIf="!videoUrl && !isLoading">
+      <lucide-icon [img]="Play" [size]="64"></lucide-icon>
+      <p>Select a lesson to begin</p>
+    </div>
+
+    <!-- Overlay Navigation Buttons -->
+    <button *ngIf="videoUrl && !isLoading && canGoPrevious" class="nav-overlay nav-overlay-left" (click)="onPrevious()"
+      aria-label="Previous lesson">
+      <lucide-icon [img]="ChevronLeft" [size]="32"></lucide-icon>
+    </button>
+
+    <button *ngIf="videoUrl && !isLoading && canGoNext" class="nav-overlay nav-overlay-right" (click)="onNext()"
+      aria-label="Next lesson">
+      <lucide-icon [img]="ChevronRight" [size]="32"></lucide-icon>
+    </button>
+  </div>
+</div>

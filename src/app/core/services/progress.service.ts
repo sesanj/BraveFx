@@ -9,6 +9,9 @@ export class ProgressService {
   // Dummy progress data stored in memory
   private progressData: Map<string, LessonProgress> = new Map();
 
+  // Track last watched lesson for each course
+  private lastWatchedLessons: Map<string, string> = new Map();
+
   private progressSubject = new BehaviorSubject<Map<string, LessonProgress>>(
     new Map()
   );
@@ -64,5 +67,29 @@ export class ProgressService {
     const totalLessons = 120; // From dummy course
     const percentage = (completedLessons / totalLessons) * 100;
     return of(Math.round(percentage));
+  }
+
+  // Save the last watched lesson for a course
+  saveLastWatchedLesson(courseId: string, lessonId: string): void {
+    this.lastWatchedLessons.set(courseId, lessonId);
+    // In a real app, this would be saved to backend/localStorage
+    localStorage.setItem(`lastWatchedLesson_${courseId}`, lessonId);
+  }
+
+  // Get the last watched lesson for a course
+  getLastWatchedLesson(courseId: string): Observable<string | null> {
+    // Check in-memory first
+    let lastLessonId = this.lastWatchedLessons.get(courseId);
+
+    // If not in memory, check localStorage
+    if (!lastLessonId) {
+      const storedId = localStorage.getItem(`lastWatchedLesson_${courseId}`);
+      lastLessonId = storedId || undefined;
+      if (lastLessonId) {
+        this.lastWatchedLessons.set(courseId, lastLessonId);
+      }
+    }
+
+    return of(lastLessonId || null);
   }
 }

@@ -2,7 +2,7 @@
   background: var(--bg-secondary);
   color: var(--text-secondary);
   padding: 4rem 0 2rem;
-  margin-top: 6rem;
+  margin-top: 0;
   border-top: 1px solid var(--border-color);
   transition: all 0.3s ease;
 }

@@ -1,4 +1,149 @@
-<div class="player-container">
-    <h1>Course Player - Coming Soon</h1>
-    <p>Video lessons with progress tracking will be available here.</p>
+<div class="course-player" *ngIf="course">
+  <!-- Top Navigation Bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <a class="logo-link" routerLink="/" aria-label="BraveFx Home">
+        <img src="/Logo.png" alt="BraveFx Logo" class="logo-img" />
+      </a>
+      <span class="separator"></span>
+      <div class="course-info">
+        <h1 class="course-title">{{ course.title }}</h1>
+      </div>
+    </div>
+    <div class="top-bar-right">
+      <div class="progress-indicator">
+        <lucide-icon [img]="BarChart3" [size]="16"></lucide-icon>
+        <span class="progress-text">Progress: <strong>{{ courseProgress }}%</strong></span>
+      </div>
+      <button class="btn-theme-toggle" (click)="toggleTheme()"
+        [attr.aria-label]="'Switch to ' + (themeService.theme() === 'light' ? 'dark' : 'light') + ' mode'">
+        <lucide-icon [img]="themeService.theme() === 'light' ? Moon : Sun" [size]="18"></lucide-icon>
+      </button>
+      <div class="user-menu-wrapper">
+        <button class="btn-user-menu" (click)="toggleUserMenu()" [attr.aria-label]="'User menu'">
+          <lucide-icon [img]="User" [size]="18"></lucide-icon>
+        </button>
+        <div class="user-dropdown" *ngIf="isUserMenuOpen">
+          <button class="dropdown-item" (click)="goBackToDashboard(); toggleUserMenu()">
+            Dashboard
+          </button>
+        </div>
+      </div>
+      <button class="btn-menu-toggle" (click)="toggleSidebar()">
+        <lucide-icon [img]="isSidebarOpen ? X : Menu" [size]="22"></lucide-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="player-container">
+    <!-- Video Player Section (LEFT) -->
+    <main class="main-content">
+      <!-- Video Player Component -->
+      <app-video-player [videoUrl]="videoUrl" [lessonProgress]="lessonProgress" [canGoPrevious]="canGoPrevious()"
+        [canGoNext]="canGoNext()" [isLoading]="isLoadingVideo" (previous)="goToPreviousLesson()"
+        (next)="goToNextLesson()" (markComplete)="markAsComplete()">
+      </app-video-player>
+
+      <!-- Tab Navigation -->
+      <div class="lesson-content-section" *ngIf="currentLesson">
+        <!-- Tab Headers -->
+        <div class="tab-navigation">
+          <button class="tab-btn" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
+            <lucide-icon [img]="FileText" [size]="16"></lucide-icon>
+            <span>Overview</span>
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'reviews'" (click)="setActiveTab('reviews')">
+            <lucide-icon [img]="Star" [size]="16"></lucide-icon>
+            <span>Reviews</span>
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'resources'" (click)="setActiveTab('resources')">
+            <lucide-icon [img]="Download" [size]="16"></lucide-icon>
+            <span>Resources</span>
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- Overview Tab -->
+          <div class="tab-pane" *ngIf="activeTab === 'overview'">
+            <h2 class="lesson-title">{{ currentLesson.title }}</h2>
+            <p class="lesson-description">{{ currentLesson.description }}</p>
+          </div>
+
+          <!-- Reviews Tab -->
+          <div class="tab-pane" *ngIf="activeTab === 'reviews'">
+            <h3 class="tab-heading">Write a Review</h3>
+            <p class="tab-subheading">Share your thoughts about this course</p>
+
+            <div class="review-form">
+              <div class="rating-section">
+                <label class="form-label">Your Rating</label>
+                <div class="star-rating">
+                  <button *ngFor="let star of [1, 2, 3, 4, 5]" class="star-btn" [class.filled]="star <= reviewRating"
+                    (click)="setRating(star)" type="button">
+                    <lucide-icon [img]="Star" [size]="24"></lucide-icon>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="review-text">Your Review</label>
+                <textarea id="review-text" class="form-textarea" [(ngModel)]="reviewText"
+                  placeholder="Tell us what you think about this course..." rows="6"></textarea>
+              </div>
+
+              <button class="btn-submit-review" [disabled]="reviewRating === 0 || !reviewText.trim()"
+                (click)="submitReview()">
+                Submit Review
+              </button>
+            </div>
+          </div>
+
+          <!-- Resources Tab -->
+          <div class="tab-pane" *ngIf="activeTab === 'resources'">
+            <h3 class="tab-heading">Lesson Resources</h3>
+
+            <div *ngIf="currentLesson.resources.length > 0; else noResources">
+              <div class="resource-list">
+                <a *ngFor="let resource of currentLesson.resources" [href]="resource.url" target="_blank"
+                  class="resource-item">
+                  <div class="resource-icon">
+                    <lucide-icon [img]="Download" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="resource-details">
+                    <span class="resource-name">{{ resource.title }}</span>
+                    <span class="resource-type">{{ resource.type }}</span>
+                  </div>
+                </a>
+              </div>
+            </div>
+
+            <ng-template #noResources>
+              <div class="empty-state">
+                <lucide-icon [img]="Download" [size]="48"></lucide-icon>
+                <p>This lesson has no downloadable resources.</p>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <app-footer></app-footer>
+    </main>
+
+    <!-- Lesson Sidebar (RIGHT) -->
+    <app-lesson-sidebar [modules]="course.modules" [currentLessonId]="currentLesson?.id || null"
+      [expandedModules]="expandedModules" [isSidebarOpen]="isSidebarOpen" [completedLessonIds]="completedLessonIds"
+      (lessonSelected)="onLessonSelected($event)" (moduleToggled)="onModuleToggled($event)"
+      (sidebarClosed)="toggleSidebar()" (lessonCompleted)="markAsComplete()">
+    </app-lesson-sidebar>
+  </div>
+</div>
+
+<!-- Loading State -->
+<div class="loading-state" *ngIf="!course">
+  <div class="spinner"></div>
+  <p>Loading course...</p>
 </div>
