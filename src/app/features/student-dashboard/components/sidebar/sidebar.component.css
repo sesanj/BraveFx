@@ -17,12 +17,24 @@
 }
 
 .logo-link {
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
 }
 
 .logo {
   height: 40px;
   width: auto;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .nav-menu {
@@ -121,7 +133,7 @@
   .nav-menu {
     flex-direction: row;
     gap: 0;
-    padding: 0.5rem 0;
+    padding: 0;
     justify-content: space-around;
     width: 100%;
     flex: none;
@@ -131,13 +143,17 @@
     display: flex;
     flex-direction: column;
     gap: 0.3rem;
-    padding: 0.6rem 0.75rem;
+    padding: 0.75rem 0.5rem;
     font-size: 0.7rem;
     text-align: center;
     align-items: center;
     border-radius: 0;
     flex: 1;
     min-height: 72px;
+  }
+
+  .nav-item:nth-child(5) {
+    display: none;
   }
 
   .nav-item lucide-icon {
@@ -158,15 +174,14 @@
     position: relative;
   }
 
-  .nav-item.active::before {
+  .nav-item.active::after {
     content: "";
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
     height: 3px;
     background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-    border-radius: 0 0 2px 2px;
   }
 
   .sidebar-footer {
@@ -205,7 +220,7 @@
   .nav-menu {
     flex-direction: row;
     gap: 0;
-    padding: 0.5rem 0;
+    padding: 0;
     justify-content: space-around;
     width: 100%;
     flex: none;
@@ -215,7 +230,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    padding: 0.5rem 0.5rem;
+    padding: 0.75rem 0.5rem;
     border-radius: 0;
     font-size: 0.65rem;
     flex: 1;
@@ -223,6 +238,10 @@
     align-items: center;
     justify-content: center;
     min-height: 70px;
+  }
+
+  .nav-item:nth-child(5) {
+    display: none;
   }
 
   .nav-item lucide-icon {
@@ -237,15 +256,14 @@
     position: relative;
   }
 
-  .nav-item.active::before {
+  .nav-item.active::after {
     content: "";
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
     height: 3px;
     background: linear-gradient(135deg, #a855f7 0%, #ec4899 100%);
-    border-radius: 0 0 2px 2px;
   }
 
   .nav-item span {

@@ -18,7 +18,7 @@
 .content-area {
   flex: 1;
   overflow-y: auto;
-  padding: 2rem;
+  padding: 2.5rem 2rem 2rem 2rem;
 }
 
 .tab-content {
@@ -102,16 +102,22 @@
   .main-content {
     width: 100%;
     order: 1;
+    padding-top: 60px; /* Space for fixed top header */
     padding-bottom: 90px; /* Space for fixed bottom nav */
   }
 
   .content-area {
-    padding: 1.5rem;
-    padding-bottom: 2rem;
+    padding: 2.5rem 1.5rem 2rem 1.5rem;
   }
 
   .page-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.9rem;
+    margin-bottom: 2.5rem;
   }
 }
 
@@ -127,16 +133,22 @@
     width: 100%;
     min-height: 100vh;
     order: 1;
+    padding-top: 56px; /* Space for fixed top header */
     padding-bottom: 90px; /* Space for fixed bottom nav */
   }
 
   .content-area {
-    padding: 1rem;
-    padding-bottom: 2rem;
+    padding: 2.5rem 1rem 2rem 1rem;
   }
 
   .page-title {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
   }
 
   .courses-grid,
