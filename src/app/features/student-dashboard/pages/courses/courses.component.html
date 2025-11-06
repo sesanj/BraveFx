@@ -1,0 +1,7 @@
+<h1 class="page-title">My Courses</h1>
+<p class="page-subtitle">{{ enrolledCourses.length }} courses enrolled</p>
+
+<div class="courses-grid full">
+    <app-course-card *ngFor="let course of enrolledCourses" [course]="course" (continue)="continueCourse($event)">
+    </app-course-card>
+</div>

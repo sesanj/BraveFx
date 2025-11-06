@@ -9,35 +9,35 @@
 
     <!-- Navigation Menu -->
     <nav class="nav-menu">
-        <button class="nav-item" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
+        <a routerLink="/dashboard/overview" routerLinkActive="active" class="nav-item">
             <lucide-icon [img]="LayoutDashboard" [size]="20"></lucide-icon>
             <span>Overview</span>
-        </button>
+        </a>
 
-        <button class="nav-item" [class.active]="activeTab === 'courses'" (click)="setActiveTab('courses')">
+        <a routerLink="/dashboard/courses" routerLinkActive="active" class="nav-item">
             <lucide-icon [img]="BookOpen" [size]="20"></lucide-icon>
             <span>My Courses</span>
-        </button>
+        </a>
 
-        <button class="nav-item" [class.active]="activeTab === 'progress'" (click)="setActiveTab('progress')">
+        <a routerLink="/dashboard/progress" routerLinkActive="active" class="nav-item">
             <lucide-icon [img]="TrendingUp" [size]="20"></lucide-icon>
             <span>Progress</span>
-        </button>
+        </a>
 
-        <button class="nav-item" [class.active]="activeTab === 'community'" (click)="setActiveTab('community')">
+        <a routerLink="/dashboard/community" routerLinkActive="active" class="nav-item">
             <lucide-icon [img]="Users" [size]="20"></lucide-icon>
             <span>Community</span>
-        </button>
+        </a>
 
-        <button class="nav-item" [class.active]="activeTab === 'settings'" (click)="setActiveTab('settings')">
+        <a routerLink="/dashboard/settings" routerLinkActive="active" class="nav-item">
             <lucide-icon [img]="Settings" [size]="20"></lucide-icon>
             <span>Settings</span>
-        </button>
+        </a>
 
-        <button class="nav-item" [class.active]="activeTab === 'support'" (click)="setActiveTab('support')">
+        <a routerLink="/dashboard/support" routerLinkActive="active" class="nav-item">
             <lucide-icon [img]="HelpCircle" [size]="20"></lucide-icon>
             <span>Support</span>
-        </button>
+        </a>
     </nav>
 
     <!-- Bottom Section -->

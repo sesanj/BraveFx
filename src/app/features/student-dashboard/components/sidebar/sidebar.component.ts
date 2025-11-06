@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
@@ -22,17 +22,6 @@ import { ThemeService } from '../../../../core/services/theme.service';
   styleUrls: ['./sidebar.component.css'],
 })
 export class SidebarComponent {
-  @Input() activeTab:
-    | 'overview'
-    | 'courses'
-    | 'progress'
-    | 'community'
-    | 'settings'
-    | 'support' = 'overview';
-  @Output() tabChange = new EventEmitter<
-    'overview' | 'courses' | 'progress' | 'community' | 'settings' | 'support'
-  >();
-
   // Icons
   LayoutDashboard = LayoutDashboard;
   BookOpen = BookOpen;
@@ -43,21 +32,7 @@ export class SidebarComponent {
   Moon = Moon;
   Sun = Sun;
 
-  themeService = ThemeService;
-
   constructor(public theme: ThemeService) {}
-
-  setActiveTab(
-    tab:
-      | 'overview'
-      | 'courses'
-      | 'progress'
-      | 'community'
-      | 'settings'
-      | 'support'
-  ): void {
-    this.tabChange.emit(tab);
-  }
 
   toggleTheme(): void {
     this.theme.toggleTheme();

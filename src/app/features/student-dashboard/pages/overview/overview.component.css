@@ -1,0 +1,36 @@
+/* Overview specific styles */
+.section {
+  margin-bottom: 3rem;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 1.5rem;
+}
+
+.page-subtitle {
+  margin-bottom: 3em;
+}
+
+.courses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.7rem;
+    margin-bottom: 5px;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .courses-grid {
+    grid-template-columns: 1fr;
+  }
+}

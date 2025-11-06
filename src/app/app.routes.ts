@@ -49,6 +49,55 @@ export const routes: Routes = [
         (m) => m.StudentDashboardComponent
       ),
     canActivate: [authGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'overview',
+        pathMatch: 'full',
+      },
+      {
+        path: 'overview',
+        loadComponent: () =>
+          import(
+            './features/student-dashboard/pages/overview/overview.component'
+          ).then((m) => m.OverviewComponent),
+      },
+      {
+        path: 'courses',
+        loadComponent: () =>
+          import(
+            './features/student-dashboard/pages/courses/courses.component'
+          ).then((m) => m.CoursesComponent),
+      },
+      {
+        path: 'progress',
+        loadComponent: () =>
+          import(
+            './features/student-dashboard/pages/progress/progress.component'
+          ).then((m) => m.ProgressComponent),
+      },
+      {
+        path: 'community',
+        loadComponent: () =>
+          import(
+            './features/student-dashboard/pages/community/community.component'
+          ).then((m) => m.CommunityComponent),
+      },
+      {
+        path: 'support',
+        loadComponent: () =>
+          import(
+            './features/student-dashboard/pages/support/support.component'
+          ).then((m) => m.SupportComponent),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import(
+            './features/student-dashboard/pages/settings/settings.component'
+          ).then((m) => m.SettingsComponent),
+      },
+    ],
   },
   {
     path: 'admin',

@@ -1,0 +1,87 @@
+<h1 class="page-title">Support Center</h1>
+<p class="page-subtitle">We're here to help you succeed</p>
+
+<!-- Quick Help Cards -->
+<div class="support-cards">
+  <div class="support-card">
+    <div class="support-card-icon">
+      <lucide-icon [img]="BookOpen" [size]="28"></lucide-icon>
+    </div>
+    <h3>Help Center</h3>
+    <p>Browse our comprehensive guides and tutorials</p>
+  </div>
+  <div class="support-card">
+    <div class="support-card-icon">
+      <lucide-icon [img]="Mail" [size]="28"></lucide-icon>
+    </div>
+    <h3>Email Support</h3>
+    <p>Get personalized help from our support team</p>
+  </div>
+  <div class="support-card">
+    <div class="support-card-icon">
+      <lucide-icon [img]="MessageCircle" [size]="28"></lucide-icon>
+    </div>
+    <h3>Live Chat</h3>
+    <p>Chat with us for quick answers to your questions</p>
+  </div>
+</div>
+
+<!-- FAQ Section -->
+<section class="faq-section">
+  <h2 class="section-title">Frequently Asked Questions</h2>
+  <div class="faq-list">
+    <div class="faq-item" *ngFor="let faq of faqs; let i = index" [class.active]="activeFaq === i">
+      <button class="faq-question" (click)="toggleFaq(i)">
+        <span>{{ faq.question }}</span>
+        <lucide-icon [img]="ChevronDown" [size]="20"></lucide-icon>
+      </button>
+      <div class="faq-answer" *ngIf="activeFaq === i">
+        <p>{{ faq.answer }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Form -->
+<section class="contact-section">
+  <h2 class="section-title">Still need help?</h2>
+  <p class="section-description">Send us a message and we'll get back to you within 24 hours</p>
+
+  <form class="contact-form">
+    <div class="form-group">
+      <label for="subject">Subject</label>
+      <input type="text" id="subject" placeholder="How can we help you?" />
+    </div>
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" rows="6" placeholder="Describe your issue or question..."></textarea>
+    </div>
+    <button type="submit" class="submit-btn">
+      <lucide-icon [img]="Send" [size]="18"></lucide-icon>
+      Send Message
+    </button>
+  </form>
+</section>
+
+<!-- Additional Resources -->
+<section class="resources-section">
+  <h2 class="section-title">Additional Resources</h2>
+  <div class="resources-grid">
+    <a href="#" class="resource-link">
+      <lucide-icon [img]="FileText" [size]="20"></lucide-icon>
+      <span>Documentation</span>
+    </a>
+    <a href="#" class="resource-link">
+      <lucide-icon [img]="Video" [size]="20"></lucide-icon>
+      <span>Video Tutorials</span>
+    </a>
+    <a href="#" class="resource-link">
+      <lucide-icon [img]="Users" [size]="20"></lucide-icon>
+      <span>Community Forum</span>
+    </a>
+    <a href="#" class="resource-link">
+      <lucide-icon [img]="Download" [size]="20"></lucide-icon>
+      <span>Downloads</span>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+<h1 class="page-title">Welcome back, {{ user.name.split(' ')[0] }}! 👋</h1>
+<p class="page-subtitle">Continue your learning journey</p>
+
+<!-- Stats Grid -->
+<app-stats-grid [stats]="stats"></app-stats-grid>
+
+<!-- Continue Learning -->
+<section class="section">
+  <h2 class="section-title">Continue Learning</h2>
+  <div class="courses-grid">
+    <app-course-card *ngFor="let course of recentCourses" [course]="course">
+    </app-course-card>
+  </div>
+</section>
+
+<!-- Recent Activity -->
+<section class="section">
+  <h2 class="section-title">Recent Activity</h2>
+  <app-activity-list [activities]="recentActivity"></app-activity-list>
+</section>
