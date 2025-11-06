@@ -7,6 +7,7 @@ import {
   Users,
   Settings,
   HelpCircle,
+  MessageCircle,
 } from 'lucide-angular';
 import { ThemeService } from '../../core/services/theme.service';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -48,6 +49,14 @@ export class StudentDashboardComponent implements OnInit {
   Users = Users;
   Settings = Settings;
   HelpCircle = HelpCircle;
+  MessageCircle = MessageCircle;
+
+  // Community links - Update these with your actual social media URLs
+  communityLinks = {
+    discord: 'https://discord.gg/bravefx',
+    youtube: 'https://youtube.com/@bravefx',
+    instagram: 'https://instagram.com/bravefx',
+  };
 
   activeTab:
     | 'overview'
