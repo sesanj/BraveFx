@@ -1,0 +1,49 @@
+<aside class="sidebar">
+    <!-- Logo -->
+    <div class="sidebar-header">
+        <a routerLink="/" class="logo-link">
+            <img src="/Logo.png" alt="BraveFx" class="logo" />
+        </a>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <button class="nav-item" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
+            <lucide-icon [img]="LayoutDashboard" [size]="20"></lucide-icon>
+            <span>Overview</span>
+        </button>
+
+        <button class="nav-item" [class.active]="activeTab === 'courses'" (click)="setActiveTab('courses')">
+            <lucide-icon [img]="BookOpen" [size]="20"></lucide-icon>
+            <span>My Courses</span>
+        </button>
+
+        <button class="nav-item" [class.active]="activeTab === 'progress'" (click)="setActiveTab('progress')">
+            <lucide-icon [img]="TrendingUp" [size]="20"></lucide-icon>
+            <span>Progress</span>
+        </button>
+
+        <button class="nav-item" [class.active]="activeTab === 'community'" (click)="setActiveTab('community')">
+            <lucide-icon [img]="Users" [size]="20"></lucide-icon>
+            <span>Community</span>
+        </button>
+
+        <button class="nav-item" [class.active]="activeTab === 'settings'" (click)="setActiveTab('settings')">
+            <lucide-icon [img]="Settings" [size]="20"></lucide-icon>
+            <span>Settings</span>
+        </button>
+
+        <button class="nav-item" [class.active]="activeTab === 'support'" (click)="setActiveTab('support')">
+            <lucide-icon [img]="HelpCircle" [size]="20"></lucide-icon>
+            <span>Support</span>
+        </button>
+    </nav>
+
+    <!-- Bottom Section -->
+    <div class="sidebar-footer">
+        <button class="theme-toggle" (click)="toggleTheme()">
+            <lucide-icon [img]="theme.theme() === 'light' ? Moon : Sun" [size]="20"></lucide-icon>
+            <span>{{ theme.theme() === 'light' ? 'Dark' : 'Light' }} Mode</span>
+        </button>
+    </div>
+</aside>

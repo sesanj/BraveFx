@@ -20,11 +20,11 @@
               <lucide-icon [img]="ChevronDown" class="chevron-icon"></lucide-icon>
             </div>
             <div class="dropdown-menu">
-              <a routerLink="/student-dashboard" class="dropdown-item">
+              <a routerLink="/dashboard" class="dropdown-item">
                 <lucide-icon [img]="LayoutDashboard" class="dropdown-icon"></lucide-icon>
                 Dashboard
               </a>
-              <a *ngIf="user.role === 'admin'" routerLink="/admin-dashboard" class="dropdown-item">
+              <a *ngIf="user.role === 'admin'" routerLink="/admin" class="dropdown-item">
                 <lucide-icon [img]="Shield" class="dropdown-icon"></lucide-icon>
                 Admin
               </a>
@@ -59,8 +59,8 @@
       <a routerLink="/about" (click)="toggleMenu()">About</a>
 
       <ng-container *ngIf="currentUser$ | async as user; else mobileAuthLinks">
-        <a routerLink="/student-dashboard" (click)="toggleMenu()">Dashboard</a>
-        <a *ngIf="user.role === 'admin'" routerLink="/admin-dashboard" (click)="toggleMenu()">Admin</a>
+        <a routerLink="/dashboard" (click)="toggleMenu()">Dashboard</a>
+        <a *ngIf="user.role === 'admin'" routerLink="/admin" (click)="toggleMenu()">Admin</a>
         <button (click)="logout(); toggleMenu()" class="btn-logout-mobile">Logout</button>
       </ng-container>
 

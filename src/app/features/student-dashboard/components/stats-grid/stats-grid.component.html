@@ -1,0 +1,41 @@
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-icon enrolled">
+            <lucide-icon [img]="BookOpen" [size]="24"></lucide-icon>
+        </div>
+        <div class="stat-content">
+            <p class="stat-value">{{ stats.coursesEnrolled }}</p>
+            <p class="stat-label">Courses Enrolled</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon completed">
+            <lucide-icon [img]="CheckCircle" [size]="24"></lucide-icon>
+        </div>
+        <div class="stat-content">
+            <p class="stat-value">{{ stats.coursesCompleted }}</p>
+            <p class="stat-label">Courses Completed</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon hours">
+            <lucide-icon [img]="Clock" [size]="24"></lucide-icon>
+        </div>
+        <div class="stat-content">
+            <p class="stat-value">{{ stats.hoursLearned }}h</p>
+            <p class="stat-label">Hours Learned</p>
+        </div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon certificates">
+            <lucide-icon [img]="Award" [size]="24"></lucide-icon>
+        </div>
+        <div class="stat-content">
+            <p class="stat-value">{{ stats.certificatesEarned }}</p>
+            <p class="stat-label">Certificates Earned</p>
+        </div>
+    </div>
+</div>

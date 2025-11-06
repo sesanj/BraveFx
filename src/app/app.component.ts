@@ -19,11 +19,12 @@ export class AppComponent implements OnInit {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Hide header/footer on course player route
+    // Hide header/footer on course player and dashboard routes
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        this.showHeaderFooter = !event.url.includes('/course/');
+        this.showHeaderFooter =
+          !event.url.includes('/course/') && !event.url.includes('/dashboard');
       });
   }
 }
