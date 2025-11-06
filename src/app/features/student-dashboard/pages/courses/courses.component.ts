@@ -53,6 +53,6 @@ export class CoursesComponent {
   constructor(private router: Router) {}
 
   continueCourse(courseId: string): void {
-    this.router.navigate(['/course-player', courseId]);
+    this.router.navigate(['/course', courseId]);
   }
 }

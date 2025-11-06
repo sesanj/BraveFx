@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import {
   StatsGridComponent,
   StatData,
@@ -84,4 +85,10 @@ export class OverviewComponent {
       time: '3 days ago',
     },
   ];
+
+  constructor(private router: Router) {}
+
+  continueCourse(courseId: string): void {
+    this.router.navigate(['/course', courseId]);
+  }
 }
