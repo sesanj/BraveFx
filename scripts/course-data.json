@@ -1,0 +1,38 @@
+{
+  "title": "Complete Forex Trading Mastery",
+  "description": "Master forex trading from beginner to advanced with 25+ hours of comprehensive video lessons, 50+ downloadable resources, and skill tests.",
+  "instructor": "BraveFx",
+  "price": 149,
+  "currency": "USD",
+  "thumbnail": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800",
+  "duration": 90000,
+  "total_lessons": 120,
+  "rating": 4.6,
+  "students_enrolled": 6247,
+  "modules": [
+    {
+      "title": "Introduction to Forex Trading",
+      "description": "Understanding the basics of forex market",
+      "order_index": 1,
+      "has_quiz": true,
+      "lessons": [
+        {
+          "title": "What is Forex Trading?",
+          "description": "Introduction to the foreign exchange market",
+          "video_url": "https://player.vimeo.com/video/76979871",
+          "duration": 1200,
+          "order_index": 1,
+          "is_preview": true
+        },
+        {
+          "title": "Understanding Currency Pairs",
+          "description": "Major, minor, and exotic pairs explained",
+          "video_url": "https://player.vimeo.com/video/76979871",
+          "duration": 1800,
+          "order_index": 2,
+          "is_preview": false
+        }
+      ]
+    }
+  ]
+}
