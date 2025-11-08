@@ -16,6 +16,8 @@ import { SupabaseService } from './core/services/supabase.service';
 export class AppComponent implements OnInit {
   title = 'BraveFx';
   showHeaderFooter = true;
+  showHeader = true;
+  showFooter = true;
 
   constructor(
     private router: Router,
@@ -24,11 +26,23 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // Hide header/footer on course player and dashboard routes
+    // Hide only footer on auth routes
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
-        this.showHeaderFooter =
-          !event.url.includes('/course/') && !event.url.includes('/dashboard');
+        const isCoursePage = event.url.includes('/course/');
+        const isDashboard = event.url.includes('/dashboard');
+        const isAuthPage =
+          event.url.includes('/login') ||
+          event.url.includes('/register') ||
+          event.url.includes('/reset-password');
+
+        // Hide both header and footer on course player and dashboard
+        this.showHeaderFooter = !isCoursePage && !isDashboard;
+
+        // Show header on auth pages, but hide footer
+        this.showHeader = !isCoursePage && !isDashboard;
+        this.showFooter = !isCoursePage && !isDashboard && !isAuthPage;
       });
 
     // Test Supabase connection

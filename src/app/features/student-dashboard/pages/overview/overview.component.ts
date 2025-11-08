@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
@@ -13,6 +13,7 @@ import {
   ActivityListComponent,
   Activity,
 } from '../../components/activity-list/activity-list.component';
+import { AuthService } from '../../../../core/services/auth.service';
 
 @Component({
   selector: 'app-overview',
@@ -26,11 +27,10 @@ import {
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css'],
 })
-export class OverviewComponent {
-  // Mock user data
+export class OverviewComponent implements OnInit {
   user = {
-    name: 'John Doe',
-    email: 'john.doe@example.com',
+    name: 'Loading...',
+    email: '',
   };
 
   stats: StatData = {
@@ -86,7 +86,19 @@ export class OverviewComponent {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
+
+  ngOnInit(): void {
+    // Subscribe to current user
+    this.authService.currentUser$.subscribe((currentUser) => {
+      if (currentUser) {
+        this.user = {
+          name: currentUser.name,
+          email: currentUser.email,
+        };
+      }
+    });
+  }
 
   continueCourse(courseId: string): void {
     this.router.navigate(['/course', courseId]);

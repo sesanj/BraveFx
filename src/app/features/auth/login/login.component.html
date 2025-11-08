@@ -1,7 +1,9 @@
 <div class="login-container">
     <div class="login-card">
-        <h1>Welcome Back</h1>
-        <p class="subtitle">Sign in to access your Forex mastery journey</p>
+        <div class="brand-section">
+            <h1>Welcome Back</h1>
+            <p class="subtitle">Sign in to continue your Forex mastery journey</p>
+        </div>
 
         <form (ngSubmit)="onSubmit()" class="login-form">
             <div class="form-group">
@@ -11,8 +13,9 @@
 
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="••••••••"
-                    required />
+                <input type="password" id="password" [(ngModel)]="password" name="password"
+                    placeholder="Enter your password" required />
+                <a class="forgot-password-link" (click)="openForgotPassword()">Forgot password?</a>
             </div>
 
             <div class="error-message" *ngIf="errorMessage">
@@ -22,8 +25,49 @@
             <button type="submit" class="login-btn">Sign In</button>
         </form>
 
+        <div class="divider">
+            <span>or</span>
+        </div>
+
         <div class="footer-links">
-            <p>Don't have an account? <a routerLink="/register">Register now</a></p>
+            <p>Don't have an account? <a routerLink="/register">Create account</a></p>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal-overlay" *ngIf="showForgotPassword" (click)="closeForgotPassword()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+            <div class="modal-header">
+                <h2>Reset Password</h2>
+                <button class="close-btn" (click)="closeForgotPassword()">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <p>Enter your email address and we'll send you a link to reset your password.</p>
+
+                <div class="form-group">
+                    <label for="resetEmail">Email Address</label>
+                    <input type="email" id="resetEmail" [(ngModel)]="resetEmail" placeholder="your@email.com"
+                        [disabled]="isResettingPassword" />
+                </div>
+
+                <div class="success-message" *ngIf="successMessage">
+                    {{ successMessage }}
+                </div>
+
+                <div class="error-message" *ngIf="errorMessage">
+                    {{ errorMessage }}
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn-secondary" (click)="closeForgotPassword()" [disabled]="isResettingPassword">
+                    Cancel
+                </button>
+                <button class="btn-primary" (click)="sendPasswordReset()" [disabled]="isResettingPassword">
+                    {{ isResettingPassword ? 'Sending...' : 'Send Reset Link' }}
+                </button>
+            </div>
         </div>
     </div>
 </div>

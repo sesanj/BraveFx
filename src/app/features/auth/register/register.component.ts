@@ -17,11 +17,13 @@ export class RegisterComponent {
   password = '';
   confirmPassword = '';
   errorMessage = '';
+  successMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
     this.errorMessage = '';
+    this.successMessage = '';
 
     if (this.password !== this.confirmPassword) {
       this.errorMessage = 'Passwords do not match';
@@ -36,13 +38,32 @@ export class RegisterComponent {
     this.authService.register(this.email, this.password, this.name).subscribe({
       next: (user) => {
         if (user) {
-          this.router.navigate(['/dashboard']);
+          console.log('Registration successful:', user);
+          this.successMessage =
+            'Registration successful! Please check your email to confirm your account, then login.';
+          // Clear the form
+          this.name = '';
+          this.email = '';
+          this.password = '';
+          this.confirmPassword = '';
         } else {
           this.errorMessage = 'Registration failed';
         }
       },
       error: (error) => {
-        this.errorMessage = 'Registration failed. Please try again.';
+        console.error('Registration component error:', error);
+        // Show more specific error messages
+        if (error.message?.includes('already registered')) {
+          this.errorMessage =
+            'This email is already registered. Please login instead.';
+        } else if (error.message?.includes('email')) {
+          this.errorMessage = 'Invalid email address.';
+        } else if (error.message?.includes('password')) {
+          this.errorMessage = 'Password does not meet requirements.';
+        } else {
+          this.errorMessage =
+            error.message || 'Registration failed. Please try again.';
+        }
       },
     });
   }

@@ -26,7 +26,7 @@ create table public.profiles (
 -- Enable RLS
 alter table public.profiles enable row level security;
 
--- Policies
+-- Policies (Note: No INSERT policy needed - handled by trigger)
 create policy "Users can view own profile"
   on public.profiles for select
   using (auth.uid() = id);
@@ -34,6 +34,28 @@ create policy "Users can view own profile"
 create policy "Users can update own profile"
   on public.profiles for update
   using (auth.uid() = id);
+
+-- Auto-create profile when user signs up
+create or replace function public.handle_new_user()
+returns trigger
+language plpgsql
+security definer set search_path = public
+as $$
+begin
+  insert into public.profiles (id, email, full_name, is_admin)
+  values (
+    new.id,
+    new.email,
+    new.raw_user_meta_data->>'full_name',
+    false
+  );
+  return new;
+end;
+$$;
+
+create trigger on_auth_user_created
+  after insert on auth.users
+  for each row execute function public.handle_new_user();
 ```
 
 ## 3. Courses Table
