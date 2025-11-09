@@ -208,6 +208,400 @@ export class HomeComponent implements OnInit {
     },
   ];
 
+  courseSections = [
+    {
+      title: 'Forex Fundamentals & Market Structure',
+      lessons: 18,
+      duration: '2h 45m',
+      isOpen: false,
+      lessonsList: [
+        { title: 'Welcome to Forex Trading', duration: '8:24', type: 'video' },
+        {
+          title: 'How the Forex Market Works',
+          duration: '12:15',
+          type: 'video',
+        },
+        { title: 'Currency Pairs Explained', duration: '10:32', type: 'video' },
+        {
+          title: 'Trading Sessions & Market Hours',
+          duration: '9:18',
+          type: 'video',
+        },
+        {
+          title: 'Understanding Pips, Lots & Leverage',
+          duration: '11:45',
+          type: 'video',
+        },
+        { title: 'Market Structure Basics', duration: '14:20', type: 'video' },
+        {
+          title: 'Quiz: Forex Fundamentals',
+          duration: '10 questions',
+          type: 'quiz',
+        },
+        {
+          title: 'Forex Terminology Cheat Sheet',
+          duration: 'PDF',
+          type: 'resource',
+        },
+      ],
+    },
+    {
+      title: 'Technical Analysis Mastery',
+      lessons: 32,
+      duration: '5h 20m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'Introduction to Technical Analysis',
+          duration: '9:30',
+          type: 'video',
+        },
+        {
+          title: 'Candlestick Patterns Part 1',
+          duration: '15:42',
+          type: 'video',
+        },
+        {
+          title: 'Candlestick Patterns Part 2',
+          duration: '16:18',
+          type: 'video',
+        },
+        {
+          title: 'Support & Resistance Zones',
+          duration: '18:25',
+          type: 'video',
+        },
+        { title: 'Trend Lines & Channels', duration: '12:50', type: 'video' },
+        {
+          title: 'Chart Patterns: Flags & Pennants',
+          duration: '14:35',
+          type: 'video',
+        },
+        { title: 'Moving Averages Strategy', duration: '11:20', type: 'video' },
+        { title: 'RSI & MACD Indicators', duration: '13:45', type: 'video' },
+      ],
+    },
+    {
+      title: 'Risk Management & Position Sizing',
+      lessons: 15,
+      duration: '3h 10m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'The Importance of Risk Management',
+          duration: '10:15',
+          type: 'video',
+        },
+        {
+          title: 'Position Sizing Calculator',
+          duration: '12:30',
+          type: 'video',
+        },
+        { title: 'Stop Loss Strategies', duration: '14:20', type: 'video' },
+        { title: 'Risk-Reward Ratios', duration: '11:45', type: 'video' },
+        { title: 'Portfolio Diversification', duration: '9:50', type: 'video' },
+        {
+          title: 'Risk Management Calculator',
+          duration: 'Excel',
+          type: 'resource',
+        },
+      ],
+    },
+    {
+      title: 'Trading Strategies & Systems',
+      lessons: 28,
+      duration: '4h 50m',
+      isOpen: false,
+      lessonsList: [
+        { title: 'Scalping Strategies', duration: '16:20', type: 'video' },
+        { title: 'Day Trading Setups', duration: '18:45', type: 'video' },
+        { title: 'Swing Trading Techniques', duration: '15:30', type: 'video' },
+        { title: 'Trend Following Systems', duration: '14:25', type: 'video' },
+        {
+          title: 'Breakout Trading Strategy',
+          duration: '12:40',
+          type: 'video',
+        },
+        { title: 'Range Trading Systems', duration: '11:55', type: 'video' },
+      ],
+    },
+    {
+      title: 'Trading Psychology & Mindset',
+      lessons: 12,
+      duration: '2h 15m',
+      isOpen: false,
+      lessonsList: [
+        { title: "The Trader's Mindset", duration: '10:30', type: 'video' },
+        { title: 'Overcoming Fear & Greed', duration: '12:15', type: 'video' },
+        { title: 'Dealing with Losses', duration: '11:20', type: 'video' },
+        { title: 'Building Discipline', duration: '9:45', type: 'video' },
+        {
+          title: 'Trading Journal Template',
+          duration: 'PDF',
+          type: 'resource',
+        },
+      ],
+    },
+    {
+      title: 'Live Trading Examples & Case Studies',
+      lessons: 25,
+      duration: '4h 30m',
+      isOpen: false,
+      lessonsList: [
+        { title: 'Live Trade Analysis #1', duration: '15:20', type: 'video' },
+        { title: 'Live Trade Analysis #2', duration: '18:35', type: 'video' },
+        {
+          title: 'Real-Time Market Breakdown',
+          duration: '20:15',
+          type: 'video',
+        },
+        { title: 'Winning Trade Review', duration: '12:45', type: 'video' },
+        { title: 'Learning from Losses', duration: '14:30', type: 'video' },
+      ],
+    },
+    {
+      title: 'Advanced Chart Patterns',
+      lessons: 22,
+      duration: '3h 45m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'Head and Shoulders Pattern',
+          duration: '16:10',
+          type: 'video',
+        },
+        {
+          title: 'Double Top & Double Bottom',
+          duration: '14:25',
+          type: 'video',
+        },
+        { title: 'Triangle Patterns', duration: '13:50', type: 'video' },
+        { title: 'Wedge Patterns', duration: '12:30', type: 'video' },
+        { title: 'Cup and Handle Pattern', duration: '11:45', type: 'video' },
+      ],
+    },
+    {
+      title: 'Fibonacci Trading Techniques',
+      lessons: 16,
+      duration: '2h 50m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'Introduction to Fibonacci',
+          duration: '10:20',
+          type: 'video',
+        },
+        { title: 'Fibonacci Retracements', duration: '15:40', type: 'video' },
+        { title: 'Fibonacci Extensions', duration: '14:15', type: 'video' },
+        { title: 'Fibonacci Fan & Arcs', duration: '12:35', type: 'video' },
+        { title: 'Trading with Fibonacci', duration: '16:20', type: 'video' },
+      ],
+    },
+    {
+      title: 'Price Action Trading',
+      lessons: 24,
+      duration: '4h 10m',
+      isOpen: false,
+      lessonsList: [
+        { title: 'What is Price Action?', duration: '9:15', type: 'video' },
+        { title: 'Reading Naked Charts', duration: '13:45', type: 'video' },
+        { title: 'Pin Bar Strategy', duration: '15:30', type: 'video' },
+        { title: 'Engulfing Patterns', duration: '14:20', type: 'video' },
+        { title: 'Inside Bar Trading', duration: '12:40', type: 'video' },
+      ],
+    },
+    {
+      title: 'Multi-Timeframe Analysis',
+      lessons: 14,
+      duration: '2h 30m',
+      isOpen: false,
+      lessonsList: [
+        { title: 'Top-Down Analysis Method', duration: '11:25', type: 'video' },
+        { title: 'Timeframe Correlation', duration: '13:15', type: 'video' },
+        { title: 'Entry & Exit Timing', duration: '14:50', type: 'video' },
+        { title: 'Conflicting Signals', duration: '10:35', type: 'video' },
+      ],
+    },
+    {
+      title: 'Fundamental Analysis for Forex',
+      lessons: 20,
+      duration: '3h 20m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'Economic Indicators Overview',
+          duration: '12:30',
+          type: 'video',
+        },
+        { title: 'Interest Rates Impact', duration: '15:20', type: 'video' },
+        { title: 'GDP & Employment Data', duration: '13:45', type: 'video' },
+        { title: 'Central Bank Policies', duration: '16:10', type: 'video' },
+        { title: 'News Trading Strategies', duration: '14:25', type: 'video' },
+      ],
+    },
+    {
+      title: 'Market Sentiment & Volume Analysis',
+      lessons: 18,
+      duration: '3h 00m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'Understanding Market Sentiment',
+          duration: '11:40',
+          type: 'video',
+        },
+        { title: 'COT Report Analysis', duration: '15:25', type: 'video' },
+        { title: 'Volume Profile Trading', duration: '14:35', type: 'video' },
+        { title: 'Volume Spread Analysis', duration: '13:20', type: 'video' },
+      ],
+    },
+    {
+      title: 'Algorithmic Trading Basics',
+      lessons: 26,
+      duration: '4h 40m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'Introduction to Algo Trading',
+          duration: '10:15',
+          type: 'video',
+        },
+        { title: 'Creating Trading Bots', duration: '18:30', type: 'video' },
+        { title: 'Backtesting Strategies', duration: '16:45', type: 'video' },
+        {
+          title: 'Automated Risk Management',
+          duration: '15:20',
+          type: 'video',
+        },
+        { title: 'Bot Optimization', duration: '14:10', type: 'video' },
+      ],
+    },
+    {
+      title: 'Order Types & Execution',
+      lessons: 12,
+      duration: '2h 10m',
+      isOpen: false,
+      lessonsList: [
+        { title: 'Market Orders Explained', duration: '9:30', type: 'video' },
+        { title: 'Limit Orders Strategy', duration: '11:20', type: 'video' },
+        { title: 'Stop Orders & Stop Limit', duration: '13:45', type: 'video' },
+        { title: 'OCO & Trailing Stops', duration: '12:15', type: 'video' },
+      ],
+    },
+    {
+      title: 'Building Your Trading Plan',
+      lessons: 10,
+      duration: '1h 50m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'Why You Need a Trading Plan',
+          duration: '8:45',
+          type: 'video',
+        },
+        { title: 'Setting Realistic Goals', duration: '10:30', type: 'video' },
+        { title: 'Creating Your Rulebook', duration: '12:20', type: 'video' },
+        { title: 'Trading Plan Template', duration: 'PDF', type: 'resource' },
+      ],
+    },
+    {
+      title: 'Advanced Risk Management',
+      lessons: 17,
+      duration: '3h 05m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'Kelly Criterion for Position Sizing',
+          duration: '14:40',
+          type: 'video',
+        },
+        {
+          title: 'Portfolio Heat Management',
+          duration: '13:25',
+          type: 'video',
+        },
+        { title: 'Correlation Risk', duration: '11:50', type: 'video' },
+        { title: 'Drawdown Management', duration: '15:10', type: 'video' },
+      ],
+    },
+    {
+      title: 'Trading Different Market Conditions',
+      lessons: 21,
+      duration: '3h 35m',
+      isOpen: false,
+      lessonsList: [
+        { title: 'Trending Markets', duration: '13:20', type: 'video' },
+        { title: 'Ranging Markets', duration: '14:45', type: 'video' },
+        { title: 'Volatile Markets', duration: '12:30', type: 'video' },
+        { title: 'Low Liquidity Periods', duration: '11:15', type: 'video' },
+      ],
+    },
+    {
+      title: 'Professional Trading Setups',
+      lessons: 30,
+      duration: '5h 15m',
+      isOpen: false,
+      lessonsList: [
+        {
+          title: 'Institutional Trading Zones',
+          duration: '17:20',
+          type: 'video',
+        },
+        { title: 'Smart Money Concepts', duration: '18:45', type: 'video' },
+        { title: 'Order Block Trading', duration: '16:30', type: 'video' },
+        { title: 'Liquidity Grab Setups', duration: '15:25', type: 'video' },
+        { title: 'Fair Value Gaps', duration: '14:10', type: 'video' },
+      ],
+    },
+    {
+      title: 'Creating Your Trading Journal',
+      lessons: 8,
+      duration: '1h 30m',
+      isOpen: false,
+      lessonsList: [
+        { title: 'Why Journaling Matters', duration: '9:20', type: 'video' },
+        { title: 'What to Track', duration: '11:45', type: 'video' },
+        { title: 'Analyzing Your Trades', duration: '13:30', type: 'video' },
+        { title: 'Journal Template', duration: 'Excel', type: 'resource' },
+      ],
+    },
+    {
+      title: 'Final Project & Certification',
+      lessons: 5,
+      duration: '1h 15m',
+      isOpen: false,
+      lessonsList: [
+        { title: 'Course Summary', duration: '12:30', type: 'video' },
+        { title: 'Final Assessment', duration: '45 questions', type: 'quiz' },
+        {
+          title: 'Next Steps in Your Journey',
+          duration: '10:20',
+          type: 'video',
+        },
+        {
+          title: 'Certificate of Completion',
+          duration: 'PDF',
+          type: 'resource',
+        },
+      ],
+    },
+  ];
+
+  // pricingFeatures = [
+  //   '200+ HD Video Lessons',
+  //   '45+ Downloadable PDF Resources',
+  //   'Lifetime Course Access',
+  //   '24/7 Community Support',
+  //   'Live Trading Examples',
+  //   'Risk Management Tools',
+  //   'Trading Plan Templates',
+  //   'Skill Assessment Tests',
+  //   'Certificate of Completion',
+  //   'Monthly Live Q&A Sessions',
+  //   'Exclusive Trading Indicators',
+  //   'Free Lifetime Updates',
+  // ];
+
   faqs = [
     {
       question: 'Is this course suitable for complete beginners?',

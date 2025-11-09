@@ -14,6 +14,8 @@ import {
   Activity,
 } from '../../components/activity-list/activity-list.component';
 import { AuthService } from '../../../../core/services/auth.service';
+import { CourseService } from '../../../../core/services/course.service';
+import { Course as CourseModel } from '../../../../core/models/course.model';
 
 @Component({
   selector: 'app-overview',
@@ -34,36 +36,13 @@ export class OverviewComponent implements OnInit {
   };
 
   stats: StatData = {
-    coursesEnrolled: 3,
-    coursesCompleted: 1,
-    hoursLearned: 24,
-    certificatesEarned: 1,
+    coursesEnrolled: 0,
+    coursesCompleted: 0,
+    hoursLearned: 0,
+    certificatesEarned: 0,
   };
 
-  recentCourses: Course[] = [
-    {
-      id: '1',
-      title: 'Forex Trading Fundamentals',
-      instructor: 'BraveFx Academy',
-      progress: 90,
-      thumbnail: 'https://picsum.photos/seed/forex1/400/225',
-      lastAccessed: '2 hours ago',
-      nextLesson: 'Understanding Market Trends',
-      totalLessons: 20,
-      completedLessons: 18,
-    },
-    {
-      id: '2',
-      title: 'Technical Analysis Mastery',
-      instructor: 'BraveFx Academy',
-      progress: 45,
-      thumbnail: 'https://picsum.photos/seed/forex2/400/225',
-      lastAccessed: '1 day ago',
-      nextLesson: 'Chart Patterns',
-      totalLessons: 25,
-      completedLessons: 11,
-    },
-  ];
+  recentCourses: Course[] = [];
 
   recentActivity: Activity[] = [
     {
@@ -86,7 +65,11 @@ export class OverviewComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private courseService: CourseService
+  ) {}
 
   ngOnInit(): void {
     // Subscribe to current user
@@ -97,6 +80,36 @@ export class OverviewComponent implements OnInit {
           email: currentUser.email,
         };
       }
+    });
+
+    // Load courses from database
+    this.loadCourses();
+  }
+
+  loadCourses(): void {
+    this.courseService.getAllCourses().subscribe({
+      next: (courses: CourseModel[]) => {
+        // Show first 2 courses in overview
+        this.recentCourses = courses.slice(0, 2).map((course) => ({
+          id: course.id,
+          title: course.title,
+          instructor: course.instructor,
+          progress: 0, // TODO: Calculate from lesson_progress
+          thumbnail:
+            course.thumbnail || 'https://picsum.photos/seed/forex/400/225',
+          lastAccessed: 'Recently',
+          nextLesson: 'Start Learning',
+          totalLessons: course.totalLessons,
+          completedLessons: 0,
+        }));
+
+        // Update stats
+        this.stats.coursesEnrolled = courses.length;
+        // TODO: Calculate other stats from database
+      },
+      error: (error) => {
+        console.error('Error loading courses:', error);
+      },
     });
   }
 

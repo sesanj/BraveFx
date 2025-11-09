@@ -23,6 +23,8 @@ export interface Module {
   lessons: Lesson[];
   hasQuiz?: boolean;
   quiz?: any; // Will be populated with ModuleQuiz when needed
+  duration?: string; // e.g., "2h 45m" - optional as it's calculated
+  isOpen?: boolean; // For accordion UI state
 }
 
 export interface Lesson {
@@ -30,7 +32,7 @@ export interface Lesson {
   title: string;
   description: string;
   videoUrl: string;
-  duration: number; // in seconds
+  duration: string | number; // string for formatted (e.g., "5:30"), number for seconds
   order: number;
   resources: Resource[];
   isPreview: boolean;

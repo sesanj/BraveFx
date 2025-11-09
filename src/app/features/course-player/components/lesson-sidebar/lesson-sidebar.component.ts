@@ -140,17 +140,33 @@ export class LessonSidebarComponent implements OnChanges, AfterViewChecked {
     this.sidebarClosed.emit();
   }
 
-  formatDuration(seconds: number): string {
-    const minutes = Math.floor(seconds / 60);
-    const secs = seconds % 60;
+  formatDuration(duration: number | string): string {
+    // If already formatted as string, return it
+    if (typeof duration === 'string') {
+      return duration;
+    }
+
+    // Otherwise format from seconds
+    const minutes = Math.floor(duration / 60);
+    const secs = duration % 60;
     return `${minutes}:${secs.toString().padStart(2, '0')}`;
   }
 
   getModuleDuration(module: Module): string {
-    const totalSeconds = module.lessons.reduce(
-      (sum, lesson) => sum + lesson.duration,
-      0
-    );
+    // If module has pre-calculated duration, use it
+    if (module.duration) {
+      return module.duration;
+    }
+
+    // Otherwise calculate from lessons
+    const totalSeconds = module.lessons.reduce((sum, lesson) => {
+      // Handle both string and number durations
+      if (typeof lesson.duration === 'number') {
+        return sum + lesson.duration;
+      }
+      return sum; // Skip string durations in calculation
+    }, 0);
+
     const minutes = Math.floor(totalSeconds / 60);
     return `${minutes} min`;
   }

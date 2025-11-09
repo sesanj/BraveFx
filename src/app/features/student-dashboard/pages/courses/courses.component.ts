@@ -5,6 +5,8 @@ import {
   CourseCardComponent,
   Course,
 } from '../../components/course-card/course-card.component';
+import { CourseService } from '../../../../core/services/course.service';
+import { Course as CourseModel } from '../../../../core/models/course.model';
 
 @Component({
   selector: 'app-courses',
@@ -13,44 +15,41 @@ import {
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css'],
 })
-export class CoursesComponent {
-  enrolledCourses: Course[] = [
-    {
-      id: '1',
-      title: 'Complete Forex Trading Masterclass',
-      instructor: 'BraveFx Academy',
-      progress: 45,
-      thumbnail: 'https://picsum.photos/seed/forex1/400/225',
-      lastAccessed: '2 hours ago',
-      nextLesson: 'Understanding Market Trends',
-      totalLessons: 120,
-      completedLessons: 54,
-    },
-    {
-      id: '2',
-      title: 'Advanced Technical Analysis',
-      instructor: 'BraveFx Academy',
-      progress: 20,
-      thumbnail: 'https://picsum.photos/seed/forex2/400/225',
-      lastAccessed: '1 day ago',
-      nextLesson: 'Fibonacci Retracements',
-      totalLessons: 80,
-      completedLessons: 16,
-    },
-    {
-      id: '3',
-      title: 'Risk Management Strategies',
-      instructor: 'BraveFx Academy',
-      progress: 100,
-      thumbnail: 'https://picsum.photos/seed/forex3/400/225',
-      lastAccessed: '3 days ago',
-      nextLesson: 'Course Completed',
-      totalLessons: 50,
-      completedLessons: 50,
-    },
-  ];
+export class CoursesComponent implements OnInit {
+  enrolledCourses: Course[] = [];
+  isLoading: boolean = true;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private courseService: CourseService) {}
+
+  ngOnInit(): void {
+    this.loadCourses();
+  }
+
+  loadCourses(): void {
+    this.isLoading = true;
+    this.courseService.getAllCourses().subscribe({
+      next: (courses: CourseModel[]) => {
+        // Transform database courses to dashboard course format
+        this.enrolledCourses = courses.map((course) => ({
+          id: course.id,
+          title: course.title,
+          instructor: course.instructor,
+          progress: 0, // TODO: Calculate from lesson_progress table
+          thumbnail:
+            course.thumbnail || 'https://picsum.photos/seed/forex/400/225',
+          lastAccessed: 'Recently', // TODO: Get from course_progress table
+          nextLesson: 'Start Learning', // TODO: Get from course_progress table
+          totalLessons: course.totalLessons,
+          completedLessons: 0, // TODO: Calculate from lesson_progress table
+        }));
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Error loading courses:', error);
+        this.isLoading = false;
+      },
+    });
+  }
 
   continueCourse(courseId: string): void {
     this.router.navigate(['/course', courseId]);

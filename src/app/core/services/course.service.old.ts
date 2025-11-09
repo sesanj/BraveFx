@@ -1,0 +1,660 @@
+import { Injectable } from '@angular/core';
+import { Observable, of, from, map } from 'rxjs';
+import { Course, Lesson, Module } from '../models/course.model';
+import { SupabaseService } from './supabase.service';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class CourseService {
+  constructor(private supabase: SupabaseService) {}
+
+    // Helper function to convert seconds to readable format (e.g., "5:30", "1h 20m")
+  private formatDuration(seconds: number): string {
+    if (!seconds || seconds === 0) return 'TBD';
+
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const secs = seconds % 60;
+
+    if (hours > 0) {
+      // For durations over an hour, show "1h 20m" format
+      return minutes > 0 ? `${hours}h ${minutes}m` : `${hours}h`;
+    } else if (minutes > 0) {
+      // For durations under an hour, show "5:30" format
+      return secs > 0
+        ? `${minutes}:${secs.toString().padStart(2, '0')}`
+        : `${minutes}:00`;
+    } else {
+      // For durations under a minute, show "0:45" format
+      return `0:${secs.toString().padStart(2, '0')}`;
+    }
+  }
+
+  getCourse(id: string): Observable<Course> {
+
+  // Dummy course data (fallback)
+  private dummyCourse: Course = {
+    id: '1',
+    title: 'Complete Forex Trading Mastery',
+    description:
+      'Master forex trading from beginner to advanced with 25+ hours of comprehensive video lessons, 50+ downloadable resources, and skill tests.',
+    instructor: 'BraveFx',
+    price: 149,
+    currency: 'USD',
+    thumbnail:
+      'https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800',
+    duration: 90000, // 25 hours in seconds
+    totalLessons: 120,
+    rating: 4.6,
+    studentsEnrolled: 6247,
+    modules: [
+      {
+        id: 'm1',
+        title: 'Introduction to Forex Trading',
+        description: 'Understanding the basics of forex market',
+        order: 1,
+        hasQuiz: true,
+        lessons: [
+          {
+            id: 'l1',
+            title: 'What is Forex Trading?',
+            description: 'Introduction to the foreign exchange market',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1200,
+            order: 1,
+            resources: [
+              {
+                id: 'r1',
+                title: 'Forex Basics PDF',
+                url: '/assets/dummy.pdf',
+                type: 'pdf',
+              },
+            ],
+            isPreview: true,
+          },
+          {
+            id: 'l2',
+            title: 'Understanding Currency Pairs',
+            description: 'Major, minor, and exotic pairs explained',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1800,
+            order: 2,
+            resources: [
+              {
+                id: 'r2',
+                title: 'Currency Pairs Cheat Sheet',
+                url: '/assets/dummy.pdf',
+                type: 'pdf',
+              },
+            ],
+            isPreview: false,
+          },
+          {
+            id: 'l3',
+            title: 'How the Forex Market Works',
+            description: 'Market structure and participants',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1500,
+            order: 3,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l4',
+            title: 'Trading Sessions and Market Hours',
+            description: 'London, New York, Tokyo, and Sydney sessions',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1320,
+            order: 4,
+            resources: [],
+            isPreview: false,
+          },
+        ],
+      },
+      {
+        id: 'm2',
+        title: 'Technical Analysis Fundamentals',
+        description: 'Learn to read charts and identify patterns',
+        order: 2,
+        lessons: [
+          {
+            id: 'l5',
+            title: 'Understanding Chart Types',
+            description: 'Line, bar, and candlestick charts',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1680,
+            order: 1,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l6',
+            title: 'Candlestick Patterns - Part 1',
+            description: 'Reading and interpreting candlestick patterns',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 2400,
+            order: 2,
+            resources: [
+              {
+                id: 'r3',
+                title: 'Candlestick Patterns Guide',
+                url: '/assets/dummy.pdf',
+                type: 'pdf',
+              },
+            ],
+            isPreview: false,
+          },
+          {
+            id: 'l7',
+            title: 'Candlestick Patterns - Part 2',
+            description: 'Advanced reversal and continuation patterns',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 2100,
+            order: 3,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l8',
+            title: 'Support and Resistance Levels',
+            description: 'Identifying key price levels',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1920,
+            order: 4,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l9',
+            title: 'Trend Lines and Channels',
+            description: 'Drawing and using trend lines',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1800,
+            order: 5,
+            resources: [],
+            isPreview: false,
+          },
+        ],
+      },
+      {
+        id: 'm3',
+        title: 'Technical Indicators',
+        description: 'Master the most powerful trading indicators',
+        order: 3,
+        lessons: [
+          {
+            id: 'l10',
+            title: 'Moving Averages',
+            description: 'Simple and exponential moving averages',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1740,
+            order: 1,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l11',
+            title: 'RSI - Relative Strength Index',
+            description: 'Understanding overbought and oversold conditions',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1620,
+            order: 2,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l12',
+            title: 'MACD Indicator',
+            description: 'Moving average convergence divergence',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1980,
+            order: 3,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l13',
+            title: 'Bollinger Bands',
+            description: 'Volatility and price channels',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1560,
+            order: 4,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l14',
+            title: 'Fibonacci Retracement',
+            description: 'Using Fibonacci levels in trading',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 2220,
+            order: 5,
+            resources: [
+              {
+                id: 'r4',
+                title: 'Fibonacci Calculator',
+                url: '/assets/dummy.xlsx',
+                type: 'excel',
+              },
+            ],
+            isPreview: false,
+          },
+        ],
+      },
+      {
+        id: 'm4',
+        title: 'Chart Patterns',
+        description: 'Recognize profitable chart patterns',
+        order: 4,
+        lessons: [
+          {
+            id: 'l15',
+            title: 'Head and Shoulders Pattern',
+            description: 'Reversal pattern identification',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1800,
+            order: 1,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l16',
+            title: 'Double Top and Double Bottom',
+            description: 'Classic reversal patterns',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1680,
+            order: 2,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l17',
+            title: 'Triangles and Wedges',
+            description: 'Continuation patterns',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1920,
+            order: 3,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l18',
+            title: 'Flags and Pennants',
+            description: 'Short-term continuation patterns',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1440,
+            order: 4,
+            resources: [],
+            isPreview: false,
+          },
+        ],
+      },
+      {
+        id: 'm5',
+        title: 'Risk Management Strategies',
+        description: 'Protect your capital and manage risk effectively',
+        order: 5,
+        lessons: [
+          {
+            id: 'l19',
+            title: 'Position Sizing Fundamentals',
+            description: 'Calculate proper position sizes',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1500,
+            order: 1,
+            resources: [
+              {
+                id: 'r5',
+                title: 'Position Size Calculator',
+                url: '/assets/dummy.xlsx',
+                type: 'excel',
+              },
+            ],
+            isPreview: false,
+          },
+          {
+            id: 'l20',
+            title: 'Stop Loss Strategies',
+            description: 'Setting effective stop losses',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1800,
+            order: 2,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l21',
+            title: 'Take Profit Strategies',
+            description: 'Optimal profit-taking techniques',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1620,
+            order: 3,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l22',
+            title: 'Risk-Reward Ratios',
+            description: 'Understanding and applying risk-reward',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1740,
+            order: 4,
+            resources: [],
+            isPreview: false,
+          },
+        ],
+      },
+      {
+        id: 'm6',
+        title: 'Trading Psychology',
+        description: 'Master the mental game of trading',
+        order: 6,
+        lessons: [
+          {
+            id: 'l23',
+            title: 'Emotional Control',
+            description: 'Managing fear and greed',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1560,
+            order: 1,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l24',
+            title: 'Trading Discipline',
+            description: 'Following your trading plan',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1680,
+            order: 2,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l25',
+            title: 'Dealing with Losses',
+            description: 'Handling drawdowns and losing streaks',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1920,
+            order: 3,
+            resources: [],
+            isPreview: false,
+          },
+        ],
+      },
+      {
+        id: 'm7',
+        title: 'Advanced Trading Strategies',
+        description: 'Professional trading techniques',
+        order: 7,
+        lessons: [
+          {
+            id: 'l26',
+            title: 'Scalping Strategy',
+            description: 'Quick profit-taking techniques',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 2100,
+            order: 1,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l27',
+            title: 'Day Trading Strategy',
+            description: 'Intraday trading approaches',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 2400,
+            order: 2,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l28',
+            title: 'Swing Trading Strategy',
+            description: 'Multi-day position trading',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 2280,
+            order: 3,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l29',
+            title: 'Position Trading Strategy',
+            description: 'Long-term trend following',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 2160,
+            order: 4,
+            resources: [],
+            isPreview: false,
+          },
+        ],
+      },
+      {
+        id: 'm8',
+        title: 'Fundamental Analysis',
+        description: 'Understanding economic indicators',
+        order: 8,
+        lessons: [
+          {
+            id: 'l30',
+            title: 'Economic Calendar',
+            description: 'Key economic events and their impact',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1800,
+            order: 1,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l31',
+            title: 'Interest Rates and Central Banks',
+            description: 'How monetary policy affects forex',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 2040,
+            order: 2,
+            resources: [],
+            isPreview: false,
+          },
+          {
+            id: 'l32',
+            title: 'GDP and Inflation',
+            description: 'Major economic indicators',
+            videoUrl: 'https://player.vimeo.com/video/1134981738',
+            duration: 1920,
+            order: 3,
+            resources: [],
+            isPreview: false,
+          },
+        ],
+      },
+    ],
+    createdAt: new Date('2024-01-01'),
+    updatedAt: new Date('2024-10-01'),
+  };
+
+  getCourse(id: string): Observable<Course> {
+    return from(this.fetchCourseFromSupabase(id));
+  }
+
+  private async fetchCourseFromSupabase(courseId: string): Promise<Course> {
+    try {
+      // Fetch course details
+      const { data: course, error: courseError } = await this.supabase.client
+        .from('courses')
+        .select('*')
+        .eq('id', courseId)
+        .single();
+
+      if (courseError) throw courseError;
+
+      // Fetch modules with lessons and resources
+      const { data: modules, error: modulesError } = await this.supabase.client
+        .from('modules')
+        .select(
+          `
+          *,
+          lessons:lessons (
+            *,
+            resources:resources (*)
+          )
+        `
+        )
+        .eq('course_id', courseId)
+        .order('order_index', { ascending: true });
+
+      if (modulesError) throw modulesError;
+
+      // Transform the data to match your Course model
+      const transformedCourse: Course = {
+        id: course.id,
+        title: course.title,
+        description: course.description,
+        instructor: course.instructor,
+        price: course.price,
+        currency: course.currency || 'USD',
+        thumbnail: course.thumbnail,
+        duration: course.duration,
+        totalLessons: course.total_lessons,
+        rating: course.rating,
+        studentsEnrolled: course.students_enrolled,
+        createdAt: new Date(course.created_at),
+        updatedAt: new Date(course.updated_at),
+        modules: modules.map((module: any) => {
+          const lessons = (module.lessons || [])
+            .sort((a: any, b: any) => a.order_index - b.order_index)
+            .map((lesson: any) => ({
+              id: lesson.id,
+              title: lesson.title,
+              description: lesson.description,
+              // Convert Vimeo ID to full URL format
+              videoUrl: lesson.video_url.includes('http')
+                ? lesson.video_url
+                : `https://vimeo.com/${lesson.video_url}`,
+              duration: this.formatDuration(lesson.duration),
+              order: lesson.order_index,
+              isPreview: lesson.is_preview,
+              resources: (lesson.resources || []).map((resource: any) => ({
+                id: resource.id,
+                title: resource.title,
+                url: resource.url,
+                type: resource.type,
+              })),
+            }));
+
+          // Calculate total module duration from all lessons
+          const totalSeconds = (module.lessons || []).reduce(
+            (sum: number, lesson: any) => sum + (lesson.duration || 0),
+            0
+          );
+
+          return {
+            id: module.id,
+            title: module.title,
+            description: module.description,
+            order: module.order_index,
+            hasQuiz: module.has_quiz,
+            duration: this.formatDuration(totalSeconds),
+            lessons: lessons,
+          };
+        }),
+      };
+
+      return transformedCourse;
+    } catch (error) {
+      console.error('Error fetching course from Supabase:', error);
+      // Fallback to dummy data if Supabase fails
+      return this.dummyCourse;
+    }
+  }
+
+  getAllCourses(): Observable<Course[]> {
+    return from(this.fetchAllCoursesFromSupabase());
+  }
+
+  private async fetchAllCoursesFromSupabase(): Promise<Course[]> {
+    try {
+      const { data: courses, error } = await this.supabase.client
+        .from('courses')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      // For listing, we don't need full module/lesson details
+      return courses.map((course: any) => ({
+        id: course.id,
+        title: course.title,
+        description: course.description,
+        instructor: course.instructor,
+        price: course.price,
+        currency: course.currency || 'USD',
+        thumbnail: course.thumbnail,
+        duration: course.duration,
+        totalLessons: course.total_lessons,
+        rating: course.rating,
+        studentsEnrolled: course.students_enrolled,
+        createdAt: new Date(course.created_at),
+        updatedAt: new Date(course.updated_at),
+        modules: [], // Will be loaded when viewing course details
+      }));
+    } catch (error) {
+      console.error('Error fetching courses from Supabase:', error);
+      // Fallback to dummy data
+      return [this.dummyCourse];
+    }
+  }
+
+  getLesson(
+    courseId: string,
+    lessonId: string
+  ): Observable<Lesson | undefined> {
+    return from(this.fetchLessonFromSupabase(lessonId));
+  }
+
+  private async fetchLessonFromSupabase(
+    lessonId: string
+  ): Promise<Lesson | undefined> {
+    try {
+      const { data: lesson, error } = await this.supabase.client
+        .from('lessons')
+        .select(
+          `
+          *,
+          resources:resources (*)
+        `
+        )
+        .eq('id', lessonId)
+        .single();
+
+      if (error) throw error;
+      if (!lesson) return undefined;
+
+      return {
+        id: lesson.id,
+        title: lesson.title,
+        description: lesson.description,
+        videoUrl: lesson.video_url.includes('http')
+          ? lesson.video_url
+          : `https://vimeo.com/${lesson.video_url}`,
+        duration: this.formatDuration(lesson.duration),
+        order: lesson.order_index,
+        isPreview: lesson.is_preview,
+        resources: (lesson.resources || []).map((resource: any) => ({
+          id: resource.id,
+          title: resource.title,
+          url: resource.url,
+          type: resource.type,
+        })),
+      };
+    } catch (error) {
+      console.error('Error fetching lesson from Supabase:', error);
+      // Fallback to dummy data
+      const lesson = this.dummyCourse.modules
+        .flatMap((m) => m.lessons)
+        .find((l) => l.id === lessonId);
+      return lesson;
+    }
+  }
+}

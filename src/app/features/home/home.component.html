@@ -201,35 +201,35 @@
       </div>
 
       <div class="contents-accordion">
-        <div class="accordion-item" *ngFor="let section of courseSections.slice(0, 8); let i = index"
-          [class.active]="section.isOpen">
+        <div class="accordion-item" *ngFor="let module of course?.modules?.slice(0, 8); let i = index"
+          [class.active]="module.isOpen">
           <button class="accordion-header" (click)="toggleSection(i)">
             <div class="accordion-title-wrapper">
-              <lucide-icon [img]="section.isOpen ? ChevronDown : ChevronRight" class="accordion-icon"></lucide-icon>
+              <lucide-icon [img]="module.isOpen ? ChevronDown : ChevronRight" class="accordion-icon"></lucide-icon>
               <div>
-                <h3 class="accordion-title">{{ section.title }}</h3>
-                <p class="accordion-meta">{{ section.lessons }} lessons • {{ section.duration }}</p>
+                <h3 class="accordion-title">{{ module.title }}</h3>
+                <p class="accordion-meta">{{ module.lessons.length || 0 }} lessons • {{ module.duration || 'TBD' }}</p>
               </div>
             </div>
             <div class="accordion-badge">{{ i + 1 }}</div>
           </button>
 
-          <div class="accordion-content" *ngIf="section.isOpen">
-            <div class="lesson-item" *ngFor="let lesson of section.lessonsList">
+          <div class="accordion-content" *ngIf="module.isOpen">
+            <div class="lesson-item" *ngFor="let lesson of module.lessons">
               <div class="lesson-info">
-                <lucide-icon [img]="lesson.type === 'video' ? PlayCircle : FileText" class="lesson-icon"></lucide-icon>
+                <lucide-icon [img]="lesson.videoUrl ? PlayCircle : FileText" class="lesson-icon"></lucide-icon>
                 <span class="lesson-title">{{ lesson.title }}</span>
               </div>
-              <span class="lesson-duration">{{ lesson.duration }}</span>
+              <span class="lesson-duration">{{ lesson.duration || 'TBD' }}</span>
             </div>
           </div>
         </div>
 
         <!-- See All Sections Button -->
-        <div class="see-all-sections" *ngIf="courseSections.length > 8">
+        <div class="see-all-sections" *ngIf="(course?.modules?.length ?? 0) > 8">
           <button class="btn-see-all" (click)="openAllSectionsModal()">
             <lucide-icon [img]="BookOpen" class="btn-icon"></lucide-icon>
-            <span>See All {{ courseSections.length }} Sections</span>
+            <span>See All {{ course?.modules?.length }} Sections</span>
             <lucide-icon [img]="ChevronRight" class="btn-icon"></lucide-icon>
           </button>
         </div>
@@ -244,7 +244,8 @@
     <div class="modal-header-sections">
       <div>
         <h3 class="modal-title-sections">Complete Course Curriculum</h3>
-        <p class="modal-subtitle-sections">{{ courseSections.length }} sections • 200+ lessons</p>
+        <p class="modal-subtitle-sections">{{ course?.modules?.length || 0 }} modules • {{ course?.totalLessons || 0 }}
+          lessons</p>
       </div>
       <button class="modal-close" (click)="closeAllSectionsModal()" aria-label="Close">
         ✕
@@ -252,26 +253,26 @@
     </div>
     <div class="modal-content-sections">
       <div class="contents-accordion">
-        <div class="accordion-item" *ngFor="let section of courseSections; let i = index"
-          [class.active]="section.isOpen">
+        <div class="accordion-item" *ngFor="let module of course?.modules; let i = index"
+          [class.active]="module.isOpen">
           <button class="accordion-header" (click)="toggleSection(i)">
             <div class="accordion-title-wrapper">
-              <lucide-icon [img]="section.isOpen ? ChevronDown : ChevronRight" class="accordion-icon"></lucide-icon>
+              <lucide-icon [img]="module.isOpen ? ChevronDown : ChevronRight" class="accordion-icon"></lucide-icon>
               <div>
-                <h3 class="accordion-title">{{ section.title }}</h3>
-                <p class="accordion-meta">{{ section.lessons }} lessons • {{ section.duration }}</p>
+                <h3 class="accordion-title">{{ module.title }}</h3>
+                <p class="accordion-meta">{{ module.lessons.length || 0 }} lessons • {{ module.duration || 'TBD' }}</p>
               </div>
             </div>
             <div class="accordion-badge">{{ i + 1 }}</div>
           </button>
 
-          <div class="accordion-content" *ngIf="section.isOpen">
-            <div class="lesson-item" *ngFor="let lesson of section.lessonsList">
+          <div class="accordion-content" *ngIf="module.isOpen">
+            <div class="lesson-item" *ngFor="let lesson of module.lessons">
               <div class="lesson-info">
-                <lucide-icon [img]="lesson.type === 'video' ? PlayCircle : FileText" class="lesson-icon"></lucide-icon>
+                <lucide-icon [img]="lesson.videoUrl ? PlayCircle : FileText" class="lesson-icon"></lucide-icon>
                 <span class="lesson-title">{{ lesson.title }}</span>
               </div>
-              <span class="lesson-duration">{{ lesson.duration }}</span>
+              <span class="lesson-duration">{{ lesson.duration || 'TBD' }}</span>
             </div>
           </div>
         </div>
