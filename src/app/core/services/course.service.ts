@@ -83,10 +83,13 @@ export class CourseService {
             id: lesson.id,
             title: lesson.title,
             description: lesson.description,
-            // Convert Vimeo ID to full URL format
-            videoUrl: lesson.video_url.includes('http')
-              ? lesson.video_url
-              : `https://vimeo.com/${lesson.video_url}`,
+            // Keep "Text Lesson" as-is, or convert Vimeo ID to full URL format
+            videoUrl:
+              lesson.video_url === 'Text Lesson'
+                ? 'Text Lesson'
+                : lesson.video_url.includes('http')
+                ? lesson.video_url
+                : `https://vimeo.com/${lesson.video_url}`,
             duration: this.formatDuration(lesson.duration),
             order: lesson.order_index,
             isPreview: lesson.is_preview,
@@ -178,9 +181,12 @@ export class CourseService {
       id: lesson.id,
       title: lesson.title,
       description: lesson.description,
-      videoUrl: lesson.video_url.includes('http')
-        ? lesson.video_url
-        : `https://vimeo.com/${lesson.video_url}`,
+      videoUrl:
+        lesson.video_url === 'Text Lesson'
+          ? 'Text Lesson'
+          : lesson.video_url.includes('http')
+          ? lesson.video_url
+          : `https://vimeo.com/${lesson.video_url}`,
       duration: this.formatDuration(lesson.duration),
       order: lesson.order_index,
       isPreview: lesson.is_preview,

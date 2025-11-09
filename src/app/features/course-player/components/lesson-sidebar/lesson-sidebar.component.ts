@@ -17,6 +17,7 @@ import {
   Clock,
   X,
   ClipboardList,
+  FileText,
   LucideAngularModule,
 } from 'lucide-angular';
 
@@ -56,6 +57,7 @@ export class LessonSidebarComponent implements OnChanges, AfterViewChecked {
   Clock = Clock;
   X = X;
   ClipboardList = ClipboardList;
+  FileText = FileText;
 
   constructor(private elementRef: ElementRef) {}
 
@@ -177,6 +179,17 @@ export class LessonSidebarComponent implements OnChanges, AfterViewChecked {
     ).length;
     const totalCount = module.lessons.length;
     return `${completedCount}/${totalCount}`;
+  }
+
+  isTextLesson(lesson: Lesson): boolean {
+    return lesson.videoUrl === 'Text Lesson';
+  }
+
+  getLessonIcon(lesson: Lesson) {
+    if (this.isLessonCompleted(lesson.id)) {
+      return this.Check;
+    }
+    return this.isTextLesson(lesson) ? this.FileText : this.Play;
   }
 
   onMarkComplete(event: Event, lessonId: string): void {

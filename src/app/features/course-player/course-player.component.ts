@@ -17,6 +17,9 @@ import {
   Clock,
   BookOpen,
   Calendar,
+  ChevronLeft,
+  ChevronRight,
+  CheckCircle,
   LucideAngularModule,
 } from 'lucide-angular';
 import { Course, Lesson, Module } from '../../core/models/course.model';
@@ -62,6 +65,9 @@ export class CoursePlayerComponent implements OnInit {
   Clock = Clock;
   BookOpen = BookOpen;
   Calendar = Calendar;
+  ChevronLeft = ChevronLeft;
+  ChevronRight = ChevronRight;
+  CheckCircle = CheckCircle;
 
   course: Course | null = null;
   currentLesson: Lesson | null = null;
@@ -84,6 +90,11 @@ export class CoursePlayerComponent implements OnInit {
   // Autoplay and loading state
   isLoadingVideo: boolean = false;
   shouldAutoplay: boolean = false;
+
+  // Text lesson detection
+  get isTextLesson(): boolean {
+    return this.currentLesson?.videoUrl === 'Text Lesson';
+  }
 
   // Quiz state
   showQuiz: boolean = false;
@@ -661,13 +672,13 @@ export class CoursePlayerComponent implements OnInit {
     this.reviewText = '';
   }
 
-  formatCourseDuration(durationInMinutes: number): string {
-    if (durationInMinutes < 60) {
-      return `${durationInMinutes} mins`;
+  formatCourseDuration(durationInSeconds: number): string {
+    if (durationInSeconds < 60) {
+      return `${durationInSeconds} mins`;
     }
 
-    const hours = Math.floor(durationInMinutes / 60);
-    const minutes = durationInMinutes % 60;
+    const hours = Math.floor(durationInSeconds / 60 / 60);
+    const minutes = durationInSeconds % 60;
 
     if (minutes === 0) {
       return `${hours}h`;

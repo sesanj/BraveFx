@@ -31,7 +31,7 @@
           [class.active]="currentLessonId === lesson.id" [class.completed]="isLessonCompleted(lesson.id)"
           (click)="onSelectLesson(lesson, module)">
           <div class="lesson-icon-wrapper">
-            <lucide-icon [img]="isLessonCompleted(lesson.id) ? Check : Play" [size]="14">
+            <lucide-icon [img]="getLessonIcon(lesson)" [size]="14">
             </lucide-icon>
           </div>
           <div class="lesson-details">

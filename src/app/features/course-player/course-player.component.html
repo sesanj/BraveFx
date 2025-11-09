@@ -39,8 +39,40 @@
   <div class="player-container">
     <!-- Video Player Section (LEFT) -->
     <main class="main-content">
-      <!-- Video Player Component -->
-      <app-video-player *ngIf="!showQuiz" [videoUrl]="videoUrl" [lessonProgress]="lessonProgress"
+      <!-- Text Lesson Content -->
+      <div *ngIf="!showQuiz && isTextLesson && currentLesson" class="text-lesson-container">
+        <!-- Fixed Header -->
+        <div class="text-lesson-header-fixed">
+          <div class="text-lesson-header-content">
+            <div class="lesson-type-badge">
+              <lucide-icon [img]="FileText" [size]="16"></lucide-icon>
+              <span>Article</span>
+            </div>
+            <h1 class="text-lesson-title">{{ currentLesson.title }}</h1>
+          </div>
+        </div>
+
+        <!-- Scrollable Body -->
+        <div class="text-lesson-scrollable">
+          <div class="text-lesson-body-content">
+            <p class="text-lesson-description">{{ currentLesson.description }}</p>
+          </div>
+        </div>
+
+        <!-- Fixed Navigation Buttons -->
+        <div class="text-lesson-nav-center">
+          <button class="text-nav-btn text-nav-previous" [disabled]="!canGoPrevious()" (click)="goToPreviousLesson()"
+            [attr.aria-label]="'Previous lesson'">
+            <lucide-icon [img]="ChevronLeft" [size]="24"></lucide-icon>
+          </button>
+
+          <button class="text-nav-btn text-nav-next" [disabled]="!canGoNext()" (click)="goToNextLesson()"
+            [attr.aria-label]="'Next lesson'">
+            <lucide-icon [img]="ChevronRight" [size]="24"></lucide-icon>
+          </button>
+        </div>
+      </div> <!-- Video Player Component -->
+      <app-video-player *ngIf="!showQuiz && !isTextLesson" [videoUrl]="videoUrl" [lessonProgress]="lessonProgress"
         [canGoPrevious]="canGoPrevious()" [canGoNext]="canGoNext()" [isLoading]="isLoadingVideo"
         (previous)="goToPreviousLesson()" (next)="goToNextLesson()" (markComplete)="markAsComplete()">
       </app-video-player>
