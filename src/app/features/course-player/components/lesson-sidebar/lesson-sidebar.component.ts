@@ -62,10 +62,15 @@ export class LessonSidebarComponent implements OnChanges, AfterViewChecked {
   constructor(private elementRef: ElementRef) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Detect when currentLessonId changes
-    if (changes['currentLessonId'] && !changes['currentLessonId'].firstChange) {
+    // Detect when currentLessonId changes or is initially set
+    if (changes['currentLessonId']) {
       const newLessonId = changes['currentLessonId'].currentValue;
-      if (newLessonId !== this.previousLessonId) {
+
+      // Scroll on first change (initial load) or when lesson changes
+      if (
+        changes['currentLessonId'].firstChange ||
+        newLessonId !== this.previousLessonId
+      ) {
         this.previousLessonId = newLessonId;
         this.shouldScrollToLesson = true;
 

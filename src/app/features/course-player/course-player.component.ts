@@ -117,7 +117,6 @@ export class CoursePlayerComponent implements OnInit {
     const courseId = this.route.snapshot.paramMap.get('id');
     if (courseId) {
       this.loadCourse(courseId);
-      this.loadProgress(courseId);
     }
 
     // Close sidebar by default on mobile
@@ -134,6 +133,12 @@ export class CoursePlayerComponent implements OnInit {
   loadCourse(courseId: string): void {
     this.courseService.getCourse(courseId).subscribe((course) => {
       this.course = course;
+
+      // Load course progress percentage
+      this.loadProgress(courseId);
+
+      // Load all progress data for the course (preload into cache)
+      this.progressService.loadCourseProgress(courseId).subscribe();
 
       // Load completed lessons
       this.loadCompletedLessons(course);
@@ -197,24 +202,23 @@ export class CoursePlayerComponent implements OnInit {
   }
 
   loadProgress(courseId: string): void {
-    this.progressService.getCourseProgress(courseId).subscribe((progress) => {
-      this.courseProgress = progress;
-    });
+    if (!this.course) return;
+
+    const totalLessons = this.course.totalLessons;
+    this.progressService
+      .getCourseProgress(courseId, totalLessons)
+      .subscribe((progress) => {
+        this.courseProgress = progress;
+      });
   }
 
   loadCompletedLessons(course: Course): void {
-    // Load all completed lessons from progress data
-    const allLessonIds = course.modules.flatMap((module) =>
-      module.lessons.map((lesson) => lesson.id)
-    );
-
-    allLessonIds.forEach((lessonId) => {
-      this.progressService.getLessonProgress(lessonId).subscribe((progress) => {
-        if (progress && progress.completed) {
-          this.completedLessonIds.add(lessonId);
-        }
+    // Load all completed lessons from database
+    this.progressService
+      .getCompletedLessonIds(course.id)
+      .subscribe((completedIds) => {
+        this.completedLessonIds = completedIds;
       });
-    });
   }
 
   loadPassedQuizzes(course: Course): void {
@@ -253,7 +257,9 @@ export class CoursePlayerComponent implements OnInit {
 
     // Save this as the last watched lesson
     if (this.course) {
-      this.progressService.saveLastWatchedLesson(this.course.id, lesson.id);
+      this.progressService
+        .saveLastWatchedLesson(this.course.id, lesson.id)
+        .subscribe();
     }
 
     // Show loading state and delay video load by 1 second if autoplay
@@ -393,26 +399,31 @@ export class CoursePlayerComponent implements OnInit {
 
     this.progressService
       .saveProgress({
-        userId: '1', // Get from auth service
+        userId: '', // Will be filled from auth in service
         lessonId: this.currentLesson.id,
         lastPosition: 0,
         progressPercentage: 100,
         completed: true,
       })
-      .subscribe(() => {
-        this.lessonProgress = 100;
-        this.completedLessonIds.add(this.currentLesson!.id);
-        if (this.course) {
-          this.loadProgress(this.course.id);
-        }
+      .subscribe({
+        next: () => {
+          this.lessonProgress = 100;
+          this.completedLessonIds.add(this.currentLesson!.id);
+          if (this.course) {
+            this.loadProgress(this.course.id);
+          }
 
-        // Check if this is the last lesson in the module and module has quiz
-        if (this.isLastLessonInModule() && this.currentModule?.hasQuiz) {
-          this.loadModuleQuiz();
-        } else if (this.canGoNext()) {
-          // Automatically navigate to the next lesson
-          this.goToNextLesson();
-        }
+          // Check if this is the last lesson in the module and module has quiz
+          if (this.isLastLessonInModule() && this.currentModule?.hasQuiz) {
+            this.loadModuleQuiz();
+          } else if (this.canGoNext()) {
+            // Automatically navigate to the next lesson
+            this.goToNextLesson();
+          }
+        },
+        error: (error) => {
+          console.error('Error marking lesson as complete:', error);
+        },
       });
   }
 
@@ -437,7 +448,9 @@ export class CoursePlayerComponent implements OnInit {
 
     // Save active quiz state
     if (this.course) {
-      this.progressService.saveActiveQuiz(this.course.id, targetModuleId);
+      this.progressService
+        .saveActiveQuiz(this.course.id, targetModuleId)
+        .subscribe();
     }
 
     this.quizService.getModuleQuiz(targetModuleId).subscribe((quiz) => {
@@ -530,7 +543,7 @@ export class CoursePlayerComponent implements OnInit {
 
     // Clear active quiz state
     if (this.course) {
-      this.progressService.clearActiveQuiz(this.course.id);
+      this.progressService.clearActiveQuiz(this.course.id).subscribe();
     }
 
     // After completing quiz, go to the first lesson of the next module
@@ -556,7 +569,7 @@ export class CoursePlayerComponent implements OnInit {
 
     // Clear active quiz state
     if (this.course) {
-      this.progressService.clearActiveQuiz(this.course.id);
+      this.progressService.clearActiveQuiz(this.course.id).subscribe();
     }
 
     // Skip quiz and go to the first lesson of the next module

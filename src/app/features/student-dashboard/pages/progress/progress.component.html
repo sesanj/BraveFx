@@ -1,7 +1,13 @@
 <h1 class="page-title">Learning Progress</h1>
 <p class="page-subtitle">Track your achievements and performance</p>
 
+<!-- Loading State -->
+<div *ngIf="loading" style="text-align: center; padding: 40px 0;">
+    <p>Loading your progress...</p>
+</div>
+
 <!-- Progress Overview Cards -->
+<div *ngIf="!loading">
 <div class="progress-overview">
     <div class="progress-stat-card">
         <div class="progress-stat-icon">
@@ -101,3 +107,4 @@
         </div>
     </div>
 </div>
+</div>  <!-- Close *ngIf="!loading" -->
