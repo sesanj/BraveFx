@@ -16,8 +16,11 @@ import {
 import { AuthService } from '../../../../core/services/auth.service';
 import { CourseService } from '../../../../core/services/course.service';
 import { ProgressService } from '../../../../core/services/progress.service';
+import { QuizService } from '../../../../core/services/quiz.service';
+import { SupabaseService } from '../../../../core/services/supabase.service';
 import { Course as CourseModel } from '../../../../core/models/course.model';
-import { forkJoin } from 'rxjs';
+import { forkJoin, from } from 'rxjs';
+import { LucideAngularModule, X } from 'lucide-angular';
 
 @Component({
   selector: 'app-overview',
@@ -27,6 +30,7 @@ import { forkJoin } from 'rxjs';
     StatsGridComponent,
     CourseCardComponent,
     ActivityListComponent,
+    LucideAngularModule,
   ],
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css'],
@@ -45,33 +49,20 @@ export class OverviewComponent implements OnInit {
   };
 
   recentCourses: Course[] = [];
+  recentActivity: Activity[] = [];
+  allActivities: Activity[] = [];
+  showActivitiesModal = false;
 
-  recentActivity: Activity[] = [
-    {
-      type: 'lesson',
-      title: 'Completed: Understanding Candlestick Patterns',
-      course: 'Technical Analysis Mastery',
-      time: '2 hours ago',
-    },
-    {
-      type: 'quiz',
-      title: 'Passed Quiz: Forex Market Structure',
-      course: 'Forex Trading Fundamentals',
-      time: '1 day ago',
-    },
-    {
-      type: 'certificate',
-      title: 'Earned Certificate: Risk Management',
-      course: 'Risk Management Strategies',
-      time: '3 days ago',
-    },
-  ];
+  // Icons
+  X = X;
 
   constructor(
     private router: Router,
     private authService: AuthService,
     private courseService: CourseService,
-    private progressService: ProgressService
+    private progressService: ProgressService,
+    private quizService: QuizService,
+    private supabase: SupabaseService
   ) {}
 
   ngOnInit(): void {
@@ -87,6 +78,9 @@ export class OverviewComponent implements OnInit {
 
     // Load courses from database
     this.loadCourses();
+
+    // Load recent activities
+    this.loadRecentActivities();
   }
 
   loadCourses(): void {
@@ -189,5 +183,205 @@ export class OverviewComponent implements OnInit {
 
   continueCourse(courseId: string): void {
     this.router.navigate(['/course', courseId]);
+  }
+
+  loadRecentActivities(): void {
+    const userId = this.authService.getCurrentUser()?.id;
+    if (!userId) return;
+
+    // Fetch completed lessons with course/module context and quiz attempts
+    forkJoin({
+      lessons: from(
+        this.supabase.client
+          .from('lesson_progress')
+          .select(
+            `
+          *,
+          lessons!inner(
+            title,
+            module_id,
+            modules!inner(
+              title,
+              course_id,
+              courses!inner(title)
+            )
+          )
+        `
+          )
+          .eq('user_id', userId)
+          .eq('completed', true)
+          .order('last_updated', { ascending: false })
+          .limit(50) // Increased to catch more for module completion detection
+      ),
+      quizzes: this.quizService.getAllUserAttempts(),
+      modules: from(
+        this.supabase.client.from('modules').select(
+          `
+          id,
+          title,
+          course_id,
+          courses!inner(title),
+          lessons(id)
+        `
+        )
+      ),
+    }).subscribe({
+      next: ({ lessons, quizzes, modules }) => {
+        const activities: Activity[] = [];
+        const moduleCompletionMap = new Map<
+          string,
+          { completedAt: Date; moduleTitle: string; courseTitle: string }
+        >();
+
+        // Build module completion tracking
+        if (lessons.data && modules.data) {
+          const completedLessonsByModule = new Map<string, Set<string>>();
+          const moduleLessonCounts = new Map<string, number>();
+
+          // Count total lessons per module
+          modules.data.forEach((module: any) => {
+            moduleLessonCounts.set(module.id, module.lessons?.length || 0);
+          });
+
+          // Track completed lessons by module and find latest completion time
+          const lessonProgressByModule = new Map<
+            string,
+            { lessonId: string; completedAt: Date }[]
+          >();
+
+          lessons.data.forEach((progress: any) => {
+            const lesson = progress.lessons;
+            const module = lesson?.modules;
+            const moduleId = lesson?.module_id;
+
+            if (!moduleId) return;
+
+            if (!completedLessonsByModule.has(moduleId)) {
+              completedLessonsByModule.set(moduleId, new Set());
+              lessonProgressByModule.set(moduleId, []);
+            }
+
+            completedLessonsByModule.get(moduleId)!.add(progress.lesson_id);
+            lessonProgressByModule.get(moduleId)!.push({
+              lessonId: progress.lesson_id,
+              completedAt: new Date(progress.last_updated),
+            });
+
+            // Add individual lesson completion
+            activities.push({
+              type: 'lesson',
+              title: `Completed: ${lesson?.title || 'Lesson'}`,
+              course: module?.courses?.title || 'Course',
+              time: this.getRelativeTime(new Date(progress.last_updated)),
+              timestamp: new Date(progress.last_updated),
+            });
+          });
+
+          // Check for completed modules
+          completedLessonsByModule.forEach((completedLessons, moduleId) => {
+            const totalLessons = moduleLessonCounts.get(moduleId) || 0;
+            if (totalLessons > 0 && completedLessons.size === totalLessons) {
+              // Module is complete! Find the latest completion time
+              const moduleLessons = lessonProgressByModule.get(moduleId) || [];
+              const latestCompletion = moduleLessons.reduce(
+                (latest, current) =>
+                  current.completedAt > latest.completedAt ? current : latest,
+                moduleLessons[0]
+              );
+
+              const moduleData = modules.data.find(
+                (m: any) => m.id === moduleId
+              );
+              if (moduleData && latestCompletion) {
+                // Handle courses which might be an array due to the join
+                let courseTitle = 'Course';
+                if (moduleData.courses) {
+                  if (
+                    Array.isArray(moduleData.courses) &&
+                    moduleData.courses.length > 0
+                  ) {
+                    courseTitle = moduleData.courses[0].title;
+                  } else if (
+                    typeof moduleData.courses === 'object' &&
+                    'title' in moduleData.courses
+                  ) {
+                    courseTitle = (moduleData.courses as any).title;
+                  }
+                }
+
+                activities.push({
+                  type: 'section',
+                  title: `Completed Section: ${moduleData.title}`,
+                  course: courseTitle,
+                  time: this.getRelativeTime(latestCompletion.completedAt),
+                  timestamp: latestCompletion.completedAt,
+                });
+              }
+            }
+          });
+        }
+
+        // Add quiz attempts
+        quizzes.forEach((attempt) => {
+          activities.push({
+            type: 'quiz',
+            title: attempt.passed
+              ? `Passed: ${attempt.quizTitle}`
+              : `Attempted: ${attempt.quizTitle}`,
+            course: attempt.courseName || 'Course',
+            time: this.getRelativeTime(new Date(attempt.completedAt)),
+            timestamp: new Date(attempt.completedAt),
+          });
+        });
+
+        // Sort by timestamp (most recent first)
+        activities.sort(
+          (a, b) => b.timestamp.getTime() - a.timestamp.getTime()
+        );
+
+        // Store all activities
+        this.allActivities = activities;
+
+        // Show top 10 for recent activity
+        this.recentActivity = activities.slice(0, 10);
+      },
+      error: (error) => {
+        console.error('Error loading activities:', error);
+      },
+    });
+  }
+
+  private async addSectionCompletions(activities: Activity[]): Promise<void> {
+    // No longer needed - handled in loadRecentActivities
+  }
+
+  getRelativeTime(date: Date): string {
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+    const diffHours = Math.floor(diffMins / 60);
+    const diffDays = Math.floor(diffHours / 24);
+
+    if (diffMins < 1) return 'Just now';
+    if (diffMins < 60)
+      return `${diffMins} ${diffMins === 1 ? 'minute' : 'minutes'} ago`;
+    if (diffHours < 24)
+      return `${diffHours} ${diffHours === 1 ? 'hour' : 'hours'} ago`;
+    if (diffDays < 7)
+      return `${diffDays} ${diffDays === 1 ? 'day' : 'days'} ago`;
+    if (diffDays < 30) {
+      const weeks = Math.floor(diffDays / 7);
+      return `${weeks} ${weeks === 1 ? 'week' : 'weeks'} ago`;
+    }
+    const months = Math.floor(diffDays / 30);
+    return `${months} ${months === 1 ? 'month' : 'months'} ago`;
+  }
+
+  openActivitiesModal(): void {
+    this.showActivitiesModal = true;
+  }
+
+  closeActivitiesModal(): void {
+    this.showActivitiesModal = false;
   }
 }

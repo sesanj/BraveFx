@@ -1,7 +1,7 @@
 <div class="activity-list">
     <div class="activity-item" *ngFor="let activity of activities">
         <div class="activity-icon" [class.lesson]="activity.type === 'lesson'" [class.quiz]="activity.type === 'quiz'"
-            [class.certificate]="activity.type === 'certificate'">
+            [class.certificate]="activity.type === 'certificate'" [class.section]="activity.type === 'section'">
             <lucide-icon [img]="getIcon(activity.type)" [size]="20"></lucide-icon>
         </div>
         <div class="activity-content">
@@ -9,4 +9,8 @@
             <p class="activity-meta">{{ activity.course }} • {{ activity.time }}</p>
         </div>
     </div>
+
+    <button *ngIf="showViewAll && activities.length > 0" class="view-all-btn" (click)="onViewAll()">
+        View All Activities
+    </button>
 </div>

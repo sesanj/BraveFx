@@ -6,7 +6,9 @@
 
 <!-- Continue Learning -->
 <section class="section">
-  <h2 class="section-title">Continue Learning</h2>
+  <div class="section-header">
+    <h2 class="section-title">Continue Learning</h2>
+  </div>
   <div class="courses-grid">
     <app-course-card *ngFor="let course of recentCourses" [course]="course" (continue)="continueCourse($event)">
     </app-course-card>
@@ -15,6 +17,28 @@
 
 <!-- Recent Activity -->
 <section class="section">
-  <h2 class="section-title">Recent Activity</h2>
-  <app-activity-list [activities]="recentActivity"></app-activity-list>
+  <div class="section-header">
+    <h2 class="section-title">Recent Activity</h2>
+    <button *ngIf="allActivities.length > 10" class="view-all-btn-header" (click)="openActivitiesModal()">
+      View All
+    </button>
+  </div>
+  <app-activity-list [activities]="recentActivity" [showViewAll]="false">
+  </app-activity-list>
 </section>
+
+<!-- Activities Modal -->
+<div class="modal-overlay" *ngIf="showActivitiesModal" (click)="closeActivitiesModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">All Activities</h2>
+      <button class="modal-close" (click)="closeActivitiesModal()">
+        <lucide-icon [img]="X" [size]="24"></lucide-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-activity-list [activities]="allActivities" [showViewAll]="false">
+      </app-activity-list>
+    </div>
+  </div>
+</div>
