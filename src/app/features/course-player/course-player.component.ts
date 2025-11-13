@@ -32,7 +32,11 @@ import { LessonSidebarComponent } from './components/lesson-sidebar/lesson-sideb
 import { QuizPlayerComponent } from './components/quiz-player/quiz-player.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { QuizService } from '../../core/services/quiz.service';
-import { ModuleQuiz, QuizResult } from '../../core/models/quiz.model';
+import {
+  ModuleQuiz,
+  QuizResult,
+  QuizAttempt,
+} from '../../core/models/quiz.model';
 
 @Component({
   selector: 'app-course-player',
@@ -225,13 +229,11 @@ export class CoursePlayerComponent implements OnInit {
     // Load all passed quizzes for modules that have quizzes
     course.modules.forEach((module) => {
       if (module.hasQuiz) {
-        this.quizService
-          .hasPassedQuiz(module.id, '1')
-          .subscribe((hasPassed) => {
-            if (hasPassed) {
-              this.passedQuizModuleIds.add(module.id);
-            }
-          });
+        this.quizService.hasPassedQuiz(module.id).subscribe((hasPassed) => {
+          if (hasPassed) {
+            this.passedQuizModuleIds.add(module.id);
+          }
+        });
       }
     });
   }
@@ -458,50 +460,38 @@ export class CoursePlayerComponent implements OnInit {
         this.currentQuiz = quiz;
         this.currentModule = module;
 
-        // Check if user has already passed this quiz
-        this.quizService
-          .hasPassedQuiz(targetModuleId, '1')
-          .subscribe((hasPassed) => {
-            if (hasPassed) {
-              // Get the last quiz result to display
-              this.quizService
-                .getUserAttempts(quiz.id, '1')
-                .subscribe((attempts) => {
-                  if (attempts.length > 0) {
-                    const lastAttempt = attempts[attempts.length - 1];
-                    this.lastQuizResult = {
-                      score: lastAttempt.score,
-                      passed: lastAttempt.passed,
-                      correctAnswers: lastAttempt.correctAnswers,
-                      totalQuestions: lastAttempt.totalQuestions,
-                      attemptNumber: lastAttempt.attemptNumber,
-                    };
-                  }
-                });
-            } else {
-              this.lastQuizResult = null;
-            }
+        // Get all attempts for this quiz
+        this.quizService.getUserAttempts(quiz.id).subscribe((attempts) => {
+          // Set the attempt number for next attempt
+          this.quizAttemptNumber = attempts.length + 1;
 
-            this.showQuiz = true;
+          // If there are passed attempts, show the best/last passed result
+          const passedAttempts = attempts.filter((a) => a.passed);
+          if (passedAttempts.length > 0) {
+            const lastPassedAttempt = passedAttempts[passedAttempts.length - 1];
+            this.lastQuizResult = {
+              score: lastPassedAttempt.score,
+              passed: lastPassedAttempt.passed,
+              correctAnswers: lastPassedAttempt.correctAnswers,
+              totalQuestions: lastPassedAttempt.totalQuestions,
+              attemptNumber: lastPassedAttempt.attemptNumber,
+            };
+          } else {
+            this.lastQuizResult = null;
+          }
 
-            // Get attempt number
-            this.quizService
-              .getUserAttempts(quiz.id, '1')
-              .subscribe((attempts) => {
-                this.quizAttemptNumber = attempts.length + 1;
-              });
-          });
+          // Show quiz after setting up the result
+          this.showQuiz = true;
+        });
       }
     });
   }
 
   onQuizCompleted(result: QuizResult): void {
-    console.log('Quiz completed:', result);
-
     // Save quiz result
     if (this.currentQuiz && this.currentModule) {
-      const attempt = {
-        userId: '1', // TODO: Use actual user ID from auth service
+      const attempt: QuizAttempt = {
+        userId: '', // Will be set by the service from auth
         quizId: this.currentQuiz.id,
         moduleId: this.currentModule.id,
         score: result.score,
@@ -509,12 +499,17 @@ export class CoursePlayerComponent implements OnInit {
         correctAnswers: result.correctAnswers,
         passed: result.passed,
         attemptNumber: result.attemptNumber,
-        answers: [], // TODO: Include actual answers
+        answers: [],
         completedAt: new Date().toISOString(),
       };
 
-      this.quizService.saveQuizAttempt(attempt).subscribe(() => {
-        console.log('Quiz attempt saved successfully');
+      this.quizService.saveQuizAttempt(attempt).subscribe({
+        next: () => {
+          // Quiz attempt saved successfully
+        },
+        error: (error) => {
+          console.error('Error saving quiz attempt:', error);
+        },
       });
     }
 
@@ -674,11 +669,7 @@ export class CoursePlayerComponent implements OnInit {
     }
 
     // TODO: Implement review submission to backend
-    console.log('Review submitted:', {
-      courseId: this.course?.id,
-      rating: this.reviewRating,
-      text: this.reviewText,
-    });
+    // Review data: { courseId: this.course?.id, rating: this.reviewRating, text: this.reviewText }
 
     // Reset form
     this.reviewRating = 0;

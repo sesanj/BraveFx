@@ -89,7 +89,10 @@
                 <div class="quiz-performance-header">
                     <div class="quiz-performance-info">
                         <h4 class="quiz-performance-title">{{ quiz.title }}</h4>
-                        <p class="quiz-performance-course">{{ quiz.course }}</p>
+                        <p class="quiz-performance-course">
+                            <lucide-icon [img]="BookOpen" [size]="14"></lucide-icon>
+                            {{ quiz.course }}
+                        </p>
                     </div>
                     <div class="quiz-performance-score" [class.excellent]="quiz.score >= 90"
                         [class.good]="quiz.score >= 70 && quiz.score < 90" [class.fair]="quiz.score < 70">
@@ -101,8 +104,10 @@
                         <lucide-icon [img]="Calendar" [size]="14"></lucide-icon>
                         {{ quiz.date }}
                     </span>
-                    <span class="quiz-performance-attempts">{{ quiz.attempts }} attempt{{ quiz.attempts > 1 ? 's' : ''
-                        }}</span>
+                    <span class="quiz-performance-attempts">
+                        <lucide-icon [img]="RotateCw" [size]="14"></lucide-icon>
+                        {{ quiz.attempts }} attempt{{ quiz.attempts > 1 ? 's' : '' }}
+                    </span>
                 </div>
             </div>
         </div>

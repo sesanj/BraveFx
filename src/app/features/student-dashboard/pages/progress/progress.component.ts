@@ -6,9 +6,11 @@ import {
   BookOpen,
   Target,
   Calendar,
+  RotateCw,
 } from 'lucide-angular';
 import { CourseService } from '../../../../core/services/course.service';
 import { ProgressService } from '../../../../core/services/progress.service';
+import { QuizService } from '../../../../core/services/quiz.service';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -24,6 +26,7 @@ export class ProgressComponent implements OnInit {
   BookOpen = BookOpen;
   Target = Target;
   Calendar = Calendar;
+  RotateCw = RotateCw;
 
   // Progress Tab Data
   overallProgress = 0;
@@ -53,7 +56,8 @@ export class ProgressComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
-    private progressService: ProgressService
+    private progressService: ProgressService,
+    private quizService: QuizService
   ) {}
 
   ngOnInit(): void {
@@ -120,7 +124,9 @@ export class ProgressComponent implements OnInit {
             this.overallProgress = Math.round(totalProgress / courses.length);
             this.completedLessons = totalCompleted;
             this.totalLessons = totalLessonsCount;
-            this.loading = false;
+
+            // Load quiz performance data
+            this.loadQuizPerformance();
           },
           error: (error) => {
             console.error('Error loading progress:', error);
@@ -130,6 +136,53 @@ export class ProgressComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading courses:', error);
+        this.loading = false;
+      },
+    });
+  }
+
+  loadQuizPerformance(): void {
+    this.quizService.getAllUserAttempts().subscribe({
+      next: (attempts) => {
+        // Transform to match the component's expected format
+        this.quizPerformance = attempts.map((attempt) => {
+          // Build course display string
+          let courseDisplay = 'Course';
+          if (attempt.courseName && attempt.moduleName) {
+            courseDisplay = `${attempt.courseName} - ${attempt.moduleName}`;
+          } else if (attempt.courseName) {
+            courseDisplay = attempt.courseName;
+          } else if (attempt.moduleName) {
+            courseDisplay = attempt.moduleName;
+          }
+
+          return {
+            title: attempt.quizTitle || 'Quiz',
+            course: courseDisplay,
+            score: attempt.score,
+            date: new Date(attempt.completedAt).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'short',
+              day: 'numeric',
+            }),
+            attempts: attempt.attemptNumber,
+          };
+        });
+
+        // Calculate quiz statistics
+        if (attempts.length > 0) {
+          const totalScore = attempts.reduce(
+            (sum, attempt) => sum + attempt.score,
+            0
+          );
+          this.quizAverage = Math.round(totalScore / attempts.length);
+          this.completedQuizzes = attempts.filter((a) => a.passed).length;
+        }
+
+        this.loading = false;
+      },
+      error: (error) => {
+        console.error('Error loading quiz performance:', error);
         this.loading = false;
       },
     });

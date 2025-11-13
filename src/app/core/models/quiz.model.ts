@@ -37,6 +37,9 @@ export interface QuizAttempt {
   attemptNumber: number;
   completedAt: Date | string;
   answers: QuizAnswer[];
+  quizTitle?: string; // Optional, populated when fetching from database with join
+  moduleName?: string; // Optional, populated when fetching from database with join
+  courseName?: string; // Optional, populated when fetching from database with join
 }
 
 export interface QuizAnswer {
