@@ -270,7 +270,7 @@
   font-weight: 700;
   padding: 0.5rem 1rem;
   border-radius: 8px;
-  min-width: 65px;
+  width: 95px;
   text-align: center;
   letter-spacing: -0.02em;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);

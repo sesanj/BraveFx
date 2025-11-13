@@ -444,6 +444,11 @@ export class CoursePlayerComponent implements OnInit {
     const module = this.course?.modules.find((m) => m.id === targetModuleId);
     if (!module) return;
 
+    // Reset quiz state when switching quizzes
+    this.showQuiz = false;
+    this.lastQuizResult = null;
+    this.currentQuiz = null;
+
     // Clear current lesson selection when showing quiz
     this.currentLesson = null;
     this.videoUrl = null;
@@ -476,8 +481,6 @@ export class CoursePlayerComponent implements OnInit {
               totalQuestions: lastPassedAttempt.totalQuestions,
               attemptNumber: lastPassedAttempt.attemptNumber,
             };
-          } else {
-            this.lastQuizResult = null;
           }
 
           // Show quiz after setting up the result
