@@ -9,8 +9,6 @@ import {
 } from 'lucide-angular';
 import { CourseService } from '../../../../core/services/course.service';
 import { ProgressService } from '../../../../core/services/progress.service';
-import { QuizService } from '../../../../core/services/quiz.service';
-import { Course } from '../../../../core/models/course.model';
 import { forkJoin } from 'rxjs';
 
 @Component({
@@ -55,8 +53,7 @@ export class ProgressComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
-    private progressService: ProgressService,
-    private quizService: QuizService
+    private progressService: ProgressService
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +80,10 @@ export class ProgressComponent implements OnInit {
 
         const progressRequests = courses.map((course) =>
           forkJoin({
-            progress: this.progressService.getCourseProgress(course.id, course.totalLessons || 0),
+            progress: this.progressService.getCourseProgress(
+              course.id,
+              course.totalLessons || 0
+            ),
             completedIds: this.progressService.getCompletedLessonIds(course.id),
           })
         );
@@ -109,7 +109,9 @@ export class ProgressComponent implements OnInit {
                 completedLessons: completedCount,
                 totalLessons: totalLessons,
                 completedQuizzes: 0,
-                totalQuizzes: course.modules?.filter((m: any) => m.type === 'quiz').length || 0,
+                totalQuizzes:
+                  course.modules?.filter((m: any) => m.type === 'quiz')
+                    .length || 0,
                 progress: Math.round(progress),
                 color: colors[index % colors.length],
               };

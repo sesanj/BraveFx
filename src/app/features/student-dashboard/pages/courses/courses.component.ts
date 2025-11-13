@@ -58,10 +58,13 @@ export class CoursesComponent implements OnInit {
                 instructor: course.instructor,
                 progress: progress,
                 thumbnail:
-                  course.thumbnail || 'https://picsum.photos/seed/forex/400/225',
+                  course.thumbnail ||
+                  'https://picsum.photos/seed/forex/400/225',
                 lastAccessed: lastLesson ? 'Recently' : 'Not started',
                 nextLesson:
-                  completedIds.size > 0 ? 'Continue Learning' : 'Start Learning',
+                  completedIds.size > 0
+                    ? 'Continue Learning'
+                    : 'Start Learning',
                 totalLessons: course.totalLessons,
                 completedLessons: completedIds.size,
               };
