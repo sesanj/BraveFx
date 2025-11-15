@@ -14,6 +14,7 @@ export interface Activity {
   course: string;
   time: string;
   timestamp: Date;
+  passed?: boolean; // For quiz activities - true if passed, false if failed
 }
 
 @Component({

@@ -38,9 +38,14 @@
   color: #a855f7;
 }
 
-.activity-icon.quiz {
+.activity-icon.quiz-passed {
   background: rgba(34, 197, 94, 0.15);
   color: #22c55e;
+}
+
+.activity-icon.quiz-failed {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
 }
 
 .activity-icon.certificate {

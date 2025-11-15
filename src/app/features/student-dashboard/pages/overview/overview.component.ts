@@ -331,6 +331,7 @@ export class OverviewComponent implements OnInit {
             course: attempt.courseName || 'Course',
             time: this.getRelativeTime(new Date(attempt.completedAt)),
             timestamp: new Date(attempt.completedAt),
+            passed: attempt.passed,
           });
         });
 
