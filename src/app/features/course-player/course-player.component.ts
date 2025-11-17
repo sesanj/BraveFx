@@ -37,6 +37,7 @@ import { QuizPlayerComponent } from './components/quiz-player/quiz-player.compon
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { QuizService } from '../../core/services/quiz.service';
 import { ResourceService } from '../../core/services/resource.service';
+import { ReviewService } from '../../core/services/review.service';
 import { Resource } from '../../core/models/resource.model';
 import {
   ModuleQuiz,
@@ -100,6 +101,10 @@ export class CoursePlayerComponent implements OnInit {
   activeTab: 'overview' | 'reviews' | 'resources' = 'overview';
   reviewRating: number = 0;
   reviewText: string = '';
+  reviewSuccessMessage: string = '';
+  reviewErrorMessage: string = '';
+  isEditingReview: boolean = false;
+  existingReviewId: string | null = null;
 
   // Autoplay and loading state
   isLoadingVideo: boolean = false;
@@ -127,6 +132,7 @@ export class CoursePlayerComponent implements OnInit {
     private progressService: ProgressService,
     private quizService: QuizService,
     private resourceService: ResourceService,
+    private reviewService: ReviewService,
     private sanitizer: DomSanitizer,
     public themeService: ThemeService
   ) {}
@@ -135,6 +141,7 @@ export class CoursePlayerComponent implements OnInit {
     const courseId = this.route.snapshot.paramMap.get('id');
     if (courseId) {
       this.loadCourse(courseId);
+      this.checkExistingReview(courseId);
     }
 
     // Close sidebar by default on mobile
@@ -708,17 +715,85 @@ export class CoursePlayerComponent implements OnInit {
     this.reviewRating = rating;
   }
 
-  submitReview(): void {
+  /**
+   * Check if user already has a review for this course
+   */
+  async checkExistingReview(courseId: string): Promise<void> {
+    try {
+      const userReview = await this.reviewService.getUserReviewForCourse(
+        courseId
+      );
+      if (userReview) {
+        this.isEditingReview = true;
+        this.existingReviewId = userReview.id;
+        this.reviewRating = userReview.rating;
+        this.reviewText = userReview.reviewText;
+      }
+    } catch (error) {
+      console.error('Error checking for existing review:', error);
+    }
+  }
+
+  dismissMessage(): void {
+    this.reviewSuccessMessage = '';
+    this.reviewErrorMessage = '';
+  }
+
+  async submitReview(): Promise<void> {
+    // Clear any previous messages
+    this.reviewSuccessMessage = '';
+    this.reviewErrorMessage = '';
+
     if (this.reviewRating === 0 || !this.reviewText.trim()) {
       return;
     }
 
-    // TODO: Implement review submission to backend
-    // Review data: { courseId: this.course?.id, rating: this.reviewRating, text: this.reviewText }
+    if (!this.course?.id) {
+      console.error('No course ID available');
+      return;
+    }
 
-    // Reset form
-    this.reviewRating = 0;
-    this.reviewText = '';
+    try {
+      if (this.isEditingReview && this.existingReviewId) {
+        // Update existing review
+        await this.reviewService.updateReview(
+          this.existingReviewId,
+          this.reviewRating,
+          this.reviewText.trim()
+        );
+        this.reviewSuccessMessage =
+          'Your review has been updated successfully!';
+      } else {
+        // Create new review
+        await this.reviewService.createReview({
+          courseId: this.course.id,
+          rating: this.reviewRating,
+          reviewText: this.reviewText.trim(),
+        });
+        this.reviewSuccessMessage = 'Thank you for your review!';
+        this.isEditingReview = true; // Now they have a review
+      }
+
+      // Auto-dismiss success message after 5 seconds
+      setTimeout(() => {
+        this.reviewSuccessMessage = '';
+      }, 5000);
+    } catch (error: any) {
+      console.error('Error submitting review:', error);
+      if (error.message === 'You have already reviewed this course') {
+        this.reviewErrorMessage =
+          'You have already reviewed this course. Please refresh the page.';
+      } else if (error.message === 'User not authenticated') {
+        this.reviewErrorMessage = 'Please log in to submit a review.';
+      } else {
+        this.reviewErrorMessage = 'Failed to submit review. Please try again.';
+      }
+
+      // Auto-dismiss error message after 7 seconds
+      setTimeout(() => {
+        this.reviewErrorMessage = '';
+      }, 7000);
+    }
   }
 
   formatCourseDuration(durationInSeconds: number): string {

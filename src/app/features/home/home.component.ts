@@ -5,7 +5,9 @@ import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CourseService } from '../../core/services/course.service';
+import { ReviewService } from '../../core/services/review.service';
 import { Course } from '../../core/models/course.model';
+import { Review } from '../../core/models/review.model';
 import {
   LucideAngularModule,
   GraduationCap,
@@ -281,6 +283,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private courseService: CourseService,
+    private reviewService: ReviewService,
     private sanitizer: DomSanitizer,
     private http: HttpClient
   ) {}
@@ -300,21 +303,130 @@ export class HomeComponent implements OnInit {
       }
     });
 
-    // Load reviews data from JSON
+    // Load reviews data from both JSON and database
     this.loadReviewsData();
   }
 
-  // Load reviews from JSON file
+  /**
+   * Transform a database review to UI format
+   */
+  private transformReviewToUI(review: any): any {
+    return {
+      id: review.id,
+      name: review.userName,
+      avatar: review.userAvatar || '/assets/avatars/default.jpg',
+      rating: review.rating,
+      comment: review.reviewText,
+      date: new Date(review.createdAt).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }),
+      location: 'Global',
+      region: 'Global',
+      courseName: review.courseName || 'BraveFx Course',
+      verified: true,
+    };
+  }
+
+  // Load reviews from JSON file first, then add database reviews
   loadReviewsData() {
+    // First, load existing reviews from JSON file
     this.http.get<any>('/assets/data/reviews.json').subscribe({
       next: (data) => {
         this.reviewsData = data;
-        this.featuredReviews = data.featuredReviews || [];
-        this.allReviews = data.allReviews || [];
-        this.filteredReviews = [...this.allReviews];
+        const jsonFeaturedReviews = data.featuredReviews || [];
+        const jsonAllReviews = data.allReviews || [];
+
+        // Now fetch reviews from database and merge them
+        this.reviewService.getAllReviews(1, 100).subscribe({
+          next: (dbReviews) => {
+            console.log('=== DATABASE REVIEWS DEBUG ===');
+            console.log('Total DB reviews fetched:', dbReviews.length);
+            console.log('Raw database reviews:', dbReviews);
+
+            // Log each review's text field specifically
+            dbReviews.forEach((review, index) => {
+              console.log(`Review ${index + 1}:`, {
+                id: review.id,
+                userName: review.userName,
+                rating: review.rating,
+                reviewText: review.reviewText,
+                reviewTextLength: review.reviewText?.length || 0,
+                reviewTextType: typeof review.reviewText,
+              });
+            });
+
+            // Transform database reviews to match UI format
+            const transformedDbReviews = dbReviews.map(
+              this.transformReviewToUI.bind(this)
+            );
+
+            console.log('Transformed DB reviews:', transformedDbReviews);
+            console.log('=== END DEBUG ===');
+
+            // Merge: Database reviews first (newest), then JSON reviews
+            this.allReviews = [...transformedDbReviews, ...jsonAllReviews];
+            this.filteredReviews = [...this.allReviews];
+
+            // For featured reviews, prefer database featured reviews, then fill with JSON
+            this.reviewService.getFeaturedReviews(10).subscribe({
+              next: (featuredDbReviews) => {
+                const transformedFeaturedDb = featuredDbReviews.map(
+                  this.transformReviewToUI.bind(this)
+                );
+
+                // Merge featured: Database featured first, then JSON featured
+                this.featuredReviews = [
+                  ...transformedFeaturedDb,
+                  ...jsonFeaturedReviews,
+                ];
+              },
+              error: (error) => {
+                console.error(
+                  'Error loading featured reviews from database:',
+                  error
+                );
+                // Use only JSON featured reviews if database fails
+                this.featuredReviews = jsonFeaturedReviews;
+              },
+            });
+          },
+          error: (error) => {
+            console.error('Error loading reviews from database:', error);
+            // Fall back to only JSON reviews if database fails
+            this.allReviews = jsonAllReviews;
+            this.filteredReviews = [...this.allReviews];
+            this.featuredReviews = jsonFeaturedReviews;
+          },
+        });
       },
       error: (error) => {
-        console.error('Error loading reviews:', error);
+        console.error('Error loading reviews from JSON:', error);
+        // If JSON fails, try to load only from database
+        this.loadOnlyFromDatabase();
+      },
+    });
+  }
+
+  // Fallback method to load only from database if JSON fails
+  private loadOnlyFromDatabase() {
+    this.reviewService.getAllReviews(1, 100).subscribe({
+      next: (reviews) => {
+        this.allReviews = reviews.map(this.transformReviewToUI.bind(this));
+        this.filteredReviews = [...this.allReviews];
+
+        // Get featured reviews
+        this.reviewService.getFeaturedReviews(10).subscribe({
+          next: (featured) => {
+            this.featuredReviews = featured.map(
+              this.transformReviewToUI.bind(this)
+            );
+          },
+        });
+      },
+      error: (error) => {
+        console.error('Error loading reviews from database:', error);
       },
     });
   }
