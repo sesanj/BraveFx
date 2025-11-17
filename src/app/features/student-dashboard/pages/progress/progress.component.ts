@@ -7,6 +7,11 @@ import {
   Target,
   Calendar,
   RotateCw,
+  CheckCircle,
+  XCircle,
+  BarChart3,
+  X,
+  Video,
 } from 'lucide-angular';
 import { CourseService } from '../../../../core/services/course.service';
 import { ProgressService } from '../../../../core/services/progress.service';
@@ -27,6 +32,11 @@ export class ProgressComponent implements OnInit {
   Target = Target;
   Calendar = Calendar;
   RotateCw = RotateCw;
+  CheckCircle = CheckCircle;
+  XCircle = XCircle;
+  BarChart3 = BarChart3;
+  X = X;
+  Video = Video;
 
   // Progress Tab Data
   overallProgress = 0;
@@ -47,12 +57,22 @@ export class ProgressComponent implements OnInit {
   }> = [];
 
   quizPerformance: Array<{
+    attemptId: string;
+    quizId: string;
+    moduleId: string;
     title: string;
     course: string;
+    module: string;
     score: number;
     date: string;
     attempts: number;
   }> = [];
+
+  // Quiz review modal state
+  showQuizReview: boolean = false;
+  selectedQuizAttempt: any = null;
+  quizReviewData: any = null;
+  loadingQuizReview: boolean = false;
 
   constructor(
     private courseService: CourseService,
@@ -146,19 +166,13 @@ export class ProgressComponent implements OnInit {
       next: (attempts) => {
         // Transform to match the component's expected format
         this.quizPerformance = attempts.map((attempt) => {
-          // Build course display string
-          let courseDisplay = 'Course';
-          if (attempt.courseName && attempt.moduleName) {
-            courseDisplay = `${attempt.courseName} - ${attempt.moduleName}`;
-          } else if (attempt.courseName) {
-            courseDisplay = attempt.courseName;
-          } else if (attempt.moduleName) {
-            courseDisplay = attempt.moduleName;
-          }
-
           return {
+            attemptId: attempt.id || '',
+            quizId: attempt.quizId,
+            moduleId: attempt.moduleId,
             title: attempt.quizTitle || 'Quiz',
-            course: courseDisplay,
+            course: attempt.courseName || 'Course',
+            module: attempt.moduleName || 'Module',
             score: attempt.score,
             date: new Date(attempt.completedAt).toLocaleDateString('en-US', {
               year: 'numeric',
@@ -186,5 +200,81 @@ export class ProgressComponent implements OnInit {
         this.loading = false;
       },
     });
+  }
+
+  openQuizReview(quiz: any): void {
+    this.selectedQuizAttempt = quiz;
+    this.showQuizReview = true;
+    this.loadingQuizReview = true;
+
+    // Fetch the quiz attempt details with answers
+    this.quizService.getQuizAttemptById(quiz.attemptId).subscribe({
+      next: (attempt: any) => {
+        if (!attempt) {
+          console.error('Quiz attempt not found');
+          this.closeQuizReview();
+          return;
+        }
+
+        // Fetch the full quiz with questions and options
+        this.quizService.getModuleQuiz(quiz.moduleId).subscribe({
+          next: (fullQuiz) => {
+            if (!fullQuiz) {
+              console.error('Quiz not found');
+              this.closeQuizReview();
+              return;
+            }
+
+            // Combine quiz questions with user answers
+            this.quizReviewData = {
+              title: quiz.title,
+              score: quiz.score,
+              passed: attempt.passed,
+              correctAnswers: attempt.correctAnswers,
+              totalQuestions: attempt.totalQuestions,
+              questions: fullQuiz.questions.map((question) => {
+                const userAnswer = attempt.answers.find(
+                  (a: any) => a.questionId === question.id
+                );
+                const selectedOption = question.options.find(
+                  (o) => o.id === userAnswer?.selectedOptionId
+                );
+                const correctOption = question.options.find((o) => o.isCorrect);
+
+                // Determine if user's answer is correct by checking if selected option is the correct one
+                const isCorrect = selectedOption?.isCorrect === true;
+
+                return {
+                  questionText: question.questionText,
+                  options: question.options,
+                  selectedOptionId: userAnswer?.selectedOptionId,
+                  correctOptionId: correctOption?.id,
+                  isCorrect: isCorrect,
+                  selectedOption: selectedOption,
+                  correctOption: correctOption,
+                };
+              }),
+            };
+
+            this.loadingQuizReview = false;
+          },
+          error: (error: any) => {
+            console.error('Error loading quiz details:', error);
+            this.closeQuizReview();
+          },
+        });
+      },
+      error: (error: any) => {
+        console.error('Error loading quiz attempt:', error);
+        this.closeQuizReview();
+      },
+    });
+  }
+
+  closeQuizReview(): void {
+    this.showQuizReview = false;
+    this.selectedQuizAttempt = null;
+    this.quizReviewData = null;
+    this.loadingQuizReview = false;
   }
 }

@@ -205,6 +205,7 @@ export class QuizService {
       passed: attempt.passed,
       attempt_number: attempt.attemptNumber,
       completed_at: new Date().toISOString(),
+      answers: attempt.answers, // Store the user's selected options
     };
 
     return from(
@@ -314,6 +315,7 @@ export class QuizService {
           correctAnswers: data.correct_answers,
           totalQuestions: data.total_questions,
           attemptNumber: data.attempt_number,
+          answers: data.answers || [], // Include answers
         };
       }),
       catchError((error) => {
@@ -380,6 +382,46 @@ export class QuizService {
       catchError((error) => {
         console.error('Error in getAllUserAttempts:', error);
         return of([]);
+      })
+    );
+  }
+
+  /**
+   * Get a specific quiz attempt by ID with full details including answers
+   */
+  getQuizAttemptById(attemptId: string): Observable<QuizAttempt | null> {
+    return from(
+      this.supabase.client
+        .from('quiz_attempts')
+        .select('*')
+        .eq('id', attemptId)
+        .single()
+    ).pipe(
+      map(({ data, error }) => {
+        if (error) {
+          console.error('Error fetching quiz attempt:', error);
+          return null;
+        }
+
+        if (!data) return null;
+
+        return {
+          id: data.id,
+          userId: data.user_id,
+          quizId: data.quiz_id,
+          moduleId: data.module_id,
+          score: data.score,
+          totalQuestions: data.total_questions,
+          correctAnswers: data.correct_answers,
+          passed: data.passed,
+          attemptNumber: data.attempt_number,
+          completedAt: data.completed_at,
+          answers: data.answers || [],
+        };
+      }),
+      catchError((error) => {
+        console.error('Error in getQuizAttemptById:', error);
+        return of(null);
       })
     );
   }

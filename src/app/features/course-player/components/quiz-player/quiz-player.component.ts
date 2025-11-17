@@ -137,6 +137,7 @@ export class QuizPlayerComponent implements OnInit {
       correctAnswers: correctCount,
       totalQuestions: this.quiz.questions.length,
       attemptNumber: this.attemptNumber,
+      answers, // Include the answers in the result
     };
   }
 

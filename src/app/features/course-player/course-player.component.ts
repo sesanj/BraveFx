@@ -521,6 +521,7 @@ export class CoursePlayerComponent implements OnInit {
               correctAnswers: lastPassedAttempt.correctAnswers,
               totalQuestions: lastPassedAttempt.totalQuestions,
               attemptNumber: lastPassedAttempt.attemptNumber,
+              answers: lastPassedAttempt.answers || [], // Include answers
             };
           }
 
@@ -543,7 +544,7 @@ export class CoursePlayerComponent implements OnInit {
         correctAnswers: result.correctAnswers,
         passed: result.passed,
         attemptNumber: result.attemptNumber,
-        answers: [],
+        answers: result.answers, // Use the answers from the quiz result
         completedAt: new Date().toISOString(),
       };
 

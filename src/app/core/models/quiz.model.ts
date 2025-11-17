@@ -54,4 +54,5 @@ export interface QuizResult {
   correctAnswers: number;
   totalQuestions: number;
   attemptNumber: number;
+  answers: QuizAnswer[]; // Include the user's answers
 }
