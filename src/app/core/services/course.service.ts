@@ -44,16 +44,13 @@ export class CourseService {
 
     if (courseError) throw courseError;
 
-    // Fetch modules with lessons and resources
+    // Fetch modules with lessons (resources are now loaded separately via ResourceService)
     const { data: modules, error: modulesError } = await this.supabase.client
       .from('modules')
       .select(
         `
         *,
-        lessons:lessons (
-          *,
-          resources:resources (*)
-        )
+        lessons:lessons (*)
       `
       )
       .eq('course_id', courseId)
@@ -165,12 +162,7 @@ export class CourseService {
   ): Promise<Lesson | undefined> {
     const { data: lesson, error } = await this.supabase.client
       .from('lessons')
-      .select(
-        `
-        *,
-        resources:resources (*)
-      `
-      )
+      .select('*')
       .eq('id', lessonId)
       .single();
 
@@ -190,12 +182,7 @@ export class CourseService {
       duration: this.formatDuration(lesson.duration),
       order: lesson.order_index,
       isPreview: lesson.is_preview,
-      resources: (lesson.resources || []).map((resource: any) => ({
-        id: resource.id,
-        title: resource.title,
-        url: resource.url,
-        type: resource.type,
-      })),
+      resources: [], // Resources are now loaded separately via ResourceService
     };
   }
 }

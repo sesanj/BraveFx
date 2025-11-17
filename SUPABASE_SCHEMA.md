@@ -144,7 +144,7 @@ create policy "Anyone can view lessons"
 ```sql
 create table public.resources (
   id uuid default uuid_generate_v4() primary key,
-  lesson_id uuid references public.lessons on delete cascade not null,
+  module_id uuid references public.modules on delete cascade not null,
   title text not null,
   url text not null,
   type text not null, -- 'pdf', 'excel', 'word', etc.
@@ -157,6 +157,9 @@ alter table public.resources enable row level security;
 create policy "Anyone can view resources"
   on public.resources for select
   using (true);
+
+-- Index for performance
+create index idx_resources_module_id on public.resources(module_id);
 ```
 
 ## 7. Enrollments Table

@@ -227,27 +227,39 @@
 
           <!-- Resources Tab -->
           <div class="tab-pane" *ngIf="activeTab === 'resources'">
-            <h3 class="tab-heading">Lesson Resources</h3>
 
-            <div *ngIf="currentLesson && currentLesson.resources.length > 0; else noResources">
+            <h3 class="tab-heading">Module Resources</h3>
+            <p class="resource-description">
+              These are resources for the section
+              <strong *ngIf="currentModule">{{ currentModule.title }}</strong>.
+            </p>
+
+            <div *ngIf="currentModuleResources.length > 0; else noResources">
               <div class="resource-list">
-                <a *ngFor="let resource of currentLesson.resources" [href]="resource.url" target="_blank"
-                  class="resource-item">
+                <div *ngFor="let resource of currentModuleResources" class="resource-item"
+                  (click)="downloadResource(resource)">
                   <div class="resource-icon">
-                    <lucide-icon [img]="Download" [size]="20"></lucide-icon>
+                    <lucide-icon [img]="getResourceIcon(resource.type) === 'file-text' ? FileText :
+                             getResourceIcon(resource.type) === 'file-spreadsheet' ? FileSpreadsheet :
+                             getResourceIcon(resource.type) === 'image' ? Image :
+                             getResourceIcon(resource.type) === 'video' ? Video : File" [size]="24">
+                    </lucide-icon>
                   </div>
                   <div class="resource-details">
                     <span class="resource-name">{{ resource.title }}</span>
-                    <span class="resource-type">{{ resource.type }}</span>
+                    <span class="resource-type">{{ resource.type.toUpperCase() }}</span>
                   </div>
-                </a>
+                  <div class="resource-download">
+                    <lucide-icon [img]="Download" [size]="20"></lucide-icon>
+                  </div>
+                </div>
               </div>
             </div>
 
             <ng-template #noResources>
               <div class="empty-state">
-                <lucide-icon [img]="Download" [size]="48"></lucide-icon>
-                <p>This lesson has no downloadable resources.</p>
+                <lucide-icon [img]="FileText" [size]="48"></lucide-icon>
+                <p>This module has no downloadable resources yet.</p>
               </div>
             </ng-template>
           </div>

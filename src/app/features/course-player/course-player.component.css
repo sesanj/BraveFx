@@ -627,7 +627,7 @@
 /* Resources Tab - Add spacing after heading */
 .tab-pane:has(.resource-list) .tab-heading,
 .tab-pane:has(.empty-state) .tab-heading {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   text-align: left;
 }
 
@@ -748,11 +748,26 @@
 }
 
 /* Resources List */
+
+.resource-description {
+  margin-bottom: 1.5rem;
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
 .resource-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  max-width: 600px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  max-width: 100%;
+}
+
+/* 2-column grid on desktop */
+@media (min-width: 768px) {
+  .resource-list {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
 }
 
 .resource-item {
@@ -765,6 +780,7 @@
   border-radius: 0.75rem;
   text-decoration: none;
   transition: all 0.2s ease;
+  cursor: pointer;
 }
 
 [data-theme="light"] .resource-item {
@@ -809,6 +825,27 @@
   font-size: 0.875rem;
   color: var(--text-secondary);
   text-transform: uppercase;
+}
+
+.resource-download {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(168, 85, 247, 0.1);
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.resource-download lucide-icon {
+  color: #a855f7;
+}
+
+.resource-item:hover .resource-download {
+  background: rgba(168, 85, 247, 0.2);
+  transform: scale(1.1);
 }
 
 /* Empty State */

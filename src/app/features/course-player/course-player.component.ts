@@ -20,6 +20,10 @@ import {
   ChevronLeft,
   ChevronRight,
   CheckCircle,
+  File,
+  FileSpreadsheet,
+  Image,
+  Video,
   LucideAngularModule,
 } from 'lucide-angular';
 import { Course, Lesson, Module } from '../../core/models/course.model';
@@ -32,6 +36,8 @@ import { LessonSidebarComponent } from './components/lesson-sidebar/lesson-sideb
 import { QuizPlayerComponent } from './components/quiz-player/quiz-player.component';
 import { FooterComponent } from '../../shared/components/footer/footer.component';
 import { QuizService } from '../../core/services/quiz.service';
+import { ResourceService } from '../../core/services/resource.service';
+import { Resource } from '../../core/models/resource.model';
 import {
   ModuleQuiz,
   QuizResult,
@@ -72,6 +78,10 @@ export class CoursePlayerComponent implements OnInit {
   ChevronLeft = ChevronLeft;
   ChevronRight = ChevronRight;
   CheckCircle = CheckCircle;
+  File = File;
+  FileSpreadsheet = FileSpreadsheet;
+  Image = Image;
+  Video = Video;
 
   course: Course | null = null;
   currentLesson: Lesson | null = null;
@@ -107,12 +117,16 @@ export class CoursePlayerComponent implements OnInit {
   passedQuizModuleIds: Set<string> = new Set();
   lastQuizResult: QuizResult | null = null;
 
+  // Resources state
+  currentModuleResources: Resource[] = [];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private courseService: CourseService,
     private progressService: ProgressService,
     private quizService: QuizService,
+    private resourceService: ResourceService,
     private sanitizer: DomSanitizer,
     public themeService: ThemeService
   ) {}
@@ -257,6 +271,9 @@ export class CoursePlayerComponent implements OnInit {
     this.currentModule = module;
     this.shouldAutoplay = autoplay;
 
+    // Load resources for the current module (safe to fail if table doesn't exist yet)
+    this.loadModuleResources(module.id);
+
     // Save this as the last watched lesson
     if (this.course) {
       this.progressService
@@ -293,6 +310,27 @@ export class CoursePlayerComponent implements OnInit {
         this.completedLessonIds.add(lesson.id);
       }
     });
+  }
+
+  loadModuleResources(moduleId: string): void {
+    this.resourceService.getModuleResources(moduleId).subscribe({
+      next: (resources) => {
+        this.currentModuleResources = resources;
+      },
+      error: (error) => {
+        // Silently fail if resources table doesn't exist yet
+        // This prevents breaking the course player before migration is run
+        this.currentModuleResources = [];
+      },
+    });
+  }
+
+  downloadResource(resource: Resource): void {
+    this.resourceService.downloadResource(resource);
+  }
+
+  getResourceIcon(type: string): string {
+    return this.resourceService.getResourceIcon(type);
   }
 
   getEmbedUrl(url: string, autoplay: boolean = false): string {
@@ -452,6 +490,9 @@ export class CoursePlayerComponent implements OnInit {
     // Clear current lesson selection when showing quiz
     this.currentLesson = null;
     this.videoUrl = null;
+
+    // Load resources for the current module
+    this.loadModuleResources(targetModuleId);
 
     // Save active quiz state
     if (this.course) {
