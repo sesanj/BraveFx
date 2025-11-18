@@ -6,6 +6,7 @@ import {
   LayoutDashboard,
   BookOpen,
   TrendingUp,
+  FileText,
   Users,
   Settings,
   HelpCircle,
@@ -26,6 +27,7 @@ export class SidebarComponent {
   LayoutDashboard = LayoutDashboard;
   BookOpen = BookOpen;
   TrendingUp = TrendingUp;
+  FileText = FileText;
   Users = Users;
   Settings = Settings;
   HelpCircle = HelpCircle;

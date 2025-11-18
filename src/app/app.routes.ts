@@ -87,6 +87,13 @@ export const routes: Routes = [
           ).then((m) => m.ProgressComponent),
       },
       {
+        path: 'resources',
+        loadComponent: () =>
+          import(
+            './features/student-dashboard/pages/resources/resources.component'
+          ).then((m) => m.ResourcesComponent),
+      },
+      {
         path: 'community',
         loadComponent: () =>
           import(
