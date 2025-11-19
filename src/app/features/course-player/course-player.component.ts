@@ -39,6 +39,8 @@ import { QuizService } from '../../core/services/quiz.service';
 import { ResourceService } from '../../core/services/resource.service';
 import { ReviewService } from '../../core/services/review.service';
 import { Resource } from '../../core/models/resource.model';
+import { CoursePlayerSkeletonComponent } from '../../shared/components/skeleton-loader/skeletons/course-player-skeleton.component';
+import { QuizSkeletonComponent } from '../../shared/components/skeleton-loader/skeletons/quiz-skeleton.component';
 import {
   ModuleQuiz,
   QuizResult,
@@ -56,6 +58,8 @@ import {
     LessonSidebarComponent,
     QuizPlayerComponent,
     FooterComponent,
+    CoursePlayerSkeletonComponent,
+    QuizSkeletonComponent,
   ],
   templateUrl: './course-player.component.html',
   styleUrl: './course-player.component.css',
@@ -117,6 +121,7 @@ export class CoursePlayerComponent implements OnInit {
 
   // Quiz state
   showQuiz: boolean = false;
+  isLoadingQuiz: boolean = false;
   currentQuiz: ModuleQuiz | null = null;
   quizAttemptNumber: number = 1;
   passedQuizModuleIds: Set<string> = new Set();
@@ -271,6 +276,7 @@ export class CoursePlayerComponent implements OnInit {
 
     // Hide quiz if it's currently showing
     this.showQuiz = false;
+    this.isLoadingQuiz = false;
     this.currentQuiz = null;
     this.lastQuizResult = null;
 
@@ -341,14 +347,22 @@ export class CoursePlayerComponent implements OnInit {
   }
 
   getEmbedUrl(url: string, autoplay: boolean = false): string {
+    // Detect mobile devices
+    const isMobile =
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      );
+
     // Convert YouTube/Vimeo URLs to embed format with optional autoplay
     if (url.includes('youtube.com') || url.includes('youtu.be')) {
       const videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
-      const autoplayParam = autoplay ? '?autoplay=1&rel=0' : '?rel=0';
+      const autoplayParam =
+        autoplay && !isMobile ? '?autoplay=1&rel=0' : '?rel=0';
       return `https://www.youtube.com/embed/${videoId}${autoplayParam}`;
     } else if (url.includes('vimeo.com')) {
       const videoId = url.split('/').pop();
-      const autoplayParam = autoplay ? '?autoplay=1' : '';
+      // Only autoplay on desktop to avoid forced muting on mobile
+      const autoplayParam = autoplay && !isMobile ? '?autoplay=1' : '';
       return `https://player.vimeo.com/video/${videoId}${autoplayParam}`;
     }
     return url;
@@ -491,6 +505,7 @@ export class CoursePlayerComponent implements OnInit {
 
     // Reset quiz state when switching quizzes
     this.showQuiz = false;
+    this.isLoadingQuiz = false;
     this.lastQuizResult = null;
     this.currentQuiz = null;
 
@@ -507,6 +522,10 @@ export class CoursePlayerComponent implements OnInit {
         .saveActiveQuiz(this.course.id, targetModuleId)
         .subscribe();
     }
+
+    // Set loading state
+    this.isLoadingQuiz = true;
+    this.currentQuiz = null;
 
     this.quizService.getModuleQuiz(targetModuleId).subscribe((quiz) => {
       if (quiz) {
@@ -534,7 +553,10 @@ export class CoursePlayerComponent implements OnInit {
 
           // Show quiz after setting up the result
           this.showQuiz = true;
+          this.isLoadingQuiz = false;
         });
+      } else {
+        this.isLoadingQuiz = false;
       }
     });
   }
@@ -585,6 +607,7 @@ export class CoursePlayerComponent implements OnInit {
 
   onQuizContinue(): void {
     this.showQuiz = false;
+    this.isLoadingQuiz = false;
     this.currentQuiz = null;
     this.lastQuizResult = null;
 
@@ -611,6 +634,7 @@ export class CoursePlayerComponent implements OnInit {
 
   onQuizSkip(): void {
     this.showQuiz = false;
+    this.isLoadingQuiz = false;
     this.currentQuiz = null;
     this.lastQuizResult = null;
 

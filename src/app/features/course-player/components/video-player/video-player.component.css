@@ -120,25 +120,58 @@
 }
 
 @media (max-width: 768px) {
+  /* Simple always-visible mobile controls */
   .nav-overlay {
-    width: 40px;
-    height: 40px;
+    width: 32px !important;
+    height: 32px !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    opacity: 0.3 !important; /* Low opacity by default - barely visible */
+    pointer-events: auto !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10;
+  }
+
+  /* Higher opacity on active/tap */
+  .nav-overlay:active {
+    opacity: 1 !important;
+    background: rgba(168, 85, 247, 0.7) !important;
+    transform: translateY(-50%) scale(0.9) !important;
+  }
+
+  .nav-overlay lucide-icon {
+    width: 16px;
+    height: 16px;
   }
 
   .nav-overlay-left {
-    left: 0.5rem;
+    left: 0.5rem !important;
   }
 
   .nav-overlay-right {
-    right: 0.5rem;
+    right: 0.5rem !important;
+  }
+
+  /* Disable desktop hover on mobile */
+  .video-wrapper:hover .nav-overlay {
+    opacity: 0.3 !important;
+  }
+
+  .nav-overlay:hover {
+    background: rgba(0, 0, 0, 0.5) !important;
+    transform: translateY(-50%) !important;
   }
 
   .video-controls {
-    padding: 1rem;
+    padding: 1rem 0.75rem;
   }
 
   .btn-complete {
     width: 100%;
     justify-content: center;
+    font-size: 0.9375rem;
+    padding: 0.875rem;
   }
 }

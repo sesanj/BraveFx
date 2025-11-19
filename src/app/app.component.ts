@@ -18,6 +18,7 @@ export class AppComponent implements OnInit {
   showHeaderFooter = true;
   showHeader = true;
   showFooter = true;
+  isInitializing = true; // Prevent flash of wrong header
 
   constructor(
     private router: Router,
@@ -43,6 +44,9 @@ export class AppComponent implements OnInit {
         // Show header on auth pages, but hide footer
         this.showHeader = !isCoursePage && !isDashboard;
         this.showFooter = !isCoursePage && !isDashboard && !isAuthPage;
+
+        // Mark initialization complete after first navigation
+        this.isInitializing = false;
       });
 
     // Test Supabase connection

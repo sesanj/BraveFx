@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="top-bar-right">
-      <div class="progress-indicator">
+      <div class="progress-indicator" [style.--progress]="courseProgress">
         <lucide-icon [img]="BarChart3" [size]="16"></lucide-icon>
         <span class="progress-text">Progress: <strong>{{ courseProgress }}%</strong></span>
       </div>
@@ -41,19 +41,19 @@
     <main class="main-content">
       <!-- Text Lesson Content -->
       <div *ngIf="!showQuiz && isTextLesson && currentLesson" class="text-lesson-container">
-        <!-- Fixed Header -->
-        <div class="text-lesson-header-fixed">
-          <div class="text-lesson-header-content">
-            <div class="lesson-type-badge">
-              <lucide-icon [img]="FileText" [size]="16"></lucide-icon>
-              <span>Article</span>
-            </div>
-            <h1 class="text-lesson-title">{{ currentLesson.title }}</h1>
-          </div>
-        </div>
-
-        <!-- Scrollable Body -->
+        <!-- Scrollable Body with Header Inside -->
         <div class="text-lesson-scrollable">
+          <!-- Header (now scrolls with content) -->
+          <div class="text-lesson-header-fixed">
+            <div class="text-lesson-header-content">
+              <div class="lesson-type-badge">
+                <lucide-icon [img]="FileText" [size]="16"></lucide-icon>
+                <span>Article</span>
+              </div>
+              <h1 class="text-lesson-title">{{ currentLesson.title }}</h1>
+            </div>
+          </div>
+
           <div class="text-lesson-body-content">
             <p class="text-lesson-description">{{ currentLesson.description }}</p>
           </div>
@@ -71,20 +71,24 @@
             <lucide-icon [img]="ChevronRight" [size]="24"></lucide-icon>
           </button>
         </div>
-      </div> <!-- Video Player Component -->
-      <app-video-player *ngIf="!showQuiz && !isTextLesson" [videoUrl]="videoUrl" [lessonProgress]="lessonProgress"
-        [canGoPrevious]="canGoPrevious()" [canGoNext]="canGoNext()" [isLoading]="isLoadingVideo"
-        (previous)="goToPreviousLesson()" (next)="goToNextLesson()" (markComplete)="markAsComplete()">
+      </div>
+
+      <!-- Video Player Component -->
+      <app-video-player *ngIf="!showQuiz && !isTextLesson && currentLesson" [videoUrl]="videoUrl"
+        [lessonProgress]="lessonProgress" [canGoPrevious]="canGoPrevious()" [canGoNext]="canGoNext()"
+        [isLoading]="isLoadingVideo" (previous)="goToPreviousLesson()" (next)="goToNextLesson()"
+        (markComplete)="markAsComplete()">
       </app-video-player>
 
       <!-- Quiz Player Component -->
+      <app-quiz-skeleton *ngIf="isLoadingQuiz"></app-quiz-skeleton>
       <app-quiz-player *ngIf="showQuiz && currentQuiz" [quiz]="currentQuiz" [attemptNumber]="quizAttemptNumber"
         [previousResult]="lastQuizResult" (completed)="onQuizCompleted($event)" (retake)="onQuizRetake()"
         (continue)="onQuizContinue()" (skip)="onQuizSkip()">
       </app-quiz-player>
 
-      <!-- Tab Navigation -->
-      <div class="lesson-content-section" *ngIf="currentLesson || showQuiz">
+      <!-- Tab Navigation - Always visible as part of page layout -->
+      <div class="lesson-content-section" *ngIf="currentLesson || showQuiz || isLoadingQuiz">
         <!-- Tab Headers -->
         <div class="tab-navigation">
           <button class="tab-btn" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
@@ -128,7 +132,7 @@
                   </div>
                   <div class="stat-content">
                     <span class="stat-value">{{ course.studentsEnrolled.toLocaleString() }}</span>
-                    <span class="stat-label">Students Enrolled</span>
+                    <span class="stat-label">Students</span>
                   </div>
                 </div>
 
@@ -138,7 +142,7 @@
                   </div>
                   <div class="stat-content">
                     <span class="stat-value">{{ course.rating }} / 5.0</span>
-                    <span class="stat-label">Course Rating</span>
+                    <span class="stat-label">Rating</span>
                   </div>
                 </div>
 
@@ -148,7 +152,7 @@
                   </div>
                   <div class="stat-content">
                     <span class="stat-value">{{ course.totalLessons }}</span>
-                    <span class="stat-label">Total Lessons</span>
+                    <span class="stat-label">Lessons</span>
                   </div>
                 </div>
 
@@ -158,7 +162,7 @@
                   </div>
                   <div class="stat-content">
                     <span class="stat-value">{{ formatCourseDuration(course.duration) }}</span>
-                    <span class="stat-label">Total Duration</span>
+                    <span class="stat-label">Duration</span>
                   </div>
                 </div>
 
@@ -322,7 +326,4 @@
 </div>
 
 <!-- Loading State -->
-<div class="loading-state" *ngIf="!course">
-  <div class="spinner"></div>
-  <p>Loading course...</p>
-</div>
+<app-course-player-skeleton *ngIf="!course"></app-course-player-skeleton>

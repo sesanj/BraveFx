@@ -8,11 +8,12 @@ import {
   Play,
   LucideAngularModule,
 } from 'lucide-angular';
+import { VideoSkeletonComponent } from '../../../../shared/components/skeleton-loader/skeletons/video-skeleton.component';
 
 @Component({
   selector: 'app-video-player',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, VideoSkeletonComponent],
   templateUrl: './video-player.component.html',
   styleUrl: './video-player.component.css',
 })
