@@ -21,6 +21,7 @@ import { Course } from '../../../../core/models/course.model';
 import { Resource } from '../../../../core/models/resource.model';
 import { forkJoin, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { DashboardSkeletonComponent } from '../../../../shared/components/skeleton-loader/skeletons/dashboard-skeleton.component';
 
 interface ModuleWithResources {
   id: string;
@@ -38,7 +39,12 @@ interface CourseWithResources {
 @Component({
   selector: 'app-resources',
   standalone: true,
-  imports: [CommonModule, FormsModule, LucideAngularModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    LucideAngularModule,
+    DashboardSkeletonComponent,
+  ],
   templateUrl: './resources.component.html',
   styleUrls: ['./resources.component.css'],
 })
@@ -259,8 +265,11 @@ export class ResourcesComponent implements OnInit {
           const filteredModules = courseWithResources.modules
             .map((module) => ({
               ...module,
-              resources: module.resources.filter(
-                (resource) => resource.type === this.selectedResourceType
+              resources: module.resources.filter((resource) =>
+                this.matchesResourceType(
+                  resource.type,
+                  this.selectedResourceType
+                )
               ),
             }))
             .filter((module) => module.resources.length > 0);
@@ -278,6 +287,61 @@ export class ResourcesComponent implements OnInit {
     }
 
     this.filteredCoursesWithResources = filtered;
+  }
+
+  /**
+   * Check if a resource type matches the selected filter
+   */
+  private matchesResourceType(
+    resourceType: string,
+    filterType: string
+  ): boolean {
+    const type = resourceType.toLowerCase();
+    const filter = filterType.toLowerCase();
+
+    switch (filter) {
+      case 'pdf':
+        return type === 'pdf';
+      case 'excel':
+        return ['excel', 'xlsx', 'xls'].includes(type);
+      case 'word':
+        return ['word', 'doc', 'docx'].includes(type);
+      case 'image':
+        return ['image', 'jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'].includes(
+          type
+        );
+      case 'video':
+        return ['video', 'mp4', 'avi', 'mov', 'wmv', 'flv', 'webm'].includes(
+          type
+        );
+      case 'other':
+        // Other is anything that doesn't match the above categories
+        return ![
+          'pdf',
+          'excel',
+          'xlsx',
+          'xls',
+          'word',
+          'doc',
+          'docx',
+          'image',
+          'jpg',
+          'jpeg',
+          'png',
+          'gif',
+          'svg',
+          'webp',
+          'video',
+          'mp4',
+          'avi',
+          'mov',
+          'wmv',
+          'flv',
+          'webm',
+        ].includes(type);
+      default:
+        return type === filter;
+    }
   }
 
   /**

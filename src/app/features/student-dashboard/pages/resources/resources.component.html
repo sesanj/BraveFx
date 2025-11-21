@@ -1,127 +1,123 @@
 <div class="resources-page">
-    <!-- Header with Title and Stats -->
-    <div class="page-header">
-        <div class="header-top">
-            <div class="title-section">
-                <h1 class="page-title">Course Resources</h1>
-                <p class="page-subtitle">Access all downloadable materials</p>
-            </div>
-            <div class="stats-section" *ngIf="!isLoading">
-                <div class="stat-item">
-                    <span class="stat-number">{{ enrolledCourses.length }}</span>
-                    <span class="stat-text">Courses</span>
-                </div>
-                <div class="stat-divider"></div>
-                <div class="stat-item">
-                    <span class="stat-number">{{ getTotalResourceCount() }}</span>
-                    <span class="stat-text">Resources</span>
-                </div>
-            </div>
+  <!-- Header with Title and Stats -->
+  <div class="page-header">
+    <div class="header-top">
+      <div class="title-section">
+        <h1 class="page-title">Course Resources</h1>
+        <p class="page-subtitle">Access all downloadable materials</p>
+      </div>
+      <div class="stats-section" *ngIf="!isLoading">
+        <div class="stat-item">
+          <span class="stat-number">{{ enrolledCourses.length }}</span>
+          <span class="stat-text">Courses</span>
         </div>
-    </div>
-
-    <!-- Filters Bar - Course Dropdown (Left) and Search (Right) -->
-    <div class="filters-bar" *ngIf="!isLoading && enrolledCourses.length > 0">
-        <div class="filter-left">
-            <select class="course-select" [(ngModel)]="selectedCourseId" (change)="applyFilters()">
-                <option value="all">All Courses ({{ enrolledCourses.length }})</option>
-                <option *ngFor="let course of coursesWithResources" [value]="course.course.id">
-                    {{ course.course.title }} ({{ course.totalResources }})
-                </option>
-            </select>
-
-            <select class="type-select" [(ngModel)]="selectedResourceType" (change)="applyFilters()">
-                <option value="all">All Types</option>
-                <option value="pdf">PDF</option>
-                <option value="excel">Excel</option>
-                <option value="word">Word</option>
-                <option value="image">Images</option>
-                <option value="video">Videos</option>
-                <option value="other">Other</option>
-            </select>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-number">{{ getTotalResourceCount() }}</span>
+          <span class="stat-text">Resources</span>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="filter-right">
-            <div class="search-box">
-                <lucide-icon [img]="Search" [size]="18" class="search-icon"></lucide-icon>
-                <input type="text" class="search-input" placeholder="Search resources..." [(ngModel)]="searchQuery"
-                    (input)="applyFilters()" />
+  <!-- Filters Bar - Course Dropdown (Left) and Search (Right) -->
+  <div class="filters-bar" *ngIf="!isLoading && enrolledCourses.length > 0">
+    <div class="filter-left">
+      <select class="course-select" [(ngModel)]="selectedCourseId" (change)="applyFilters()">
+        <option value="all">All Courses ({{ enrolledCourses.length }})</option>
+        <option *ngFor="let course of coursesWithResources" [value]="course.course.id">
+          {{ course.course.title }} ({{ course.totalResources }})
+        </option>
+      </select>
+
+      <select class="type-select" [(ngModel)]="selectedResourceType" (change)="applyFilters()">
+        <option value="all">All Types</option>
+        <option value="pdf">PDF</option>
+        <option value="excel">Excel</option>
+        <option value="word">Word</option>
+        <option value="image">Images</option>
+        <option value="video">Videos</option>
+        <option value="other">Other</option>
+      </select>
+    </div>
+
+    <div class="filter-right">
+      <div class="search-box">
+        <lucide-icon [img]="Search" [size]="18" class="search-icon"></lucide-icon>
+        <input type="text" class="search-input" placeholder="Search resources..." [(ngModel)]="searchQuery"
+          (input)="applyFilters()" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div class="loading-container" *ngIf="isLoading">
+    <app-dashboard-skeleton type="resources" [count]="2"></app-dashboard-skeleton>
+  </div>
+
+  <!-- Empty State - No Courses -->
+  <div class="empty-state" *ngIf="!isLoading && enrolledCourses.length === 0">
+    <div class="empty-icon">📚</div>
+    <h2>No Enrolled Courses</h2>
+    <p>You haven't enrolled in any courses yet. Browse our catalog to get started!</p>
+  </div>
+
+  <!-- Empty State - No Resources -->
+  <div class="empty-state"
+    *ngIf="!isLoading && enrolledCourses.length > 0 && filteredCoursesWithResources.length === 0">
+    <div class="empty-icon">📄</div>
+    <h2>No Resources Found</h2>
+    <p *ngIf="searchQuery || selectedCourseId !== 'all' || selectedResourceType !== 'all'">
+      Try adjusting your filters to see more results.
+    </p>
+    <p *ngIf="!searchQuery && selectedCourseId === 'all' && selectedResourceType === 'all'">
+      Your enrolled courses don't have any downloadable resources yet.
+    </p>
+  </div>
+
+  <!-- Resources List -->
+  <div class="resources-container" *ngIf="!isLoading && filteredCoursesWithResources.length > 0">
+    <!-- Course Group -->
+    <div class="course-group" *ngFor="let courseWithResources of filteredCoursesWithResources; let courseIdx = index">
+      <!-- Course Header -->
+      <div class="course-header">
+        <h2 class="course-title">{{ courseWithResources.course.title }}</h2>
+        <span class="resource-badge">{{ courseWithResources.totalResources }} resource<span
+            *ngIf="courseWithResources.totalResources !== 1">s</span></span>
+      </div>
+
+      <!-- Modules/Sections -->
+      <div class="modules-list">
+        <div class="module-item" *ngFor="let module of courseWithResources.modules; let moduleIdx = index">
+          <!-- Module Header (Collapsible) -->
+          <button class="module-header" (click)="toggleModule(courseIdx, moduleIdx)" [class.expanded]="module.expanded">
+            <div class="module-info">
+              <h3 class="module-title">{{ module.title }}</h3>
+              <span class="file-count">{{ module.resources.length }} file<span
+                  *ngIf="module.resources.length !== 1">s</span></span>
             </div>
+            <lucide-icon [img]="module.expanded ? ChevronUp : ChevronDown" [size]="20"
+              class="toggle-icon"></lucide-icon>
+          </button>
+
+          <!-- Resources List (Expandable) -->
+          <div class="resources-list" *ngIf="module.expanded">
+            <div class="resource-item" *ngFor="let resource of module.resources">
+              <div class="resource-icon">
+                <lucide-icon [img]="getResourceIcon(resource.type)" [size]="20"></lucide-icon>
+              </div>
+              <div class="resource-details">
+                <h4 class="resource-title">{{ resource.title }}</h4>
+                <span class="resource-type">{{ getFileTypeLabel(resource.type) }}</span>
+              </div>
+              <button class="download-btn" (click)="downloadResource(resource)" title="Download {{ resource.title }}">
+                <lucide-icon [img]="Download" [size]="18"></lucide-icon>
+                <span class="download-text">Download</span>
+              </button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-
-    <!-- Loading State -->
-    <div class="loading-container" *ngIf="isLoading">
-        <div class="spinner"></div>
-        <p>Loading your resources...</p>
-    </div>
-
-    <!-- Empty State - No Courses -->
-    <div class="empty-state" *ngIf="!isLoading && enrolledCourses.length === 0">
-        <div class="empty-icon">📚</div>
-        <h2>No Enrolled Courses</h2>
-        <p>You haven't enrolled in any courses yet. Browse our catalog to get started!</p>
-    </div>
-
-    <!-- Empty State - No Resources -->
-    <div class="empty-state"
-        *ngIf="!isLoading && enrolledCourses.length > 0 && filteredCoursesWithResources.length === 0">
-        <div class="empty-icon">📄</div>
-        <h2>No Resources Found</h2>
-        <p *ngIf="searchQuery || selectedCourseId !== 'all' || selectedResourceType !== 'all'">
-            Try adjusting your filters to see more results.
-        </p>
-        <p *ngIf="!searchQuery && selectedCourseId === 'all' && selectedResourceType === 'all'">
-            Your enrolled courses don't have any downloadable resources yet.
-        </p>
-    </div>
-
-    <!-- Resources List -->
-    <div class="resources-container" *ngIf="!isLoading && filteredCoursesWithResources.length > 0">
-        <!-- Course Group -->
-        <div class="course-group"
-            *ngFor="let courseWithResources of filteredCoursesWithResources; let courseIdx = index">
-            <!-- Course Header -->
-            <div class="course-header">
-                <h2 class="course-title">{{ courseWithResources.course.title }}</h2>
-                <span class="resource-badge">{{ courseWithResources.totalResources }} resource<span
-                        *ngIf="courseWithResources.totalResources !== 1">s</span></span>
-            </div>
-
-            <!-- Modules/Sections -->
-            <div class="modules-list">
-                <div class="module-item" *ngFor="let module of courseWithResources.modules; let moduleIdx = index">
-                    <!-- Module Header (Collapsible) -->
-                    <button class="module-header" (click)="toggleModule(courseIdx, moduleIdx)"
-                        [class.expanded]="module.expanded">
-                        <div class="module-info">
-                            <h3 class="module-title">{{ module.title }}</h3>
-                            <span class="file-count">{{ module.resources.length }} file<span
-                                    *ngIf="module.resources.length !== 1">s</span></span>
-                        </div>
-                        <lucide-icon [img]="module.expanded ? ChevronUp : ChevronDown" [size]="20"
-                            class="toggle-icon"></lucide-icon>
-                    </button>
-
-                    <!-- Resources List (Expandable) -->
-                    <div class="resources-list" *ngIf="module.expanded">
-                        <div class="resource-item" *ngFor="let resource of module.resources">
-                            <div class="resource-icon">
-                                <lucide-icon [img]="getResourceIcon(resource.type)" [size]="20"></lucide-icon>
-                            </div>
-                            <div class="resource-details">
-                                <h4 class="resource-title">{{ resource.title }}</h4>
-                                <span class="resource-type">{{ getFileTypeLabel(resource.type) }}</span>
-                            </div>
-                            <button class="download-btn" (click)="downloadResource(resource)"
-                                title="Download {{ resource.title }}">
-                                <lucide-icon [img]="Download" [size]="18"></lucide-icon>
-                                <span class="download-text">Download</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  </div>
 </div>

@@ -42,7 +42,7 @@ export class SupportComponent {
         'You can access all your enrolled courses from the "My Courses" tab in the dashboard. Click on any course card to continue learning from where you left off.',
     },
     {
-      question: 'Can I download course materials for offline viewing?',
+      question: 'Can I download course materials?',
       answer:
         'Yes! Most courses include downloadable resources like PDFs, cheat sheets, and supplementary materials. Look for the download icon in the Resources panel while viewing course content.',
     },

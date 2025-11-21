@@ -41,8 +41,8 @@
 
 .courses-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
 }
 
 /* Modal Styles */
@@ -113,12 +113,12 @@
 
 @media (max-width: 768px) {
   .page-title {
-    font-size: 1.7rem;
+    font-size: 1.375rem;
     margin-bottom: 5px;
   }
 
   .section-title {
-    font-size: 1.4rem;
+    font-size: 1.125rem;
   }
 
   .courses-grid {

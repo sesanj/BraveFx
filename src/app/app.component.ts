@@ -47,6 +47,13 @@ export class AppComponent implements OnInit {
 
         // Mark initialization complete after first navigation
         this.isInitializing = false;
+
+        // Force scroll to top immediately - try multiple approaches
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          document.documentElement.scrollTop = 0;
+          document.body.scrollTop = 0;
+        }, 0);
       });
 
     // Test Supabase connection

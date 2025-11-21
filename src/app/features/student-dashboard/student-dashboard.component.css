@@ -21,47 +21,6 @@
   padding: 2.5rem 2rem 2rem 2rem;
 }
 
-.tab-content {
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.page-title {
-  font-size: 1.7rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
-}
-
-.page-subtitle {
-  color: var(--text-secondary);
-  font-size: 1rem;
-  margin: 0 0 3rem 0;
-}
-
-/* ===== SECTIONS ===== */
-.section {
-  margin-bottom: 3rem;
-}
-
-.section-title {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 1.5rem 0;
-}
-
-/* ===== COURSES GRID ===== */
-.courses-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 1.5rem;
-}
-
-.courses-grid.full {
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-}
-
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
   .dashboard {
@@ -72,22 +31,12 @@
   .main-content {
     width: 100%;
     order: 1;
-    padding-top: 60px; /* Space for fixed top header */
-    padding-bottom: 90px; /* Space for fixed bottom nav */
+    padding-top: 60px;
+    padding-bottom: 90px;
   }
 
   .content-area {
     padding: 2.5rem 1.5rem 2rem 1.5rem;
-  }
-
-  .page-title {
-    font-size: 1.25rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .page-subtitle {
-    font-size: 0.9rem;
-    margin-bottom: 3rem;
   }
 }
 
@@ -103,26 +52,11 @@
     width: 100%;
     min-height: 100vh;
     order: 1;
-    padding-top: 56px; /* Space for fixed top header */
-    padding-bottom: 90px; /* Space for fixed bottom nav */
+    padding-top: 56px;
+    padding-bottom: 90px;
   }
 
   .content-area {
     padding: 2.5rem 1rem 2rem 1rem;
-  }
-
-  .page-title {
-    font-size: 2rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .page-subtitle {
-    font-size: 0.85rem;
-    margin-bottom: 3rem;
-  }
-
-  .courses-grid,
-  .courses-grid.full {
-    grid-template-columns: 1fr;
   }
 }

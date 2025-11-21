@@ -9,11 +9,12 @@ import { CourseService } from '../../../../core/services/course.service';
 import { ProgressService } from '../../../../core/services/progress.service';
 import { Course as CourseModel } from '../../../../core/models/course.model';
 import { forkJoin } from 'rxjs';
+import { DashboardSkeletonComponent } from '../../../../shared/components/skeleton-loader/skeletons/dashboard-skeleton.component';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CommonModule, CourseCardComponent],
+  imports: [CommonModule, CourseCardComponent, DashboardSkeletonComponent],
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.css'],
 })

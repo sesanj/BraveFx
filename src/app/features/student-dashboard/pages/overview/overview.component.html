@@ -2,14 +2,23 @@
 <p class="page-subtitle">Continue your learning journey</p>
 
 <!-- Stats Grid -->
-<app-stats-grid [stats]="stats"></app-stats-grid>
+<!-- Skeleton Loader -->
+<app-dashboard-skeleton *ngIf="isLoadingStats" type="stats"></app-dashboard-skeleton>
+
+<!-- Actual Content -->
+<app-stats-grid *ngIf="!isLoadingStats" [stats]="stats"></app-stats-grid>
 
 <!-- Continue Learning -->
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Continue Learning</h2>
   </div>
-  <div class="courses-grid">
+
+  <!-- Skeleton Loader -->
+  <app-dashboard-skeleton *ngIf="isLoadingCourses" type="courses" [count]="3"></app-dashboard-skeleton>
+
+  <!-- Actual Content -->
+  <div class="courses-grid" *ngIf="!isLoadingCourses">
     <app-course-card *ngFor="let course of recentCourses" [course]="course" (continue)="continueCourse($event)">
     </app-course-card>
   </div>
@@ -19,11 +28,17 @@
 <section class="section">
   <div class="section-header">
     <h2 class="section-title">Recent Activity</h2>
-    <button *ngIf="allActivities.length > 10" class="view-all-btn-header" (click)="openActivitiesModal()">
+    <button *ngIf="!isLoadingActivities && allActivities.length > 5" class="view-all-btn-header"
+      (click)="openActivitiesModal()">
       View All
     </button>
   </div>
-  <app-activity-list [activities]="recentActivity" [showViewAll]="false">
+
+  <!-- Skeleton Loader -->
+  <app-dashboard-skeleton *ngIf="isLoadingActivities" type="activities"></app-dashboard-skeleton>
+
+  <!-- Actual Content -->
+  <app-activity-list *ngIf="!isLoadingActivities" [activities]="recentActivity" [showViewAll]="false">
   </app-activity-list>
 </section>
 

@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import {
   LucideAngularModule,
   User,
@@ -7,6 +8,7 @@ import {
   LogOut,
   Moon,
   Sun,
+  Headphones,
 } from 'lucide-angular';
 import { ThemeService } from '../../../../core/services/theme.service';
 
@@ -34,10 +36,11 @@ export class TopBarComponent {
   LogOut = LogOut;
   Moon = Moon;
   Sun = Sun;
+  Headphones = Headphones;
 
   isUserMenuOpen = false;
 
-  constructor(public theme: ThemeService) {}
+  constructor(public theme: ThemeService, private router: Router) {}
 
   toggleUserMenu(): void {
     this.isUserMenuOpen = !this.isUserMenuOpen;
@@ -45,6 +48,11 @@ export class TopBarComponent {
 
   onSettings(): void {
     this.settingsClick.emit();
+    this.toggleUserMenu();
+  }
+
+  onSupport(): void {
+    this.router.navigate(['/dashboard/support']);
     this.toggleUserMenu();
   }
 

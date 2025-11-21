@@ -16,12 +16,14 @@ import {
 import { CourseService } from '../../../../core/services/course.service';
 import { ProgressService } from '../../../../core/services/progress.service';
 import { QuizService } from '../../../../core/services/quiz.service';
-import { forkJoin } from 'rxjs';
+import { SupabaseService } from '../../../../core/services/supabase.service';
+import { forkJoin, from, Observable } from 'rxjs';
+import { DashboardSkeletonComponent } from '../../../../shared/components/skeleton-loader/skeletons/dashboard-skeleton.component';
 
 @Component({
   selector: 'app-progress',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, DashboardSkeletonComponent],
   templateUrl: './progress.component.html',
   styleUrls: ['./progress.component.css'],
 })
@@ -77,7 +79,8 @@ export class ProgressComponent implements OnInit {
   constructor(
     private courseService: CourseService,
     private progressService: ProgressService,
-    private quizService: QuizService
+    private quizService: QuizService,
+    private supabase: SupabaseService
   ) {}
 
   ngOnInit(): void {
@@ -109,6 +112,7 @@ export class ProgressComponent implements OnInit {
               course.totalLessons || 0
             ),
             completedIds: this.progressService.getCompletedLessonIds(course.id),
+            quizCount: this.getQuizCount(course.id), // Fetch quiz count from database
           })
         );
 
@@ -132,10 +136,8 @@ export class ProgressComponent implements OnInit {
                 title: course.title,
                 completedLessons: completedCount,
                 totalLessons: totalLessons,
-                completedQuizzes: 0,
-                totalQuizzes:
-                  course.modules?.filter((m: any) => m.type === 'quiz')
-                    .length || 0,
+                completedQuizzes: 0, // Will be updated after loading quiz data
+                totalQuizzes: result.quizCount,
                 progress: Math.round(progress),
                 color: colors[index % colors.length],
               };
@@ -145,8 +147,8 @@ export class ProgressComponent implements OnInit {
             this.completedLessons = totalCompleted;
             this.totalLessons = totalLessonsCount;
 
-            // Load quiz performance data
-            this.loadQuizPerformance();
+            // Load quiz performance data and update course progress
+            this.loadQuizPerformance(courses);
           },
           error: (error) => {
             console.error('Error loading progress:', error);
@@ -161,7 +163,26 @@ export class ProgressComponent implements OnInit {
     });
   }
 
-  loadQuizPerformance(): void {
+  private getQuizCount(courseId: string): Observable<number> {
+    return from(this.fetchQuizCountFromSupabase(courseId));
+  }
+
+  private async fetchQuizCountFromSupabase(courseId: string): Promise<number> {
+    const { count, error } = await this.supabase.client
+      .from('modules')
+      .select('id', { count: 'exact', head: true })
+      .eq('course_id', courseId)
+      .eq('has_quiz', true);
+
+    if (error) {
+      console.error('Error counting quizzes:', error);
+      return 0;
+    }
+
+    return count || 0;
+  }
+
+  loadQuizPerformance(courses: any[]): void {
     this.quizService.getAllUserAttempts().subscribe({
       next: (attempts) => {
         // Transform to match the component's expected format
@@ -192,6 +213,23 @@ export class ProgressComponent implements OnInit {
           this.quizAverage = Math.round(totalScore / attempts.length);
           this.completedQuizzes = attempts.filter((a) => a.passed).length;
         }
+
+        // Update course progress with completed quiz counts
+        this.courseProgress = this.courseProgress.map((courseProgress) => {
+          const course = courses.find((c) => c.title === courseProgress.title);
+          if (course) {
+            // Count passed quizzes for this course
+            const passedQuizzes = attempts.filter(
+              (attempt) => attempt.courseName === course.title && attempt.passed
+            ).length;
+
+            return {
+              ...courseProgress,
+              completedQuizzes: passedQuizzes,
+            };
+          }
+          return courseProgress;
+        });
 
         this.loading = false;
       },

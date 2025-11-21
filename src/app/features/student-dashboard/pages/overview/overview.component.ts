@@ -21,6 +21,7 @@ import { SupabaseService } from '../../../../core/services/supabase.service';
 import { Course as CourseModel } from '../../../../core/models/course.model';
 import { forkJoin, from } from 'rxjs';
 import { LucideAngularModule, X } from 'lucide-angular';
+import { DashboardSkeletonComponent } from '../../../../shared/components/skeleton-loader/skeletons/dashboard-skeleton.component';
 
 @Component({
   selector: 'app-overview',
@@ -31,6 +32,7 @@ import { LucideAngularModule, X } from 'lucide-angular';
     CourseCardComponent,
     ActivityListComponent,
     LucideAngularModule,
+    DashboardSkeletonComponent,
   ],
   templateUrl: './overview.component.html',
   styleUrls: ['./overview.component.css'],
@@ -52,6 +54,11 @@ export class OverviewComponent implements OnInit {
   recentActivity: Activity[] = [];
   allActivities: Activity[] = [];
   showActivitiesModal = false;
+
+  // Loading states
+  isLoadingCourses = true;
+  isLoadingActivities = true;
+  isLoadingStats = true;
 
   // Icons
   X = X;
@@ -84,6 +91,7 @@ export class OverviewComponent implements OnInit {
   }
 
   loadCourses(): void {
+    this.isLoadingCourses = true;
     this.courseService.getAllCourses().subscribe({
       next: (courses: CourseModel[]) => {
         // Show first 2 courses in overview
@@ -124,6 +132,7 @@ export class OverviewComponent implements OnInit {
 
             // Calculate stats
             this.calculateStats(courses);
+            this.isLoadingCourses = false;
           },
           error: (error) => {
             console.error('Error loading progress:', error);
@@ -140,6 +149,7 @@ export class OverviewComponent implements OnInit {
               totalLessons: course.totalLessons,
               completedLessons: 0,
             }));
+            this.isLoadingCourses = false;
           },
         });
 
@@ -148,11 +158,13 @@ export class OverviewComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error loading courses:', error);
+        this.isLoadingCourses = false;
       },
     });
   }
 
   calculateStats(courses: CourseModel[]): void {
+    this.isLoadingStats = true;
     // Calculate completed courses and hours learned
     const progressRequests = courses.map((course) =>
       this.progressService.getCourseProgress(course.id, course.totalLessons)
@@ -174,9 +186,11 @@ export class OverviewComponent implements OnInit {
 
         // Certificates earned = completed courses
         this.stats.certificatesEarned = completedCount;
+        this.isLoadingStats = false;
       },
       error: (error) => {
         console.error('Error calculating stats:', error);
+        this.isLoadingStats = false;
       },
     });
   }
@@ -186,8 +200,12 @@ export class OverviewComponent implements OnInit {
   }
 
   loadRecentActivities(): void {
+    this.isLoadingActivities = true;
     const userId = this.authService.getCurrentUser()?.id;
-    if (!userId) return;
+    if (!userId) {
+      this.isLoadingActivities = false;
+      return;
+    }
 
     // Fetch completed lessons with course/module context and quiz attempts
     forkJoin({
@@ -343,11 +361,13 @@ export class OverviewComponent implements OnInit {
         // Store all activities
         this.allActivities = activities;
 
-        // Show top 10 for recent activity
-        this.recentActivity = activities.slice(0, 10);
+        // Show top 5 for recent activity
+        this.recentActivity = activities.slice(0, 5);
+        this.isLoadingActivities = false;
       },
       error: (error) => {
         console.error('Error loading activities:', error);
+        this.isLoadingActivities = false;
       },
     });
   }

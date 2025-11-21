@@ -1,10 +1,8 @@
 <h1 class="page-title">Learning Progress</h1>
 <p class="page-subtitle">Track your achievements and performance</p>
 
-<!-- Loading State -->
-<div *ngIf="loading" style="text-align: center; padding: 40px 0;">
-    <p>Loading your progress...</p>
-</div>
+<!-- Stats Skeleton -->
+<app-dashboard-skeleton *ngIf="loading" type="stats"></app-dashboard-skeleton>
 
 <!-- Progress Overview Cards -->
 <div *ngIf="!loading">
@@ -44,79 +42,85 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Course Progress Section -->
-    <div class="progress-section">
-        <div class="progress-section-header">
-            <h2 class="progress-section-title">Course Progress</h2>
-            <p class="progress-section-subtitle">Track your completion status for each course</p>
-        </div>
+<!-- Course Progress Section -->
+<div class="progress-section">
+    <div class="progress-section-header">
+        <h2 class="progress-section-title">Course Progress</h2>
+    </div>
 
-        <div class="course-progress-list">
-            <div class="course-progress-item" *ngFor="let course of courseProgress">
-                <div class="course-progress-info">
-                    <div class="course-progress-icon" [style.background]="course.color">
-                        {{ course.title.charAt(0) }}
-                    </div>
-                    <div class="course-progress-details">
-                        <h4 class="course-progress-title">{{ course.title }}</h4>
-                        <p class="course-progress-stats">
-                            {{ course.completedLessons }}/{{ course.totalLessons }} lessons •
-                            {{ course.completedQuizzes }}/{{ course.totalQuizzes }} quizzes
-                        </p>
-                    </div>
+    <!-- Course Progress Skeleton -->
+    <app-dashboard-skeleton *ngIf="loading" type="course-progress" [count]="3"></app-dashboard-skeleton>
+
+    <!-- Course Progress List -->
+    <div class="course-progress-list" *ngIf="!loading">
+        <div class="course-progress-item" *ngFor="let course of courseProgress">
+            <div class="course-progress-info">
+                <div class="course-progress-icon" [style.background]="course.color">
+                    {{ course.title.charAt(0) }}
                 </div>
-                <div class="course-progress-bar-container">
-                    <div class="course-progress-bar">
-                        <div class="course-progress-bar-fill" [style.width.%]="course.progress"
-                            [style.background]="course.color"></div>
-                    </div>
-                    <span class="course-progress-percentage">{{ course.progress }}%</span>
+                <div class="course-progress-details">
+                    <h4 class="course-progress-title">{{ course.title }}</h4>
+                    <p class="course-progress-stats">
+                        {{ course.completedLessons }}/{{ course.totalLessons }} lessons •
+                        {{ course.completedQuizzes }}/{{ course.totalQuizzes }} quizzes
+                    </p>
                 </div>
+            </div>
+            <div class="course-progress-bar-container">
+                <div class="course-progress-bar">
+                    <div class="course-progress-bar-fill" [style.width.%]="course.progress"
+                        [style.background]="course.color"></div>
+                </div>
+                <span class="course-progress-percentage">{{ course.progress }}%</span>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Quiz Performance -->
-    <div class="progress-section">
-        <div class="progress-section-header">
-            <h2 class="progress-section-title">Quiz Performance</h2>
-            <p class="progress-section-subtitle">Your quiz scores and improvement trends</p>
-        </div>
+<!-- Quiz Performance -->
+<div class="progress-section">
+    <div class="progress-section-header">
+        <h2 class="progress-section-title">Quiz Performance</h2>
+    </div>
 
-        <div class="quiz-performance-list">
-            <div class="quiz-performance-item" *ngFor="let quiz of quizPerformance" (click)="openQuizReview(quiz)">
-                <div class="quiz-performance-header">
-                    <div class="quiz-performance-info">
-                        <h4 class="quiz-performance-title">{{ quiz.title }}</h4>
-                        <p class="quiz-performance-course">
-                            <lucide-icon [img]="BookOpen" [size]="14"></lucide-icon>
-                            {{ quiz.course }}
-                        </p>
-                        <p class="quiz-performance-module">
-                            <lucide-icon [img]="Video" [size]="14"></lucide-icon>
-                            {{ quiz.module }}
-                        </p>
-                    </div>
-                    <div class="quiz-performance-score" [class.excellent]="quiz.score >= 90"
-                        [class.good]="quiz.score >= 70 && quiz.score < 90" [class.fair]="quiz.score < 70">
-                        {{ quiz.score }}%
-                    </div>
+    <!-- Quiz Performance Skeleton -->
+    <app-dashboard-skeleton *ngIf="loading" type="quiz-performance" [count]="5"></app-dashboard-skeleton>
+
+    <!-- Quiz Performance List -->
+    <div class="quiz-performance-list" *ngIf="!loading">
+        <div class="quiz-performance-item" *ngFor="let quiz of quizPerformance" (click)="openQuizReview(quiz)">
+            <div class="quiz-performance-header">
+                <div class="quiz-performance-info">
+                    <h4 class="quiz-performance-title">{{ quiz.title }}</h4>
+                    <p class="quiz-performance-course">
+                        <lucide-icon [img]="BookOpen" [size]="14"></lucide-icon>
+                        {{ quiz.course }}
+                    </p>
+                    <p class="quiz-performance-module">
+                        <lucide-icon [img]="Video" [size]="14"></lucide-icon>
+                        {{ quiz.module }}
+                    </p>
                 </div>
-                <div class="quiz-performance-meta">
-                    <span class="quiz-performance-date">
-                        <lucide-icon [img]="Calendar" [size]="14"></lucide-icon>
-                        {{ quiz.date }}
-                    </span>
-                    <span class="quiz-performance-attempts">
-                        <lucide-icon [img]="RotateCw" [size]="14"></lucide-icon>
-                        {{ quiz.attempts }} attempt{{ quiz.attempts > 1 ? 's' : '' }}
-                    </span>
+                <div class="quiz-performance-score" [class.excellent]="quiz.score >= 90"
+                    [class.good]="quiz.score >= 70 && quiz.score < 90" [class.fair]="quiz.score < 70">
+                    {{ quiz.score }}%
                 </div>
+            </div>
+            <div class="quiz-performance-meta">
+                <span class="quiz-performance-date">
+                    <lucide-icon [img]="Calendar" [size]="14"></lucide-icon>
+                    {{ quiz.date }}
+                </span>
+                <span class="quiz-performance-attempts">
+                    <lucide-icon [img]="RotateCw" [size]="14"></lucide-icon>
+                    {{ quiz.attempts }} attempt{{ quiz.attempts > 1 ? 's' : '' }}
+                </span>
             </div>
         </div>
     </div>
-</div> <!-- Close *ngIf="!loading" -->
+</div>
 
 <!-- Quiz Review Modal -->
 <div class="quiz-review-modal" *ngIf="showQuizReview" (click)="closeQuizReview()">
