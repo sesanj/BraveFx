@@ -1,0 +1,79 @@
+<!-- Features Section -->
+<section class="features">
+    <div class="container">
+        <div class="section-header-center">
+            <div class="badge">
+                <lucide-icon [img]="SparklesIcon" class="badge-icon"></lucide-icon>
+                <span>Why Learn From Us</span>
+            </div>
+            <h2 class="section-title">
+                Why <span class="gradient-text">BraveFX Academy?</span>
+            </h2>
+        </div>
+
+        <div class="bento-grid">
+            <!-- Large Stats Card (Left) -->
+            <div class="bento-card-large glass-card">
+                <div class="stats-hero">
+                    <div class="stats-hero-header">
+                        <lucide-icon [img]="TrendingUpIcon" class="stats-hero-icon"></lucide-icon>
+                        <h3 class="stats-hero-title">Trusted by Thousands</h3>
+                    </div>
+                    <p class="stats-hero-description">Join a proven community of successful traders worldwide</p>
+
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="bento-stat-number">{{ whyBraveFxStats.students }}</div>
+                            <div class="bento-stat-label">Enrolled Students</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="bento-stat-number">{{ whyBraveFxStats.youtubeFollowers }}</div>
+                            <div class="bento-stat-label">YouTube Followers</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="bento-stat-number">{{ whyBraveFxStats.instagramFollowers }}</div>
+                            <div class="bento-stat-label">Instagram Followers</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="bento-stat-number">{{ whyBraveFxStats.tiktokFollowers }}</div>
+                            <div class="bento-stat-label">TikTok Followers</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="bento-stat-number">{{ whyBraveFxStats.discordMembers }}</div>
+                            <div class="bento-stat-label">Discord Members</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="bento-stat-number">{{ whyBraveFxStats.reviews }}</div>
+                            <div class="bento-stat-label">Student Reviews</div>
+                        </div>
+                        <div class="stat-box stat-box-wide">
+                            <div class="stat-rating">
+                                <span class="bento-stat-number">{{ whyBraveFxStats.rating }}</span>
+                                <div class="bento-stars">
+                                    <span class="star-filled" *ngFor="let star of [1,2,3,4]">★</span>
+                                    <span class="star-half">★</span>
+                                </div>
+                            </div>
+                            <div class="bento-stat-label">Average Rating</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Small Feature Cards (Right) -->
+            <div class="bento-cards-small">
+                <div class="bento-card-small glass-card" *ngFor="let feature of whyBraveFx; let i = index">
+                    <div class="feature-compact-icon">
+                        <lucide-icon [img]="getIcon(i)" class="feature-icon"></lucide-icon>
+                    </div>
+                    <h3 class="feature-compact-title">{{ feature.title }}</h3>
+                    <p class="feature-compact-description">{{ feature.description }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="transition-text">
+            <p>Don't just take our word for it — hear from successful students...</p>
+        </div>
+    </div>
+</section>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -8,58 +7,31 @@ import { CourseService } from '../../core/services/course.service';
 import { ReviewService } from '../../core/services/review.service';
 import { Course } from '../../core/models/course.model';
 import { Review } from '../../core/models/review.model';
-import {
-  LucideAngularModule,
-  GraduationCap,
-  TrendingUp,
-  Download,
-  CheckCircle,
-  Users,
-  Clock,
-  PlayCircle,
-  Star,
-  Shield,
-  Zap,
-  BarChart3,
-  Trophy,
-  MessageCircle,
-  ChevronRight,
-  Sparkles,
-  Tag,
-  Target,
-  BookOpen,
-  FileText,
-  Infinity,
-  ChevronDown,
-  MapPin,
-  Award,
-  Package,
-  CheckCircle2,
-  ArrowRight,
-  Lock,
-  Minus,
-  Plus,
-  ShieldCheck,
-  Lightbulb,
-  Brain,
-  LineChart,
-  Wallet,
-  BookMarked,
-  AlertCircle,
-  Instagram,
-  Youtube,
-  X,
-  Filter,
-  ChevronLeft,
-  Globe,
-  ClipboardCheck,
-  Smartphone,
-} from 'lucide-angular';
+import { HeroComponent } from './components/hero/hero.component';
+import { LearningOutcomesComponent } from './components/learning-outcomes/learning-outcomes.component';
+import { CourseCurriculumComponent } from './components/course-curriculum/course-curriculum.component';
+import { WhyBravefxComponent } from './components/why-bravefx/why-bravefx.component';
+import { TestimonialsComponent } from './components/testimonials/testimonials.component';
+import { PricingComponent } from './components/pricing/pricing.component';
+import { CtaComponent } from './components/cta/cta.component';
+import { LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, LucideAngularModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    LucideAngularModule,
+    FormsModule,
+    HeroComponent,
+    LearningOutcomesComponent,
+    CourseCurriculumComponent,
+    WhyBravefxComponent,
+    TestimonialsComponent,
+    PricingComponent,
+    CtaComponent,
+  ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
@@ -90,94 +62,6 @@ export class HomeComponent implements OnInit {
   selectedRegionFilter = 'all';
   selectedSortFilter = 'recent';
 
-  private previewBaseUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
-  sanitizedPreviewUrl!: SafeResourceUrl;
-
-  // Icons
-  readonly GraduationCap = GraduationCap;
-  readonly TrendingUp = TrendingUp;
-  readonly Download = Download;
-  readonly CheckCircle = CheckCircle;
-  readonly CheckCircle2 = CheckCircle2;
-  readonly Users = Users;
-  readonly Clock = Clock;
-  readonly PlayCircle = PlayCircle;
-  readonly Star = Star;
-  readonly Shield = Shield;
-  readonly ShieldCheck = ShieldCheck;
-  readonly Zap = Zap;
-  readonly BarChart3 = BarChart3;
-  readonly Trophy = Trophy;
-  readonly MessageCircle = MessageCircle;
-  readonly ChevronRight = ChevronRight;
-  readonly ChevronDown = ChevronDown;
-  readonly Sparkles = Sparkles;
-  readonly Tag = Tag;
-  readonly Target = Target;
-  readonly BookOpen = BookOpen;
-  readonly FileText = FileText;
-  readonly Infinity = Infinity;
-  readonly MapPin = MapPin;
-  readonly Award = Award;
-  readonly Package = Package;
-  readonly ArrowRight = ArrowRight;
-  readonly Lock = Lock;
-  readonly Minus = Minus;
-  readonly Plus = Plus;
-  readonly Lightbulb = Lightbulb;
-  readonly Brain = Brain;
-  readonly LineChart = LineChart;
-  readonly Wallet = Wallet;
-  readonly BookMarked = BookMarked;
-  readonly AlertCircle = AlertCircle;
-  readonly Instagram = Instagram;
-  readonly Youtube = Youtube;
-  readonly X = X;
-  readonly Filter = Filter;
-  readonly ChevronLeft = ChevronLeft;
-  readonly Globe = Globe;
-  readonly ClipboardCheck = ClipboardCheck;
-  readonly Smartphone = Smartphone;
-
-  learningOutcomes = [
-    {
-      icon: Brain,
-      title: 'Master Technical Analysis',
-      description:
-        'Read charts like a pro. Learn price action, candlestick patterns, support & resistance, proven indicators, and more.',
-    },
-    {
-      icon: LineChart,
-      title: 'Develop Winning Strategies',
-      description:
-        'Build and backtest profitable trading strategies that work in any market condition.',
-    },
-    {
-      icon: Wallet,
-      title: 'Perfect Risk Management',
-      description:
-        'Protect your capital with professional risk management and position sizing techniques.',
-    },
-    {
-      icon: Zap,
-      title: 'Execute with Confidence',
-      description:
-        'Master trading psychology and eliminate emotional decision-making for consistent results.',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Spot High-Probability Trades',
-      description:
-        'Identify the best trading opportunities with multi-timeframe analysis.',
-    },
-    {
-      icon: BookMarked,
-      title: 'Build a Trading Plan',
-      description:
-        'Create your personalized trading plan and journal for continuous improvement.',
-    },
-  ];
-
   // Why Learn From Us - Stats
   whyBraveFxStats = {
     students: '6,000+',
@@ -191,19 +75,16 @@ export class HomeComponent implements OnInit {
 
   whyBraveFx = [
     {
-      icon: Trophy,
       title: '10+ Years Experience',
       description:
         'Learn from a seasoned trader with over a decade of real market experience. Not a weekend course creator—actual trading expertise.',
     },
     {
-      icon: Lightbulb,
       title: 'Battle-Tested Strategies',
       description:
         'Proven strategies used by professional traders, not theory from textbooks. Real market experience translated into actionable lessons.',
     },
     {
-      icon: Users,
       title: 'Lifetime Community Support',
       description:
         "Join our active Discord community. Get ongoing support, share trades, and grow with traders at every level. You're never alone.",
@@ -243,48 +124,9 @@ export class HomeComponent implements OnInit {
     },
   ];
 
-  features = [
-    {
-      icon: GraduationCap,
-      title: 'Comprehensive Curriculum',
-      description:
-        '25+ hours of expert-led video lessons covering beginner to advanced strategies',
-    },
-    {
-      icon: TrendingUp,
-      title: 'Real Trading Examples',
-      description:
-        'Learn from actual market scenarios and live trading demonstrations',
-    },
-    {
-      icon: Download,
-      title: '50+ Resources',
-      description: 'Downloadable PDFs, cheat sheets, and trading calculators',
-    },
-    {
-      icon: CheckCircle,
-      title: 'Skill Tests',
-      description:
-        'Validate your knowledge with quizzes and practical assessments',
-    },
-    {
-      icon: Users,
-      title: 'Community Access',
-      description:
-        'Join a community of 6,000+ traders and get your questions answered',
-    },
-    {
-      icon: Clock,
-      title: 'Lifetime Access',
-      description:
-        'Learn at your own pace with unlimited access to all course materials',
-    },
-  ];
-
   constructor(
     private courseService: CourseService,
     private reviewService: ReviewService,
-    private sanitizer: DomSanitizer,
     private http: HttpClient
   ) {}
 
@@ -337,6 +179,11 @@ export class HomeComponent implements OnInit {
         this.reviewsData = data;
         const jsonFeaturedReviews = data.featuredReviews || [];
         const jsonAllReviews = data.allReviews || [];
+
+        // Set the data immediately from JSON
+        this.featuredReviews = jsonFeaturedReviews;
+        this.allReviews = jsonAllReviews;
+        this.filteredReviews = [...jsonAllReviews];
 
         // Now fetch reviews from database and merge them
         this.reviewService.getAllReviews(1, 100).subscribe({
@@ -572,20 +419,6 @@ export class HomeComponent implements OnInit {
   scrollToCurriculum() {
     const curriculumSection = document.getElementById('curriculum');
     curriculumSection?.scrollIntoView({ behavior: 'smooth' });
-  }
-
-  openPreview() {
-    this.isPreviewOpen = true;
-    const url = `${this.previewBaseUrl}?autoplay=1&modestbranding=1&rel=0`;
-    this.sanitizedPreviewUrl =
-      this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-
-  closePreview() {
-    this.isPreviewOpen = false;
-    // Stop video playback by navigating iframe to blank
-    this.sanitizedPreviewUrl =
-      this.sanitizer.bypassSecurityTrustResourceUrl('about:blank');
   }
 
   toggleSection(index: number) {
