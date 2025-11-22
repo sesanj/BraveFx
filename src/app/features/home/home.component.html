@@ -5,33 +5,16 @@
 <app-learning-outcomes (curriculumClick)="scrollToCurriculum()"></app-learning-outcomes>
 
 <!-- Course Curriculum Section -->
-<app-course-curriculum [course]="course" [isAllSectionsModalOpen]="isAllSectionsModalOpen"
-  (toggleSectionEvent)="toggleSection($event)" (openAllSectionsModalEvent)="openAllSectionsModal()"
-  (closeAllSectionsModalEvent)="closeAllSectionsModal()">
-</app-course-curriculum>
+<app-course-curriculum></app-course-curriculum>
 
 <!-- Why BraveFX Section -->
-<app-why-bravefx [whyBraveFxStats]="whyBraveFxStats" [whyBraveFx]="whyBraveFx">
-</app-why-bravefx>
+<app-why-bravefx></app-why-bravefx>
 
 <!-- Testimonials/Reviews Section -->
-<app-testimonials [reviewsData]="reviewsData" [featuredReviews]="featuredReviews" [allReviews]="allReviews"
-  [filteredReviews]="filteredReviews" [currentCarouselIndex]="currentCarouselIndex"
-  [currentReviewsPage]="currentReviewsPage" [isReviewsModalOpen]="isReviewsModalOpen"
-  [isSingleReviewModalOpen]="isSingleReviewModalOpen" [selectedReview]="selectedReview"
-  [selectedRatingFilter]="selectedRatingFilter" [selectedRegionFilter]="selectedRegionFilter"
-  [selectedSortFilter]="selectedSortFilter" (openReviewsModalEvent)="openReviewsModal()"
-  (closeReviewsModalEvent)="closeReviewsModal()" (openSingleReviewModalEvent)="openSingleReviewModal($event)"
-  (closeSingleReviewModalEvent)="closeSingleReviewModal()" (previousSlideEvent)="previousSlide()"
-  (nextSlideEvent)="nextSlide()" (previousReviewsPageEvent)="previousReviewsPage()"
-  (nextReviewsPageEvent)="nextReviewsPage()" (applyReviewFiltersEvent)="applyReviewFilters()"
-  (ratingFilterChange)="selectedRatingFilter = $event" (regionFilterChange)="selectedRegionFilter = $event"
-  (sortFilterChange)="selectedSortFilter = $event">
-</app-testimonials>
+<app-testimonials></app-testimonials>
 
 <!-- Pricing Section -->
-<app-pricing [faqs]="faqs" (toggleFaqEvent)="toggleFaq($event)">
-</app-pricing>
+<app-pricing></app-pricing>
 
 <!-- Final CTA Section -->
 <app-cta (enrollClick)="scrollToEnroll()"></app-cta>

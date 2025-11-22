@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   LucideAngularModule,
@@ -32,10 +32,36 @@ export interface WhyBraveFxFeature {
   styleUrls: ['./why-bravefx.component.css'],
 })
 export class WhyBravefxComponent {
-  @Input() whyBraveFxStats!: WhyBraveFxStats;
-  @Input() whyBraveFx: WhyBraveFxFeature[] = [];
+  // Component owns its data
+  whyBraveFxStats: WhyBraveFxStats = {
+    students: '6,000+',
+    youtubeFollowers: '75K',
+    instagramFollowers: '38K',
+    tiktokFollowers: '5K',
+    discordMembers: '3K',
+    reviews: '1,700+',
+    rating: 4.6,
+  };
 
-  // Icons (hardcoded for the 3 feature cards)
+  whyBraveFx: WhyBraveFxFeature[] = [
+    {
+      title: '10+ Years Experience',
+      description:
+        'Learn from a seasoned trader with over a decade of real market experience. No fluff, just pure knowledge.',
+    },
+    {
+      title: 'Battle-Tested Strategies',
+      description:
+        'Proven strategies used by professional traders, not just theories. Real market experience translated into actionable lessons.',
+    },
+    {
+      title: 'Lifetime Community Support',
+      description:
+        "Join our active Discord community. Get ongoing support, share trades, and grow with traders at every level. You're never alone.",
+    },
+  ];
+
+  // Icons
   readonly SparklesIcon = Sparkles;
   readonly TrendingUpIcon = TrendingUp;
   readonly TrophyIcon = Trophy;

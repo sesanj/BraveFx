@@ -1,6 +1,8 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ReviewService } from '../../../../core/services/review.service';
 import {
   LucideAngularModule,
   MessageCircle,
@@ -22,32 +24,20 @@ import {
   styleUrls: ['./testimonials.component.css'],
 })
 export class TestimonialsComponent implements OnInit {
-  @Input() reviewsData: any = null;
-  @Input() featuredReviews: any[] = [];
-  @Input() allReviews: any[] = [];
-  @Input() filteredReviews: any[] = [];
-  @Input() currentCarouselIndex = 0;
-  @Input() isReviewsModalOpen = false;
-  @Input() isSingleReviewModalOpen = false;
-  @Input() selectedReview: any = null;
-  @Input() selectedRatingFilter = 'all';
-  @Input() selectedRegionFilter = 'all';
-  @Input() selectedSortFilter = 'recent';
-  @Input() currentReviewsPage = 1;
-  @Input() reviewsPerPage = 12;
-
-  @Output() openReviewsModalEvent = new EventEmitter<void>();
-  @Output() closeReviewsModalEvent = new EventEmitter<void>();
-  @Output() openSingleReviewModalEvent = new EventEmitter<any>();
-  @Output() closeSingleReviewModalEvent = new EventEmitter<void>();
-  @Output() previousSlideEvent = new EventEmitter<void>();
-  @Output() nextSlideEvent = new EventEmitter<void>();
-  @Output() applyReviewFiltersEvent = new EventEmitter<void>();
-  @Output() previousReviewsPageEvent = new EventEmitter<void>();
-  @Output() nextReviewsPageEvent = new EventEmitter<void>();
-  @Output() ratingFilterChange = new EventEmitter<string>();
-  @Output() regionFilterChange = new EventEmitter<string>();
-  @Output() sortFilterChange = new EventEmitter<string>();
+  reviewsData: any = null;
+  featuredReviews: any[] = [];
+  allReviews: any[] = [];
+  filteredReviews: any[] = [];
+  currentCarouselIndex = 0;
+  isReviewsModalOpen = false;
+  isSingleReviewModalOpen = false;
+  selectedReview: any = null;
+  selectedRatingFilter = 'all';
+  selectedRegionFilter = 'all';
+  selectedSortFilter = 'recent';
+  currentReviewsPage = 1;
+  reviewsPerPage = 12;
+  reviewsPerSlide = 3;
 
   // Icons
   MessageCircle = MessageCircle;
@@ -59,6 +49,141 @@ export class TestimonialsComponent implements OnInit {
   ChevronRight = ChevronRight;
   X = X;
   Filter = Filter;
+
+  constructor(private reviewService: ReviewService, private http: HttpClient) {}
+
+  ngOnInit(): void {
+    this.loadReviewsData();
+  }
+
+  /**
+   * Transform a database review to UI format
+   */
+  private transformReviewToUI(review: any): any {
+    return {
+      id: review.id,
+      name: review.userName,
+      avatar: review.userAvatar || '/assets/avatars/default.jpg',
+      rating: review.rating,
+      comment: review.reviewText,
+      date: new Date(review.createdAt).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric',
+      }),
+      location: 'Global',
+      region: 'Global',
+      courseName: review.courseName || 'BraveFx Course',
+      verified: true,
+    };
+  }
+
+  // Load reviews from JSON file first, then add database reviews
+  loadReviewsData() {
+    // First, load existing reviews from JSON file
+    this.http.get<any>('/assets/data/reviews.json').subscribe({
+      next: (data) => {
+        this.reviewsData = data;
+        const jsonFeaturedReviews = data.featuredReviews || [];
+        const jsonAllReviews = data.allReviews || [];
+
+        // Set the data immediately from JSON
+        this.featuredReviews = jsonFeaturedReviews;
+        this.allReviews = jsonAllReviews;
+        this.filteredReviews = [...jsonAllReviews];
+
+        // Now fetch reviews from database and merge them
+        this.reviewService.getAllReviews(1, 100).subscribe({
+          next: (dbReviews) => {
+            console.log('=== DATABASE REVIEWS DEBUG ===');
+            console.log('Total DB reviews fetched:', dbReviews.length);
+            console.log('Raw database reviews:', dbReviews);
+
+            // Log each review text field specifically
+            dbReviews.forEach((review, index) => {
+              console.log(`Review ${index + 1}:`, {
+                id: review.id,
+                userName: review.userName,
+                rating: review.rating,
+                reviewText: review.reviewText,
+                reviewTextLength: review.reviewText?.length || 0,
+                reviewTextType: typeof review.reviewText,
+              });
+            });
+
+            // Transform database reviews to match UI format
+            const transformedDbReviews = dbReviews.map(
+              this.transformReviewToUI.bind(this)
+            );
+
+            console.log('Transformed DB reviews:', transformedDbReviews);
+            console.log('=== END DEBUG ===');
+
+            // Merge: Database reviews first (newest), then JSON reviews
+            this.allReviews = [...transformedDbReviews, ...jsonAllReviews];
+            this.filteredReviews = [...this.allReviews];
+
+            // For featured reviews, prefer database featured reviews, then fill with JSON
+            this.reviewService.getFeaturedReviews(10).subscribe({
+              next: (featuredDbReviews) => {
+                const transformedFeaturedDb = featuredDbReviews.map(
+                  this.transformReviewToUI.bind(this)
+                );
+
+                // Merge featured: Database featured first, then JSON featured
+                this.featuredReviews = [
+                  ...transformedFeaturedDb,
+                  ...jsonFeaturedReviews,
+                ];
+              },
+              error: (error) => {
+                console.error(
+                  'Error loading featured reviews from database:',
+                  error
+                );
+                // Use only JSON featured reviews if database fails
+                this.featuredReviews = jsonFeaturedReviews;
+              },
+            });
+          },
+          error: (error) => {
+            console.error('Error loading reviews from database:', error);
+            // Fall back to only JSON reviews if database fails
+            this.allReviews = jsonAllReviews;
+            this.filteredReviews = [...this.allReviews];
+            this.featuredReviews = jsonFeaturedReviews;
+          },
+        });
+      },
+      error: (error) => {
+        console.error('Error loading reviews from JSON:', error);
+        // If JSON fails, try to load only from database
+        this.loadOnlyFromDatabase();
+      },
+    });
+  }
+
+  // Fallback method to load only from database if JSON fails
+  private loadOnlyFromDatabase() {
+    this.reviewService.getAllReviews(1, 100).subscribe({
+      next: (reviews) => {
+        this.allReviews = reviews.map(this.transformReviewToUI.bind(this));
+        this.filteredReviews = [...this.allReviews];
+
+        // Get featured reviews
+        this.reviewService.getFeaturedReviews(10).subscribe({
+          next: (featured) => {
+            this.featuredReviews = featured.map(
+              this.transformReviewToUI.bind(this)
+            );
+          },
+        });
+      },
+      error: (error) => {
+        console.error('Error loading reviews from database:', error);
+      },
+    });
+  }
 
   get totalCarouselSlides(): number {
     return Math.ceil(this.featuredReviews.length / 3);
@@ -87,8 +212,6 @@ export class TestimonialsComponent implements OnInit {
     return Math.ceil(this.filteredReviews.length / this.reviewsPerPage);
   }
 
-  ngOnInit(): void {}
-
   getTopRegions(): any[] {
     if (!this.reviewsData?.regionalBreakdown) return [];
 
@@ -108,67 +231,95 @@ export class TestimonialsComponent implements OnInit {
   }
 
   openReviewsModal(): void {
-    this.openReviewsModalEvent.emit();
+    this.isReviewsModalOpen = true;
+    this.applyReviewFilters();
   }
 
   closeReviewsModal(): void {
-    this.closeReviewsModalEvent.emit();
+    this.isReviewsModalOpen = false;
   }
 
   openSingleReviewModal(review: any): void {
-    this.openSingleReviewModalEvent.emit(review);
+    this.selectedReview = review;
+    this.isSingleReviewModalOpen = true;
   }
 
   closeSingleReviewModal(): void {
-    this.closeSingleReviewModalEvent.emit();
+    this.isSingleReviewModalOpen = false;
+    this.selectedReview = null;
   }
 
   previousSlide(): void {
-    this.previousSlideEvent.emit();
+    if (this.canGoPrevious) {
+      this.currentCarouselIndex--;
+    }
   }
 
   nextSlide(): void {
-    this.nextSlideEvent.emit();
+    if (this.canGoNext) {
+      this.currentCarouselIndex++;
+    }
   }
 
   goToSlide(index: number): void {
-    // Emit event to parent to change slide
-    const direction = index > this.currentCarouselIndex ? 'next' : 'previous';
-    const steps = Math.abs(index - this.currentCarouselIndex);
-
-    for (let i = 0; i < steps; i++) {
-      if (direction === 'next') {
-        this.nextSlideEvent.emit();
-      } else {
-        this.previousSlideEvent.emit();
-      }
+    if (index >= 0 && index < this.totalCarouselSlides) {
+      this.currentCarouselIndex = index;
     }
   }
 
   applyReviewFilters(): void {
-    this.applyReviewFiltersEvent.emit();
+    let filtered = [...this.allReviews];
+
+    // Filter by rating
+    if (this.selectedRatingFilter !== 'all') {
+      const rating = parseInt(this.selectedRatingFilter);
+      filtered = filtered.filter((r) => r.rating === rating);
+    }
+
+    // Filter by region
+    if (this.selectedRegionFilter !== 'all') {
+      filtered = filtered.filter((r) => r.region === this.selectedRegionFilter);
+    }
+
+    // Sort reviews
+    if (this.selectedSortFilter === 'recent') {
+      filtered.sort(
+        (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+      );
+    } else if (this.selectedSortFilter === 'highest') {
+      filtered.sort((a, b) => b.rating - a.rating);
+    } else if (this.selectedSortFilter === 'lowest') {
+      filtered.sort((a, b) => a.rating - b.rating);
+    }
+
+    this.filteredReviews = filtered;
+    this.currentReviewsPage = 1; // Reset to first page
   }
 
   onRatingFilterChange(value: string): void {
-    this.ratingFilterChange.emit(value);
-    this.applyReviewFiltersEvent.emit();
+    this.selectedRatingFilter = value;
+    this.applyReviewFilters();
   }
 
   onRegionFilterChange(value: string): void {
-    this.regionFilterChange.emit(value);
-    this.applyReviewFiltersEvent.emit();
+    this.selectedRegionFilter = value;
+    this.applyReviewFilters();
   }
 
   onSortFilterChange(value: string): void {
-    this.sortFilterChange.emit(value);
-    this.applyReviewFiltersEvent.emit();
+    this.selectedSortFilter = value;
+    this.applyReviewFilters();
   }
 
   previousReviewsPage(): void {
-    this.previousReviewsPageEvent.emit();
+    if (this.currentReviewsPage > 1) {
+      this.currentReviewsPage--;
+    }
   }
 
   nextReviewsPage(): void {
-    this.nextReviewsPageEvent.emit();
+    if (this.currentReviewsPage < this.totalReviewPages) {
+      this.currentReviewsPage++;
+    }
   }
 }

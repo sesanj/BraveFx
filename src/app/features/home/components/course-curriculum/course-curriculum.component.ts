@@ -1,6 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Course } from '../../../../core/models/course.model';
+import { CourseService } from '../../../../core/services/course.service';
 import {
   LucideAngularModule,
   BookOpen,
@@ -20,13 +21,9 @@ import {
   templateUrl: './course-curriculum.component.html',
   styleUrls: ['./course-curriculum.component.css'],
 })
-export class CourseCurriculumComponent {
-  @Input() course: Course | null = null;
-  @Input() isAllSectionsModalOpen = false;
-
-  @Output() toggleSectionEvent = new EventEmitter<number>();
-  @Output() openAllSectionsModalEvent = new EventEmitter<void>();
-  @Output() closeAllSectionsModalEvent = new EventEmitter<void>();
+export class CourseCurriculumComponent implements OnInit {
+  course: Course | null = null;
+  isAllSectionsModalOpen = false;
 
   // Icons
   BookOpen = BookOpen;
@@ -38,15 +35,39 @@ export class CourseCurriculumComponent {
   ChevronDown = ChevronDown;
   ChevronRight = ChevronRight;
 
+  constructor(private courseService: CourseService) {}
+
+  ngOnInit() {
+    // Load first available course from database
+    this.courseService.getAllCourses().subscribe((courses) => {
+      if (courses && courses.length > 0) {
+        // Get full course details with modules and lessons
+        this.courseService.getCourse(courses[0].id).subscribe((course) => {
+          this.course = course;
+          // Add isOpen property to each module for accordion functionality
+          this.course.modules.forEach((module) => {
+            (module as any).isOpen = false;
+          });
+        });
+      }
+    });
+  }
+
   toggleSection(index: number): void {
-    this.toggleSectionEvent.emit(index);
+    if (this.course && this.course.modules[index]) {
+      (this.course.modules[index] as any).isOpen = !(
+        this.course.modules[index] as any
+      ).isOpen;
+    }
   }
 
   openAllSectionsModal(): void {
-    this.openAllSectionsModalEvent.emit();
+    this.isAllSectionsModalOpen = true;
+    document.body.style.overflow = 'hidden'; // Prevent background scroll
   }
 
   closeAllSectionsModal(): void {
-    this.closeAllSectionsModalEvent.emit();
+    this.isAllSectionsModalOpen = false;
+    document.body.style.overflow = ''; // Restore scroll
   }
 }
