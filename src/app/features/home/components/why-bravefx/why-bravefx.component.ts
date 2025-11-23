@@ -52,7 +52,7 @@ export class WhyBravefxComponent {
     {
       title: 'Battle-Tested Strategies',
       description:
-        'Proven strategies used by professional traders, not just theories. Real market experience translated into actionable lessons.',
+        'Proven strategies used by successful traders. Real market experience translated into actionable lessons.',
     },
     {
       title: 'Lifetime Community Support',

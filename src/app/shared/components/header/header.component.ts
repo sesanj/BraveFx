@@ -13,6 +13,10 @@ import {
   LayoutDashboard,
   Shield,
   LogOut,
+  Home,
+  Info,
+  BookOpen,
+  LogIn,
 } from 'lucide-angular';
 
 @Component({
@@ -24,6 +28,7 @@ import {
 })
 export class HeaderComponent {
   isMenuOpen = false;
+  isAuthLoading = true;
   readonly Moon = Moon;
   readonly Sun = Sun;
   readonly Menu = Menu;
@@ -32,11 +37,20 @@ export class HeaderComponent {
   readonly LayoutDashboard = LayoutDashboard;
   readonly Shield = Shield;
   readonly LogOut = LogOut;
+  readonly Home = Home;
+  readonly Info = Info;
+  readonly BookOpen = BookOpen;
+  readonly LogIn = LogIn;
 
   constructor(
     public authService: AuthService,
     public themeService: ThemeService
-  ) {}
+  ) {
+    // Wait for auth to initialize before showing UI
+    this.authService.waitForAuthInit().then(() => {
+      this.isAuthLoading = false;
+    });
+  }
 
   get currentUser$() {
     return this.authService.currentUser$;

@@ -431,7 +431,7 @@
 
   /* Compact sidebar header */
   .sidebar-header {
-    padding: 0.875rem 0.75rem;
+    padding: 1rem;
   }
 
   .sidebar-title {
@@ -487,10 +487,6 @@
   .sidebar {
     width: 100%;
     max-width: 100%;
-  }
-
-  .sidebar-header {
-    padding: 0.75rem 0.625rem;
   }
 
   .module-header {

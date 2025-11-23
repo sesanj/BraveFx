@@ -432,7 +432,7 @@
 @media (max-width: 1024px) {
   .contents-layout {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2.5rem;
   }
 
   .contents-header {
@@ -440,41 +440,207 @@
   }
 
   .course-stats-summary {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
   }
 }
 
 @media (max-width: 768px) {
+  .container {
+    padding: 4rem 1.4rem;
+  }
+
   .course-contents {
-    padding: 4rem 0;
+    padding: 0rem;
+  }
+
+  .section-title {
+    font-size: 1.625rem;
+    margin-bottom: 0.875rem;
+  }
+
+  .badge {
+    font-size: 0.8125rem;
+    padding: 0.5rem 0.875rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .contents-layout {
+    gap: 2rem;
   }
 
   .course-stats-summary {
-    grid-template-columns: 1fr;
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
+    margin-top: 1.5rem;
+  }
+
+  .stat-summary-item {
+    padding: 1.25rem;
+  }
+
+  .stat-summary-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .stat-summary-number {
+    font-size: 1.25rem;
+  }
+
+  .stat-summary-label {
+    font-size: 0.8125rem;
+  }
+
+  .accordion-header:hover {
+    background: none;
+  }
+
+  [data-theme="light"] .accordion-header:hover {
+    background: none;
   }
 
   .accordion-header {
-    padding: 1rem;
+    padding: 1.5rem;
   }
 
   .accordion-title {
     font-size: 0.9375rem;
   }
 
+  .accordion-meta {
+    font-size: 0.75rem;
+  }
+
+  .accordion-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .accordion-badge {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+
   .accordion-content {
-    padding: 0.75rem 1rem 1rem 2.5rem;
+    padding: 0.75rem 1rem 1rem 3rem;
+  }
+
+  .lesson-item {
+    padding: 0.5rem 0;
+  }
+
+  .lesson-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .lesson-title {
+    font-size: 0.8125rem;
+  }
+
+  .lesson-duration {
+    font-size: 0.75rem;
+  }
+
+  .see-all-sections {
+    margin-top: 1.5rem;
+  }
+
+  .btn-see-all {
+    width: 100%;
+    justify-content: center;
+    padding: 0.875rem 1.5rem;
+    font-size: 0.9375rem;
   }
 
   .modal-sections {
-    max-height: 90vh;
+    max-height: 85vh;
   }
 
   .modal-header-sections {
-    padding: 1.5rem;
+    padding: 1rem;
+  }
+
+  .modal-title-sections {
+    font-size: 1.375rem;
+  }
+
+  .modal-subtitle-sections {
+    font-size: 0.875rem;
   }
 
   .modal-content-sections {
     padding: 1.5rem;
+  }
+
+  .modal-close {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  br {
+    display: none;
+  }
+
+  .section-title {
+    font-size: 1.4rem;
+  }
+
+  .gradient-text {
+    margin-left: 6px;
+  }
+
+  .course-stats-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .accordion-header {
+    padding: 1.4rem;
+  }
+
+  .accordion-title-wrapper {
+    gap: 0.625rem;
+  }
+
+  .accordion-title {
+    font-size: 0.9rem !important;
+  }
+
+  .accordion-content {
+    padding: 0.625rem 0.875rem 0.875rem 2.5rem;
+  }
+
+  .lesson-title {
+    font-size: 0.75rem;
+  }
+
+  .lesson-duration {
+    font-size: 0.6875rem;
+  }
+
+  .modal-header-sections {
+    padding: 1.25rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .modal-title-sections {
+    font-size: 1.25rem;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 28px;
+    height: 28px;
+  }
+
+  .modal-content-sections {
+    padding: 1.3rem 0.7rem;
   }
 }

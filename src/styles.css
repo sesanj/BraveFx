@@ -116,7 +116,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background-color 0.3s ease, color 0.3s ease;
-  padding-top: 72px; /* Account for fixed header */
+  padding-top: 55px; /* Account for fixed header */
 }
 
 html,
@@ -357,4 +357,67 @@ button.btn-join-academy {
 ::selection {
   background: var(--color-primary);
   color: white;
+}
+
+/* ============================================
+   MOBILE & TABLET OPTIMIZATIONS
+   ============================================ */
+
+/* Tablet Optimizations (1024px and below) */
+@media (max-width: 1024px) {
+  html {
+    font-size: 15.5px; /* Slightly smaller base font */
+  }
+}
+
+/* Mobile Optimizations (768px and below) */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px; /* Mobile base font */
+  }
+}
+
+/* Small Mobile Optimizations (480px and below) */
+@media (max-width: 480px) {
+  html {
+    font-size: 14px; /* Smaller base for small screens */
+  }
+}
+
+/* Landscape Phone Optimizations */
+@media (max-height: 600px) and (orientation: landscape) {
+  .hero {
+    min-height: auto !important;
+    padding: 3rem 0 !important;
+  }
+
+  section,
+  .what-youll-learn,
+  .course-contents,
+  .features,
+  .reviews-section,
+  .pricing {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .learning-card:hover,
+  .bento-card-small:hover,
+  .review-card:hover,
+  .value-card:hover {
+    transform: none !important;
+  }
+
+  /* Add active states instead */
+  .learning-card:active,
+  .bento-card-small:active,
+  .review-card:active,
+  .value-card:active {
+    transform: scale(0.98) !important;
+    opacity: 0.9 !important;
+  }
 }

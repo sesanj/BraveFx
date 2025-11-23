@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
@@ -23,7 +23,7 @@ import {
   templateUrl: './testimonials.component.html',
   styleUrls: ['./testimonials.component.css'],
 })
-export class TestimonialsComponent implements OnInit {
+export class TestimonialsComponent implements OnInit, OnDestroy {
   reviewsData: any = null;
   featuredReviews: any[] = [];
   allReviews: any[] = [];
@@ -38,6 +38,7 @@ export class TestimonialsComponent implements OnInit {
   currentReviewsPage = 1;
   reviewsPerPage = 12;
   reviewsPerSlide = 3;
+  private screenWidth: number = 0;
 
   // Icons
   MessageCircle = MessageCircle;
@@ -54,6 +55,40 @@ export class TestimonialsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadReviewsData();
+    this.updateReviewsPerSlide();
+
+    // Listen for window resize
+    if (typeof window !== 'undefined') {
+      window.addEventListener('resize', () => this.updateReviewsPerSlide());
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('resize', () => this.updateReviewsPerSlide());
+    }
+  }
+
+  private updateReviewsPerSlide(): void {
+    if (typeof window !== 'undefined') {
+      this.screenWidth = window.innerWidth;
+
+      if (this.screenWidth < 768) {
+        // Mobile: 1 review per slide
+        this.reviewsPerSlide = 1;
+      } else if (this.screenWidth < 1025) {
+        // Tablet: 2 reviews per slide
+        this.reviewsPerSlide = 2;
+      } else {
+        // Desktop: 3 reviews per slide
+        this.reviewsPerSlide = 3;
+      }
+
+      // Reset carousel to first slide when screen size changes
+      if (this.currentCarouselIndex >= this.totalCarouselSlides) {
+        this.currentCarouselIndex = 0;
+      }
+    }
   }
 
   /**
@@ -186,7 +221,21 @@ export class TestimonialsComponent implements OnInit {
   }
 
   get totalCarouselSlides(): number {
-    return Math.ceil(this.featuredReviews.length / 3);
+    return Math.ceil(this.featuredReviews.length / this.reviewsPerSlide);
+  }
+
+  getCarouselSlide(slideIndex: number): any[] {
+    const start = slideIndex * this.reviewsPerSlide;
+    const end = start + this.reviewsPerSlide;
+    return this.featuredReviews.slice(start, end);
+  }
+
+  get carouselTrackColumns(): string {
+    return `repeat(${this.totalCarouselSlides}, 100%)`;
+  }
+
+  get slideGridColumns(): string {
+    return `repeat(${this.reviewsPerSlide}, 1fr)`;
   }
 
   get canGoPrevious(): boolean {

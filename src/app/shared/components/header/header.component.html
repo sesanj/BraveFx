@@ -11,35 +11,37 @@
         <a routerLink="/about" routerLinkActive="active">About</a>
         <a routerLink="/glossary" routerLinkActive="active">Glossary</a>
 
+        <!-- Show nothing while auth is loading to prevent flash -->
+        <ng-container *ngIf="!isAuthLoading">
+          <ng-container *ngIf="currentUser$ | async as user; else authLinks">
+            <div class="user-dropdown">
+              <div class="user-trigger">
+                <img [src]="user.avatar" [alt]="user.name" class="avatar" />
+                <span class="user-name">{{ user.name }}</span>
+                <lucide-icon [img]="ChevronDown" class="chevron-icon"></lucide-icon>
+              </div>
+              <div class="dropdown-menu">
+                <a routerLink="/dashboard" class="dropdown-item">
+                  <lucide-icon [img]="LayoutDashboard" class="dropdown-icon"></lucide-icon>
+                  Dashboard
+                </a>
+                <a *ngIf="user.role === 'admin'" routerLink="/admin" class="dropdown-item">
+                  <lucide-icon [img]="Shield" class="dropdown-icon"></lucide-icon>
+                  Admin
+                </a>
+                <button (click)="logout()" class="dropdown-item logout">
+                  <lucide-icon [img]="LogOut" class="dropdown-icon"></lucide-icon>
+                  Logout
+                </button>
+              </div>
+            </div>
+          </ng-container>
 
-        <ng-container *ngIf="currentUser$ | async as user; else authLinks">
-          <div class="user-dropdown">
-            <div class="user-trigger">
-              <img [src]="user.avatar" [alt]="user.name" class="avatar" />
-              <span class="user-name">{{ user.name }}</span>
-              <lucide-icon [img]="ChevronDown" class="chevron-icon"></lucide-icon>
-            </div>
-            <div class="dropdown-menu">
-              <a routerLink="/dashboard" class="dropdown-item">
-                <lucide-icon [img]="LayoutDashboard" class="dropdown-icon"></lucide-icon>
-                Dashboard
-              </a>
-              <a *ngIf="user.role === 'admin'" routerLink="/admin" class="dropdown-item">
-                <lucide-icon [img]="Shield" class="dropdown-icon"></lucide-icon>
-                Admin
-              </a>
-              <button (click)="logout()" class="dropdown-item logout">
-                <lucide-icon [img]="LogOut" class="dropdown-icon"></lucide-icon>
-                Logout
-              </button>
-            </div>
-          </div>
+          <ng-template #authLinks>
+            <a routerLink="/login" class="btn-login">Login</a>
+            <button (click)="scrollToPricing()" class="btn-join-academy">Join Our Academy</button>
+          </ng-template>
         </ng-container>
-
-        <ng-template #authLinks>
-          <a routerLink="/login" class="btn-login">Login</a>
-          <a routerLink="/" fragment="enroll" class="btn-join-academy">Join Our Academy</a>
-        </ng-template>
 
         <div class="theme-separator"></div>
         <button class="theme-toggle" (click)="toggleTheme()" title="Toggle theme">
@@ -48,26 +50,112 @@
         </button>
       </nav>
 
-      <button class="mobile-menu-btn" (click)="toggleMenu()" aria-label="Open Menu">
-        <lucide-icon [img]="isMenuOpen ? X : Menu" class="menu-icon"></lucide-icon>
-      </button>
+      <!-- Mobile controls -->
+      <div class="mobile-controls">
+        <button *ngIf="!isAuthLoading && !(currentUser$ | async)" (click)="scrollToPricing()" class="btn-enroll-mobile">
+          Enroll Now
+        </button>
+        <button class="mobile-menu-btn" (click)="toggleMenu()" aria-label="Toggle Menu">
+          <span class="hamburger-icon" [class.open]="isMenuOpen">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu overlay - OUTSIDE header -->
+<div class="mobile-menu-overlay" [class.open]="isMenuOpen" (click)="toggleMenu()"></div>
+
+<!-- Mobile menu - OUTSIDE header -->
+<nav class="nav-mobile" [class.open]="isMenuOpen">
+  <div class="mobile-menu-header">
+    <h3 class="mobile-menu-title">Menu</h3>
+    <button class="mobile-menu-close" (click)="toggleMenu()" aria-label="Close Menu">
+      <lucide-icon [img]="X" class="close-icon"></lucide-icon>
+    </button>
+  </div>
+
+  <div class="mobile-menu-content">
+    <div class="mobile-menu-section">
+      <a routerLink="/" (click)="toggleMenu()" class="mobile-menu-link" routerLinkActive="active"
+        [routerLinkActiveOptions]="{exact: true}">
+        <lucide-icon [img]="Home" class="link-icon"></lucide-icon>
+        <span>Home</span>
+      </a>
+      <a routerLink="/about" (click)="toggleMenu()" class="mobile-menu-link" routerLinkActive="active">
+        <lucide-icon [img]="Info" class="link-icon"></lucide-icon>
+        <span>About</span>
+      </a>
+      <a routerLink="/glossary" (click)="toggleMenu()" class="mobile-menu-link" routerLinkActive="active">
+        <lucide-icon [img]="BookOpen" class="link-icon"></lucide-icon>
+        <span>Glossary</span>
+      </a>
     </div>
 
-    <nav class="nav-mobile" [class.open]="isMenuOpen">
-      <a routerLink="/" (click)="toggleMenu()">Home</a>
-      <a routerLink="/glossary" (click)="toggleMenu()">Glossary</a>
-      <a routerLink="/about" (click)="toggleMenu()">About</a>
+    <div class="mobile-menu-divider"></div>
 
+    <!-- Show nothing while auth is loading to prevent flash -->
+    <ng-container *ngIf="!isAuthLoading">
       <ng-container *ngIf="currentUser$ | async as user; else mobileAuthLinks">
-        <a routerLink="/dashboard" (click)="toggleMenu()">Dashboard</a>
-        <a *ngIf="user.role === 'admin'" routerLink="/admin" (click)="toggleMenu()">Admin</a>
-        <button (click)="logout(); toggleMenu()" class="btn-logout-mobile">Logout</button>
+        <div class="mobile-menu-section">
+          <div class="mobile-user-info">
+            <img [src]="user.avatar" [alt]="user.name" class="mobile-avatar" />
+            <div class="mobile-user-details">
+              <span class="mobile-user-name">{{ user.name }}</span>
+              <span class="mobile-user-email">{{ user.email }}</span>
+            </div>
+          </div>
+
+          <a routerLink="/dashboard" (click)="toggleMenu()" class="mobile-menu-link">
+            <lucide-icon [img]="LayoutDashboard" class="link-icon"></lucide-icon>
+            <span>Dashboard</span>
+          </a>
+          <a *ngIf="user.role === 'admin'" routerLink="/admin" (click)="toggleMenu()" class="mobile-menu-link">
+            <lucide-icon [img]="Shield" class="link-icon"></lucide-icon>
+            <span>Admin</span>
+          </a>
+        </div>
+
+        <div class="mobile-menu-divider"></div>
+
+        <div class="mobile-menu-section">
+          <button (click)="logout(); toggleMenu()" class="mobile-menu-link logout">
+            <lucide-icon [img]="LogOut" class="link-icon"></lucide-icon>
+            <span>Logout</span>
+          </button>
+        </div>
       </ng-container>
 
       <ng-template #mobileAuthLinks>
-        <a routerLink="/login" (click)="toggleMenu()">Login</a>
-        <a routerLink="/register" (click)="toggleMenu()">Join Our Academy</a>
+        <div class="mobile-menu-section">
+          <a routerLink="/login" (click)="toggleMenu()" class="mobile-menu-link">
+            <lucide-icon [img]="LogIn" class="link-icon"></lucide-icon>
+            <span>Login</span>
+          </a>
+          <button (click)="scrollToPricing(); toggleMenu()" class="btn-join-mobile">
+            Join Our Academy
+          </button>
+        </div>
       </ng-template>
-    </nav>
+    </ng-container>
+
+    <div class="mobile-menu-divider"></div>
+
+    <!-- Theme toggle in mobile menu -->
+    <div class="mobile-menu-section">
+      <button class="mobile-theme-toggle" (click)="toggleTheme()">
+        <div class="theme-toggle-label">
+          <lucide-icon [img]="isDarkMode ? Moon : Sun" class="link-icon"></lucide-icon>
+          <span>{{ isDarkMode ? 'Dark Mode' : 'Light Mode' }}</span>
+        </div>
+        <div class="theme-toggle-switch" [class.active]="isDarkMode">
+          <div class="theme-toggle-slider"></div>
+        </div>
+      </button>
+    </div>
   </div>
-</header>
+</nav>

@@ -29,76 +29,12 @@
     <div class="featured-reviews-carousel" *ngIf="featuredReviews.length > 0">
       <!-- Carousel Wrapper -->
       <div class="carousel-wrapper">
-        <div class="carousel-track" [style.transform]="'translateX(-' + (currentCarouselIndex * 100) + '%)'">
-          <!-- Slide 1: Reviews 0-2 -->
-          <div>
-            <div class="review-card premium-card" *ngFor="let review of featuredReviews.slice(0, 3)">
-              <div class="review-header">
-                <div class="rating-stars">
-                  <span class="star-filled" *ngFor="let star of getStarArray(review.rating)">★</span>
-                </div>
-                <div class="verified-badge-premium">
-                  <lucide-icon [img]="CheckCircle2" class="verified-icon"></lucide-icon>
-                  <span>Verified Purchase</span>
-                </div>
-              </div>
-              <div>
-                <p class="review-comment truncated">"{{ review.comment }}"</p>
-                <button class="read-more-btn" (click)="openSingleReviewModal(review)">
-                  <span>Read full review</span>
-                  <lucide-icon [img]="ArrowRight"></lucide-icon>
-                </button>
-              </div>
-              <div class="review-footer">
-                <div class="reviewer-info">
-                  <div class="reviewer-name">{{ review.name }}</div>
-                  <div class="reviewer-meta">
-                    <lucide-icon [img]="MapPin" class="meta-icon"></lucide-icon>
-                    <span>{{ review.location }}</span>
-                    <span class="separator">•</span>
-                    <span>{{ review.date | date: 'MMM yyyy' }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 2: Reviews 3-5 -->
-          <div>
-            <div class="review-card premium-card" *ngFor="let review of featuredReviews.slice(3, 6)">
-              <div class="review-header">
-                <div class="rating-stars">
-                  <span class="star-filled" *ngFor="let star of getStarArray(review.rating)">★</span>
-                </div>
-                <div class="verified-badge-premium">
-                  <lucide-icon [img]="CheckCircle2" class="verified-icon"></lucide-icon>
-                  <span>Verified Purchase</span>
-                </div>
-              </div>
-              <div>
-                <p class="review-comment truncated">"{{ review.comment }}"</p>
-                <button class="read-more-btn" (click)="openSingleReviewModal(review)">
-                  <span>Read full review</span>
-                  <lucide-icon [img]="ArrowRight"></lucide-icon>
-                </button>
-              </div>
-              <div class="review-footer">
-                <div class="reviewer-info">
-                  <div class="reviewer-name">{{ review.name }}</div>
-                  <div class="reviewer-meta">
-                    <lucide-icon [img]="MapPin" class="meta-icon"></lucide-icon>
-                    <span>{{ review.location }}</span>
-                    <span class="separator">•</span>
-                    <span>{{ review.date | date: 'MMM yyyy' }}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 3: Reviews 6-8 -->
-          <div>
-            <div class="review-card premium-card" *ngFor="let review of featuredReviews.slice(6, 9)">
+        <div class="carousel-track" [style.grid-template-columns]="carouselTrackColumns"
+          [style.transform]="'translateX(-' + (currentCarouselIndex * 100) + '%)'">
+          <!-- Dynamic Slides -->
+          <div *ngFor="let slideIndex of [].constructor(totalCarouselSlides); let i = index"
+            [style.grid-template-columns]="slideGridColumns">
+            <div class="review-card premium-card" *ngFor="let review of getCarouselSlide(i)">
               <div class="review-header">
                 <div class="rating-stars">
                   <span class="star-filled" *ngFor="let star of getStarArray(review.rating)">★</span>

@@ -475,46 +475,110 @@
   .pricing-bento-grid {
     grid-template-columns: 1fr;
     gap: 2rem;
+    padding: 0 1.5rem;
   }
 
   .pricing-value-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 }
 
 @media (max-width: 768px) {
+  .pricing {
+    padding: 4rem 3rem;
+  }
+
   .section-title-lg {
-    font-size: 2rem;
+    font-size: 1.75rem;
+    margin-bottom: 0.875rem;
   }
 
-  .pricing-price-card {
-    padding: 2rem 1.5rem;
+  .section-description {
+    font-size: 0.9375rem;
   }
 
-  .pricing-plan-title {
+  .pricing-bento-grid {
+    gap: 1.5rem;
+    padding: 0 1.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-pricing {
+    padding: 3rem 1.3rem;
+  }
+
+  .pricing {
+    padding: 3rem 0rem;
+  }
+
+  .section-title-lg {
     font-size: 1.5rem;
   }
 
-  .amount {
-    font-size: 3.5rem;
+  .section-description {
+    font-size: 0.875rem;
   }
 
-  .pricing-value-grid {
-    grid-template-columns: 1fr;
+  .pricing-bento-grid {
+    padding: 0rem;
   }
 
   .value-card {
-    padding: 1.25rem;
+    padding: 1rem;
+  }
+
+  .value-icon-wrapper {
+    width: 36px;
+    height: 36px;
+  }
+
+  .value-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .value-title {
+    font-size: 0.875rem;
+  }
+
+  .value-description {
+    font-size: 0.75rem;
   }
 
   .money-back-guarantee {
-    flex-direction: column;
-    text-align: center;
-    padding: 1.5rem;
+    padding: 1.2rem;
   }
 
   .guarantee-icon {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .guarantee-content h4 {
+    font-size: 0.9375rem;
+  }
+
+  .guarantee-content p {
+    font-size: 0.8125rem;
+  }
+
+  .faq-section-standalone {
+    padding: 0rem;
+  }
+
+  faq-heading {
+    font-size: 1.125rem;
+  }
+
+  .faq-question {
+    padding: 0.875rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .faq-answer {
+    padding: 0 1rem 1rem;
+    font-size: 0.8125rem;
   }
 }
