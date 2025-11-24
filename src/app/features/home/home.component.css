@@ -1,0 +1,18 @@
+/* ============================================
+   HOME COMPONENT - MINIMAL CONTAINER STYLES
+   All section-specific styles are in their respective component CSS files
+   ============================================ */
+
+/* Shared Container Utility */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1rem;
+  }
+}

@@ -1,0 +1,329 @@
+<div class="course-player" *ngIf="course">
+  <!-- Top Navigation Bar -->
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <a class="logo-link" routerLink="/" aria-label="BraveFx Home">
+        <img src="/Logo.png" alt="BraveFx Logo" class="logo-img" />
+      </a>
+      <span class="separator"></span>
+      <div class="course-info">
+        <h1 class="course-title">{{ course.title }}</h1>
+      </div>
+    </div>
+    <div class="top-bar-right">
+      <div class="progress-indicator" [style.--progress]="courseProgress">
+        <lucide-icon [img]="BarChart3" [size]="16"></lucide-icon>
+        <span class="progress-text">Progress: <strong>{{ courseProgress }}%</strong></span>
+      </div>
+      <button class="btn-theme-toggle" (click)="toggleTheme()"
+        [attr.aria-label]="'Switch to ' + (themeService.theme() === 'light' ? 'dark' : 'light') + ' mode'">
+        <lucide-icon [img]="themeService.theme() === 'light' ? Moon : Sun" [size]="18"></lucide-icon>
+      </button>
+      <div class="user-menu-wrapper">
+        <button class="btn-user-menu" (click)="toggleUserMenu()" [attr.aria-label]="'User menu'">
+          <lucide-icon [img]="User" [size]="18"></lucide-icon>
+        </button>
+        <div class="user-dropdown" *ngIf="isUserMenuOpen">
+          <button class="dropdown-item" (click)="goBackToDashboard(); toggleUserMenu()">
+            Dashboard
+          </button>
+        </div>
+      </div>
+      <button class="btn-menu-toggle" (click)="toggleSidebar()">
+        <lucide-icon [img]="isSidebarOpen ? X : Menu" [size]="22"></lucide-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="player-container">
+    <!-- Video Player Section (LEFT) -->
+    <main class="main-content">
+      <!-- Text Lesson Content -->
+      <div *ngIf="!showQuiz && isTextLesson && currentLesson" class="text-lesson-container">
+        <!-- Scrollable Body with Header Inside -->
+        <div class="text-lesson-scrollable">
+          <!-- Header (now scrolls with content) -->
+          <div class="text-lesson-header-fixed">
+            <div class="text-lesson-header-content">
+              <div class="lesson-type-badge">
+                <lucide-icon [img]="FileText" [size]="16"></lucide-icon>
+                <span>Article</span>
+              </div>
+              <h1 class="text-lesson-title">{{ currentLesson.title }}</h1>
+            </div>
+          </div>
+
+          <div class="text-lesson-body-content">
+            <p class="text-lesson-description">{{ currentLesson.description }}</p>
+          </div>
+        </div>
+
+        <!-- Fixed Navigation Buttons -->
+        <div class="text-lesson-nav-center">
+          <button class="text-nav-btn text-nav-previous" [disabled]="!canGoPrevious()" (click)="goToPreviousLesson()"
+            [attr.aria-label]="'Previous lesson'">
+            <lucide-icon [img]="ChevronLeft" [size]="24"></lucide-icon>
+          </button>
+
+          <button class="text-nav-btn text-nav-next" [disabled]="!canGoNext()" (click)="goToNextLesson()"
+            [attr.aria-label]="'Next lesson'">
+            <lucide-icon [img]="ChevronRight" [size]="24"></lucide-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Video Player Component -->
+      <app-video-player *ngIf="!showQuiz && !isTextLesson && currentLesson" [videoUrl]="videoUrl"
+        [lessonProgress]="lessonProgress" [canGoPrevious]="canGoPrevious()" [canGoNext]="canGoNext()"
+        [isLoading]="isLoadingVideo" (previous)="goToPreviousLesson()" (next)="goToNextLesson()"
+        (markComplete)="markAsComplete()">
+      </app-video-player>
+
+      <!-- Quiz Player Component -->
+      <app-quiz-skeleton *ngIf="isLoadingQuiz"></app-quiz-skeleton>
+      <app-quiz-player *ngIf="showQuiz && currentQuiz" [quiz]="currentQuiz" [attemptNumber]="quizAttemptNumber"
+        [previousResult]="lastQuizResult" (completed)="onQuizCompleted($event)" (retake)="onQuizRetake()"
+        (continue)="onQuizContinue()" (skip)="onQuizSkip()">
+      </app-quiz-player>
+
+      <!-- Tab Navigation - Always visible as part of page layout -->
+      <div class="lesson-content-section" *ngIf="currentLesson || showQuiz || isLoadingQuiz">
+        <!-- Tab Headers -->
+        <div class="tab-navigation">
+          <button class="tab-btn" [class.active]="activeTab === 'overview'" (click)="setActiveTab('overview')">
+            <lucide-icon [img]="FileText" [size]="16"></lucide-icon>
+            <span>Overview</span>
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'reviews'" (click)="setActiveTab('reviews')">
+            <lucide-icon [img]="Star" [size]="16"></lucide-icon>
+            <span>Reviews</span>
+          </button>
+          <button class="tab-btn" [class.active]="activeTab === 'resources'" (click)="setActiveTab('resources')">
+            <lucide-icon [img]="Download" [size]="16"></lucide-icon>
+            <span>Resources</span>
+          </button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+          <!-- Overview Tab -->
+          <div class="tab-pane" *ngIf="activeTab === 'overview'">
+            <div class="course-overview">
+              <h2 class="course-overview-title">{{ course.title }}</h2>
+              <p class="course-overview-description">{{ course.description }}</p>
+
+              <!-- Course Progress Bar -->
+              <div class="course-progress-section">
+                <div class="progress-header">
+                  <span class="progress-label">Course Progress</span>
+                  <span class="progress-value">{{ courseProgress }}%</span>
+                </div>
+                <div class="progress-bar-container">
+                  <div class="progress-bar-fill" [style.width.%]="courseProgress"></div>
+                </div>
+              </div>
+
+              <!-- Course Stats Grid -->
+              <div class="course-stats-grid">
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="Users" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ course.studentsEnrolled.toLocaleString() }}</span>
+                    <span class="stat-label">Students</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="Star" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ course.rating }} / 5.0</span>
+                    <span class="stat-label">Rating</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="BookOpen" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ course.totalLessons }}</span>
+                    <span class="stat-label">Lessons</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="Clock" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ formatCourseDuration(course.duration) }}</span>
+                    <span class="stat-label">Duration</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="MessageSquare" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ course.modules.length }}</span>
+                    <span class="stat-label">Modules</span>
+                  </div>
+                </div>
+
+                <div class="stat-item">
+                  <div class="stat-icon">
+                    <lucide-icon [img]="Calendar" [size]="20"></lucide-icon>
+                  </div>
+                  <div class="stat-content">
+                    <span class="stat-value">{{ formatDate(course.updatedAt) }}</span>
+                    <span class="stat-label">Last Updated</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Instructor Info -->
+              <div class="instructor-section">
+                <h3 class="section-heading">Instructor</h3>
+                <p class="instructor-name">{{ course.instructor }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reviews Tab -->
+          <div class="tab-pane" *ngIf="activeTab === 'reviews'">
+            <h3 class="tab-heading">{{ isEditingReview ? 'Update Your Review' : 'Write a Review' }}</h3>
+            <p class="tab-subheading">{{ isEditingReview ? 'Edit your thoughts about this course' : 'Share your thoughts
+              about this course' }}</p>
+
+            <!-- Success Message -->
+            <div *ngIf="reviewSuccessMessage" class="review-message review-success">
+              <div class="message-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>{{ reviewSuccessMessage }}</span>
+              </div>
+              <button class="message-close" (click)="dismissMessage()" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Error Message -->
+            <div *ngIf="reviewErrorMessage" class="review-message review-error">
+              <div class="message-content">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+                <span>{{ reviewErrorMessage }}</span>
+              </div>
+              <button class="message-close" (click)="dismissMessage()" type="button">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            <div class="review-form">
+              <div class="rating-section">
+                <label class="form-label">Your Rating</label>
+                <div class="star-rating">
+                  <button *ngFor="let star of [1, 2, 3, 4, 5]" class="star-btn" [class.filled]="star <= reviewRating"
+                    (click)="setRating(star)" type="button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                      [attr.fill]="star <= reviewRating ? 'currentColor' : 'none'" stroke="currentColor"
+                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polygon
+                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="review-text">Your Review</label>
+                <textarea id="review-text" class="form-textarea" [(ngModel)]="reviewText"
+                  placeholder="Tell us what you think about this course..." rows="6"></textarea>
+              </div>
+
+              <button class="btn-submit-review" [disabled]="reviewRating === 0 || !reviewText.trim()"
+                (click)="submitReview()">
+                {{ isEditingReview ? 'Update Review' : 'Submit Review' }}
+              </button>
+            </div>
+          </div>
+
+          <!-- Resources Tab -->
+          <div class="tab-pane" *ngIf="activeTab === 'resources'">
+
+            <h3 class="tab-heading">Module Resources</h3>
+            <p class="resource-description">
+              These are resources for the section
+              <strong *ngIf="currentModule">{{ currentModule.title }}</strong>.
+            </p>
+
+            <div *ngIf="currentModuleResources.length > 0; else noResources">
+              <div class="resource-list">
+                <div *ngFor="let resource of currentModuleResources" class="resource-item"
+                  (click)="downloadResource(resource)">
+                  <div class="resource-icon">
+                    <lucide-icon [img]="getResourceIcon(resource.type) === 'file-text' ? FileText :
+                             getResourceIcon(resource.type) === 'file-spreadsheet' ? FileSpreadsheet :
+                             getResourceIcon(resource.type) === 'image' ? Image :
+                             getResourceIcon(resource.type) === 'video' ? Video : File" [size]="24">
+                    </lucide-icon>
+                  </div>
+                  <div class="resource-details">
+                    <span class="resource-name">{{ resource.title }}</span>
+                    <span class="resource-type">{{ resource.type.toUpperCase() }}</span>
+                  </div>
+                  <div class="resource-download">
+                    <lucide-icon [img]="Download" [size]="20"></lucide-icon>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ng-template #noResources>
+              <div class="empty-state">
+                <lucide-icon [img]="FileText" [size]="48"></lucide-icon>
+                <p>This module has no downloadable resources yet.</p>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <app-footer></app-footer>
+    </main>
+
+    <!-- Lesson Sidebar (RIGHT) -->
+    <app-lesson-sidebar [modules]="course.modules" [currentLessonId]="currentLesson?.id || null"
+      [expandedModules]="expandedModules" [isSidebarOpen]="isSidebarOpen" [completedLessonIds]="completedLessonIds"
+      [passedQuizModuleIds]="passedQuizModuleIds" [isQuizActive]="showQuiz"
+      [activeQuizModuleId]="currentModule?.id || null" (lessonSelected)="onLessonSelected($event)"
+      (moduleToggled)="onModuleToggled($event)" (sidebarClosed)="toggleSidebar()" (lessonCompleted)="markAsComplete()"
+      (quizSelected)="onQuizSelected($event)">
+    </app-lesson-sidebar>
+  </div>
+</div>
+
+<!-- Loading State -->
+<app-course-player-skeleton *ngIf="!course"></app-course-player-skeleton>

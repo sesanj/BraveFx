@@ -1,0 +1,111 @@
+<!-- Hero Section with Cinematic Design -->
+<section class="hero">
+    <div class="hero-background">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <div class="container hero-content">
+        <div class="hero-text animate-fade-in">
+            <div class="badge">
+                <lucide-icon [img]="Sparkles" class="badge-icon"></lucide-icon>
+                <span>Trusted by 6,000+ Traders Worldwide</span>
+            </div>
+
+            <h1 class="hero-title">
+                <span class="title-small">The Complete</span>
+                Forex Trading Course<br />
+                <span class="gradient-text">With Brave FX</span>
+            </h1>
+
+            <p class="hero-description">
+                Learn proven strategies, master risk management,
+                and join the ranks of successful traders with our comprehensive, battle-tested course.
+            </p>
+
+            <p class="hero-subtext">
+                <lucide-icon [img]="CheckCircle" class="inline-icon"></lucide-icon>
+                Perfect for beginners to advance traders
+            </p>
+
+            <div class="hero-cta">
+                <button class="btn-hero-primary" (click)="scrollToEnroll()">
+                    <span>Start Learning Today</span>
+                    <lucide-icon [img]="ChevronRight" class="btn-icon"></lucide-icon>
+                </button>
+                <button class="btn-hero-secondary" (click)="openPreview()">
+                    <lucide-icon [img]="PlayCircle" class="btn-icon"></lucide-icon>
+                    <span>Watch Preview</span>
+                </button>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-icon-bg">
+                        <lucide-icon [img]="Users" class="stat-icon"></lucide-icon>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">6,000+</div>
+                        <div class="stat-label">Active Students</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon-bg">
+                        <lucide-icon [img]="Star" class="stat-icon"></lucide-icon>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">4.6★</div>
+                        <div class="stat-label">Average Rating</div>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon-bg">
+                        <lucide-icon [img]="PlayCircle" class="stat-icon"></lucide-icon>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Video Lessons</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="social-proof">
+                <div class="social-item">
+                    <lucide-icon [img]="Instagram" class="social-icon"></lucide-icon>
+                    <span>38K Instagram Followers</span>
+                </div>
+                <div class="social-item">
+                    <lucide-icon [img]="Youtube" class="social-icon"></lucide-icon>
+                    <span>70K YouTube Subscribers</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-image animate-fade-in">
+            <div class="video-card glass-card">
+                <div class="video-thumbnail">
+                    <img src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?q=80&w=1200&auto=format&fit=crop"
+                        alt="Course preview" />
+                    <button class="play-button" (click)="openPreview()" aria-label="Play preview video">
+                        <lucide-icon [img]="PlayCircle" class="play-icon"></lucide-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Video Modal -->
+<div class="modal-overlay" *ngIf="isPreviewOpen" (click)="closePreview()">
+    <div class="modal-dialog" (click)="$event.stopPropagation()">
+        <button class="modal-close" (click)="closePreview()" aria-label="Close">
+            ✕
+        </button>
+        <div class="modal-content">
+            <iframe width="100%" height="100%" [src]="sanitizedPreviewUrl" title="Course Preview" frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen></iframe>
+        </div>
+    </div>
+</div>

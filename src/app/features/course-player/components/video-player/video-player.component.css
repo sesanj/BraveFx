@@ -1,0 +1,177 @@
+.video-section {
+  background: #000000;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16/9;
+  max-height: calc(1080px * 0.9); /* 1920x1080 aspect ratio, scaled to fit */
+  background: #000000;
+  overflow: hidden;
+}
+
+/* Overlay Navigation Buttons */
+.nav-overlay {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.nav-overlay-left {
+  left: 1rem;
+}
+
+.nav-overlay-right {
+  right: 1rem;
+}
+
+.video-wrapper:hover .nav-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.nav-overlay:hover {
+  background: rgba(168, 85, 247, 0.9);
+  border-color: rgba(168, 85, 247, 0.3);
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 24px rgba(168, 85, 247, 0.4);
+}
+
+.nav-overlay:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.video-frame {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.video-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.video-placeholder lucide-icon {
+  margin-bottom: 1rem;
+  opacity: 0.3;
+}
+
+.video-placeholder p {
+  font-size: 1.125rem;
+  margin: 0;
+}
+
+/* Loading State */
+.video-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.loader-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid rgba(168, 85, 247, 0.2);
+  border-top-color: #a855f7;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1.5rem;
+}
+
+.video-loading p {
+  font-size: 1rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  /* Simple always-visible mobile controls */
+  .nav-overlay {
+    width: 32px !important;
+    height: 32px !important;
+    background: rgba(0, 0, 0, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    opacity: 0.3 !important; /* Low opacity by default - barely visible */
+    pointer-events: auto !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    z-index: 10;
+  }
+
+  /* Higher opacity on active/tap */
+  .nav-overlay:active {
+    opacity: 1 !important;
+    background: rgba(168, 85, 247, 0.7) !important;
+    transform: translateY(-50%) scale(0.9) !important;
+  }
+
+  .nav-overlay lucide-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .nav-overlay-left {
+    left: 0.5rem !important;
+  }
+
+  .nav-overlay-right {
+    right: 0.5rem !important;
+  }
+
+  /* Disable desktop hover on mobile */
+  .video-wrapper:hover .nav-overlay {
+    opacity: 0.3 !important;
+  }
+
+  .nav-overlay:hover {
+    background: rgba(0, 0, 0, 0.5) !important;
+    transform: translateY(-50%) !important;
+  }
+
+  .video-controls {
+    padding: 1rem 0.75rem;
+  }
+
+  .btn-complete {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.9375rem;
+    padding: 0.875rem;
+  }
+}

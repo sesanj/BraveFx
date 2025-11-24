@@ -1,0 +1,250 @@
+<div class="settings-container">
+  <h1 class="page-title">Settings</h1>
+  <p class="page-subtitle">Manage your account and preferences</p>
+
+  <!-- Profile Settings -->
+  <section class="settings-section">
+    <div class="settings-header">
+      <lucide-icon [img]="User" [size]="24"></lucide-icon>
+      <h2 class="settings-section-title">Profile Information</h2>
+    </div>
+    <div class="settings-card">
+      <!-- Success/Error Messages -->
+      <div *ngIf="profileSuccessMessage" class="success-message">
+        {{ profileSuccessMessage }}
+      </div>
+      <div *ngIf="profileErrorMessage" class="error-message">
+        {{ profileErrorMessage }}
+      </div>
+
+      <div class="avatar-section">
+        <div class="avatar-large">
+          <lucide-icon [img]="User" [size]="32"></lucide-icon>
+        </div>
+      </div>
+
+      <div class="settings-form">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" [(ngModel)]="profileName" [disabled]="isUpdatingProfile" placeholder="Your full name" />
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" [(ngModel)]="profileEmail" [disabled]="isUpdatingProfile" placeholder="your@email.com" />
+          <small class="form-hint">Changing your email will require verification</small>
+        </div>
+        <div class="form-group">
+          <label>Bio</label>
+          <textarea [(ngModel)]="profileBio" [disabled]="isUpdatingProfile" rows="3"
+            placeholder="Tell us about yourself..."></textarea>
+        </div>
+        <button class="btn-primary" (click)="updateProfile()" [disabled]="isUpdatingProfile">
+          {{ isUpdatingProfile ? 'Saving...' : 'Save Changes' }}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Account Security -->
+  <section class="settings-section">
+    <div class="settings-header">
+      <lucide-icon [img]="Lock" [size]="24"></lucide-icon>
+      <h2 class="settings-section-title">Account Security</h2>
+    </div>
+    <div class="settings-card">
+      <!-- Success/Error Messages -->
+      <div *ngIf="passwordSuccessMessage" class="success-message">
+        {{ passwordSuccessMessage }}
+      </div>
+      <div *ngIf="passwordErrorMessage" class="error-message">
+        {{ passwordErrorMessage }}
+      </div>
+
+      <div class="settings-form">
+        <div class="form-group">
+          <label>Current Password</label>
+          <input type="password" [(ngModel)]="currentPassword" [disabled]="isUpdatingPassword"
+            placeholder="Enter current password" />
+        </div>
+        <div class="form-group">
+          <label>New Password</label>
+          <input type="password" [(ngModel)]="newPassword" [disabled]="isUpdatingPassword"
+            placeholder="Enter new password" />
+          <small class="form-hint">Password must be at least 8 characters</small>
+        </div>
+        <div class="form-group">
+          <label>Confirm New Password</label>
+          <input type="password" [(ngModel)]="confirmNewPassword" [disabled]="isUpdatingPassword"
+            placeholder="Confirm new password" />
+        </div>
+        <button class="btn-primary" (click)="changePassword()" [disabled]="isUpdatingPassword">
+          {{ isUpdatingPassword ? 'Updating...' : 'Update Password' }}
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preferences -->
+  <section class="settings-section">
+    <div class="settings-header">
+      <lucide-icon [img]="Palette" [size]="24"></lucide-icon>
+      <h2 class="settings-section-title">Preferences</h2>
+    </div>
+    <div class="settings-card">
+      <div class="setting-item">
+        <div class="setting-info">
+          <h4>Theme</h4>
+          <p>Choose your preferred color theme</p>
+        </div>
+        <div class="theme-selector">
+          <button class="theme-option" [class.active]="themeService.theme() === 'light'"
+            (click)="themeService.setTheme('light')">
+            <lucide-icon [img]="Sun" [size]="18"></lucide-icon>
+            <span>Light</span>
+          </button>
+          <button class="theme-option" [class.active]="themeService.theme() === 'dark'"
+            (click)="themeService.setTheme('dark')">
+            <lucide-icon [img]="Moon" [size]="18"></lucide-icon>
+            <span>Dark</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h4>Language</h4>
+          <p>Select your preferred language</p>
+        </div>
+        <select class="select-input">
+          <option value="en">English</option>
+          <option value="es">Español</option>
+          <option value="fr">Français</option>
+          <option value="de">Deutsch</option>
+        </select>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h4>Timezone</h4>
+          <p>Set your local timezone</p>
+        </div>
+        <select class="select-input">
+          <option value="utc">UTC</option>
+          <option value="est">Eastern Time (EST)</option>
+          <option value="pst">Pacific Time (PST)</option>
+          <option value="gmt">GMT</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notifications -->
+  <section class="settings-section">
+    <div class="settings-header">
+      <lucide-icon [img]="Bell" [size]="24"></lucide-icon>
+      <h2 class="settings-section-title">Notifications</h2>
+    </div>
+    <div class="settings-card">
+      <div class="setting-item">
+        <div class="setting-info">
+          <h4>Email Notifications</h4>
+          <p>Receive updates about your courses via email</p>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" checked />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h4>Course Updates</h4>
+          <p>Get notified when new lessons are added</p>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" checked />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h4>Marketing Emails</h4>
+          <p>Receive news about new courses and promotions</p>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+
+      <div class="setting-item">
+        <div class="setting-info">
+          <h4>Community Updates</h4>
+          <p>Get notified about forum replies and mentions</p>
+        </div>
+        <label class="toggle-switch">
+          <input type="checkbox" checked />
+          <span class="toggle-slider"></span>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <!-- Danger Zone -->
+  <section class="settings-section">
+    <div class="settings-header danger">
+      <lucide-icon [img]="AlertTriangle" [size]="24"></lucide-icon>
+      <h2 class="settings-section-title">Danger Zone</h2>
+    </div>
+    <div class="settings-card danger-card">
+      <div class="danger-item">
+        <div class="setting-info">
+          <h4>Delete Account</h4>
+          <p>Permanently delete your account and all associated data</p>
+        </div>
+        <button class="btn-danger" (click)="openDeleteConfirmation()">Delete Account</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Delete Account Confirmation Modal -->
+  <div class="modal-overlay" *ngIf="showDeleteConfirmation" (click)="closeDeleteConfirmation()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <lucide-icon [img]="AlertTriangle" [size]="32" class="text-danger"></lucide-icon>
+        <h2>Delete Account</h2>
+      </div>
+
+      <div class="modal-body">
+        <p class="warning-text">
+          <strong>⚠️ Warning: This action cannot be undone!</strong>
+        </p>
+        <p>
+          Deleting your account will permanently remove:
+        </p>
+        <ul class="deletion-list">
+          <li>Your profile and personal information</li>
+          <li>All course progress and completion records</li>
+          <li>Quiz results and certificates</li>
+          <li>All other associated data</li>
+        </ul>
+        <p class="confirmation-instruction">
+          To confirm, please enter your email address: <strong>{{ user.email }}</strong>
+        </p>
+        <input type="email" [(ngModel)]="deleteConfirmationEmail" [placeholder]="user.email" class="confirmation-input"
+          [disabled]="isDeletingAccount" />
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="closeDeleteConfirmation()" [disabled]="isDeletingAccount">
+          Cancel
+        </button>
+        <button class="btn-danger" (click)="confirmDeleteAccount()"
+          [disabled]="isDeletingAccount || deleteConfirmationEmail !== user.email">
+          {{ isDeletingAccount ? 'Deleting...' : 'Delete My Account' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

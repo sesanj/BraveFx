@@ -1,0 +1,4708 @@
+{
+  "stats": {
+    "totalReviews": 1787,
+    "averageRating": 4.5,
+    "reviewsWithComments": 458,
+    "distribution": {
+      "5": 1122,
+      "4": 485,
+      "3": 147,
+      "2": 14,
+      "1": 19
+    }
+  },
+  "regionalBreakdown": {
+    "Oceania": {
+      "count": 27,
+      "percentage": 5.9
+    },
+    "North America": {
+      "count": 45,
+      "percentage": 9.8
+    },
+    "Africa": {
+      "count": 118,
+      "percentage": 25.8
+    },
+    "South America": {
+      "count": 42,
+      "percentage": 9.2
+    },
+    "Europe": {
+      "count": 99,
+      "percentage": 21.6
+    },
+    "Asia": {
+      "count": 95,
+      "percentage": 20.7
+    },
+    "Middle East": {
+      "count": 32,
+      "percentage": 7.0
+    }
+  },
+  "featuredReviews": [
+    {
+      "id": 143,
+      "name": "Allwell Henry Chimaobi",
+      "rating": 5,
+      "date": "2024-08-17",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "Before July 3rd 2024 when I purchased this course, I didn’t know anything about trading.. the charts makes me go crazy when I watch them, today being 17th August 2024 I just completed this course, but before completing this course I’ve already started making little lol profit , just by following price action, market structure and marking out my areas of interest, I’m not saying I’m a pro now but I’m stating how this course brought me from a novice  to understanding what forex market is all about, now I’ll move on to studying at a more higher level, thank Udemy and brave fx for such an opportunity and I hope the new people joining this course would gain from this.",
+      "verified": true
+    },
+    {
+      "id": 20,
+      "name": "Sinetemba",
+      "rating": 5,
+      "date": "2025-07-24",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "a very good match, I am a bit Disappointed at myself for taking too long to finish the course because I believe I bought the course last year, its the best course ever now i wont need telegram scammers to sell me signals, or strategies, all o f that is covered on this course thank you very much Joel, now im on my way to finishin the course.  I have never taken a trade in my life i bought the course without having a clue of trading but now, I've been trading i have an understanding of trading now. I just need to be sure of all analysis",
+      "verified": true
+    },
+    {
+      "id": 93,
+      "name": "Gideon Quist",
+      "rating": 5,
+      "date": "2024-12-06",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "The training was excellently organized and well arranged in a very logical manner making it very easy for even someone who is getting a first exposure to Forex trading, and each course is well explained with graphical representations, the content is fully loaded covering everything one needs to know about the topic under review, I'm very impressed and deeply appreciate and finds myself fortune for selecting this couser for myself. it's been a great eye opener for me. Thanks and kudos for the great work done.",
+      "verified": true
+    },
+    {
+      "id": 306,
+      "name": "Richard Lynch",
+      "rating": 5,
+      "date": "2023-09-04",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "I have taken 5 other courses on Udemy about trading and this is the best course for going from complete beginner to advanced Ihave taken. What separates it from the rest is the simple step by step approach with full explanations, examples, PDFs, summaries, quizzes and tests. They really “drill” it into your head. The only thing some people may say is the instructors accent may take getting used to if you are not accustomed to it. Other than that the course is excellent! I highly recommend it!! 5 stars!!!",
+      "verified": true
+    },
+    {
+      "id": 255,
+      "name": "Jean-Paul Ismael",
+      "rating": 5,
+      "date": "2023-11-19",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "This course is very well put together. A wide range of concepts are explained in a structured manner. I recommend this course for anyone who is just getting into ForEx or those who are returning. I see people talk about the way the instructor speaks and rate the course poorly. I'm here to say, their rating is unreasonable. This is a AAA course and provides you with everything you need to tackle these markets. Thank you for putting such a detailed course together!",
+      "verified": true
+    },
+    {
+      "id": 7,
+      "name": "Yahye ahmed",
+      "rating": 5,
+      "date": "2025-09-12",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "This course is exceptionally well-designed and offers high-level education in forex trading. It is particularly beneficial for beginners and intermediate traders who want to build a strong foundation and improve their skills. Offered by BraveFX Academy, the course is led by an experienced instructor who teaches with clarity and precision. He provides comprehensive explanations and practical examples, guiding students step-by-step to ensure deep understanding.",
+      "verified": true
+    },
+    {
+      "id": 242,
+      "name": "Girish J",
+      "rating": 5,
+      "date": "2023-12-25",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "Very well explained by the mentor, appreciated his efforts on explaining each topic detailed multiple times in Overview and Summary, I had done previously different courses, but this one is the best for me as I have cleared lot of doubts and learned a lot of new things, Thanks mentor..\nIt took time for me to understand accent, but it was not big challenge, I was used to it after 3-4 chapters, when ever he said Buy trade, I was listening it as Bad Trade :p",
+      "verified": true
+    },
+    {
+      "id": 377,
+      "name": "Temitope Akindele",
+      "rating": 5,
+      "date": "2023-06-08",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "i didnt expect what have been learning so far from my native person of the same country and the same region ,thanks man for sharing this content,more strength to you sir ,please keep updating this course as you said so we could be updating the knowledge more and more......thank you sir ,see you on the next level of life....UDEMY i aknowledge and appreciate your effort in allowing this content to go viral;kudos to you!",
+      "verified": true
+    },
+    {
+      "id": 41,
+      "name": "Olamilekan Iluyomade",
+      "rating": 5,
+      "date": "2025-05-07",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "This course by Sesan Joel was exactly what I needed to understand Forex trading truly. He breaks down complex concepts into simple, actionable lessons, and his teaching style is clear, practical, and motivating. I now have a solid grasp of trading strategies, risk management, and market analysis. If you’re serious about learning Forex the right way, I highly recommend this course!",
+      "verified": true
+    }
+  ],
+  "allReviews": [
+    {
+      "id": 458,
+      "name": "Shojupe Damilare",
+      "rating": 5,
+      "date": "2023-01-23",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "What had learnt so far were superb",
+      "verified": true
+    },
+    {
+      "id": 457,
+      "name": "Oluwasegun Disu",
+      "rating": 5,
+      "date": "2023-01-25",
+      "location": "France",
+      "region": "Europe",
+      "comment": "i have been following bravefx for a while... it is exciting",
+      "verified": true
+    },
+    {
+      "id": 456,
+      "name": "Okeke Kenneth Ifeanyi",
+      "rating": 5,
+      "date": "2023-01-30",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "EXECELLENT KEEP IT UP",
+      "verified": true
+    },
+    {
+      "id": 455,
+      "name": "Baffa Adamu Muhammad",
+      "rating": 5,
+      "date": "2023-02-01",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "Very nice to use",
+      "verified": true
+    },
+    {
+      "id": 451,
+      "name": "Kayode Akinbode",
+      "rating": 5,
+      "date": "2023-02-09",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "This is the best forex trading course i have ever seen. The assignments, quizzes & tasks makes the course super engaging and i am actually learning and putting in the work. Great community as well on Discord.",
+      "verified": true
+    },
+    {
+      "id": 452,
+      "name": "Adetayo Badmus",
+      "rating": 5,
+      "date": "2023-02-09",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "Explicit and interesting",
+      "verified": true
+    },
+    {
+      "id": 450,
+      "name": "Babah Odion Saliu",
+      "rating": 5,
+      "date": "2023-02-10",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "Absolutely the final piece I have been looking for, to make me a full professional profitable trader",
+      "verified": true
+    },
+    {
+      "id": 448,
+      "name": "Adhin Mohammed",
+      "rating": 5,
+      "date": "2023-02-18",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "This is the best lecture i have ever studied. I tried many other lectures but their not teaching from basic level but this lecturer is teaching from basic level even any  7 year old child can understand this. I need to say a big thanks to your team",
+      "verified": true
+    },
+    {
+      "id": 446,
+      "name": "Faris kois",
+      "rating": 5,
+      "date": "2023-02-22",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "Wow BRAVEFX academy is the best of all, this course is amazing 🤩 from beginner to advance trader with a fantastic strategy, actually I can't define how I enjoy this course but is the best",
+      "verified": true
+    },
+    {
+      "id": 445,
+      "name": "Ashutosh Tirkey",
+      "rating": 5,
+      "date": "2023-02-27",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "Explains very well",
+      "verified": true
+    },
+    {
+      "id": 444,
+      "name": "Nhyirah Oliver",
+      "rating": 5,
+      "date": "2023-02-28",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "Just finished the first lecture and I’m loving how the lecturer breaks down the concepts, they’re so comprehensible ✨. Can’t wait to get through the whole course.",
+      "verified": true
+    },
+    {
+      "id": 442,
+      "name": "Abraham Jackson",
+      "rating": 5,
+      "date": "2023-03-03",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "Great lesson. Well understood",
+      "verified": true
+    },
+    {
+      "id": 440,
+      "name": "Nicholas Ilechie",
+      "rating": 5,
+      "date": "2023-03-08",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "Undeniably one of the best and most complete courses in forex trading.",
+      "verified": true
+    },
+    {
+      "id": 439,
+      "name": "Michael Addo Kyeremeh",
+      "rating": 5,
+      "date": "2023-03-10",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "At this point, I am more confident entering trades than I was before. I have higher win rate now....and I'm only half way through.",
+      "verified": true
+    },
+    {
+      "id": 437,
+      "name": "Gbadamosi Ibrahim Abayomi",
+      "rating": 5,
+      "date": "2023-03-15",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "amazing explation, but animination seems too fast. but with calm listening once will be able to get the point",
+      "verified": true
+    },
+    {
+      "id": 438,
+      "name": "Vansh davey",
+      "rating": 5,
+      "date": "2023-03-15",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "it exceeded my expectations",
+      "verified": true
+    },
+    {
+      "id": 435,
+      "name": "Shivam Saini",
+      "rating": 5,
+      "date": "2023-03-17",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "I AM GLAD I TOOK THIS COURSE , THIS IS THE MOST UNDERRATED COURSE ON UDEMY ,EVERYONE SHOULD LOOK OUT FOR IT. THANK YOU SO MUCH SIR FOR THIS COURSE.YOU ARE MY MENTOR.WAITING FOR YOUR ANOTHER COURSE ON FOREX MARKET.....",
+      "verified": true
+    },
+    {
+      "id": 430,
+      "name": "Royal Godwin",
+      "rating": 5,
+      "date": "2023-04-01",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "The course is newbie’s friendly",
+      "verified": true
+    },
+    {
+      "id": 429,
+      "name": "Olamide",
+      "rating": 5,
+      "date": "2023-04-02",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "It's been very good so far. I have been learning and practicing at the same time and yes, it's working.",
+      "verified": true
+    },
+    {
+      "id": 428,
+      "name": "Jun Madayag",
+      "rating": 5,
+      "date": "2023-04-03",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Clear explanation",
+      "verified": true
+    },
+    {
+      "id": 425,
+      "name": "Elvis Okpara",
+      "rating": 5,
+      "date": "2023-04-08",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "I thank God I found this course else I would have given up on Forex\nBraveFx did a nice job here, Rich and cheap course here\nit will take you from beginner level to Advanced level",
+      "verified": true
+    },
+    {
+      "id": 426,
+      "name": "Wonderful Alikali",
+      "rating": 5,
+      "date": "2023-04-08",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "everything taught was just simple and straightforward, no complications like other traders do. For me simple is better.",
+      "verified": true
+    },
+    {
+      "id": 424,
+      "name": "Rashad",
+      "rating": 5,
+      "date": "2023-04-10",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "Very good course for beginners.",
+      "verified": true
+    },
+    {
+      "id": 423,
+      "name": "Ososanya Emmanuel",
+      "rating": 5,
+      "date": "2023-04-15",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "its been an amazing journey all through this course , from the breakdowns and explanation even a 3 year old will understand perfectly well.... highly recommended for anyone looking to start their forex course.",
+      "verified": true
+    },
+    {
+      "id": 422,
+      "name": "ABDULLAHI ABDULLATEEF",
+      "rating": 5,
+      "date": "2023-04-16",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "Really enjoying the course",
+      "verified": true
+    },
+    {
+      "id": 418,
+      "name": "Antoinnette Quarshie",
+      "rating": 5,
+      "date": "2023-04-21",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "I like how simplified the course is. Good job done.",
+      "verified": true
+    },
+    {
+      "id": 419,
+      "name": "Osric Jamerson",
+      "rating": 5,
+      "date": "2023-04-21",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "This course is changing my life. The way he is breaking down, the process is second to none. Ive been around forex for a few years, and it never clicked until I bought this course. 15 dollars changed my life. Thank you so much.",
+      "verified": true
+    },
+    {
+      "id": 420,
+      "name": "Nii Tete ANNAN",
+      "rating": 5,
+      "date": "2023-04-21",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "Am getting to know more about the FX market.",
+      "verified": true
+    },
+    {
+      "id": 417,
+      "name": "William",
+      "rating": 5,
+      "date": "2023-04-23",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "i have learnt alot so far and the course is well understandable",
+      "verified": true
+    },
+    {
+      "id": 416,
+      "name": "Timoleon Chrysaidos",
+      "rating": 5,
+      "date": "2023-04-26",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "I am trying to take the next step in trading. And this course has all the things you need to know about trading. I had purchased a course in the past from another youtuber and I was disappointed. This time I took the right choice, it really helped me. For the price I got it, its a closed eye deal.",
+      "verified": true
+    },
+    {
+      "id": 415,
+      "name": "Meshack Heloo",
+      "rating": 5,
+      "date": "2023-04-28",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "So far so good! Every Video breakdown was easy to understand as a newbie, hoping for a great continuation ahead",
+      "verified": true
+    },
+    {
+      "id": 412,
+      "name": "Ahmed Lamarré",
+      "rating": 5,
+      "date": "2023-04-30",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "I was very impressed on how well written this training was. The flow, the details, the quiz and the assignments given throughout the training were very helpful. Your course is very underrated, and you definitely deserve an A++.",
+      "verified": true
+    },
+    {
+      "id": 414,
+      "name": "Osawaru Agho",
+      "rating": 5,
+      "date": "2023-04-30",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "I have really enjoyed this course so far",
+      "verified": true
+    },
+    {
+      "id": 410,
+      "name": "Nicholas Mthalane",
+      "rating": 5,
+      "date": "2023-05-04",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "Simplified and well presented for a beginner to understand.\nAfter each module, I look at charts in a completely different approach and understanding of market movement",
+      "verified": true
+    },
+    {
+      "id": 404,
+      "name": "Sherif Shittu",
+      "rating": 5,
+      "date": "2023-05-08",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "Well explained.",
+      "verified": true
+    },
+    {
+      "id": 405,
+      "name": "Sirajalmohandas",
+      "rating": 5,
+      "date": "2023-05-08",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "BEST COURSE I HAVE EVER ENTER FULL OF KNOWLOGDE I ADVICE ANYONE WHO WANT BE PRO FOREX TRADE TO BUY THIS COURSE IN ANOTHER DIFFERENT LEAVE I SWEAR",
+      "verified": true
+    },
+    {
+      "id": 403,
+      "name": "Lesego Napo",
+      "rating": 5,
+      "date": "2023-05-09",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "Exceptional, so far!!",
+      "verified": true
+    },
+    {
+      "id": 402,
+      "name": "Riliwan Ibuowo",
+      "rating": 5,
+      "date": "2023-05-10",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "Simple and easy to understand. Best course on forex trading for beginner and even expert traders💯",
+      "verified": true
+    },
+    {
+      "id": 401,
+      "name": "Ikponmwosa Orhue",
+      "rating": 5,
+      "date": "2023-05-12",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "Still trying to get use to the environment as it's new to me",
+      "verified": true
+    },
+    {
+      "id": 399,
+      "name": "Saverio piemontese",
+      "rating": 5,
+      "date": "2023-05-16",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Really informative and simple, and it's just the start of the course.\nThis course is LIT",
+      "verified": true
+    },
+    {
+      "id": 400,
+      "name": "Ayomide Michael",
+      "rating": 5,
+      "date": "2023-05-16",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "Good course for beginners and pros. You would not regret purchasing it.",
+      "verified": true
+    },
+    {
+      "id": 397,
+      "name": "Malibongwe Dlamini Thomas",
+      "rating": 5,
+      "date": "2023-05-18",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "Forex is being simplified that one person who does not have any clue can have an understanding on what is forex all about.",
+      "verified": true
+    },
+    {
+      "id": 396,
+      "name": "Ekundayo Abdulbasit",
+      "rating": 5,
+      "date": "2023-05-19",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "This course is the greatest achievement of my forex career, well explained videos, with pdf files for better understanding, assignments and quizzes to test you if you understand what are been taught. Bravefx thank you for this great opportunity",
+      "verified": true
+    },
+    {
+      "id": 393,
+      "name": "Franklin Okereafor",
+      "rating": 5,
+      "date": "2023-05-20",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "It is incredibly educative.",
+      "verified": true
+    },
+    {
+      "id": 394,
+      "name": "Marvel cashout",
+      "rating": 5,
+      "date": "2023-05-20",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "This course is the best",
+      "verified": true
+    },
+    {
+      "id": 392,
+      "name": "Kris Hayde",
+      "rating": 5,
+      "date": "2023-05-21",
+      "location": "France",
+      "region": "Europe",
+      "comment": "Excellent course, all the info needed, very thorough, well explained, perfect for the Beginner, and very helpful for experienced Traders also",
+      "verified": true
+    },
+    {
+      "id": 391,
+      "name": "Francisco García",
+      "rating": 5,
+      "date": "2023-05-23",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "So far very intuitive and very well explained",
+      "verified": true
+    },
+    {
+      "id": 389,
+      "name": "Ashlea Tisdale",
+      "rating": 5,
+      "date": "2023-05-26",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "The content is easy to understand so far.",
+      "verified": true
+    },
+    {
+      "id": 388,
+      "name": "Hjalmar Lopez",
+      "rating": 5,
+      "date": "2023-05-28",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "It’s good so far",
+      "verified": true
+    },
+    {
+      "id": 385,
+      "name": "Anthony Braithwaite",
+      "rating": 5,
+      "date": "2023-06-03",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "Really enjoying the course",
+      "verified": true
+    },
+    {
+      "id": 386,
+      "name": "Imantas Jogaudas",
+      "rating": 5,
+      "date": "2023-06-03",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "Absolutely great course!!! For the price, it gives maaay more!",
+      "verified": true
+    },
+    {
+      "id": 384,
+      "name": "Raphasha Adzwilewe Oupa",
+      "rating": 5,
+      "date": "2023-06-04",
+      "location": "France",
+      "region": "Europe",
+      "comment": "Yah well it really is. I seem to see some more lights and course understanding than all the platforms I used before.",
+      "verified": true
+    },
+    {
+      "id": 381,
+      "name": "Ekukwu Peter",
+      "rating": 5,
+      "date": "2023-06-06",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "Learn new stuff . Well detailed",
+      "verified": true
+    },
+    {
+      "id": 382,
+      "name": "Mustapha Kabiru",
+      "rating": 5,
+      "date": "2023-06-06",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "Are you a newbies who no notting about forex trading? and wanting to learn from beginner to advance? if yes! then I highly recommend this course for you. Buy it now and thank me letter.",
+      "verified": true
+    },
+    {
+      "id": 377,
+      "name": "Temitope Akindele",
+      "rating": 5,
+      "date": "2023-06-08",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "i didnt expect what have been learning so far from my native person of the same country and the same region ,thanks man for sharing this content,more strength to you sir ,please keep updating this course as you said so we could be updating the knowledge more and more......thank you sir ,see you on the next level of life....UDEMY i aknowledge and appreciate your effort in allowing this content to go viral;kudos to you!",
+      "verified": true
+    },
+    {
+      "id": 378,
+      "name": "Whitney Grubbs",
+      "rating": 5,
+      "date": "2023-06-08",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "I have taken a few Forex courses before I found this one. I love how he breaks everything down to the simplest form. Its all starting to make sense now! Thank you for this course, I feel more confident trading in the Forex Market now!",
+      "verified": true
+    },
+    {
+      "id": 379,
+      "name": "Boicu Gabriel",
+      "rating": 5,
+      "date": "2023-06-08",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "This is great, I hope it continues this way",
+      "verified": true
+    },
+    {
+      "id": 375,
+      "name": "Hilary",
+      "rating": 5,
+      "date": "2023-06-10",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "Thanks for taking your time to make this course! I am beginning to understand a lot of things.",
+      "verified": true
+    },
+    {
+      "id": 374,
+      "name": "Mahmood abusufian",
+      "rating": 5,
+      "date": "2023-06-12",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "this is the best forest course in whole universe.",
+      "verified": true
+    },
+    {
+      "id": 371,
+      "name": "Ayekobinu Damilare",
+      "rating": 5,
+      "date": "2023-06-15",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "It was a great match for me",
+      "verified": true
+    },
+    {
+      "id": 373,
+      "name": "Sessie Mtsweni",
+      "rating": 5,
+      "date": "2023-06-15",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "IT IS THE BEST EXPLANATION ON FOREX",
+      "verified": true
+    },
+    {
+      "id": 369,
+      "name": "David Mitchell",
+      "rating": 5,
+      "date": "2023-06-17",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "it explains the process really well",
+      "verified": true
+    },
+    {
+      "id": 370,
+      "name": "Suleiman Musa",
+      "rating": 5,
+      "date": "2023-06-17",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "Its been an awesome experience so far",
+      "verified": true
+    },
+    {
+      "id": 367,
+      "name": "Lirim",
+      "rating": 5,
+      "date": "2023-06-19",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "I learned other on other courses before , but this one is amazing !\nA lot of stuff learned and stiill more to go.The teacher is perfect and im looking forward to invest and become a forex trader.\nI suggest to everyone to enroll this course and start their journey on trading !",
+      "verified": true
+    },
+    {
+      "id": 368,
+      "name": "Ndubuisi Chikezie",
+      "rating": 5,
+      "date": "2023-06-19",
+      "location": "India",
+      "region": "Asia",
+      "comment": "ABSOLUTELY GOOD MATCH. I'M LEARNING A LOT AND ADDING TO MY EXPERIENCES TOO.",
+      "verified": true
+    },
+    {
+      "id": 365,
+      "name": "Sony Yulianto",
+      "rating": 5,
+      "date": "2023-06-24",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "Good course...",
+      "verified": true
+    },
+    {
+      "id": 364,
+      "name": "Shashank Gupta",
+      "rating": 5,
+      "date": "2023-06-25",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "best fx course",
+      "verified": true
+    },
+    {
+      "id": 363,
+      "name": "Kalin Jones",
+      "rating": 5,
+      "date": "2023-06-29",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "This man is in incredible teacher. He's naturally gifted at explaining the most complexed thing and breaking it down to make so much sense. This entire course is way better than any YouTube video could ever be. I thank God for this man. I feel like he's about to help me become a millionaire lol",
+      "verified": true
+    },
+    {
+      "id": 362,
+      "name": "Tevin Batiste",
+      "rating": 5,
+      "date": "2023-07-02",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "It’s very informative and straight to the point!",
+      "verified": true
+    },
+    {
+      "id": 359,
+      "name": "Kyle McQueen",
+      "rating": 5,
+      "date": "2023-07-04",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "So far so good :)",
+      "verified": true
+    },
+    {
+      "id": 360,
+      "name": "Laurence Briers",
+      "rating": 5,
+      "date": "2023-07-04",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "very clear and extensive course\nThank you!",
+      "verified": true
+    },
+    {
+      "id": 357,
+      "name": "Lael Beckles",
+      "rating": 5,
+      "date": "2023-07-06",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "Great information!",
+      "verified": true
+    },
+    {
+      "id": 355,
+      "name": "Midas",
+      "rating": 5,
+      "date": "2023-07-09",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "Everything is well explained for easy understanding",
+      "verified": true
+    },
+    {
+      "id": 354,
+      "name": "Tshebi Molemela",
+      "rating": 5,
+      "date": "2023-07-10",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "Easy to understand. Making practical application simple.",
+      "verified": true
+    },
+    {
+      "id": 352,
+      "name": "Darron Smith",
+      "rating": 5,
+      "date": "2023-07-11",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "I am an experienced trader and bought the course to support the work he has given already on Youtube and see see if there was anything in his advance training that I could add to my skills and there is!! Well worth the purchase and even more!! I would recommend his course to my Telegram group for basics to advanced!!",
+      "verified": true
+    },
+    {
+      "id": 351,
+      "name": "Popoola peace Omokaro",
+      "rating": 5,
+      "date": "2023-07-13",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "Best course on forex I have had, very straight forward and easy to understand. I highly recommend.",
+      "verified": true
+    },
+    {
+      "id": 350,
+      "name": "akinbode adeniji",
+      "rating": 5,
+      "date": "2023-07-15",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "Very insightful. This a very good course for beginner and even to advance level.",
+      "verified": true
+    },
+    {
+      "id": 346,
+      "name": "Marco Mendez",
+      "rating": 5,
+      "date": "2023-07-17",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "a lot of information, also it gives many practices and resources to download",
+      "verified": true
+    },
+    {
+      "id": 347,
+      "name": "Ozodi Blessed",
+      "rating": 5,
+      "date": "2023-07-17",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "it break every thing for easy understanding",
+      "verified": true
+    },
+    {
+      "id": 348,
+      "name": "Gospel Aigbemwona",
+      "rating": 5,
+      "date": "2023-07-17",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "Amazing, above expectations!",
+      "verified": true
+    },
+    {
+      "id": 344,
+      "name": "Christopher Blain Kelly",
+      "rating": 5,
+      "date": "2023-07-20",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "The course has been clear and straight to the point. Very easy to access across multiple platforms and the videos are very informative!",
+      "verified": true
+    },
+    {
+      "id": 342,
+      "name": "Kanith Kumar",
+      "rating": 5,
+      "date": "2023-07-22",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "Worth for the price",
+      "verified": true
+    },
+    {
+      "id": 343,
+      "name": "Jeckson Kakeloye",
+      "rating": 5,
+      "date": "2023-07-22",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "I first undermined this course due to other unhelpful courses i came accross, but  as i dived in ,it suprised me that this is the only thing a person need to be a PRO..no exaggeration am suspecting that Sesan joel might be one of 'em market makers cos the guy is jus good at it man! Much respect from Namibia brother......",
+      "verified": true
+    },
+    {
+      "id": 341,
+      "name": "Kareem Taofeek",
+      "rating": 5,
+      "date": "2023-07-28",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "It’s really nice 👍 and I’m glad to come across a wonderful course like this",
+      "verified": true
+    },
+    {
+      "id": 338,
+      "name": "Tshepo Maubane",
+      "rating": 5,
+      "date": "2023-08-01",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "Great teacher, great content. I like the way things are explained in detail!!",
+      "verified": true
+    },
+    {
+      "id": 339,
+      "name": "Hotensia Nganga",
+      "rating": 5,
+      "date": "2023-08-01",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "Very well explained introduction.",
+      "verified": true
+    },
+    {
+      "id": 335,
+      "name": "Inyeneobong Eyo",
+      "rating": 5,
+      "date": "2023-08-05",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "great so far i will rate a five star",
+      "verified": true
+    },
+    {
+      "id": 329,
+      "name": "Gergely Szabo",
+      "rating": 5,
+      "date": "2023-08-07",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Finally a course i can understeand!",
+      "verified": true
+    },
+    {
+      "id": 327,
+      "name": "Lartey Alex Sakyi",
+      "rating": 5,
+      "date": "2023-08-08",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "it's getting interesting so far. nice explanation with the animation thou.",
+      "verified": true
+    },
+    {
+      "id": 328,
+      "name": "Arnelas mickus",
+      "rating": 5,
+      "date": "2023-08-08",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "Very clear points and easy to understand",
+      "verified": true
+    },
+    {
+      "id": 326,
+      "name": "Ishimwe Pacifique",
+      "rating": 5,
+      "date": "2023-08-10",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "yes this is a good match for me and it is amazing AND IT IS WAY MORE DETAILED",
+      "verified": true
+    },
+    {
+      "id": 324,
+      "name": "Michael Ugokwe",
+      "rating": 5,
+      "date": "2023-08-14",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "Its a good course and am liking how its going",
+      "verified": true
+    },
+    {
+      "id": 323,
+      "name": "Popoola Toba",
+      "rating": 5,
+      "date": "2023-08-16",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "Honestly speaking, i must commend the great work and time put into making such a powerful course as this. I use to be a newbie in forex but as time goes on i am pleased with my self as i have already started taking live trades with the little knowledge i have been able to gather here in this moot camp. Thanks for this great work.",
+      "verified": true
+    },
+    {
+      "id": 319,
+      "name": "Ikbal Hito Imanuel",
+      "rating": 5,
+      "date": "2023-08-19",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "Bismillaahirrahmaanirrahiimi, mudah2an Allah memberikan aku rizki yang berkecukupan serta barokah dan ilmu yang bermanfaat untuk membantu sesama",
+      "verified": true
+    },
+    {
+      "id": 318,
+      "name": "Utibeabasi Archibong",
+      "rating": 5,
+      "date": "2023-08-21",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "Amazing course. There is a lot of information. But they are in little chunks which  makes it easy to grasp. Also, a lot of the concepts are repeated through out so they stick to memory. I would recommend.",
+      "verified": true
+    },
+    {
+      "id": 314,
+      "name": "Okhuebor Sanctuary",
+      "rating": 5,
+      "date": "2023-08-23",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "Amazing amazing lecture. I most particularly like the animated videos. More of that pls",
+      "verified": true
+    },
+    {
+      "id": 315,
+      "name": "Jing Hong",
+      "rating": 5,
+      "date": "2023-08-23",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "Well the way that he explains is not for me since i have some knowledge about trade but I highly recommend for new trader because the way he explains is very simple",
+      "verified": true
+    },
+    {
+      "id": 316,
+      "name": "Antonios Triantafillidis",
+      "rating": 5,
+      "date": "2023-08-23",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "Coarse is easy to learn",
+      "verified": true
+    },
+    {
+      "id": 309,
+      "name": "Adaobi Anopueme",
+      "rating": 5,
+      "date": "2023-08-26",
+      "location": "France",
+      "region": "Europe",
+      "comment": "Easy to understand",
+      "verified": true
+    },
+    {
+      "id": 310,
+      "name": "Ayouba M. Swaray",
+      "rating": 5,
+      "date": "2023-08-26",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "This Course breakdown the whole FX down to everyone understanding",
+      "verified": true
+    },
+    {
+      "id": 306,
+      "name": "Richard Lynch",
+      "rating": 5,
+      "date": "2023-09-04",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "I have taken 5 other courses on Udemy about trading and this is the best course for going from complete beginner to advanced Ihave taken. What separates it from the rest is the simple step by step approach with full explanations, examples, PDFs, summaries, quizzes and tests. They really “drill” it into your head. The only thing some people may say is the instructors accent may take getting used to if you are not accustomed to it. Other than that the course is excellent! I highly recommend it!! 5 stars!!!",
+      "verified": true
+    },
+    {
+      "id": 303,
+      "name": "Ngawe Ransom",
+      "rating": 5,
+      "date": "2023-09-06",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "From my experience, it is a really simplified course because you make sure everything is broken down to the lowest level whereby any student can understand. I also like the fact that you give quiz and assignments. So I can say it is a good course.",
+      "verified": true
+    },
+    {
+      "id": 305,
+      "name": "Yvenais Mergilus",
+      "rating": 5,
+      "date": "2023-09-06",
+      "location": "Qatar",
+      "region": "Middle East",
+      "comment": "wow that's the best course ever",
+      "verified": true
+    },
+    {
+      "id": 300,
+      "name": "Corey Daniels",
+      "rating": 5,
+      "date": "2023-09-07",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "yes the training is nice and gives full details on each topic In a fast understanding way",
+      "verified": true
+    },
+    {
+      "id": 301,
+      "name": "Silas Ologun",
+      "rating": 5,
+      "date": "2023-09-07",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "The course is really amazing\nI am really enjoying and gaining more knowledge from it",
+      "verified": true
+    },
+    {
+      "id": 298,
+      "name": "Abhijeet Kale",
+      "rating": 5,
+      "date": "2023-09-08",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "This was a comprehensive beginner guide to someone who is starting from scratch. I absolutely enjoyed every lecture throughout the course and I highly recommend anyone who want to start their learning journey.",
+      "verified": true
+    },
+    {
+      "id": 296,
+      "name": "Kevin L Moaney",
+      "rating": 5,
+      "date": "2023-09-09",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Great match so far. I'm new to this and the first video was very informative.",
+      "verified": true
+    },
+    {
+      "id": 293,
+      "name": "COLLINS NDIRE",
+      "rating": 5,
+      "date": "2023-09-10",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "it was very informative upto this point",
+      "verified": true
+    },
+    {
+      "id": 294,
+      "name": "Viqar Mirza",
+      "rating": 5,
+      "date": "2023-09-10",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "So far so good. The course is simple to understand.",
+      "verified": true
+    },
+    {
+      "id": 290,
+      "name": "Kamil Nagorski",
+      "rating": 5,
+      "date": "2023-09-13",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "Great course all needee informations are mentioned \n\nGreetings Kamil",
+      "verified": true
+    },
+    {
+      "id": 291,
+      "name": "Chiyenem Hanacho",
+      "rating": 5,
+      "date": "2023-09-13",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "This is superb",
+      "verified": true
+    },
+    {
+      "id": 292,
+      "name": "Onowenezi lucky",
+      "rating": 5,
+      "date": "2023-09-13",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "super cool 😎",
+      "verified": true
+    },
+    {
+      "id": 289,
+      "name": "Stephen Mugisa",
+      "rating": 5,
+      "date": "2023-09-14",
+      "location": "France",
+      "region": "Europe",
+      "comment": "This course is underrated, this is the best course on forex trading that you will find on Udemy.  This should be a best seller soon. Thank you Sesan for taking your time to pass on this knowledge and skills.",
+      "verified": true
+    },
+    {
+      "id": 288,
+      "name": "Akpoduado Anita",
+      "rating": 5,
+      "date": "2023-09-15",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "This course is underpriced! I've gotten so much value from it that has been super helpful to my trading.\n\nI highly recommend it to every trader looking to improve their trading.",
+      "verified": true
+    },
+    {
+      "id": 286,
+      "name": "Abdulrahman muhammad",
+      "rating": 5,
+      "date": "2023-09-19",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "It has been very much understandable so far",
+      "verified": true
+    },
+    {
+      "id": 285,
+      "name": "Ugwu Ifeanyi Anthony",
+      "rating": 5,
+      "date": "2023-09-21",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "This is the best forex course out there",
+      "verified": true
+    },
+    {
+      "id": 284,
+      "name": "David Alberto Arcila López",
+      "rating": 5,
+      "date": "2023-09-22",
+      "location": "France",
+      "region": "Europe",
+      "comment": "The best 35.000COP I've invested in my life!\n\nCongratulations for creating this amazing course.",
+      "verified": true
+    },
+    {
+      "id": 283,
+      "name": "Martin Nadeau",
+      "rating": 5,
+      "date": "2023-09-23",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "I'm past the 50% mark of the course, and so far it's amazing. Very complete and clear explanations on each topic. I'm impressed.",
+      "verified": true
+    },
+    {
+      "id": 282,
+      "name": "Akinyemi Emmanuel",
+      "rating": 5,
+      "date": "2023-09-24",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "i love the course, it's the best in the Udemy market\nthank you bravefx",
+      "verified": true
+    },
+    {
+      "id": 281,
+      "name": "Fernando Ingunza",
+      "rating": 5,
+      "date": "2023-09-27",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "Bien explicado, hasta aqui!",
+      "verified": true
+    },
+    {
+      "id": 280,
+      "name": "Nnamdi Nwedu",
+      "rating": 5,
+      "date": "2023-09-28",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Great Experience so far. I'm enjoying the course. I think this course is underpriced.",
+      "verified": true
+    },
+    {
+      "id": 279,
+      "name": "Boladale Ogunwuyi",
+      "rating": 5,
+      "date": "2023-09-29",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "The content is very good and helpful. The instructor is highly knowledgeable.",
+      "verified": true
+    },
+    {
+      "id": 276,
+      "name": "ThankGod",
+      "rating": 5,
+      "date": "2023-10-04",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "brave FX explained things in this course nicely. I actually thought trading would be hard to learn.with what I've learnt so far,I guess I what wrong.\nTrading just needs consistency and practice which later leads to mastery.\nGood work brave FX",
+      "verified": true
+    },
+    {
+      "id": 277,
+      "name": "Max",
+      "rating": 5,
+      "date": "2023-10-04",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "This is a great course for beginners that I highly recommend. My advice is to keep on learning. There is so much to explore in Forex and one course is not enough. Now it's practice time.",
+      "verified": true
+    },
+    {
+      "id": 275,
+      "name": "Umiom Esther Amarachi",
+      "rating": 5,
+      "date": "2023-10-07",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "He makes it easy to understand",
+      "verified": true
+    },
+    {
+      "id": 273,
+      "name": "Adly Saat",
+      "rating": 5,
+      "date": "2023-10-11",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "Very informative.",
+      "verified": true
+    },
+    {
+      "id": 270,
+      "name": "Adetoye Samuel",
+      "rating": 5,
+      "date": "2023-10-12",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "This course is the best forex course. it holds you by hand. and walk you through step by step. Thank you brave FX",
+      "verified": true
+    },
+    {
+      "id": 271,
+      "name": "Poch Carter",
+      "rating": 5,
+      "date": "2023-10-12",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "Good quality and easy to understand",
+      "verified": true
+    },
+    {
+      "id": 272,
+      "name": "SImon Perrotta",
+      "rating": 5,
+      "date": "2023-10-12",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "great course",
+      "verified": true
+    },
+    {
+      "id": 267,
+      "name": "Afolabi Temitope Gabriel",
+      "rating": 5,
+      "date": "2023-10-19",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "it's one of the simplest and straight to the point course with in depth and rich content that any new trader could learn and be profitable.",
+      "verified": true
+    },
+    {
+      "id": 266,
+      "name": "Adunyiswe",
+      "rating": 5,
+      "date": "2023-10-20",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "because I didn't experience any problems",
+      "verified": true
+    },
+    {
+      "id": 265,
+      "name": "Krishan Kumar Kumawat",
+      "rating": 5,
+      "date": "2023-10-21",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "Good Content 💯💯💯💯",
+      "verified": true
+    },
+    {
+      "id": 264,
+      "name": "Puneet Narula",
+      "rating": 5,
+      "date": "2023-10-23",
+      "location": "France",
+      "region": "Europe",
+      "comment": "Excellent teaching and very detailed",
+      "verified": true
+    },
+    {
+      "id": 262,
+      "name": "Franklin Obioha",
+      "rating": 5,
+      "date": "2023-11-02",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "Joel is cool, calm and well-versed in this subject. I am really really enjoying the course so far",
+      "verified": true
+    },
+    {
+      "id": 261,
+      "name": "Bamidele",
+      "rating": 5,
+      "date": "2023-11-04",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "you are the best tutor ❤️",
+      "verified": true
+    },
+    {
+      "id": 260,
+      "name": "Joseph Chirwa",
+      "rating": 5,
+      "date": "2023-11-08",
+      "location": "France",
+      "region": "Europe",
+      "comment": "Great content",
+      "verified": true
+    },
+    {
+      "id": 257,
+      "name": "Zaharaddeen Gilima",
+      "rating": 5,
+      "date": "2023-11-14",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "the quality is very ok",
+      "verified": true
+    },
+    {
+      "id": 255,
+      "name": "Jean-Paul Ismael",
+      "rating": 5,
+      "date": "2023-11-19",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "This course is very well put together. A wide range of concepts are explained in a structured manner. I recommend this course for anyone who is just getting into ForEx or those who are returning. I see people talk about the way the instructor speaks and rate the course poorly. I'm here to say, their rating is unreasonable. This is a AAA course and provides you with everything you need to tackle these markets. Thank you for putting such a detailed course together!",
+      "verified": true
+    },
+    {
+      "id": 253,
+      "name": "Amit Arun Pawaskar",
+      "rating": 5,
+      "date": "2023-11-23",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "yes its really suits my trading style its really having extra knowledge",
+      "verified": true
+    },
+    {
+      "id": 254,
+      "name": "Stanley",
+      "rating": 5,
+      "date": "2023-11-23",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "Yes I am following everything for now and so long is clear enough.",
+      "verified": true
+    },
+    {
+      "id": 252,
+      "name": "Emmanuel che Langsi Kwubuh",
+      "rating": 5,
+      "date": "2023-11-27",
+      "location": "France",
+      "region": "Europe",
+      "comment": "He explains the concept really well and with simple understandable terms. I have learnt a lot of new trading concepts and ideas that I didn't know before.",
+      "verified": true
+    },
+    {
+      "id": 249,
+      "name": "Pongsakorn",
+      "rating": 5,
+      "date": "2023-12-08",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "Very good course. You will learn new method from him. I suggest to learn.",
+      "verified": true
+    },
+    {
+      "id": 247,
+      "name": "Emmanuel Clement",
+      "rating": 5,
+      "date": "2023-12-10",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "the best beginner forex course ever it has both beginner and advanced class thanks brave fx for this opportunity 👍🔥",
+      "verified": true
+    },
+    {
+      "id": 246,
+      "name": "ogunlade Abosede",
+      "rating": 5,
+      "date": "2023-12-18",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "Good explanation",
+      "verified": true
+    },
+    {
+      "id": 243,
+      "name": "Ekpe ogheneruemu Jeffrey",
+      "rating": 5,
+      "date": "2023-12-23",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "With this course you will be more educated on forex trading",
+      "verified": true
+    },
+    {
+      "id": 242,
+      "name": "Girish J",
+      "rating": 5,
+      "date": "2023-12-25",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "Very well explained by the mentor, appreciated his efforts on explaining each topic detailed multiple times in Overview and Summary, I had done previously different courses, but this one is the best for me as I have cleared lot of doubts and learned a lot of new things, Thanks mentor..\nIt took time for me to understand accent, but it was not big challenge, I was used to it after 3-4 chapters, when ever he said Buy trade, I was listening it as Bad Trade :p",
+      "verified": true
+    },
+    {
+      "id": 241,
+      "name": "Sharon",
+      "rating": 5,
+      "date": "2023-12-28",
+      "location": "United States",
+      "region": "North America",
+      "comment": "It’s so layman…. We’re been taught like kids… absolutely lovely",
+      "verified": true
+    },
+    {
+      "id": 240,
+      "name": "prince Uwah ozioma",
+      "rating": 5,
+      "date": "2023-12-29",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "great tutorial",
+      "verified": true
+    },
+    {
+      "id": 236,
+      "name": "Athoja Felix Olukome",
+      "rating": 5,
+      "date": "2024-01-07",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "Very apt and easy to understand",
+      "verified": true
+    },
+    {
+      "id": 237,
+      "name": "Brandon Wiggins",
+      "rating": 5,
+      "date": "2024-01-07",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "So far so good. Course is played put well in my opinion, clear and concise.",
+      "verified": true
+    },
+    {
+      "id": 235,
+      "name": "Auwal Abdullahi",
+      "rating": 5,
+      "date": "2024-01-09",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "Best of the best",
+      "verified": true
+    },
+    {
+      "id": 234,
+      "name": "Davidson Ndueso",
+      "rating": 5,
+      "date": "2024-01-10",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "I really love the course, like, I'm already feeling like a professional trader even while on the Intermediate section of the course. My Demo account can prove it.😊😊\nI'm loving the training, \nThank you Brave Fx.",
+      "verified": true
+    },
+    {
+      "id": 232,
+      "name": "Bright Mhango",
+      "rating": 5,
+      "date": "2024-01-12",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "Because so far l can understand everything being taught",
+      "verified": true
+    },
+    {
+      "id": 231,
+      "name": "Edewusi taiwo",
+      "rating": 5,
+      "date": "2024-01-18",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "I love the course",
+      "verified": true
+    },
+    {
+      "id": 229,
+      "name": "hennie fourie",
+      "rating": 5,
+      "date": "2024-01-23",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "I have learn a lot within this coarse and find the contents very helpful. I have to say that learning about the support zone and the resistance zone along with trend lines is helping a lot to make good selection of your analysis trading",
+      "verified": true
+    },
+    {
+      "id": 227,
+      "name": "Thuto",
+      "rating": 5,
+      "date": "2024-01-24",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "Broke down very well and i could understand thanks",
+      "verified": true
+    },
+    {
+      "id": 225,
+      "name": "Lefika Mpipi",
+      "rating": 5,
+      "date": "2024-01-29",
+      "location": "United States",
+      "region": "North America",
+      "comment": "The instructor was able to explain in detail while giving relevant examples which helped a lot",
+      "verified": true
+    },
+    {
+      "id": 224,
+      "name": "LINDA ZWENI",
+      "rating": 5,
+      "date": "2024-01-30",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "Very informative and affordable keep it up",
+      "verified": true
+    },
+    {
+      "id": 222,
+      "name": "Ejilola Hammed Ejitomiwa",
+      "rating": 5,
+      "date": "2024-02-07",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "Excellent and well explained course",
+      "verified": true
+    },
+    {
+      "id": 221,
+      "name": "Pete kapanga",
+      "rating": 5,
+      "date": "2024-02-09",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "Well packed",
+      "verified": true
+    },
+    {
+      "id": 218,
+      "name": "Maor Abayeev",
+      "rating": 5,
+      "date": "2024-02-11",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "This course is everything you need in order to start a trading career.\nAnd in addition, the whole course is filmed and edited on high quality which gives you a good exprience overall (and compared to his price it's totally CRAZY).",
+      "verified": true
+    },
+    {
+      "id": 213,
+      "name": "Karim Hammad",
+      "rating": 5,
+      "date": "2024-02-23",
+      "location": "Qatar",
+      "region": "Middle East",
+      "comment": "Very good course for beginners!",
+      "verified": true
+    },
+    {
+      "id": 211,
+      "name": "Enyali Victor",
+      "rating": 5,
+      "date": "2024-03-06",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "So far I'm still in the beginner section but this course is so simplified",
+      "verified": true
+    },
+    {
+      "id": 209,
+      "name": "Isaac Agboola",
+      "rating": 5,
+      "date": "2024-03-10",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "I am not done yet but this is the best Forex course on udemy, totally underpriced. If you want a comprehensive forex course, go for this course. Trust me, you won't regret it",
+      "verified": true
+    },
+    {
+      "id": 207,
+      "name": "Abdulrahman Abdullaho",
+      "rating": 5,
+      "date": "2024-03-13",
+      "location": "India",
+      "region": "Asia",
+      "comment": "so far so good. its perfect",
+      "verified": true
+    },
+    {
+      "id": 206,
+      "name": "DJ Joker",
+      "rating": 5,
+      "date": "2024-03-20",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "Yes it was like it was specifically chosen for me.Thanks a bunch",
+      "verified": true
+    },
+    {
+      "id": 205,
+      "name": "Mosope Samuel Oluwakunle",
+      "rating": 5,
+      "date": "2024-03-23",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "Simplicity of the lesson!",
+      "verified": true
+    },
+    {
+      "id": 204,
+      "name": "Christine W Githinji",
+      "rating": 5,
+      "date": "2024-03-26",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "Easy to comprehend and brief",
+      "verified": true
+    },
+    {
+      "id": 201,
+      "name": "Bilal Ali",
+      "rating": 5,
+      "date": "2024-04-13",
+      "location": "United States",
+      "region": "North America",
+      "comment": "well elaborate good spoker",
+      "verified": true
+    },
+    {
+      "id": 200,
+      "name": "Miracle ik Ogbonna",
+      "rating": 5,
+      "date": "2024-04-14",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Although I already knew about beginner trading section and I have made few trade myself; I find this course to be amazing on the long run.",
+      "verified": true
+    },
+    {
+      "id": 199,
+      "name": "Abdulhakim wisdom suleiman",
+      "rating": 5,
+      "date": "2024-04-15",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "too goodddddddddddd",
+      "verified": true
+    },
+    {
+      "id": 198,
+      "name": "Welcome Mkhonta",
+      "rating": 5,
+      "date": "2024-04-19",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "Sessions have been great so far",
+      "verified": true
+    },
+    {
+      "id": 196,
+      "name": "Valrey PIERRE",
+      "rating": 5,
+      "date": "2024-04-21",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "Great course!",
+      "verified": true
+    },
+    {
+      "id": 197,
+      "name": "Christine Singwa",
+      "rating": 5,
+      "date": "2024-04-21",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "Great course so far",
+      "verified": true
+    },
+    {
+      "id": 193,
+      "name": "Deepak Kumar",
+      "rating": 5,
+      "date": "2024-04-24",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "well explained course.",
+      "verified": true
+    },
+    {
+      "id": 194,
+      "name": "Modesta Ani",
+      "rating": 5,
+      "date": "2024-04-24",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "Understandable",
+      "verified": true
+    },
+    {
+      "id": 192,
+      "name": "Jafari Issa Kamenya",
+      "rating": 5,
+      "date": "2024-04-26",
+      "location": "France",
+      "region": "Europe",
+      "comment": "I should recommend all beginners and non literated in trading to get intouch with this course. it really helpful, organized and simplified.\nbig up to Seasan",
+      "verified": true
+    },
+    {
+      "id": 191,
+      "name": "Adarsh Mohanty",
+      "rating": 5,
+      "date": "2024-05-08",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Most detailed trading course a beginner could ever ask for. Each and every topic is very precise, clearing all doubts throughout the course. And also it holds value for money.",
+      "verified": true
+    },
+    {
+      "id": 190,
+      "name": "Gps print Okei ese",
+      "rating": 5,
+      "date": "2024-05-09",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "IT COOL BEST INSTRUCTOR SO FAR",
+      "verified": true
+    },
+    {
+      "id": 189,
+      "name": "Hyginus Daniel Tobechukwu",
+      "rating": 5,
+      "date": "2024-05-11",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "Amazing so far",
+      "verified": true
+    },
+    {
+      "id": 188,
+      "name": "Similoluwa Ishola",
+      "rating": 5,
+      "date": "2024-05-17",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "This course is very explanatory and it cuts across all aspects of forex trading.",
+      "verified": true
+    },
+    {
+      "id": 186,
+      "name": "Celiwe Mavuso",
+      "rating": 5,
+      "date": "2024-05-18",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "so far so good",
+      "verified": true
+    },
+    {
+      "id": 184,
+      "name": "Bhekithemba Mavuso",
+      "rating": 5,
+      "date": "2024-05-19",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "Clear and easy to follow",
+      "verified": true
+    },
+    {
+      "id": 183,
+      "name": "Luyali Daniel",
+      "rating": 5,
+      "date": "2024-05-20",
+      "location": "India",
+      "region": "Asia",
+      "comment": "The instructor is so knowledgeable,precise and perfect",
+      "verified": true
+    },
+    {
+      "id": 182,
+      "name": "SALIH TK",
+      "rating": 5,
+      "date": "2024-05-21",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "downloadable resources is not been found please help asap",
+      "verified": true
+    },
+    {
+      "id": 181,
+      "name": "Abdul Raheem Abdul Hakeem",
+      "rating": 5,
+      "date": "2024-05-22",
+      "location": "India",
+      "region": "Asia",
+      "comment": "this is good",
+      "verified": true
+    },
+    {
+      "id": 180,
+      "name": "Caleb McKearney",
+      "rating": 5,
+      "date": "2024-05-25",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "I am halfway through this course already. I can not emphasize enough how amazing this course is. Will truly change your life if you study everyday and put forward your best effort.",
+      "verified": true
+    },
+    {
+      "id": 179,
+      "name": "William Divine",
+      "rating": 5,
+      "date": "2024-06-04",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "You'll be wowed",
+      "verified": true
+    },
+    {
+      "id": 177,
+      "name": "Mohammed Hussain Mohammed",
+      "rating": 5,
+      "date": "2024-06-11",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "The instructor made it easy to understand",
+      "verified": true
+    },
+    {
+      "id": 176,
+      "name": "Mohammad Faisal Ahmadi",
+      "rating": 5,
+      "date": "2024-06-12",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "was perfect",
+      "verified": true
+    },
+    {
+      "id": 174,
+      "name": "CECIL SELORM MENSAH",
+      "rating": 5,
+      "date": "2024-06-18",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "I really learnt alot.",
+      "verified": true
+    },
+    {
+      "id": 173,
+      "name": "Ifeanyi Nwike",
+      "rating": 5,
+      "date": "2024-06-19",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "Instructor was very clear and made the course so straight forward. No ambiguities!",
+      "verified": true
+    },
+    {
+      "id": 171,
+      "name": "Ogoke Fvaour",
+      "rating": 5,
+      "date": "2024-06-20",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "Was worth while",
+      "verified": true
+    },
+    {
+      "id": 172,
+      "name": "John Khalkho",
+      "rating": 5,
+      "date": "2024-06-20",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Very straightforward, insightful and easy to understand!",
+      "verified": true
+    },
+    {
+      "id": 170,
+      "name": "Ololade Olanipekun",
+      "rating": 5,
+      "date": "2024-06-22",
+      "location": "Qatar",
+      "region": "Middle East",
+      "comment": "This is the best forex trading course that I have attended. thumbs up for brave fx",
+      "verified": true
+    },
+    {
+      "id": 168,
+      "name": "Emmanuel Haruna",
+      "rating": 5,
+      "date": "2024-06-23",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "The course is the Best so far",
+      "verified": true
+    },
+    {
+      "id": 169,
+      "name": "HIẾU NHỮ ĐÌNH",
+      "rating": 5,
+      "date": "2024-06-23",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "good course, i like it",
+      "verified": true
+    },
+    {
+      "id": 167,
+      "name": "Frank Dambe",
+      "rating": 5,
+      "date": "2024-06-25",
+      "location": "United States",
+      "region": "North America",
+      "comment": "This is a great course, thank you Brave FX... always precise",
+      "verified": true
+    },
+    {
+      "id": 164,
+      "name": "Tiyisela Maluleke",
+      "rating": 5,
+      "date": "2024-06-28",
+      "location": "France",
+      "region": "Europe",
+      "comment": "Finally I found a course that will help me trade this is exiting",
+      "verified": true
+    },
+    {
+      "id": 165,
+      "name": "Fahad Masood Reda",
+      "rating": 5,
+      "date": "2024-06-28",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "I like how the course is structured, and everything is explained in easy-to-understand terms, the accent of the instructor is hard to understand, but the captions are there so you can follow along!!,  I will update my review when I finish the course, Overall it is a very good course for anyone who wants to understand FOREX from scratch",
+      "verified": true
+    },
+    {
+      "id": 166,
+      "name": "Muzzamil Oreoluwa",
+      "rating": 5,
+      "date": "2024-06-28",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Best course ever",
+      "verified": true
+    },
+    {
+      "id": 162,
+      "name": "Michel Hodge",
+      "rating": 5,
+      "date": "2024-07-03",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Simple and easy to learn",
+      "verified": true
+    },
+    {
+      "id": 161,
+      "name": "Peter Elia Nyika",
+      "rating": 5,
+      "date": "2024-07-05",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Amazing course!",
+      "verified": true
+    },
+    {
+      "id": 159,
+      "name": "James Njau",
+      "rating": 5,
+      "date": "2024-07-07",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "Amazing, Awesome presentation ! *****",
+      "verified": true
+    },
+    {
+      "id": 157,
+      "name": "Keith Mcleod",
+      "rating": 5,
+      "date": "2024-07-17",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Because so far so good",
+      "verified": true
+    },
+    {
+      "id": 156,
+      "name": "Benson Adeyinka",
+      "rating": 5,
+      "date": "2024-07-19",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "Comprehensive.",
+      "verified": true
+    },
+    {
+      "id": 154,
+      "name": "Teboho Maluleke",
+      "rating": 5,
+      "date": "2024-07-22",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "It is a great match for me.",
+      "verified": true
+    },
+    {
+      "id": 153,
+      "name": "Oluwatosin Adeosun",
+      "rating": 5,
+      "date": "2024-07-23",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "Excellent body of work",
+      "verified": true
+    },
+    {
+      "id": 152,
+      "name": "Eleweke Estelle Ezinne",
+      "rating": 5,
+      "date": "2024-07-27",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "Great course. Worth ur time as a beginner. U can use the course to become a professional trader",
+      "verified": true
+    },
+    {
+      "id": 151,
+      "name": "Innocent Ulaya",
+      "rating": 5,
+      "date": "2024-07-28",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "THIS COURSE IS THE BEST COURSE FOR BEGINNERS AND ADVANCE CLASS, GREAT JOB",
+      "verified": true
+    },
+    {
+      "id": 149,
+      "name": "Barisere Kpoobari Gbarabe",
+      "rating": 5,
+      "date": "2024-08-08",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "very easy to understand. Best course for beginners and even professional traders",
+      "verified": true
+    },
+    {
+      "id": 148,
+      "name": "Gideon James Ndem",
+      "rating": 5,
+      "date": "2024-08-09",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "So interesting and I really learned a lot and I can't wait to finish up the course and starts trading as a professional",
+      "verified": true
+    },
+    {
+      "id": 147,
+      "name": "Danielle bergh",
+      "rating": 5,
+      "date": "2024-08-12",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "Very simple and informative lectures with easy to understand downloadable resources",
+      "verified": true
+    },
+    {
+      "id": 144,
+      "name": "Hpone Mahn Htut Khaung",
+      "rating": 5,
+      "date": "2024-08-16",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Sesan is very patient, and I understand clearly.",
+      "verified": true
+    },
+    {
+      "id": 143,
+      "name": "Allwell Henry Chimaobi",
+      "rating": 5,
+      "date": "2024-08-17",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "Before July 3rd 2024 when I purchased this course, I didn’t know anything about trading.. the charts makes me go crazy when I watch them, today being 17th August 2024 I just completed this course, but before completing this course I’ve already started making little lol profit , just by following price action, market structure and marking out my areas of interest, I’m not saying I’m a pro now but I’m stating how this course brought me from a novice  to understanding what forex market is all about, now I’ll move on to studying at a more higher level, thank Udemy and brave fx for such an opportunity and I hope the new people joining this course would gain from this.",
+      "verified": true
+    },
+    {
+      "id": 142,
+      "name": "Chisa Goddey",
+      "rating": 5,
+      "date": "2024-08-21",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "Yeah. It's amazing",
+      "verified": true
+    },
+    {
+      "id": 141,
+      "name": "Harrison Ifeanyi",
+      "rating": 5,
+      "date": "2024-08-24",
+      "location": "France",
+      "region": "Europe",
+      "comment": "very Helpful feels like physical class.",
+      "verified": true
+    },
+    {
+      "id": 140,
+      "name": "Victor Benson Onwugbonu",
+      "rating": 5,
+      "date": "2024-08-26",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "I agree that this course is amazing and exceeded my expectations. However, I also wondered why buying and selling items like gold, etc. is termed \"Forex Trading.\"",
+      "verified": true
+    },
+    {
+      "id": 137,
+      "name": "Shola Moses",
+      "rating": 5,
+      "date": "2024-08-28",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "I love this course, and I pray I become professional after the course 🙏",
+      "verified": true
+    },
+    {
+      "id": 136,
+      "name": "Wisdom Okwudili",
+      "rating": 5,
+      "date": "2024-08-29",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "really nice and easy to understand",
+      "verified": true
+    },
+    {
+      "id": 135,
+      "name": "Ravi Shankar Thakur",
+      "rating": 5,
+      "date": "2024-08-31",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "described concept very well",
+      "verified": true
+    },
+    {
+      "id": 134,
+      "name": "Uduak Dominic",
+      "rating": 5,
+      "date": "2024-09-04",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "I'm getting to enjoy the class",
+      "verified": true
+    },
+    {
+      "id": 132,
+      "name": "Jide Komolafe Oluwadamilare",
+      "rating": 5,
+      "date": "2024-09-07",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "I am really enjoying the course as the without breaks down into bits and details of difficult topics for the understanding of all.",
+      "verified": true
+    },
+    {
+      "id": 133,
+      "name": "guna karthik",
+      "rating": 5,
+      "date": "2024-09-07",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "very nice experience",
+      "verified": true
+    },
+    {
+      "id": 130,
+      "name": "Humphrey Yohanna",
+      "rating": 5,
+      "date": "2024-09-12",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "As a beginner, I find this course so simple and easy to understand. The explanation is so clear.",
+      "verified": true
+    },
+    {
+      "id": 127,
+      "name": "Oreoluwa Ogunnubi",
+      "rating": 5,
+      "date": "2024-09-16",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "It's been such an eye-opening experience to learn on this platform",
+      "verified": true
+    },
+    {
+      "id": 128,
+      "name": "Isah bala faruk",
+      "rating": 5,
+      "date": "2024-09-16",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "I will highly recommend this course for both beginners and experts. bro, this is the best course I see so far. in fact,  even if you don't have prior experience on trading, you will be very good at it after watching this course. I have recommended this course to over 5 people and all of them are doing great now.\nkudos to the creator.  \n\nI wish I could give more than 5 sters",
+      "verified": true
+    },
+    {
+      "id": 125,
+      "name": "Akwuiwu Chukwuemekaodimegwu Johnpaul",
+      "rating": 5,
+      "date": "2024-09-18",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "so far so good it's been great. still learning though",
+      "verified": true
+    },
+    {
+      "id": 124,
+      "name": "Ajiboye Enoch",
+      "rating": 5,
+      "date": "2024-09-19",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "I'm gaining alot and underground how the firex market really is.",
+      "verified": true
+    },
+    {
+      "id": 120,
+      "name": "Joyner",
+      "rating": 5,
+      "date": "2024-10-05",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "It’s a great course",
+      "verified": true
+    },
+    {
+      "id": 119,
+      "name": "Evelyn Omo-udolu",
+      "rating": 5,
+      "date": "2024-10-10",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "easy to understand",
+      "verified": true
+    },
+    {
+      "id": 117,
+      "name": "Chukwlotam",
+      "rating": 5,
+      "date": "2024-10-15",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "It has been a good learn so far with good visuals and clean audio sound",
+      "verified": true
+    },
+    {
+      "id": 115,
+      "name": "Ojeyinka Peter O",
+      "rating": 5,
+      "date": "2024-10-27",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "It's a fantastic Course and easy to comprehend",
+      "verified": true
+    },
+    {
+      "id": 116,
+      "name": "samuel samaila",
+      "rating": 5,
+      "date": "2024-10-27",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "Well,so far it's been seamless as I've started to get deeper",
+      "verified": true
+    },
+    {
+      "id": 114,
+      "name": "Mac guerra",
+      "rating": 5,
+      "date": "2024-10-28",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "It was really a great experience for me and give me wide views of the market and i recommend this course for anyone who's willing to learn about forex trading rather than having forex influencers and mentor on social media who gambles and copy trade",
+      "verified": true
+    },
+    {
+      "id": 113,
+      "name": "Chukwuma Ebuka",
+      "rating": 5,
+      "date": "2024-11-02",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "I love the video, i believe before the end of this video i will be better",
+      "verified": true
+    },
+    {
+      "id": 112,
+      "name": "John Orji",
+      "rating": 5,
+      "date": "2024-11-06",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "great! best course by far.",
+      "verified": true
+    },
+    {
+      "id": 109,
+      "name": "Cyrus Agbo",
+      "rating": 5,
+      "date": "2024-11-15",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "It's a good match so far, particularly love the use of animation for explaining concepts.",
+      "verified": true
+    },
+    {
+      "id": 108,
+      "name": "Popoola Arinola Comfort",
+      "rating": 5,
+      "date": "2024-11-17",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "Explanations are broken down into the simplest and easiest possible ways to aid understanding.",
+      "verified": true
+    },
+    {
+      "id": 106,
+      "name": "Dawuda Mahama",
+      "rating": 5,
+      "date": "2024-11-22",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "perfect course full of information,if you a beginner I strongly recommend this course for you. well structured and very easy to understand",
+      "verified": true
+    },
+    {
+      "id": 107,
+      "name": "Saravana Kumaar",
+      "rating": 5,
+      "date": "2024-11-22",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "Simply , WoW!!!",
+      "verified": true
+    },
+    {
+      "id": 105,
+      "name": "Wilfred",
+      "rating": 5,
+      "date": "2024-11-24",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "Overall good",
+      "verified": true
+    },
+    {
+      "id": 101,
+      "name": "Debra Ndhlovu",
+      "rating": 5,
+      "date": "2024-11-26",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "so far so good, can't complain",
+      "verified": true
+    },
+    {
+      "id": 97,
+      "name": "Mohamed Ahmed Maalim",
+      "rating": 5,
+      "date": "2024-12-02",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "very good instructor",
+      "verified": true
+    },
+    {
+      "id": 95,
+      "name": "Garland Harris",
+      "rating": 5,
+      "date": "2024-12-04",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "Yes as im a beging trader.",
+      "verified": true
+    },
+    {
+      "id": 94,
+      "name": "Mugluu Al-Hassan Issifu",
+      "rating": 5,
+      "date": "2024-12-05",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "Great lessons, very intuitive and educative",
+      "verified": true
+    },
+    {
+      "id": 93,
+      "name": "Gideon Quist",
+      "rating": 5,
+      "date": "2024-12-06",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "The training was excellently organized and well arranged in a very logical manner making it very easy for even someone who is getting a first exposure to Forex trading, and each course is well explained with graphical representations, the content is fully loaded covering everything one needs to know about the topic under review, I'm very impressed and deeply appreciate and finds myself fortune for selecting this couser for myself. it's been a great eye opener for me. Thanks and kudos for the great work done.",
+      "verified": true
+    },
+    {
+      "id": 91,
+      "name": "Nigeria",
+      "rating": 5,
+      "date": "2024-12-16",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "very clear and easy to understand explanations",
+      "verified": true
+    },
+    {
+      "id": 89,
+      "name": "Emmanuel Ozoekwe",
+      "rating": 5,
+      "date": "2024-12-18",
+      "location": "United States",
+      "region": "North America",
+      "comment": "Good so far, and  understandable.",
+      "verified": true
+    },
+    {
+      "id": 90,
+      "name": "Jasmeet",
+      "rating": 5,
+      "date": "2024-12-18",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "It's Amazing and very detailed. Sean made sure to repeat himself so that we are not confused and understand the concept better. 100% recommend.",
+      "verified": true
+    },
+    {
+      "id": 88,
+      "name": "Ndifreke69",
+      "rating": 5,
+      "date": "2024-12-20",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "this course is one in a million powerful course",
+      "verified": true
+    },
+    {
+      "id": 86,
+      "name": "Rupesh Kumar",
+      "rating": 5,
+      "date": "2024-12-25",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "So far, I feel training has been delivered in a simple manner. I believe I am going to be an expert on forex trading after this session.",
+      "verified": true
+    },
+    {
+      "id": 85,
+      "name": "Epebinu Isaac Olatokunbo",
+      "rating": 5,
+      "date": "2024-12-28",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "This is the best forex course I have purchased, it's simplified, easy to understand. I have been trading for a year now and I realised I had been doing somethings very wrong which has made me an unprofitable trader.its the best 👌 👍",
+      "verified": true
+    },
+    {
+      "id": 84,
+      "name": "Robert Ofori-Gyebi",
+      "rating": 5,
+      "date": "2024-12-31",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "concepts well covered, explanations of concepts easy to understand, made use of charts to explain concepts, many chart examples to explain concepts",
+      "verified": true
+    },
+    {
+      "id": 83,
+      "name": "Michael Idiku",
+      "rating": 5,
+      "date": "2025-01-02",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "the best FX course I have ever take , it's cheaper than it's content I'd recommend it to anyone anytime regardless of your experience.\n\nthe instructor should create another course on synthetic trading",
+      "verified": true
+    },
+    {
+      "id": 80,
+      "name": "Pascal P Kronziah",
+      "rating": 5,
+      "date": "2025-01-03",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "very detailed, you covered it all",
+      "verified": true
+    },
+    {
+      "id": 79,
+      "name": "Adesuyi Oluwasina",
+      "rating": 5,
+      "date": "2025-01-04",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "Because you make it easier for me to understand, even though it’s online",
+      "verified": true
+    },
+    {
+      "id": 78,
+      "name": "Rebekah Schoenbach",
+      "rating": 5,
+      "date": "2025-01-05",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "Clear content!",
+      "verified": true
+    },
+    {
+      "id": 76,
+      "name": "Jasmine Deleon",
+      "rating": 5,
+      "date": "2025-01-14",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "the animation really helps with showing how the exhange is done.",
+      "verified": true
+    },
+    {
+      "id": 75,
+      "name": "Stephen Kwesi Masel",
+      "rating": 5,
+      "date": "2025-01-15",
+      "location": "United States",
+      "region": "North America",
+      "comment": "I couldnt believe i will comprehend online study until taking this risk. Infact i am enjoying myself. Kudos to the tutor",
+      "verified": true
+    },
+    {
+      "id": 74,
+      "name": "Safo Godsway",
+      "rating": 5,
+      "date": "2025-01-20",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "Bro is really good at what he does...He is an eye opener to the financial market.Excellent Job done",
+      "verified": true
+    },
+    {
+      "id": 73,
+      "name": "Kamoru Lukman",
+      "rating": 5,
+      "date": "2025-01-21",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "Well arranged and detailed. I love all the topics",
+      "verified": true
+    },
+    {
+      "id": 71,
+      "name": "Indumiso",
+      "rating": 5,
+      "date": "2025-01-28",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "good quality",
+      "verified": true
+    },
+    {
+      "id": 70,
+      "name": "Joshua",
+      "rating": 5,
+      "date": "2025-01-30",
+      "location": "United States",
+      "region": "North America",
+      "comment": "its good so far",
+      "verified": true
+    },
+    {
+      "id": 69,
+      "name": "Caleb Etim",
+      "rating": 5,
+      "date": "2025-01-31",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "I feel very blessed to find this, because it is literally an answered prayer. Kudos to the coordinator for making the content easy enough to assimilate, and for the curriculum that helps us grow and improve from beginner to advanced trading skills.",
+      "verified": true
+    },
+    {
+      "id": 67,
+      "name": "Olawale Akinola Emmanuel",
+      "rating": 5,
+      "date": "2025-02-03",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "the teach is so simplified that a layman will uunderstand it.",
+      "verified": true
+    },
+    {
+      "id": 66,
+      "name": "Ubochioma Joshua Izuchukwu",
+      "rating": 5,
+      "date": "2025-02-07",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "finally getting hold of forex trading",
+      "verified": true
+    },
+    {
+      "id": 63,
+      "name": "Siphosethu Nkabinde",
+      "rating": 5,
+      "date": "2025-02-12",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "the Course is incredibly powerful truly trading is a profession i hv already started seeing profits",
+      "verified": true
+    },
+    {
+      "id": 61,
+      "name": "Ogunleye Alex Taiwo",
+      "rating": 5,
+      "date": "2025-02-25",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Simplicity of the course and its affordable.",
+      "verified": true
+    },
+    {
+      "id": 62,
+      "name": "AMOATENG BERNARD",
+      "rating": 5,
+      "date": "2025-02-25",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "At this point I've not covered a lot in this course, but the knowledge I've obtained to this far makes me bold on the market. Analysis keeps getting easy\nThis course I think is the best for trading.",
+      "verified": true
+    },
+    {
+      "id": 60,
+      "name": "Frankly Douglas",
+      "rating": 5,
+      "date": "2025-02-26",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "This is my best friend",
+      "verified": true
+    },
+    {
+      "id": 59,
+      "name": "Anju Rani",
+      "rating": 5,
+      "date": "2025-02-28",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "I like this course… For a beginner it is very good… Very helpful information… Thank you dear",
+      "verified": true
+    },
+    {
+      "id": 58,
+      "name": "Mbamala",
+      "rating": 5,
+      "date": "2025-03-04",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "It was a good one",
+      "verified": true
+    },
+    {
+      "id": 57,
+      "name": "Vince Jones",
+      "rating": 5,
+      "date": "2025-03-08",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "The instructor is very good at explaining forex trading concepts.",
+      "verified": true
+    },
+    {
+      "id": 56,
+      "name": "Jose Paulo Firme Sevilla",
+      "rating": 5,
+      "date": "2025-03-14",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "The animation is good",
+      "verified": true
+    },
+    {
+      "id": 55,
+      "name": "Fru Julius anye",
+      "rating": 5,
+      "date": "2025-03-20",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "The instructor explained the concepts clearly and made the lessons easy to understand. They teaching style is engaging, and the course content is well-structured and practical. I appreciate the real-world examples and step-by-step guidance. Highly recommended for anyone looking to learn efficiently!",
+      "verified": true
+    },
+    {
+      "id": 54,
+      "name": "Pierre Hooten",
+      "rating": 5,
+      "date": "2025-03-22",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "He explains the concepts well, I especially love the section dealing with chart patterns.",
+      "verified": true
+    },
+    {
+      "id": 52,
+      "name": "Ifesinachi Samuel Chukwu",
+      "rating": 5,
+      "date": "2025-04-03",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "more than the expectation it is under charge price",
+      "verified": true
+    },
+    {
+      "id": 50,
+      "name": "Milen Vijayan",
+      "rating": 5,
+      "date": "2025-04-08",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "top notch course in forex trading..underpriced...same info people sell for thousands of dollars !!!",
+      "verified": true
+    },
+    {
+      "id": 49,
+      "name": "Jovann",
+      "rating": 5,
+      "date": "2025-04-11",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "This is absolutely the best training I'm retaining the information it.",
+      "verified": true
+    },
+    {
+      "id": 42,
+      "name": "Felician Tungaraza",
+      "rating": 5,
+      "date": "2025-05-01",
+      "location": "India",
+      "region": "Asia",
+      "comment": "This course is amazing. I am seeing light in the tunnel. Keep it up.",
+      "verified": true
+    },
+    {
+      "id": 41,
+      "name": "Olamilekan Iluyomade",
+      "rating": 5,
+      "date": "2025-05-07",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "This course by Sesan Joel was exactly what I needed to understand Forex trading truly. He breaks down complex concepts into simple, actionable lessons, and his teaching style is clear, practical, and motivating. I now have a solid grasp of trading strategies, risk management, and market analysis. If you’re serious about learning Forex the right way, I highly recommend this course!",
+      "verified": true
+    },
+    {
+      "id": 40,
+      "name": "ROLLINKS FILMS",
+      "rating": 5,
+      "date": "2025-05-14",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "Awesome! I would recommend this to anyone",
+      "verified": true
+    },
+    {
+      "id": 38,
+      "name": "Nimish Alone",
+      "rating": 5,
+      "date": "2025-05-22",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "This is the best course for forex trading in Udemy. I strongly recommend this course...",
+      "verified": true
+    },
+    {
+      "id": 37,
+      "name": "Robert Sambo Jakper",
+      "rating": 5,
+      "date": "2025-05-23",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "Yes it was, that's all i can say for now.",
+      "verified": true
+    },
+    {
+      "id": 36,
+      "name": "Kulani Rodney Nkuna",
+      "rating": 5,
+      "date": "2025-05-25",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "This course has been a Blessing to me. I've been looking for a formative and more detailed explanation and that's exactly what I got. I recommend it 100%",
+      "verified": true
+    },
+    {
+      "id": 35,
+      "name": "John Okonkwo",
+      "rating": 5,
+      "date": "2025-05-26",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "It was very educative, eye opening, well articulated, professionally and seamlessly delivered. Great course!",
+      "verified": true
+    },
+    {
+      "id": 33,
+      "name": "Harmony Nwaiwu",
+      "rating": 5,
+      "date": "2025-05-30",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "The course is comprehensive and very well structured, easy to follow through and includes adequate assignments, quizzes, and tests that have helped me build on my trading knowledge and skills. I commend the instructor for all the time and effort that was put into building and organising the course materials. I did find the pdf files for each section very helpful.",
+      "verified": true
+    },
+    {
+      "id": 34,
+      "name": "BigBenedict",
+      "rating": 5,
+      "date": "2025-05-30",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "I find it quite interesting and helpful",
+      "verified": true
+    },
+    {
+      "id": 30,
+      "name": "Thomas rieley",
+      "rating": 5,
+      "date": "2025-06-02",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "great course",
+      "verified": true
+    },
+    {
+      "id": 31,
+      "name": "Elsie Dziedzom",
+      "rating": 5,
+      "date": "2025-06-02",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "Because am happy with the lesson being taught",
+      "verified": true
+    },
+    {
+      "id": 32,
+      "name": "Philip",
+      "rating": 5,
+      "date": "2025-06-02",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "With the explanation in animation, i understood it better.",
+      "verified": true
+    },
+    {
+      "id": 29,
+      "name": "Tiny Sibiya",
+      "rating": 5,
+      "date": "2025-06-11",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "clear logical lectures",
+      "verified": true
+    },
+    {
+      "id": 27,
+      "name": "Likhith Nanak",
+      "rating": 5,
+      "date": "2025-06-13",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Wonderful course structured very well , clear explanation",
+      "verified": true
+    },
+    {
+      "id": 28,
+      "name": "Rajesh Mahajan",
+      "rating": 5,
+      "date": "2025-06-13",
+      "location": "Qatar",
+      "region": "Middle East",
+      "comment": "so far so good.",
+      "verified": true
+    },
+    {
+      "id": 26,
+      "name": "Awolaja Omotayo",
+      "rating": 5,
+      "date": "2025-06-19",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "Am having experience here",
+      "verified": true
+    },
+    {
+      "id": 24,
+      "name": "Ogo Emmanuel",
+      "rating": 5,
+      "date": "2025-06-30",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "Its a great course. He breaks everything down in laymans terms so its easy to understand. I learnt many strategies I'll be implementing. I highly recommend this course",
+      "verified": true
+    },
+    {
+      "id": 23,
+      "name": "Kalu James",
+      "rating": 5,
+      "date": "2025-07-01",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "very amazing course",
+      "verified": true
+    },
+    {
+      "id": 22,
+      "name": "Naomi Munga",
+      "rating": 5,
+      "date": "2025-07-08",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "I loved every bit of this course. The tutor was detailed, and it's great for a beginner since it starts from A to Z explaining, from beginning to end. Those baby steps were really helpful. It covered all the questions I had as beginner, which wouldn't be answered by series of YouTube videos.\n\nThanks. \nMuch love from Kenya!",
+      "verified": true
+    },
+    {
+      "id": 21,
+      "name": "Lucky Banda",
+      "rating": 5,
+      "date": "2025-07-15",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "it's a good learning experience so far",
+      "verified": true
+    },
+    {
+      "id": 20,
+      "name": "Sinetemba",
+      "rating": 5,
+      "date": "2025-07-24",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "a very good match, I am a bit Disappointed at myself for taking too long to finish the course because I believe I bought the course last year, its the best course ever now i wont need telegram scammers to sell me signals, or strategies, all o f that is covered on this course thank you very much Joel, now im on my way to finishin the course.  I have never taken a trade in my life i bought the course without having a clue of trading but now, I've been trading i have an understanding of trading now. I just need to be sure of all analysis",
+      "verified": true
+    },
+    {
+      "id": 19,
+      "name": "Akinseye Oyindamola Sarah",
+      "rating": 5,
+      "date": "2025-07-25",
+      "location": "India",
+      "region": "Asia",
+      "comment": "extraordinary",
+      "verified": true
+    },
+    {
+      "id": 18,
+      "name": "EGHE STEPHEN OHANGBON",
+      "rating": 5,
+      "date": "2025-07-30",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "it's really interesting and educating",
+      "verified": true
+    },
+    {
+      "id": 17,
+      "name": "Shadrack Ayitey",
+      "rating": 5,
+      "date": "2025-08-01",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "This lectures has being so helpful.",
+      "verified": true
+    },
+    {
+      "id": 14,
+      "name": "Sibghatallah Yahya",
+      "rating": 5,
+      "date": "2025-08-06",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "It's very comprehensive",
+      "verified": true
+    },
+    {
+      "id": 13,
+      "name": "Dike",
+      "rating": 5,
+      "date": "2025-08-07",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "YOU are a great teacher",
+      "verified": true
+    },
+    {
+      "id": 11,
+      "name": "Nkwi Cyril Akinimbom",
+      "rating": 5,
+      "date": "2025-08-14",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "The video animations and recaps are good. The animations especially are really comprehensible.👍",
+      "verified": true
+    },
+    {
+      "id": 10,
+      "name": "Cindy Roberts",
+      "rating": 5,
+      "date": "2025-08-18",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "This is by far one of the best courses on Udemy. It has taken me longer to complete this course, but it has also given me the basic understanding I was looking for as a beginner.  This course has taken me from a Novice to a Ninja 🥷 😁 Thank You BraveX for your dedication to excellence.",
+      "verified": true
+    },
+    {
+      "id": 9,
+      "name": "Divine Mercy",
+      "rating": 5,
+      "date": "2025-08-20",
+      "location": "United States",
+      "region": "North America",
+      "comment": "wonderful with good opportunities love it",
+      "verified": true
+    },
+    {
+      "id": 8,
+      "name": "Anonymous",
+      "rating": 5,
+      "date": "2025-09-03",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "Great quality",
+      "verified": true
+    },
+    {
+      "id": 7,
+      "name": "Yahye ahmed",
+      "rating": 5,
+      "date": "2025-09-12",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "This course is exceptionally well-designed and offers high-level education in forex trading. It is particularly beneficial for beginners and intermediate traders who want to build a strong foundation and improve their skills. Offered by BraveFX Academy, the course is led by an experienced instructor who teaches with clarity and precision. He provides comprehensive explanations and practical examples, guiding students step-by-step to ensure deep understanding.",
+      "verified": true
+    },
+    {
+      "id": 6,
+      "name": "Anonymous",
+      "rating": 5,
+      "date": "2025-09-13",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "Because I understood the basis for forex",
+      "verified": true
+    },
+    {
+      "id": 5,
+      "name": "Onuh Timothy Maji",
+      "rating": 5,
+      "date": "2025-09-19",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "taking this course has exposed me to the world of trading and making forex which is difficult in my site a bit much easier",
+      "verified": true
+    },
+    {
+      "id": 4,
+      "name": "Slew City",
+      "rating": 5,
+      "date": "2025-09-25",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "Honestly, after section 13, I applied this knowledge with some stuff on youtube about trading indicators along with understanding how the news moves the chart, and I think I have the infinite money glitch finally. Screw Crypto it's. one big pyramid scheme. Forex is the only way. Too big to manipulate by any indivudual party.",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "name": "Richard Delali Tetteh",
+      "rating": 5,
+      "date": "2025-10-03",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "It is easy to understand because all the concepts have been developed in an easy way to understand",
+      "verified": true
+    },
+    {
+      "id": 1,
+      "name": "Muhammedjamiu Otu",
+      "rating": 5,
+      "date": "2025-10-14",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "It has been an incredible learning experience! The lessons are super engaging, and the teaching approach makes everything easy to understand. I’ve truly enjoyed the journey — definitely one of the best courses out there for aspiring forex traders!",
+      "verified": true
+    },
+    {
+      "id": 454,
+      "name": "Langelihle Basil Mbambo",
+      "rating": 4,
+      "date": "2023-02-02",
+      "location": "Qatar",
+      "region": "Middle East",
+      "comment": "Helps with basic understanding",
+      "verified": true
+    },
+    {
+      "id": 447,
+      "name": "phethego mogano",
+      "rating": 4,
+      "date": "2023-02-21",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "still at the beginning",
+      "verified": true
+    },
+    {
+      "id": 443,
+      "name": "Edward Lindsey",
+      "rating": 4,
+      "date": "2023-03-01",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "So far so good.",
+      "verified": true
+    },
+    {
+      "id": 441,
+      "name": "Ali Shaukat",
+      "rating": 4,
+      "date": "2023-03-04",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "very bad english and it took me one minute to understand he was saying buy not bad.",
+      "verified": true
+    },
+    {
+      "id": 434,
+      "name": "Lance A Sloan",
+      "rating": 4,
+      "date": "2023-03-17",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "so far i've learned a lot about how to set up the trade and what some of the numbers mean. the only reason this course doesen't have 5 stars is because his accent is little too strong, I personally use captions but still not everything is perfect but other than that this is a great course.",
+      "verified": true
+    },
+    {
+      "id": 431,
+      "name": "Raymond Jun Wen",
+      "rating": 4,
+      "date": "2023-03-30",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "for beginner , it make me more understand what is forex and how we gain profit through forex, easy and understand.",
+      "verified": true
+    },
+    {
+      "id": 427,
+      "name": "Abubakar suleiman bente",
+      "rating": 4,
+      "date": "2023-04-05",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "It worth every cent",
+      "verified": true
+    },
+    {
+      "id": 408,
+      "name": "Rasaq Olusegun Soyode",
+      "rating": 4,
+      "date": "2023-05-05",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "Seriously this course has opened my mind and eyes to some things in the financial market that i have not been noticing since all this while, thank God i took this course and i recommend anyone that want to see clearly in the forex market to take part in this course",
+      "verified": true
+    },
+    {
+      "id": 409,
+      "name": "Adeshina olokode",
+      "rating": 4,
+      "date": "2023-05-05",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "I am loving this, it been amazing",
+      "verified": true
+    },
+    {
+      "id": 406,
+      "name": "Adrian",
+      "rating": 4,
+      "date": "2023-05-07",
+      "location": "United States",
+      "region": "North America",
+      "comment": "This course actually helped me a lot in my trading journey, my only regret is that I didn't  get it sooner . Great content and keep it up ..",
+      "verified": true
+    },
+    {
+      "id": 407,
+      "name": "Wisdom",
+      "rating": 4,
+      "date": "2023-05-07",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "It is good, I am now getting the concept of forex trading",
+      "verified": true
+    },
+    {
+      "id": 398,
+      "name": "Vibhakant Vaibhav",
+      "rating": 4,
+      "date": "2023-05-17",
+      "location": "Indonesia",
+      "region": "Asia",
+      "comment": "It's Pretty good till now, I feel this course tells everything about Forex trading, and the good thing is that they take good examples at the right place and they help to explain a concept using animation too.",
+      "verified": true
+    },
+    {
+      "id": 395,
+      "name": "Timi Jordan",
+      "rating": 4,
+      "date": "2023-05-20",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "yeah, i'm enjoying the course.",
+      "verified": true
+    },
+    {
+      "id": 387,
+      "name": "Uchendu Fijo",
+      "rating": 4,
+      "date": "2023-06-03",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "Yeah it was really what i needed but it would be better if you would improve on the ability of answering some of the questions on the question section",
+      "verified": true
+    },
+    {
+      "id": 380,
+      "name": "Ocheme Friday Sunday",
+      "rating": 4,
+      "date": "2023-06-06",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Yes, this a very educative course for the an aspiring forex trader.",
+      "verified": true
+    },
+    {
+      "id": 383,
+      "name": "martins Ameh",
+      "rating": 4,
+      "date": "2023-06-06",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "Great course so far",
+      "verified": true
+    },
+    {
+      "id": 372,
+      "name": "Kabo Bright Opoku",
+      "rating": 4,
+      "date": "2023-06-15",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "Everything in this course is comprehensive. It has really opened my mind to how I see the market now. I have been jumping to the market and taking tradeS from signals I don't really understand. After this course, it's a bye from me to signal trade.\nthank you Brave FX",
+      "verified": true
+    },
+    {
+      "id": 361,
+      "name": "Faniyan Iyanuoluwa Tobiloba",
+      "rating": 4,
+      "date": "2023-07-02",
+      "location": "Qatar",
+      "region": "Middle East",
+      "comment": "It was a good foundation to my growth in forex trading.",
+      "verified": true
+    },
+    {
+      "id": 358,
+      "name": "Julius takow",
+      "rating": 4,
+      "date": "2023-07-05",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "its been amaizing",
+      "verified": true
+    },
+    {
+      "id": 353,
+      "name": "Seyi Adekola",
+      "rating": 4,
+      "date": "2023-07-11",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "a very good match so far, the concepts and technicalities of trading are getting clearer as I move along with the course.",
+      "verified": true
+    },
+    {
+      "id": 349,
+      "name": "Brandon Ndi",
+      "rating": 4,
+      "date": "2023-07-15",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "never mind the course is Okay am still into it to know more.",
+      "verified": true
+    },
+    {
+      "id": 340,
+      "name": "Gwenny Tanedo",
+      "rating": 4,
+      "date": "2023-07-30",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "The videos are easy to understand especially to beginners.",
+      "verified": true
+    },
+    {
+      "id": 336,
+      "name": "Nur Simons",
+      "rating": 4,
+      "date": "2023-08-04",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "It is a good experience, the only problem is I personally needed to adjust to his accent but wonderful otherwise\nLove this course!",
+      "verified": true
+    },
+    {
+      "id": 333,
+      "name": "Ejikeme Ekenedilichukwu Benjamin",
+      "rating": 4,
+      "date": "2023-08-06",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "Basic understanding of the trading concept. I recommend it for every beginner.",
+      "verified": true
+    },
+    {
+      "id": 330,
+      "name": "Shawnta Long",
+      "rating": 4,
+      "date": "2023-08-07",
+      "location": "France",
+      "region": "Europe",
+      "comment": "It has helped me understand a lot better. Sometimes I have to rewind for his accent lol but definitely a lot of gems.",
+      "verified": true
+    },
+    {
+      "id": 331,
+      "name": "Mathias Mulai",
+      "rating": 4,
+      "date": "2023-08-07",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "yes it was good",
+      "verified": true
+    },
+    {
+      "id": 332,
+      "name": "Bezaleel Daniel",
+      "rating": 4,
+      "date": "2023-08-07",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "Honestly it is a good investment.",
+      "verified": true
+    },
+    {
+      "id": 320,
+      "name": "Paris lewis",
+      "rating": 4,
+      "date": "2023-08-19",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "the subtitles where great! the guy explained everything well and I loved the Animations it made a lot of sense and was very easy.",
+      "verified": true
+    },
+    {
+      "id": 317,
+      "name": "Ali Badawy",
+      "rating": 4,
+      "date": "2023-08-21",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "The subtitles is only in English, but I'm Egyptian, I need Arabic subtitles to make sure that I understand every single thing in this course",
+      "verified": true
+    },
+    {
+      "id": 313,
+      "name": "Vishesh Singh",
+      "rating": 4,
+      "date": "2023-08-23",
+      "location": "Qatar",
+      "region": "Middle East",
+      "comment": "It has been great going so far, the way the topics have been explained till now seems to be quite understandable an easy to comprehend. I am refraining from giving a perfect 5 as of now because this is just the start and would not mind giving the same if the explanations keep on going the way they are till now!",
+      "verified": true
+    },
+    {
+      "id": 311,
+      "name": "Brandon Bell",
+      "rating": 4,
+      "date": "2023-08-26",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "I am hoping this course will increase my knowledge so I can start making a profit on Forex.",
+      "verified": true
+    },
+    {
+      "id": 304,
+      "name": "Uzoechina Johnbosco",
+      "rating": 4,
+      "date": "2023-09-06",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "Enjoying the course",
+      "verified": true
+    },
+    {
+      "id": 302,
+      "name": "Langalethu Tshona",
+      "rating": 4,
+      "date": "2023-09-07",
+      "location": "France",
+      "region": "Europe",
+      "comment": "it's great so far.",
+      "verified": true
+    },
+    {
+      "id": 297,
+      "name": "Ian Septian",
+      "rating": 4,
+      "date": "2023-09-08",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "incridible course for this price",
+      "verified": true
+    },
+    {
+      "id": 299,
+      "name": "Johnson Kong",
+      "rating": 4,
+      "date": "2023-09-08",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "It's amazing, I learned a lot from this course",
+      "verified": true
+    },
+    {
+      "id": 295,
+      "name": "Adam Hussain",
+      "rating": 4,
+      "date": "2023-09-10",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "Informative",
+      "verified": true
+    },
+    {
+      "id": 287,
+      "name": "Tamilarasan",
+      "rating": 4,
+      "date": "2023-09-18",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "ill give u for 4.4 star for u r preparection ...it was soo good to understand",
+      "verified": true
+    },
+    {
+      "id": 278,
+      "name": "Isiaka abdulmalik",
+      "rating": 4,
+      "date": "2023-09-30",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "Nice course",
+      "verified": true
+    },
+    {
+      "id": 274,
+      "name": "Muhammad Saad",
+      "rating": 4,
+      "date": "2023-10-08",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "it's just because my course didn't complete yet!",
+      "verified": true
+    },
+    {
+      "id": 269,
+      "name": "gilles Mongellaz",
+      "rating": 4,
+      "date": "2023-10-13",
+      "location": "India",
+      "region": "Asia",
+      "comment": "car pour moi ,pour l'instant c'est facile à comprendre, le formateur explique bien.",
+      "verified": true
+    },
+    {
+      "id": 263,
+      "name": "Norris Hunley",
+      "rating": 4,
+      "date": "2023-10-23",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "It is a very good course and I still have a lot to learn.",
+      "verified": true
+    },
+    {
+      "id": 259,
+      "name": "Olalere Oluwatobi",
+      "rating": 4,
+      "date": "2023-11-08",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "Great courses. Sesan Joel really took his tune to carefully explain everything in detail. it's the perfect course for a beginner.",
+      "verified": true
+    },
+    {
+      "id": 258,
+      "name": "Raymond Success",
+      "rating": 4,
+      "date": "2023-11-13",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "Great course. Simple underpriced",
+      "verified": true
+    },
+    {
+      "id": 256,
+      "name": "Abdelaziz Idrissi",
+      "rating": 4,
+      "date": "2023-11-14",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "Très bien expliqué",
+      "verified": true
+    },
+    {
+      "id": 251,
+      "name": "Rodney Bob Okpu",
+      "rating": 4,
+      "date": "2023-11-29",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "Nice course",
+      "verified": true
+    },
+    {
+      "id": 250,
+      "name": "Arthur Ezelion",
+      "rating": 4,
+      "date": "2023-12-05",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "Great Tutor",
+      "verified": true
+    },
+    {
+      "id": 248,
+      "name": "Precious Taiwo",
+      "rating": 4,
+      "date": "2023-12-10",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "This course is good for beginners who want to learn from scratch like me, I'm not done with the course, so this is not my final review.",
+      "verified": true
+    },
+    {
+      "id": 244,
+      "name": "Doris Mrutu",
+      "rating": 4,
+      "date": "2023-12-18",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "oh yes, i understand 80% already getting excited to the next chapter.",
+      "verified": true
+    },
+    {
+      "id": 245,
+      "name": "Kabelo Botshabelo",
+      "rating": 4,
+      "date": "2023-12-18",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "It has been a great experience for me. I enjoyed learning and will surely revisit the lessons to become successful. Thank you.",
+      "verified": true
+    },
+    {
+      "id": 233,
+      "name": "Ogheneochuko Ederademu",
+      "rating": 4,
+      "date": "2024-01-10",
+      "location": "United States",
+      "region": "North America",
+      "comment": "because it's amazing",
+      "verified": true
+    },
+    {
+      "id": 230,
+      "name": "Shakti Khafra",
+      "rating": 4,
+      "date": "2024-01-23",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "the presenter's accent is difficult to understand at times.",
+      "verified": true
+    },
+    {
+      "id": 226,
+      "name": "Mosweu Bosekeng",
+      "rating": 4,
+      "date": "2024-01-28",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "Great course",
+      "verified": true
+    },
+    {
+      "id": 223,
+      "name": "KK E.",
+      "rating": 4,
+      "date": "2024-01-30",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "I don't usually like to write reviews, especially when it's easier to just leave a rating, but after completing the BraveFX Forex course, I felt the urge to provide an in-depth review so here it is. \n\nThe Complete Forex Trading Course with BraveFX exceeded my expectations in every aspect. From its comprehensive curriculum to the exceptional instructor guidance, this course truly stands out. \n\nOne of the most commendable features of this course is its structured approach. Each module builds upon the previous one, ensuring a gradual yet thorough understanding of forex trading principles, strategies, and techniques. The content is presented in a clear and concise manner, making complex concepts easily digestible even for beginners like myself.\n\nMoreover, the instructor's expertise and passion for forex trading shine through in every lecture. Their real-world insights and practical examples not only enhance comprehension but also inspire confidence in applying the learned strategies to actual trading scenarios. Additionally, the course provides ample opportunities for hands-on practice through simulated trading exercises, allowing students to refine their skills in a risk-free environment.\n\nFurthermore, the course platform is user-friendly and well-designed, offering convenient access to course materials, resources, and support. The interactive nature of the platform fosters a sense of community among students, facilitating valuable discussions and knowledge-sharing.\n\nOverall, I wholeheartedly recommend this forex trading course to anyone looking to embark on their trading journey or enhance their existing skills. It's a truly transformative learning experience that equips students with the knowledge, tools, and confidence needed to succeed in the dynamic world of forex trading.",
+      "verified": true
+    },
+    {
+      "id": 220,
+      "name": "Aung Min Thu",
+      "rating": 4,
+      "date": "2024-02-10",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "Thank you for your wonderful perfect teaching",
+      "verified": true
+    },
+    {
+      "id": 219,
+      "name": "Adam Zewdie",
+      "rating": 4,
+      "date": "2024-02-11",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "I had a great time, I learnt so so much",
+      "verified": true
+    },
+    {
+      "id": 217,
+      "name": "Samgwaa",
+      "rating": 4,
+      "date": "2024-02-14",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "The lectures are easy to understand",
+      "verified": true
+    },
+    {
+      "id": 216,
+      "name": "Eze Humphrey",
+      "rating": 4,
+      "date": "2024-02-18",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "Great course",
+      "verified": true
+    },
+    {
+      "id": 214,
+      "name": "Malakai Guidolin",
+      "rating": 4,
+      "date": "2024-02-23",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "Amazing Introduction Really useful for later Infomation and knowledge.",
+      "verified": true
+    },
+    {
+      "id": 210,
+      "name": "Nath-sih Pouaboud",
+      "rating": 4,
+      "date": "2024-03-07",
+      "location": "United Kingdom",
+      "region": "Europe",
+      "comment": "Couse I can't allways activate the subtitles",
+      "verified": true
+    },
+    {
+      "id": 208,
+      "name": "Sirmike",
+      "rating": 4,
+      "date": "2024-03-11",
+      "location": "France",
+      "region": "Europe",
+      "comment": "I love the way he explains everything, especially those complex topics, i recommend him as your tutor if you are new to Forex",
+      "verified": true
+    },
+    {
+      "id": 195,
+      "name": "Okezie Ben-John",
+      "rating": 4,
+      "date": "2024-04-22",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "very clear and easy to follow so far",
+      "verified": true
+    },
+    {
+      "id": 187,
+      "name": "Neo Mankge",
+      "rating": 4,
+      "date": "2024-05-18",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "I had very little trading knowledge prior to buying this course and after completing it , honestly it exceeded my expectations, I now have a solid foundation on how I am going to approach the market going forward. Obviously I still to do more learning from my side and keep practicing but this course was not a waste of time, that I can guarantee",
+      "verified": true
+    },
+    {
+      "id": 185,
+      "name": "Joshua Okonofua",
+      "rating": 4,
+      "date": "2024-05-19",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "Took time to break down everything.. Good job",
+      "verified": true
+    },
+    {
+      "id": 178,
+      "name": "Favour Edike",
+      "rating": 4,
+      "date": "2024-06-06",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "it's very easy to grab alot from",
+      "verified": true
+    },
+    {
+      "id": 175,
+      "name": "Mariam Okesola",
+      "rating": 4,
+      "date": "2024-06-14",
+      "location": "France",
+      "region": "Europe",
+      "comment": "I could understand his accent well because I'm also Nigerian.  He also explained the concepts well, though I feel there are too many videos, that much videos could overwhelm someone like me. but altogether a very good course.",
+      "verified": true
+    },
+    {
+      "id": 160,
+      "name": "Dominion Modie Chizuoke",
+      "rating": 4,
+      "date": "2024-07-06",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "yes it is. I'm getting better with my trading and i want to finish the course and be good with my trading strategy",
+      "verified": true
+    },
+    {
+      "id": 158,
+      "name": "Milind Gothoskar",
+      "rating": 4,
+      "date": "2024-07-15",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "simplified teaching",
+      "verified": true
+    },
+    {
+      "id": 150,
+      "name": "Saeed Mehdi",
+      "rating": 4,
+      "date": "2024-07-29",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "That's what I needed to know about forex trading",
+      "verified": true
+    },
+    {
+      "id": 145,
+      "name": "Waffo Fotso Franck Karel",
+      "rating": 4,
+      "date": "2024-08-13",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "easy to understand",
+      "verified": true
+    },
+    {
+      "id": 146,
+      "name": "Raymart Cordero",
+      "rating": 4,
+      "date": "2024-08-13",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "The accent isn't neutral but it is in a level that I can understand if I use headphones. The close captions are not accurate though. They need some improvements.",
+      "verified": true
+    },
+    {
+      "id": 138,
+      "name": "Frank",
+      "rating": 4,
+      "date": "2024-08-27",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "very easy to understand",
+      "verified": true
+    },
+    {
+      "id": 131,
+      "name": "Oluwole Segun kayode",
+      "rating": 4,
+      "date": "2024-09-08",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "You are the best, but I am just starting",
+      "verified": true
+    },
+    {
+      "id": 129,
+      "name": "Karthik K Prasad",
+      "rating": 4,
+      "date": "2024-09-15",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "understood very easily about how forex works",
+      "verified": true
+    },
+    {
+      "id": 123,
+      "name": "Imoleayo Olukoya",
+      "rating": 4,
+      "date": "2024-09-20",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "The lectures has been satisfactory so far",
+      "verified": true
+    },
+    {
+      "id": 122,
+      "name": "Adam Sheehan",
+      "rating": 4,
+      "date": "2024-09-23",
+      "location": "Spain",
+      "region": "Europe",
+      "comment": "Really good course, just what I needed to keep me from just gambling in the market and build some decent strategies and techniques.",
+      "verified": true
+    },
+    {
+      "id": 121,
+      "name": "Cyril Weekes",
+      "rating": 4,
+      "date": "2024-09-27",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "I feel hopeful at this time to be able to understand clearly as I continue the course about Forex and how to trade in its market.",
+      "verified": true
+    },
+    {
+      "id": 118,
+      "name": "Ezelu Joseph John",
+      "rating": 4,
+      "date": "2024-10-11",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "I really do not have much to say. But if you come across this review as a beginner in the forex market or someone who dabbled on youtube and didn't get any knowledge, GET THIS COURSE.",
+      "verified": true
+    },
+    {
+      "id": 111,
+      "name": "Mugisha peter",
+      "rating": 4,
+      "date": "2024-11-06",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "So far the course is going on well , clear and concise explanations are given.",
+      "verified": true
+    },
+    {
+      "id": 110,
+      "name": "Othusitse M.C. Ithuteng",
+      "rating": 4,
+      "date": "2024-11-11",
+      "location": "Germany",
+      "region": "Europe",
+      "comment": "This is quite interesting and informative. I like everything. The explanations are clear and there is a lot of repetition which makes it easy to grasp content. I am happy.",
+      "verified": true
+    },
+    {
+      "id": 103,
+      "name": "Lindiwe Dikgale",
+      "rating": 4,
+      "date": "2024-11-25",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "I'm new so I'm still finding my feet. I am up to speed though",
+      "verified": true
+    },
+    {
+      "id": 104,
+      "name": "ogbodo Chiedozie",
+      "rating": 4,
+      "date": "2024-11-25",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "Yeah, it's an amazing course just not done yet, but am have an optimistic mind that this course will change a lot in my trading career.",
+      "verified": true
+    },
+    {
+      "id": 102,
+      "name": "Ngu Edwin Achunkwe",
+      "rating": 4,
+      "date": "2024-11-26",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "good lessons",
+      "verified": true
+    },
+    {
+      "id": 100,
+      "name": "Marion shaada",
+      "rating": 4,
+      "date": "2024-11-27",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "the lesson are well simplified",
+      "verified": true
+    },
+    {
+      "id": 99,
+      "name": "Patrice Archie",
+      "rating": 4,
+      "date": "2024-11-29",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "It's been an awesome journey so far. More than I expected when buying the course. The courses were structured to give clarity and precision in learning and practicality. \n\nAnd instructor Sesan is an amazing teacher. \n\nI really can't wait to delve right back into it milk every nutrient and scoop everything I can from this.",
+      "verified": true
+    },
+    {
+      "id": 96,
+      "name": "Obakeng Msuthwana",
+      "rating": 4,
+      "date": "2024-12-04",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "The course is well structured and easy to learn. I'm enjoying myself so far",
+      "verified": true
+    },
+    {
+      "id": 92,
+      "name": "Ignatius Sisero",
+      "rating": 4,
+      "date": "2024-12-15",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "wow! it was agood exposure to forex",
+      "verified": true
+    },
+    {
+      "id": 87,
+      "name": "Andrew Joseph",
+      "rating": 4,
+      "date": "2024-12-23",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "I would have loved him to cover futures trading and ICT as well but so far its a well put together course.",
+      "verified": true
+    },
+    {
+      "id": 81,
+      "name": "Jeje Ayodeji",
+      "rating": 4,
+      "date": "2025-01-03",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "I think the course is underpriced. I have learnt so many things that I have started to feel like a pro even at 50% completion.",
+      "verified": true
+    },
+    {
+      "id": 82,
+      "name": "Mohana Thiruvengadam",
+      "rating": 4,
+      "date": "2025-01-03",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "So far it is good.",
+      "verified": true
+    },
+    {
+      "id": 77,
+      "name": "Nonkpiere Saankye",
+      "rating": 4,
+      "date": "2025-01-06",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Is a good match for me, how one make profit from forex has been clearly explained to my understanding.",
+      "verified": true
+    },
+    {
+      "id": 72,
+      "name": "Salah Piroty",
+      "rating": 4,
+      "date": "2025-01-25",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "The explanation was simple and clear.",
+      "verified": true
+    },
+    {
+      "id": 65,
+      "name": "Dexter Dreamrizer Tugwell",
+      "rating": 4,
+      "date": "2025-02-08",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "So far, so good.",
+      "verified": true
+    },
+    {
+      "id": 53,
+      "name": "Wigih Prasetyo",
+      "rating": 4,
+      "date": "2025-03-23",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "it's a helpfull course, I would like to purchase another course if there is exist.",
+      "verified": true
+    },
+    {
+      "id": 51,
+      "name": "Amyar Saeed",
+      "rating": 4,
+      "date": "2025-04-06",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "awesome course",
+      "verified": true
+    },
+    {
+      "id": 48,
+      "name": "Felix Basil",
+      "rating": 4,
+      "date": "2025-04-11",
+      "location": "New Zealand",
+      "region": "Oceania",
+      "comment": "this is a good course",
+      "verified": true
+    },
+    {
+      "id": 47,
+      "name": "Cleveland Cumby",
+      "rating": 4,
+      "date": "2025-04-14",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "Sofar very informative, getting my money's worth.",
+      "verified": true
+    },
+    {
+      "id": 45,
+      "name": "Fred Yokuza",
+      "rating": 4,
+      "date": "2025-04-17",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "The instructor elaborates the trading skills in way that is understandable",
+      "verified": true
+    },
+    {
+      "id": 44,
+      "name": "Arun Thapa",
+      "rating": 4,
+      "date": "2025-04-19",
+      "location": "Tanzania",
+      "region": "Africa",
+      "comment": "it was a nice experience basics however well tutoring and hands-on experiences we amazing to see other people with examples",
+      "verified": true
+    },
+    {
+      "id": 43,
+      "name": "Agbanah Toba",
+      "rating": 4,
+      "date": "2025-04-29",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Excellent and well detailed.",
+      "verified": true
+    },
+    {
+      "id": 25,
+      "name": "Simon Kwarteng",
+      "rating": 4,
+      "date": "2025-06-26",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "yes very good one",
+      "verified": true
+    },
+    {
+      "id": 16,
+      "name": "Sumeet",
+      "rating": 4,
+      "date": "2025-08-03",
+      "location": "India",
+      "region": "Asia",
+      "comment": "THIS COURSE IS VERY GOOD FOR THE PEOPLE WHO ARE STARTING FROM ZERO.  IT GIVES NEXT LEVEL OF CONFIDENCE TO TRADE IN MARKETS",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "name": "Ichukwu Agbo Nicholas",
+      "rating": 4,
+      "date": "2025-10-04",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "i need direct contact for mentorship pls.. am almost done with the udemy cost already",
+      "verified": true
+    },
+    {
+      "id": 453,
+      "name": "Adebayo Kayode John",
+      "rating": 3,
+      "date": "2023-02-08",
+      "location": "France",
+      "region": "Europe",
+      "comment": "The course is so simple and well explain",
+      "verified": true
+    },
+    {
+      "id": 449,
+      "name": "Oladele Stephen oladayo",
+      "rating": 3,
+      "date": "2023-02-15",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "deep  explanation , increased my knowledge",
+      "verified": true
+    },
+    {
+      "id": 432,
+      "name": "Anush S",
+      "rating": 3,
+      "date": "2023-03-26",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Made a little complicated.",
+      "verified": true
+    },
+    {
+      "id": 421,
+      "name": "Carlos Bolano",
+      "rating": 3,
+      "date": "2023-04-16",
+      "location": "United States",
+      "region": "North America",
+      "comment": "Well explained.",
+      "verified": true
+    },
+    {
+      "id": 413,
+      "name": "Joseph B.",
+      "rating": 3,
+      "date": "2023-04-30",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "It’s straight forward",
+      "verified": true
+    },
+    {
+      "id": 390,
+      "name": "Krystal Hampton",
+      "rating": 3,
+      "date": "2023-05-24",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "I like how the lessons are structured however I find it hard to follow along with the teacher/tutor. His accent is just really, really heavy, and I have to use the subtitles to understand what he's saying. Sometimes the subtitles have the wrong words, but the animations make up for the detriment.",
+      "verified": true
+    },
+    {
+      "id": 366,
+      "name": "Precious Nwakanma",
+      "rating": 3,
+      "date": "2023-06-23",
+      "location": "UAE",
+      "region": "Middle East",
+      "comment": "It is interesting and I like the clarity the tutor brings to his teaching",
+      "verified": true
+    },
+    {
+      "id": 356,
+      "name": "Mohammad Sharique",
+      "rating": 3,
+      "date": "2023-07-07",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "It's a Good experience till now. Hope same understanding for the future.",
+      "verified": true
+    },
+    {
+      "id": 345,
+      "name": "William Ashery Tumbo",
+      "rating": 3,
+      "date": "2023-07-20",
+      "location": "France",
+      "region": "Europe",
+      "comment": "Very nice course",
+      "verified": true
+    },
+    {
+      "id": 334,
+      "name": "Osinachi",
+      "rating": 3,
+      "date": "2023-08-06",
+      "location": "Mexico",
+      "region": "North America",
+      "comment": "Still on the course",
+      "verified": true
+    },
+    {
+      "id": 325,
+      "name": "Nelson Bassey",
+      "rating": 3,
+      "date": "2023-08-12",
+      "location": "United States",
+      "region": "North America",
+      "comment": "easy when learning and very good in my understanding I like the way he teaches thanks sir",
+      "verified": true
+    },
+    {
+      "id": 321,
+      "name": "Feba S",
+      "rating": 3,
+      "date": "2023-08-17",
+      "location": "Cameroon",
+      "region": "Africa",
+      "comment": "So far so good!Learned a lot and i'm making some progress.",
+      "verified": true
+    },
+    {
+      "id": 308,
+      "name": "Michael Shields",
+      "rating": 3,
+      "date": "2023-09-01",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "I didn't like the course going from a human being to a clip art slide show with the kind of american sales pitch voice that i constantly get on youtube scam adverts.  At this point, very early in the course, i've lost a good deal of confidence in the course and am considering refunding it.",
+      "verified": true
+    },
+    {
+      "id": 307,
+      "name": "Razzz",
+      "rating": 3,
+      "date": "2023-09-02",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "i think bravefx should teach charts support resistance trade /trade mistake using replay, like what mentor gonna do in that situation not fake like the mentor already have seen the chart & then replayed & give authority i am the best,mentor should just wipe the chart like for 1month & teach us support resistance chartpattern trend following- trade using replay tool...",
+      "verified": true
+    },
+    {
+      "id": 239,
+      "name": "Saritha Reddy Toom",
+      "rating": 3,
+      "date": "2023-12-31",
+      "location": "Colombia",
+      "region": "South America",
+      "comment": "Please reduce sub sections. They are too many and boring.",
+      "verified": true
+    },
+    {
+      "id": 228,
+      "name": "Agena Moses Abaagu",
+      "rating": 3,
+      "date": "2024-01-23",
+      "location": "South Africa",
+      "region": "Africa",
+      "comment": "This course is exactly what I needed to kickstart my forex journey",
+      "verified": true
+    },
+    {
+      "id": 215,
+      "name": "Nana Yaw Kyei Brentuoh",
+      "rating": 3,
+      "date": "2024-02-20",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "Nice explanations but the video keeps on breaking.",
+      "verified": true
+    },
+    {
+      "id": 212,
+      "name": "Serine Mkrtchyan",
+      "rating": 3,
+      "date": "2024-02-25",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "So far too easy and didn't learn much new.",
+      "verified": true
+    },
+    {
+      "id": 203,
+      "name": "Fredrick Young",
+      "rating": 3,
+      "date": "2024-03-27",
+      "location": "Canada",
+      "region": "North America",
+      "comment": "It way nice 👍",
+      "verified": true
+    },
+    {
+      "id": 163,
+      "name": "Tadiwa Moyo",
+      "rating": 3,
+      "date": "2024-06-28",
+      "location": "Singapore",
+      "region": "Asia",
+      "comment": "I am still going through it",
+      "verified": true
+    },
+    {
+      "id": 155,
+      "name": "Ligali Oluwaseun David",
+      "rating": 3,
+      "date": "2024-07-20",
+      "location": "Australia",
+      "region": "Oceania",
+      "comment": "Steps by steps lesson",
+      "verified": true
+    },
+    {
+      "id": 139,
+      "name": "Joshua Augustine",
+      "rating": 3,
+      "date": "2024-08-27",
+      "location": "Malaysia",
+      "region": "Asia",
+      "comment": "let me keep watching",
+      "verified": true
+    },
+    {
+      "id": 126,
+      "name": "Jesse",
+      "rating": 3,
+      "date": "2024-09-18",
+      "location": "Brazil",
+      "region": "South America",
+      "comment": "Only support and resistance trading cannot help you go far in forex. i think the facilitator should consider tutoring on SMC trading.",
+      "verified": true
+    },
+    {
+      "id": 98,
+      "name": "Jerrix Arceneaux",
+      "rating": 3,
+      "date": "2024-11-30",
+      "location": "India",
+      "region": "Asia",
+      "comment": "Good course but still confused on how to take trades using MT4 and desktop. Not sure how to place stop loses and take profits using the MT4 software for taking trades. The process and steps to take trades should be emphasized especially in the assignments. I still haven't got a reply yet about this concern.",
+      "verified": true
+    },
+    {
+      "id": 68,
+      "name": "Odingboro abdulazeez",
+      "rating": 3,
+      "date": "2025-02-03",
+      "location": "Saudi Arabia",
+      "region": "Middle East",
+      "comment": "its very good and enlightening",
+      "verified": true
+    },
+    {
+      "id": 64,
+      "name": "Ihechukwu john Uzoechi",
+      "rating": 3,
+      "date": "2025-02-11",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "The quality and the performance of the video is good, it’s worth the price, it made it easy for me to learn and understand",
+      "verified": true
+    },
+    {
+      "id": 46,
+      "name": "Scott Neuhauser",
+      "rating": 3,
+      "date": "2025-04-17",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "I have a hard time understanding the instructor's accent. However, by slowing down the speed and using captions, it's much better. The content is good.",
+      "verified": true
+    },
+    {
+      "id": 12,
+      "name": "Anonymous",
+      "rating": 3,
+      "date": "2025-08-14",
+      "location": "Nigeria",
+      "region": "Africa",
+      "comment": "As time goes with the course i will give more",
+      "verified": true
+    },
+    {
+      "id": 436,
+      "name": "Sara taher",
+      "rating": 2,
+      "date": "2023-03-16",
+      "location": "Kenya",
+      "region": "Africa",
+      "comment": "I'm glad I didn't learn from YouTube or other places because i could b scammed or misunderstood.\nthis info  what I was looking for .",
+      "verified": true
+    },
+    {
+      "id": 433,
+      "name": "Joshua Molong",
+      "rating": 2,
+      "date": "2023-03-24",
+      "location": "Pakistan",
+      "region": "Asia",
+      "comment": "Animation is  fast",
+      "verified": true
+    },
+    {
+      "id": 322,
+      "name": "Ben Gilyan",
+      "rating": 2,
+      "date": "2023-08-16",
+      "location": "Italy",
+      "region": "Europe",
+      "comment": "The class was hard to understand and felt like there was no structure in the course. Not much if any depth of teaching the material.",
+      "verified": true
+    },
+    {
+      "id": 268,
+      "name": "Titus Terseer",
+      "rating": 2,
+      "date": "2023-10-16",
+      "location": "Qatar",
+      "region": "Middle East",
+      "comment": "So explicit and detailed. Thank you Brave FX",
+      "verified": true
+    },
+    {
+      "id": 411,
+      "name": "Yogesh Pawar",
+      "rating": 1,
+      "date": "2023-04-30",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "INTRODUCTION OF FOREX IS GOOD BUT NOTHING NEW TO LEAR AND NO STRATERGY WHICH CAN BE LEARNED.",
+      "verified": true
+    },
+    {
+      "id": 376,
+      "name": "Kenneth Beam",
+      "rating": 1,
+      "date": "2023-06-10",
+      "location": "Netherlands",
+      "region": "Europe",
+      "comment": "its moving slow",
+      "verified": true
+    },
+    {
+      "id": 312,
+      "name": "John Weak",
+      "rating": 1,
+      "date": "2023-08-25",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "you have to try to understand his wired accent instead of trying to understand the actual course, My tip for the instructor is to take as many courses on presentations and speaking skills, it is unbelievable , so hard to understand his accent so hard",
+      "verified": true
+    },
+    {
+      "id": 238,
+      "name": "Dalibor Perencevic",
+      "rating": 1,
+      "date": "2024-01-03",
+      "location": "India",
+      "region": "Asia",
+      "comment": "The course is good so this review is not because of that it is because of udemy videos are so laggy it's impossible to watch anything longer then 20 seconds before it stops for 2 minutes and it's not my internet connection because everywhere else i try i don't have any problems. \nI tried every course i have same thing happens and i can't download it and study it offline because this option is not enabled for this course so i give up because i'm losing my patience and my time for absolutely nothing.",
+      "verified": true
+    },
+    {
+      "id": 202,
+      "name": "Excel Aayush",
+      "rating": 1,
+      "date": "2024-04-13",
+      "location": "Ghana",
+      "region": "Africa",
+      "comment": "i NEVER WATCHED THE FULL COURSE, THERE IS TOO MUCH INFORMATION AND THE MARKET MAKERS WANT YOU TO WATCH THIS BECAUSE THEY WILL DO THE EXACT OPPOSITE OF THIS 90% OF THE TIMES",
+      "verified": true
+    },
+    {
+      "id": 39,
+      "name": "Pathey Mistry",
+      "rating": 1,
+      "date": "2025-05-16",
+      "location": "Argentina",
+      "region": "South America",
+      "comment": "Reparation of sane thing in beginning",
+      "verified": true
+    },
+    {
+      "id": 15,
+      "name": "Ademoye Abiodun Adio",
+      "rating": 1,
+      "date": "2025-08-05",
+      "location": "Philippines",
+      "region": "Asia",
+      "comment": "Great lesson",
+      "verified": true
+    }
+  ]
+}

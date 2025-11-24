@@ -1,0 +1,21 @@
+<div class="video-section">
+  <div class="video-wrapper">
+    <iframe *ngIf="videoUrl && !isLoading" [src]="videoUrl" class="video-frame" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+    </iframe>
+
+    <!-- Loading State with Skeleton -->
+    <app-video-skeleton *ngIf="isLoading"></app-video-skeleton>
+
+    <!-- Overlay Navigation Buttons - Always visible with low opacity on mobile -->
+    <button *ngIf="videoUrl && !isLoading && canGoPrevious" class="nav-overlay nav-overlay-left" (click)="onPrevious()"
+      aria-label="Previous lesson">
+      <lucide-icon [img]="ChevronLeft" [size]="32"></lucide-icon>
+    </button>
+
+    <button *ngIf="videoUrl && !isLoading && canGoNext" class="nav-overlay nav-overlay-right" (click)="onNext()"
+      aria-label="Next lesson">
+      <lucide-icon [img]="ChevronRight" [size]="32"></lucide-icon>
+    </button>
+  </div>
+</div>

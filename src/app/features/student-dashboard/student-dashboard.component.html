@@ -1,0 +1,15 @@
+<div class="dashboard">
+  <!-- Sidebar Navigation -->
+  <app-sidebar></app-sidebar>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <app-top-bar [user]="user" (settingsClick)="onSettings()" (logoutClick)="onLogout()"></app-top-bar>
+
+    <!-- Content Area with Router Outlet -->
+    <div class="content-area" #contentArea>
+      <router-outlet></router-outlet>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,55 @@
+<aside class="sidebar">
+    <!-- Logo -->
+    <div class="sidebar-header">
+        <a routerLink="/" class="logo-link">
+            <img src="/Logo.png" alt="BraveFx" class="logo" />
+            <span class="logo-text">BraveFx</span>
+        </a>
+    </div>
+
+    <!-- Navigation Menu -->
+    <nav class="nav-menu">
+        <a routerLink="/dashboard/overview" routerLinkActive="active" class="nav-item">
+            <lucide-icon [img]="LayoutDashboard" [size]="20"></lucide-icon>
+            <span>Overview</span>
+        </a>
+
+        <a routerLink="/dashboard/courses" routerLinkActive="active" class="nav-item">
+            <lucide-icon [img]="BookOpen" [size]="20"></lucide-icon>
+            <span>My Courses</span>
+        </a>
+
+        <a routerLink="/dashboard/progress" routerLinkActive="active" class="nav-item">
+            <lucide-icon [img]="TrendingUp" [size]="20"></lucide-icon>
+            <span>Progress</span>
+        </a>
+
+        <a routerLink="/dashboard/resources" routerLinkActive="active" class="nav-item">
+            <lucide-icon [img]="FileText" [size]="20"></lucide-icon>
+            <span>Resources</span>
+        </a>
+
+        <a routerLink="/dashboard/community" routerLinkActive="active" class="nav-item">
+            <lucide-icon [img]="Users" [size]="20"></lucide-icon>
+            <span>Community</span>
+        </a>
+
+        <a routerLink="/dashboard/settings" routerLinkActive="active" class="nav-item">
+            <lucide-icon [img]="Settings" [size]="20"></lucide-icon>
+            <span>Settings</span>
+        </a>
+
+        <a routerLink="/dashboard/support" routerLinkActive="active" class="nav-item">
+            <lucide-icon [img]="HelpCircle" [size]="20"></lucide-icon>
+            <span>Support</span>
+        </a>
+    </nav>
+
+    <!-- Bottom Section -->
+    <div class="sidebar-footer">
+        <button class="theme-toggle" (click)="toggleTheme()">
+            <lucide-icon [img]="theme.theme() === 'light' ? Moon : Sun" [size]="20"></lucide-icon>
+            <span>{{ theme.theme() === 'light' ? 'Dark' : 'Light' }} Mode</span>
+        </button>
+    </div>
+</aside>

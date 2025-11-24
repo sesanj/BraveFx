@@ -1,0 +1,81 @@
+<aside class="sidebar" [class.collapsed]="!isSidebarOpen">
+  <div class="sidebar-header">
+    <h2 class="sidebar-title">Course Content</h2>
+    <button class="btn-sidebar-close" (click)="closeSidebar()">
+      <lucide-icon [img]="X" [size]="20"></lucide-icon>
+    </button>
+  </div>
+
+  <div class="modules-list">
+    <div class="module-item" *ngFor="let module of modules">
+      <button class="module-header" (click)="onToggleModule(module.id)">
+        <div class="module-info">
+          <lucide-icon [img]="ChevronRight" [size]="18" [class.rotated]="isModuleExpanded(module.id)"
+            class="expand-icon">
+          </lucide-icon>
+          <div class="module-text">
+            <span class="module-title">{{ module.title }}</span>
+            <div class="module-meta">
+              <span class="meta-item">{{ module.lessons.length }} lessons</span>
+              <span class="meta-separator">•</span>
+              <span class="meta-item">{{ getModuleDuration(module) }}</span>
+              <span class="meta-separator">•</span>
+              <span class="meta-item">{{ getModuleCompletion(module) }} completed</span>
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <div class="lessons-list" *ngIf="isModuleExpanded(module.id)">
+        <button class="lesson-item" *ngFor="let lesson of module.lessons" [attr.data-lesson-id]="lesson.id"
+          [class.active]="currentLessonId === lesson.id" [class.completed]="isLessonCompleted(lesson.id)"
+          (click)="onSelectLesson(lesson, module)">
+          <div class="lesson-icon-wrapper">
+            <lucide-icon [img]="getLessonIcon(lesson)" [size]="14">
+            </lucide-icon>
+          </div>
+          <div class="lesson-details">
+            <span class="lesson-name">{{ lesson.title }}</span>
+            <div class="lesson-meta">
+              <span class="lesson-duration">
+                <lucide-icon [img]="Clock" [size]="12"></lucide-icon>
+                {{ formatDuration(lesson.duration) }}
+              </span>
+              <span *ngIf="isLessonCompleted(lesson.id)" class="badge-completed">
+                <lucide-icon [img]="Check" [size]="12"></lucide-icon>
+                <span>Completed</span>
+              </span>
+              <button *ngIf="currentLessonId === lesson.id && !isLessonCompleted(lesson.id)" class="btn-complete-inline"
+                (click)="onMarkComplete($event, lesson.id)" title="Mark as complete">
+                <lucide-icon [img]="Check" [size]="12"></lucide-icon>
+                <span>Complete</span>
+              </button>
+            </div>
+          </div>
+        </button>
+
+        <!-- Module Quiz Item -->
+        <button class="lesson-item quiz-item" *ngIf="module.hasQuiz" [class.active]="isQuizActiveForModule(module.id)"
+          [class.completed]="isQuizPassed(module.id)" (click)="onSelectQuiz(module)">
+          <div class="lesson-icon-wrapper quiz-icon">
+            <lucide-icon [img]="isQuizPassed(module.id) ? Check : ClipboardList" [size]="14">
+            </lucide-icon>
+          </div>
+          <div class="lesson-details">
+            <span class="lesson-name">Module Quiz</span>
+            <div class="lesson-meta">
+              <span *ngIf="isQuizPassed(module.id)" class="badge-completed badge-passed">
+                <lucide-icon [img]="Check" [size]="12"></lucide-icon>
+                <span>Passed</span>
+              </span>
+              <span *ngIf="!isQuizPassed(module.id)" class="badge-quiz">
+                <lucide-icon [img]="ClipboardList" [size]="12"></lucide-icon>
+                <span>Quiz</span>
+              </span>
+            </div>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</aside>

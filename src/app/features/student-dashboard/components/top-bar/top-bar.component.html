@@ -1,0 +1,39 @@
+<header class="top-bar">
+    <div class="top-bar-left">
+        <img src="/Logo.png" alt="BraveFx" class="mobile-logo" />
+        <h2 class="dashboard-title">Dashboard</h2>
+    </div>
+
+    <div class="top-bar-actions">
+        <button class="icon-btn theme-toggle-btn" (click)="toggleTheme()">
+            <lucide-icon [img]="theme.theme() === 'light' ? Moon : Sun" [size]="20"></lucide-icon>
+        </button>
+
+        <div class="user-menu-wrapper">
+            <button class="user-btn" (click)="toggleUserMenu()">
+                <div class="avatar">
+                    <lucide-icon [img]="User" [size]="20"></lucide-icon>
+                </div>
+                <span class="user-name">{{ user.name }}</span>
+            </button>
+
+            <div class="user-dropdown" *ngIf="isUserMenuOpen">
+                <div class="dropdown-header">
+                    <p class="user-email">{{ user.email }}</p>
+                </div>
+                <button class="dropdown-item" (click)="onSettings()">
+                    <lucide-icon [img]="Settings" [size]="16"></lucide-icon>
+                    Settings
+                </button>
+                <button class="dropdown-item" (click)="onSupport()">
+                    <lucide-icon [img]="Headphones" [size]="16"></lucide-icon>
+                    Support
+                </button>
+                <button class="dropdown-item logout" (click)="onLogout()">
+                    <lucide-icon [img]="LogOut" [size]="16"></lucide-icon>
+                    Logout
+                </button>
+            </div>
+        </div>
+    </div>
+</header>

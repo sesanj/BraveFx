@@ -1,0 +1,224 @@
+<h1 class="page-title">Learning Progress</h1>
+<p class="page-subtitle">Track your achievements and performance</p>
+
+<!-- Stats Skeleton -->
+<app-dashboard-skeleton *ngIf="loading" type="stats"></app-dashboard-skeleton>
+
+<!-- Progress Overview Cards -->
+<div *ngIf="!loading">
+    <div class="progress-overview">
+        <div class="progress-stat-card">
+            <div class="progress-stat-icon">
+                <lucide-icon [img]="TrendingUp"></lucide-icon>
+            </div>
+            <div class="progress-stat-content">
+                <p class="progress-stat-label">Overall Progress</p>
+                <h3 class="progress-stat-value">{{ overallProgress }}%</h3>
+                <div class="mini-progress-bar">
+                    <div class="mini-progress-fill" [style.width.%]="overallProgress"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-stat-card">
+            <div class="progress-stat-icon clock">
+                <lucide-icon [img]="BookOpen"></lucide-icon>
+            </div>
+            <div class="progress-stat-content">
+                <p class="progress-stat-label">Lessons Completed</p>
+                <h3 class="progress-stat-value">{{ completedLessons }}</h3>
+                <p class="progress-stat-sub">out of {{ totalLessons }} lessons</p>
+            </div>
+        </div>
+
+        <div class="progress-stat-card">
+            <div class="progress-stat-icon quiz">
+                <lucide-icon [img]="Target"></lucide-icon>
+            </div>
+            <div class="progress-stat-content">
+                <p class="progress-stat-label">Quiz Average</p>
+                <h3 class="progress-stat-value">{{ quizAverage }}%</h3>
+                <p class="progress-stat-sub">{{ completedQuizzes }} quizzes completed</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Course Progress Section -->
+<div class="progress-section">
+    <div class="progress-section-header">
+        <h2 class="progress-section-title">Course Progress</h2>
+    </div>
+
+    <!-- Course Progress Skeleton -->
+    <app-dashboard-skeleton *ngIf="loading" type="course-progress" [count]="3"></app-dashboard-skeleton>
+
+    <!-- Course Progress List -->
+    <div class="course-progress-list" *ngIf="!loading">
+        <div class="course-progress-item" *ngFor="let course of courseProgress">
+            <div class="course-progress-info">
+                <div class="course-progress-icon" [style.background]="course.color">
+                    {{ course.title.charAt(0) }}
+                </div>
+                <div class="course-progress-details">
+                    <h4 class="course-progress-title">{{ course.title }}</h4>
+                    <p class="course-progress-stats">
+                        {{ course.completedLessons }}/{{ course.totalLessons }} lessons •
+                        {{ course.completedQuizzes }}/{{ course.totalQuizzes }} quizzes
+                    </p>
+                </div>
+            </div>
+            <div class="course-progress-bar-container">
+                <div class="course-progress-bar">
+                    <div class="course-progress-bar-fill" [style.width.%]="course.progress"
+                        [style.background]="course.color"></div>
+                </div>
+                <span class="course-progress-percentage">{{ course.progress }}%</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quiz Performance -->
+<div class="progress-section">
+    <div class="progress-section-header">
+        <h2 class="progress-section-title">Quiz Performance</h2>
+    </div>
+
+    <!-- Quiz Performance Skeleton -->
+    <app-dashboard-skeleton *ngIf="loading" type="quiz-performance" [count]="5"></app-dashboard-skeleton>
+
+    <!-- Quiz Performance List -->
+    <div class="quiz-performance-list" *ngIf="!loading">
+        <div class="quiz-performance-item" *ngFor="let quiz of quizPerformance" (click)="openQuizReview(quiz)">
+            <div class="quiz-performance-header">
+                <div class="quiz-performance-info">
+                    <h4 class="quiz-performance-title">{{ quiz.title }}</h4>
+                    <p class="quiz-performance-course">
+                        <lucide-icon [img]="BookOpen" [size]="14"></lucide-icon>
+                        {{ quiz.course }}
+                    </p>
+                    <p class="quiz-performance-module">
+                        <lucide-icon [img]="Video" [size]="14"></lucide-icon>
+                        {{ quiz.module }}
+                    </p>
+                </div>
+                <div class="quiz-performance-score" [class.excellent]="quiz.score >= 90"
+                    [class.good]="quiz.score >= 70 && quiz.score < 90" [class.fair]="quiz.score < 70">
+                    {{ quiz.score }}%
+                </div>
+            </div>
+            <div class="quiz-performance-meta">
+                <span class="quiz-performance-date">
+                    <lucide-icon [img]="Calendar" [size]="14"></lucide-icon>
+                    {{ quiz.date }}
+                </span>
+                <span class="quiz-performance-attempts">
+                    <lucide-icon [img]="RotateCw" [size]="14"></lucide-icon>
+                    {{ quiz.attempts }} attempt{{ quiz.attempts > 1 ? 's' : '' }}
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quiz Review Modal -->
+<div class="quiz-review-modal" *ngIf="showQuizReview" (click)="closeQuizReview()">
+    <div class="quiz-review-content" (click)="$event.stopPropagation()">
+        <!-- Actual Header - Only show when data is loaded -->
+        <div class="quiz-review-header" *ngIf="!loadingQuizReview && quizReviewData">
+            <div class="quiz-review-title-section">
+                <h2>{{ quizReviewData.title }}</h2>
+                <div class="quiz-review-summary">
+                    <span class="summary-item" [class.passed]="quizReviewData.passed"
+                        [class.failed]="!quizReviewData.passed">
+                        <lucide-icon [img]="quizReviewData.passed ? CheckCircle : XCircle" [size]="16"></lucide-icon>
+                        {{ quizReviewData.passed ? 'Passed' : 'Failed' }}
+                    </span>
+                    <span class="summary-item">
+                        <lucide-icon [img]="BarChart3" [size]="16"></lucide-icon>
+                        Score: {{ quizReviewData.score }}%
+                    </span>
+                    <span class="summary-item">
+                        <lucide-icon [img]="CheckCircle" [size]="16"></lucide-icon>
+                        {{ quizReviewData.correctAnswers }}/{{ quizReviewData.totalQuestions }} Correct
+                    </span>
+                </div>
+            </div>
+            <button class="close-btn" (click)="closeQuizReview()">
+                <lucide-icon [img]="X" [size]="20"></lucide-icon>
+            </button>
+        </div>
+
+        <!-- Skeleton Header - Only show when loading -->
+        <div class="quiz-review-header skeleton-header" *ngIf="loadingQuizReview">
+            <div class="quiz-review-title-section">
+                <div class="skeleton skeleton-title"></div>
+                <div class="skeleton-summary-badges">
+                    <div class="skeleton skeleton-summary-badge"></div>
+                    <div class="skeleton skeleton-summary-badge"></div>
+                    <div class="skeleton skeleton-summary-badge"></div>
+                </div>
+            </div>
+            <button class="close-btn" (click)="closeQuizReview()">
+                <lucide-icon [img]="X" [size]="20"></lucide-icon>
+            </button>
+        </div>
+
+        <!-- Actual Body - Only show when data is loaded -->
+        <div class="quiz-review-body" *ngIf="!loadingQuizReview && quizReviewData">
+            <div class="review-question" *ngFor="let question of quizReviewData.questions; let i = index">
+                <div class="question-header">
+                    <span class="question-number">Question {{ i + 1 }}</span>
+                    <span class="question-result" [class.correct]="question.isCorrect"
+                        [class.incorrect]="!question.isCorrect">
+                        <lucide-icon [img]="question.isCorrect ? CheckCircle : XCircle" [size]="16"></lucide-icon>
+                        {{ question.isCorrect ? 'Correct' : 'Incorrect' }}
+                    </span>
+                </div>
+                <p class="question-text">{{ question.questionText }}</p>
+
+                <div class="options-list">
+                    <div *ngFor="let option of question.options" class="option-item"
+                        [class.selected-correct]="option.id === question.selectedOptionId && option.isCorrect"
+                        [class.selected-wrong]="option.id === question.selectedOptionId && !option.isCorrect"
+                        [class.show-correct]="option.isCorrect && option.id !== question.selectedOptionId">
+                        <div class="option-marker">
+                            <!-- User selected this option and it's correct -->
+                            <lucide-icon *ngIf="option.id === question.selectedOptionId && option.isCorrect"
+                                [img]="CheckCircle" [size]="20">
+                            </lucide-icon>
+                            <!-- User selected this option and it's wrong -->
+                            <lucide-icon *ngIf="option.id === question.selectedOptionId && !option.isCorrect"
+                                [img]="XCircle" [size]="20">
+                            </lucide-icon>
+                            <!-- This is the correct answer but user didn't select it -->
+                            <lucide-icon *ngIf="option.isCorrect && option.id !== question.selectedOptionId"
+                                [img]="CheckCircle" [size]="20">
+                            </lucide-icon>
+                        </div>
+                        <span class="option-text">{{ option.optionText }}</span>
+                        <span *ngIf="option.id === question.selectedOptionId && !option.isCorrect"
+                            class="your-answer-label">Your answer</span>
+                        <span *ngIf="option.isCorrect && option.id !== question.selectedOptionId"
+                            class="correct-answer-label">Correct answer</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Skeleton Body - Only show when loading -->
+        <div class="quiz-review-body quiz-review-loading" *ngIf="loadingQuizReview">
+            <div class="skeleton-question" *ngFor="let item of [1, 2, 3]">
+                <div class="skeleton-question-header">
+                    <div class="skeleton skeleton-badge"></div>
+                    <div class="skeleton skeleton-badge"></div>
+                </div>
+                <div class="skeleton skeleton-question-text"></div>
+                <div class="skeleton-options">
+                    <div class="skeleton skeleton-option" *ngFor="let opt of [1, 2, 3, 4]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

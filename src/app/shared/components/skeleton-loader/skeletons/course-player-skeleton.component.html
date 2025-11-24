@@ -1,0 +1,83 @@
+<div class="skeleton-course-player">
+    <!-- Top Bar -->
+    <div class="skeleton-top-bar">
+        <div class="skeleton-top-left">
+            <div class="skeleton-logo"></div>
+            <div class="skeleton-separator"></div>
+            <div class="skeleton-course-title"></div>
+        </div>
+        <div class="skeleton-top-right">
+            <div class="skeleton-progress-indicator"></div>
+            <div class="skeleton-icon-btn"></div>
+            <div class="skeleton-icon-btn"></div>
+            <div class="skeleton-icon-btn"></div>
+        </div>
+    </div>
+
+    <!-- Player Container -->
+    <div class="skeleton-player-container">
+        <!-- Main Content -->
+        <div class="skeleton-main-content">
+            <!-- Video Player Area -->
+            <div class="skeleton-video-area">
+                <div class="skeleton-video-box">
+                    <div class="skeleton-shimmer"></div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <div class="skeleton-tab-navigation">
+                <div class="skeleton-tab"></div>
+                <div class="skeleton-tab"></div>
+                <div class="skeleton-tab"></div>
+            </div>
+
+            <!-- Tab Content Area -->
+            <div class="skeleton-tab-content">
+                <div class="skeleton-content-title"></div>
+                <div class="skeleton-content-text"></div>
+                <div class="skeleton-content-text"></div>
+                <div class="skeleton-content-text short"></div>
+
+                <!-- Stats Grid -->
+                <div class="skeleton-stats-grid">
+                    <div class="skeleton-stat" *ngFor="let i of [1,2,3,4]"></div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="skeleton-footer"></div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="skeleton-sidebar">
+            <div class="skeleton-sidebar-header">
+                <div class="skeleton-sidebar-title"></div>
+                <div class="skeleton-close-btn"></div>
+            </div>
+
+            <!-- Modules -->
+            <div class="skeleton-module" *ngFor="let i of [1,2,3]">
+                <!-- Module Header -->
+                <div class="skeleton-module-header">
+                    <div class="skeleton-chevron"></div>
+                    <div class="skeleton-module-content">
+                        <div class="skeleton-module-title"></div>
+                        <div class="skeleton-module-meta"></div>
+                    </div>
+                </div>
+
+                <!-- Lessons (only for first module to show expanded state) -->
+                <div class="skeleton-lessons" *ngIf="i === 1">
+                    <div class="skeleton-lesson" *ngFor="let j of [1,2,3,4]">
+                        <div class="skeleton-lesson-icon"></div>
+                        <div class="skeleton-lesson-details">
+                            <div class="skeleton-lesson-name"></div>
+                            <div class="skeleton-lesson-meta"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

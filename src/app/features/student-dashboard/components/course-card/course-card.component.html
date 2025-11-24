@@ -1,0 +1,25 @@
+<div class="course-card">
+    <div class="course-thumbnail">
+        <img [src]="course.thumbnail" [alt]="course.title" />
+        <div class="course-progress-overlay">
+            <div class="progress-circle">
+                <span>{{ course.progress }}%</span>
+            </div>
+        </div>
+    </div>
+    <div class="course-content">
+        <h3 class="course-title">{{ course.title }}</h3>
+        <p class="course-instructor">{{ course.instructor }}</p>
+        <div class="course-meta">
+            <span class="meta-item">{{ course.completedLessons }}/{{ course.totalLessons }} lessons</span>
+            <span class="meta-item">{{ course.lastAccessed }}</span>
+        </div>
+        <div class="progress-bar-container">
+            <div class="progress-bar" [style.width.%]="course.progress"></div>
+        </div>
+        <button class="btn-continue" (click)="onContinue()">
+            <lucide-icon [img]="Play" [size]="16"></lucide-icon>
+            {{ course.progress === 100 ? 'Review Course' : 'Continue Learning' }}
+        </button>
+    </div>
+</div>

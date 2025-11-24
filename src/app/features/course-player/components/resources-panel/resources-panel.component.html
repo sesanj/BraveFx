@@ -1,0 +1,15 @@
+<div class="resources-panel" *ngIf="resources.length > 0">
+    <h3 class="resources-title">Lesson Resources</h3>
+    <div class="resources-grid">
+        <a *ngFor="let resource of resources" [href]="resource.url" target="_blank" class="resource-card">
+            <div class="resource-icon-wrapper">
+                <lucide-icon [img]="getResourceIcon(resource.type)" [size]="24"></lucide-icon>
+            </div>
+            <div class="resource-info">
+                <span class="resource-name">{{ resource.title }}</span>
+                <span class="resource-type">{{ resource.type.toUpperCase() }}</span>
+            </div>
+            <lucide-icon [img]="Download" [size]="18" class="download-icon"></lucide-icon>
+        </a>
+    </div>
+</div>

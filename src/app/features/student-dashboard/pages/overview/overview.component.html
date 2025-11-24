@@ -1,0 +1,59 @@
+<h1 class="page-title">Welcome back, {{ user.name.split(' ')[0] }}! 👋</h1>
+<p class="page-subtitle">Continue your learning journey</p>
+
+<!-- Stats Grid -->
+<!-- Skeleton Loader -->
+<app-dashboard-skeleton *ngIf="isLoadingStats" type="stats"></app-dashboard-skeleton>
+
+<!-- Actual Content -->
+<app-stats-grid *ngIf="!isLoadingStats" [stats]="stats"></app-stats-grid>
+
+<!-- Continue Learning -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Continue Learning</h2>
+  </div>
+
+  <!-- Skeleton Loader -->
+  <app-dashboard-skeleton *ngIf="isLoadingCourses" type="courses" [count]="3"></app-dashboard-skeleton>
+
+  <!-- Actual Content -->
+  <div class="courses-grid" *ngIf="!isLoadingCourses">
+    <app-course-card *ngFor="let course of recentCourses" [course]="course" (continue)="continueCourse($event)">
+    </app-course-card>
+  </div>
+</section>
+
+<!-- Recent Activity -->
+<section class="section">
+  <div class="section-header">
+    <h2 class="section-title">Recent Activity</h2>
+    <button *ngIf="!isLoadingActivities && allActivities.length > 5" class="view-all-btn-header"
+      (click)="openActivitiesModal()">
+      View All
+    </button>
+  </div>
+
+  <!-- Skeleton Loader -->
+  <app-dashboard-skeleton *ngIf="isLoadingActivities" type="activities"></app-dashboard-skeleton>
+
+  <!-- Actual Content -->
+  <app-activity-list *ngIf="!isLoadingActivities" [activities]="recentActivity" [showViewAll]="false">
+  </app-activity-list>
+</section>
+
+<!-- Activities Modal -->
+<div class="modal-overlay" *ngIf="showActivitiesModal" (click)="closeActivitiesModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2 class="modal-title">All Activities</h2>
+      <button class="modal-close" (click)="closeActivitiesModal()">
+        <lucide-icon [img]="X" [size]="24"></lucide-icon>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-activity-list [activities]="allActivities" [showViewAll]="false">
+      </app-activity-list>
+    </div>
+  </div>
+</div>

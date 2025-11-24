@@ -1,0 +1,421 @@
+@import "./skeleton-animations.css";
+
+.skeleton-course-player {
+  width: 100%;
+  min-height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Bar */
+.skeleton-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.625rem 1.5rem;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border-color);
+  min-height: 56px;
+  gap: 1rem;
+}
+
+.skeleton-top-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.skeleton-logo {
+  width: 120px;
+  height: 32px;
+  background: var(--bg-elevated);
+  border-radius: 0.375rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-separator {
+  width: 1px;
+  height: 32px;
+  background: var(--border-color);
+}
+
+.skeleton-course-title {
+  width: 200px;
+  height: 20px;
+  background: var(--bg-elevated);
+  border-radius: 0.375rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  animation-delay: 0.1s;
+}
+
+.skeleton-top-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.skeleton-progress-indicator {
+  width: 140px;
+  height: 36px;
+  background: var(--bg-elevated);
+  border-radius: 0.375rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+
+.skeleton-icon-btn {
+  width: 40px;
+  height: 40px;
+  background: var(--bg-elevated);
+  border-radius: 0.5rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-icon-btn:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.skeleton-icon-btn:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.skeleton-icon-btn:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+/* Player Container */
+.skeleton-player-container {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  flex: 1;
+  background: var(--bg-primary);
+  overflow: hidden;
+}
+
+/* Main Content */
+.skeleton-main-content {
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-primary);
+}
+
+.skeleton-video-area {
+  background: var(--bg-primary);
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skeleton-video-box {
+  width: 100%;
+  max-width: 1200px;
+  aspect-ratio: 16/9;
+  background: var(--bg-secondary);
+  border-radius: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Tab Navigation */
+.skeleton-tab-navigation {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem 0;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.skeleton-tab {
+  width: 120px;
+  height: 44px;
+  background: var(--bg-elevated);
+  border-radius: 0.5rem 0.5rem 0 0;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-tab:nth-child(1) {
+  animation-delay: 0s;
+}
+.skeleton-tab:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.skeleton-tab:nth-child(3) {
+  animation-delay: 0.2s;
+}
+
+/* Tab Content */
+.skeleton-tab-content {
+  padding: 2rem 1.5rem;
+  background: var(--bg-primary);
+}
+
+.skeleton-content-title {
+  width: 300px;
+  height: 28px;
+  background: var(--bg-elevated);
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-content-text {
+  width: 100%;
+  height: 16px;
+  background: var(--bg-elevated);
+  border-radius: 0.375rem;
+  margin-bottom: 0.75rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-content-text:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.skeleton-content-text:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.skeleton-content-text.short {
+  width: 60%;
+  animation-delay: 0.3s;
+}
+
+.skeleton-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.skeleton-stat {
+  height: 80px;
+  background: var(--bg-elevated);
+  border-radius: 0.75rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-stat:nth-child(1) {
+  animation-delay: 0s;
+}
+.skeleton-stat:nth-child(2) {
+  animation-delay: 0.1s;
+}
+.skeleton-stat:nth-child(3) {
+  animation-delay: 0.2s;
+}
+.skeleton-stat:nth-child(4) {
+  animation-delay: 0.3s;
+}
+
+/* Footer */
+.skeleton-footer {
+  width: 100%;
+  height: 200px;
+  background: var(--bg-elevated);
+  border-top: 1px solid var(--border-color);
+  margin-top: 2rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+/* Sidebar */
+.skeleton-sidebar {
+  background: var(--bg-secondary);
+  border-left: 1px solid var(--border-color);
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.skeleton-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.skeleton-sidebar-title {
+  width: 140px;
+  height: 24px;
+  background: var(--bg-primary);
+  border-radius: 0.375rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-close-btn {
+  width: 32px;
+  height: 32px;
+  background: var(--bg-primary);
+  border-radius: 0.375rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  animation-delay: 0.1s;
+}
+
+/* Modules */
+.skeleton-module {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.skeleton-module-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: var(--bg-primary);
+  border-radius: 0.5rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-chevron {
+  width: 20px;
+  height: 20px;
+  background: var(--bg-elevated);
+  border-radius: 0.25rem;
+  flex-shrink: 0;
+}
+
+.skeleton-module-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.skeleton-module-title {
+  width: 180px;
+  height: 18px;
+  background: var(--bg-elevated);
+  border-radius: 0.375rem;
+}
+
+.skeleton-module-meta {
+  width: 120px;
+  height: 14px;
+  background: var(--bg-elevated);
+  border-radius: 0.25rem;
+}
+
+/* Lessons */
+.skeleton-lessons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 1rem;
+}
+
+.skeleton-lesson {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem;
+  background: var(--bg-primary);
+  border-radius: 0.375rem;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.skeleton-lesson:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.skeleton-lesson:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.skeleton-lesson:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.skeleton-lesson:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.skeleton-lesson-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--bg-elevated);
+  border-radius: 0.375rem;
+  flex-shrink: 0;
+}
+
+.skeleton-lesson-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.skeleton-lesson-name {
+  width: 140px;
+  height: 14px;
+  background: var(--bg-elevated);
+  border-radius: 0.25rem;
+}
+
+.skeleton-lesson-meta {
+  width: 80px;
+  height: 12px;
+  background: var(--bg-elevated);
+  border-radius: 0.25rem;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .skeleton-player-container {
+    grid-template-columns: 1fr 360px;
+  }
+
+  .skeleton-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .skeleton-player-container {
+    grid-template-columns: 1fr;
+  }
+
+  .skeleton-sidebar {
+    display: none;
+  }
+
+  .skeleton-top-bar {
+    padding: 0.625rem 0.75rem;
+  }
+
+  .skeleton-course-title {
+    display: none;
+  }
+
+  .skeleton-separator {
+    display: none;
+  }
+
+  .skeleton-progress-indicator {
+    width: 100px;
+  }
+
+  .skeleton-video-area {
+    padding: 1rem;
+  }
+
+  .skeleton-tab-navigation {
+    padding: 0.5rem 0.75rem 0;
+  }
+
+  .skeleton-tab {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .skeleton-tab-content {
+    padding: 1rem 0.75rem;
+  }
+
+  .skeleton-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  .skeleton-stat {
+    height: 70px;
+  }
+}
