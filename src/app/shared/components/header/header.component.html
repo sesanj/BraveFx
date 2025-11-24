@@ -9,7 +9,7 @@
       <nav class="nav-desktop">
         <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
         <a routerLink="/about" routerLinkActive="active">About</a>
-        <a routerLink="/glossary" routerLinkActive="active">Glossary</a>
+        <a routerLink="/reviews" routerLinkActive="active">Reviews</a>
 
         <!-- Show nothing while auth is loading to prevent flash -->
         <ng-container *ngIf="!isAuthLoading">
@@ -90,9 +90,9 @@
         <lucide-icon [img]="Info" class="link-icon"></lucide-icon>
         <span>About</span>
       </a>
-      <a routerLink="/glossary" (click)="toggleMenu()" class="mobile-menu-link" routerLinkActive="active">
+      <a routerLink="/reviews" (click)="toggleMenu()" class="mobile-menu-link" routerLinkActive="active">
         <lucide-icon [img]="BookOpen" class="link-icon"></lucide-icon>
-        <span>Glossary</span>
+        <span>Reviews</span>
       </a>
     </div>
 

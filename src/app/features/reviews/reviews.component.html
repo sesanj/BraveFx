@@ -1,0 +1,136 @@
+<div class="reviews-page">
+  <div class="container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+      <span class="hero-label">Student Testimonials</span>
+      <h1 class="hero-title">All Student Reviews</h1>
+      <p class="hero-description">
+        Read what our {{ totalReviews | number }} students have to say about their learning experience
+      </p>
+    </div>
+
+    <!-- Stats Overview -->
+    <div class="stats-overview">
+      <div class="stat-card main-stat">
+        <div class="stat-content">
+          <div class="rating-display">
+            <span class="rating-number">{{ averageRating }}</span>
+            <div class="stars">
+              <lucide-icon *ngFor="let star of [1,2,3,4,5]" [img]="Star" [color]="'#fbbf24'" [size]="32"></lucide-icon>
+            </div>
+          </div>
+          <p class="stat-label">Average Rating from {{ totalReviews | number }} reviews</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <lucide-icon [img]="TrendingUp" [color]="'var(--color-primary)'" [size]="32" class="stat-icon"></lucide-icon>
+        <div class="stat-content">
+          <p class="stat-number">{{ totalReviews | number }}</p>
+          <p class="stat-label">Total Reviews</p>
+        </div>
+      </div>
+
+      <div class="stat-card">
+        <lucide-icon [img]="Users" [color]="'var(--color-primary)'" [size]="32" class="stat-icon"></lucide-icon>
+        <div class="stat-content">
+          <p class="stat-number">{{ displayedReviews.length }}</p>
+          <p class="stat-label">Showing Now</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="filters-section">
+      <div class="filter-group">
+        <label class="filter-label">
+          <lucide-icon [img]="Filter" class="filter-icon"></lucide-icon>
+          <span>Filters & Search</span>
+        </label>
+        <div class="filter-controls">
+          <!-- Search -->
+          <div class="search-wrapper">
+            <lucide-icon [img]="Search" class="search-icon"></lucide-icon>
+            <input type="text" class="search-input" placeholder="Search reviews..." [(ngModel)]="searchQuery"
+              (ngModelChange)="applyFilters()" />
+          </div>
+
+          <!-- Rating Filter -->
+          <select class="filter-select" [(ngModel)]="selectedRatingFilter" (ngModelChange)="applyFilters()">
+            <option value="all">All Ratings</option>
+            <option value="5">5 Stars</option>
+            <option value="4">4 Stars</option>
+            <option value="3">3 Stars</option>
+            <option value="2">2 Stars</option>
+            <option value="1">1 Star</option>
+          </select>
+
+          <!-- Sort Filter -->
+          <select class="filter-select" [(ngModel)]="sortBy" (ngModelChange)="applyFilters()">
+            <option value="recent">Most Recent</option>
+            <option value="highest">Highest Rated</option>
+            <option value="lowest">Lowest Rated</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="isLoading">
+      <div class="spinner"></div>
+      <p>Loading reviews...</p>
+    </div>
+
+    <!-- Reviews Grid -->
+    <div class="reviews-grid" *ngIf="!isLoading && displayedReviews.length > 0">
+      <div class="review-card" *ngFor="let review of displayedReviews">
+        <!-- Card Header -->
+        <div class="card-header">
+          <div class="rating-stars">
+            <span class="star-filled" *ngFor="let star of getStarArray(review.rating)">★</span>
+          </div>
+          <div class="verified-badge">
+            <lucide-icon [img]="CheckCircle2" class="verified-icon"></lucide-icon>
+            <span>Verified Purchase</span>
+          </div>
+        </div>
+
+        <!-- Review Text -->
+        <div class="card-body">
+          <p class="review-text">"{{ review.text }}"</p>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="card-footer">
+          <div class="reviewer-details">
+            <span class="reviewer-name">{{ review.name }}</span>
+            <div class="reviewer-location" *ngIf="review.location">
+              <lucide-icon [img]="MapPin" class="location-icon"></lucide-icon>
+              <span>{{ review.location }}</span>
+            </div>
+          </div>
+          <div class="review-date">{{ getTimeAgo(review.date) }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!isLoading && displayedReviews.length === 0">
+      <lucide-icon [img]="Search" [size]="64" class="empty-icon"></lucide-icon>
+      <h3>No reviews found</h3>
+      <p>Try adjusting your filters to see more reviews</p>
+      <button class="reset-btn" (click)="resetFilters()">Clear Filters</button>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="!isLoading && totalPages > 1">
+      <button class="page-btn" (click)="previousPage()" [disabled]="currentPage === 1">
+        <lucide-icon [img]="ChevronLeft" [size]="20"></lucide-icon>
+      </button>
+      <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+      <button class="page-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">
+        <lucide-icon [img]="ChevronRight" [size]="20"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</div>

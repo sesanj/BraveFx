@@ -10,10 +10,10 @@ export const routes: Routes = [
       import('./features/home/home.component').then((m) => m.HomeComponent),
   },
   {
-    path: 'glossary',
+    path: 'reviews',
     loadComponent: () =>
-      import('./features/glossary/glossary.component').then(
-        (m) => m.GlossaryComponent
+      import('./features/reviews/reviews.component').then(
+        (m) => m.ReviewsComponent
       ),
   },
   {
