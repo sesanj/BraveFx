@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { adminGuard } from './core/guards/admin.guard';
 import { guestGuard } from './core/guards/guest.guard';
+import { enrollmentGuard } from './core/guards/enrollment.guard';
 
 export const routes: Routes = [
   {
@@ -130,6 +131,6 @@ export const routes: Routes = [
       import('./features/course-player/course-player.component').then(
         (m) => m.CoursePlayerComponent
       ),
-    canActivate: [authGuard],
+    canActivate: [authGuard, enrollmentGuard], // Check both auth AND enrollment
   },
 ];

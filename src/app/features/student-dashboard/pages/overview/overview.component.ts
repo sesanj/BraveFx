@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import {
   StatsGridComponent,
   StatData,
@@ -18,8 +18,10 @@ import { CourseService } from '../../../../core/services/course.service';
 import { ProgressService } from '../../../../core/services/progress.service';
 import { QuizService } from '../../../../core/services/quiz.service';
 import { SupabaseService } from '../../../../core/services/supabase.service';
+import { EnrollmentService } from '../../../../core/services/enrollment.service';
 import { Course as CourseModel } from '../../../../core/models/course.model';
 import { forkJoin, from } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { LucideAngularModule, X } from 'lucide-angular';
 import { DashboardSkeletonComponent } from '../../../../shared/components/skeleton-loader/skeletons/dashboard-skeleton.component';
 
@@ -28,6 +30,7 @@ import { DashboardSkeletonComponent } from '../../../../shared/components/skelet
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule,
     StatsGridComponent,
     CourseCardComponent,
     ActivityListComponent,
@@ -69,7 +72,8 @@ export class OverviewComponent implements OnInit {
     private courseService: CourseService,
     private progressService: ProgressService,
     private quizService: QuizService,
-    private supabase: SupabaseService
+    private supabase: SupabaseService,
+    private enrollmentService: EnrollmentService
   ) {}
 
   ngOnInit(): void {
@@ -92,74 +96,124 @@ export class OverviewComponent implements OnInit {
 
   loadCourses(): void {
     this.isLoadingCourses = true;
-    this.courseService.getAllCourses().subscribe({
-      next: (courses: CourseModel[]) => {
-        // Show first 2 courses in overview
-        const displayCourses = courses.slice(0, 2);
 
-        // Load progress for each course
-        const progressRequests = displayCourses.map((course) =>
-          forkJoin({
-            progress: this.progressService.getCourseProgress(
-              course.id,
-              course.totalLessons
-            ),
-            completedIds: this.progressService.getCompletedLessonIds(course.id),
-          })
-        );
+    // Get current user from observable
+    this.authService.currentUser$.pipe(take(1)).subscribe((currentUser) => {
+      const userId = currentUser?.id;
 
-        forkJoin(progressRequests).subscribe({
-          next: (progressData) => {
-            this.recentCourses = displayCourses.map((course, index) => {
-              const { progress, completedIds } = progressData[index];
-              return {
-                id: course.id,
-                title: course.title,
-                instructor: course.instructor,
-                progress: progress,
-                thumbnail:
-                  course.thumbnail ||
-                  'https://picsum.photos/seed/forex/400/225',
-                lastAccessed: 'Recently',
-                nextLesson:
-                  completedIds.size > 0
-                    ? 'Continue Learning'
-                    : 'Start Learning',
-                totalLessons: course.totalLessons,
-                completedLessons: completedIds.size,
-              };
-            });
-
-            // Calculate stats
-            this.calculateStats(courses);
-            this.isLoadingCourses = false;
-          },
-          error: (error) => {
-            console.error('Error loading progress:', error);
-            // Still show courses even if progress fails
-            this.recentCourses = displayCourses.map((course) => ({
-              id: course.id,
-              title: course.title,
-              instructor: course.instructor,
-              progress: 0,
-              thumbnail:
-                course.thumbnail || 'https://picsum.photos/seed/forex/400/225',
-              lastAccessed: 'Recently',
-              nextLesson: 'Start Learning',
-              totalLessons: course.totalLessons,
-              completedLessons: 0,
-            }));
-            this.isLoadingCourses = false;
-          },
-        });
-
-        // Update stats
-        this.stats.coursesEnrolled = courses.length;
-      },
-      error: (error) => {
-        console.error('Error loading courses:', error);
+      if (!userId) {
+        console.error('No user ID found');
         this.isLoadingCourses = false;
-      },
+        return;
+      }
+
+      // Get user's enrolled course IDs first
+      this.enrollmentService
+        .getUserCourseIds(userId)
+        .then((enrolledCourseIds) => {
+          console.log('🔍 [Overview] Enrolled Course IDs:', enrolledCourseIds);
+          if (enrolledCourseIds.length === 0) {
+            // User not enrolled in any courses
+            console.log(
+              '⚠️ [Overview] User not enrolled in any courses - showing empty state'
+            );
+            this.recentCourses = [];
+            this.stats.coursesEnrolled = 0;
+            this.isLoadingCourses = false;
+            return;
+          }
+
+          // Load only enrolled courses
+          this.courseService.getAllCourses().subscribe({
+            next: (allCourses: CourseModel[]) => {
+              console.log(
+                '🔍 [Overview] All courses loaded:',
+                allCourses.length
+              );
+              // Filter to only show enrolled courses (course.id is now UUID string)
+              const enrolledCourses = allCourses.filter((course) => {
+                const isEnrolled = enrolledCourseIds.includes(course.id);
+                console.log(
+                  `🔍 [Overview] Course ${course.id} (${course.title}): isEnrolled=${isEnrolled}`
+                );
+                return isEnrolled;
+              });
+
+              console.log(
+                '✅ [Overview] Filtered enrolled courses:',
+                enrolledCourses.length
+              );
+              // Show first 2 enrolled courses in overview
+              const displayCourses = enrolledCourses.slice(0, 2);
+
+              // Load progress for each course
+              const progressRequests = displayCourses.map((course) =>
+                forkJoin({
+                  progress: this.progressService.getCourseProgress(
+                    course.id,
+                    course.totalLessons
+                  ),
+                  completedIds: this.progressService.getCompletedLessonIds(
+                    course.id
+                  ),
+                })
+              );
+
+              forkJoin(progressRequests).subscribe({
+                next: (progressData) => {
+                  this.recentCourses = displayCourses.map((course, index) => {
+                    const { progress, completedIds } = progressData[index];
+                    return {
+                      id: course.id,
+                      title: course.title,
+                      instructor: course.instructor,
+                      progress: progress,
+                      thumbnail:
+                        course.thumbnail ||
+                        'https://picsum.photos/seed/forex/400/225',
+                      lastAccessed: 'Recently',
+                      nextLesson:
+                        completedIds.size > 0
+                          ? 'Continue Learning'
+                          : 'Start Learning',
+                      totalLessons: course.totalLessons,
+                      completedLessons: completedIds.size,
+                    };
+                  });
+
+                  // Calculate stats with enrolled courses
+                  this.calculateStats(enrolledCourses);
+                  this.isLoadingCourses = false;
+                },
+                error: (error) => {
+                  console.error('Error loading progress:', error);
+                  // Still show courses even if progress fails
+                  this.recentCourses = displayCourses.map((course) => ({
+                    id: course.id,
+                    title: course.title,
+                    instructor: course.instructor,
+                    progress: 0,
+                    thumbnail:
+                      course.thumbnail ||
+                      'https://picsum.photos/seed/forex/400/225',
+                    lastAccessed: 'Recently',
+                    nextLesson: 'Start Learning',
+                    totalLessons: course.totalLessons,
+                    completedLessons: 0,
+                  }));
+                  this.isLoadingCourses = false;
+                },
+              });
+
+              // Update stats with enrolled courses count
+              this.stats.coursesEnrolled = enrolledCourses.length;
+            },
+            error: (error) => {
+              console.error('Error loading courses:', error);
+              this.isLoadingCourses = false;
+            },
+          });
+        });
     });
   }
 
