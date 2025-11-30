@@ -21,19 +21,18 @@ import { StripeCardElement } from '@stripe/stripe-js';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
-  @ViewChild('cardElement', { static: false }) cardElementRef!: ElementRef;
+  @ViewChild('cardNumber', { static: false }) cardNumberRef!: ElementRef;
+  @ViewChild('cardExpiry', { static: false }) cardExpiryRef!: ElementRef;
+  @ViewChild('cardCvc', { static: false }) cardCvcRef!: ElementRef;
 
   // Form data
   fullName: string = '';
   email: string = '';
-  confirmEmail: string = '';
   password: string = '';
-  confirmPassword: string = '';
   agreeToTerms: boolean = false;
 
   // UI State
   isProcessing: boolean = false;
-  currentStep: number = 1; // 1: Account Info, 2: Payment
   errorMessage: string = '';
   successMessage: string = '';
 
@@ -43,13 +42,17 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   nameError: string = '';
 
   // Stripe
-  private cardElement: StripeCardElement | null = null;
+  private cardNumberElement: any = null;
+  private cardExpiryElement: any = null;
+  private cardCvcElement: any = null;
   cardError: string = '';
 
   // Course info - loaded from database
   coursePrice: number = 0; // Will be fetched from database
   courseName: string = 'Loading...'; // Will be fetched from database
   courseId: string = ''; // Will be fetched from database
+  courseThumbnail: string = ''; // Will be fetched from database
+  courseDescription: string = ''; // Will be fetched from database
 
   constructor(
     private paymentService: PaymentService,
@@ -73,6 +76,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           this.courseId = courses[0].id;
           this.courseName = courses[0].title;
           this.coursePrice = courses[0].price;
+          this.courseThumbnail = courses[0].thumbnail;
+          this.courseDescription = courses[0].description;
           console.log(
             '📚 [Checkout] Loaded course:',
             this.courseId,
@@ -94,21 +99,33 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   async ngAfterViewInit() {
-    // Mount card element after view is ready
-    if (this.currentStep === 2) {
-      await this.mountCardElement();
-    }
+    // Mount card elements after view is ready
+    await this.mountCardElements();
   }
 
-  async mountCardElement() {
-    if (this.cardElementRef && !this.cardElement) {
-      this.cardElement = await this.paymentService.createCardElement();
-      if (this.cardElement) {
-        this.cardElement.mount(this.cardElementRef.nativeElement);
+  async mountCardElements() {
+    if (this.cardNumberRef && this.cardExpiryRef && this.cardCvcRef) {
+      const elements = await this.paymentService.createSeparateCardElements();
 
-        // Listen for card errors
-        this.cardElement.on('change', (event) => {
+      if (elements) {
+        this.cardNumberElement = elements.cardNumber;
+        this.cardExpiryElement = elements.cardExpiry;
+        this.cardCvcElement = elements.cardCvc;
+
+        // Mount elements
+        this.cardNumberElement.mount(this.cardNumberRef.nativeElement);
+        this.cardExpiryElement.mount(this.cardExpiryRef.nativeElement);
+        this.cardCvcElement.mount(this.cardCvcRef.nativeElement);
+
+        // Listen for errors on any element
+        this.cardNumberElement.on('change', (event: any) => {
           this.cardError = event.error ? event.error.message : '';
+        });
+        this.cardExpiryElement.on('change', (event: any) => {
+          if (event.error) this.cardError = event.error.message;
+        });
+        this.cardCvcElement.on('change', (event: any) => {
+          if (event.error) this.cardError = event.error.message;
         });
       }
     }
@@ -124,10 +141,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       this.emailError = 'Please enter a valid email address';
       return false;
     }
-    if (this.confirmEmail && this.email !== this.confirmEmail) {
-      this.emailError = 'Email addresses do not match';
-      return false;
-    }
     this.emailError = '';
     return true;
   }
@@ -139,10 +152,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     }
     if (this.password.length < 8) {
       this.passwordError = 'Password must be at least 8 characters';
-      return false;
-    }
-    if (this.password !== this.confirmPassword) {
-      this.passwordError = 'Passwords do not match';
       return false;
     }
     this.passwordError = '';
@@ -158,47 +167,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  async goToPayment() {
-    this.errorMessage = '';
-
-    // Validate all fields
-    const emailValid = this.validateEmail();
-    const passwordValid = this.validatePassword();
-    const nameValid = this.validateName();
-
-    if (!emailValid || !passwordValid || !nameValid) {
-      return;
-    }
-
-    if (!this.agreeToTerms) {
-      this.errorMessage = 'Please accept the terms and conditions';
-      return;
-    }
-
-    // Check if email already exists
-    const { data: existingUser } = await this.authService.checkEmailExists(
-      this.email
-    );
-    if (existingUser) {
-      this.emailError = 'An account with this email already exists';
-      return;
-    }
-
-    // Move to payment step
-    this.currentStep = 2;
-
-    // Mount card element after a short delay to ensure DOM is ready
-    setTimeout(async () => {
-      await this.mountCardElement();
-    }, 100);
-  }
-
-  goBackToAccountInfo() {
-    this.currentStep = 1;
-    this.errorMessage = '';
-    this.cardError = '';
-  }
-
   async processPayment() {
     if (this.isProcessing) return;
 
@@ -207,6 +175,32 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     this.cardError = '';
 
     try {
+      // Validate all fields before processing
+      const emailValid = this.validateEmail();
+      const passwordValid = this.validatePassword();
+      const nameValid = this.validateName();
+
+      if (!emailValid || !passwordValid || !nameValid) {
+        this.isProcessing = false;
+        return;
+      }
+
+      if (!this.agreeToTerms) {
+        this.errorMessage = 'Please accept the terms and conditions';
+        this.isProcessing = false;
+        return;
+      }
+
+      // Check if email already exists
+      const { data: existingUser } = await this.authService.checkEmailExists(
+        this.email
+      );
+      if (existingUser) {
+        this.emailError = 'An account with this email already exists';
+        this.isProcessing = false;
+        return;
+      }
+
       // Verify we have a course loaded with a valid price
       if (!this.courseId || !this.coursePrice) {
         throw new Error('Course not loaded. Please refresh the page.');

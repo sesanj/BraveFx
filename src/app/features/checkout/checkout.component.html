@@ -1,237 +1,238 @@
 <div class="checkout-wrapper">
-    <!-- Success Message Overlay -->
-    <div class="success-overlay" *ngIf="successMessage">
-        <div class="success-card">
-            <div class="success-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
-                </svg>
+  <!-- Processing Overlay -->
+  <div class="processing-overlay" *ngIf="isProcessing">
+    <div class="processing-card">
+      <div class="processing-spinner">
+        <svg class="spinner-ring" viewBox="0 0 50 50">
+          <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
+        </svg>
+      </div>
+      <h3>Processing Payment</h3>
+      <p>Please wait while we securely process your payment...</p>
+    </div>
+  </div>
+
+  <!-- Success Message Overlay -->
+  <div class="success-overlay" *ngIf="successMessage">
+    <div class="success-card">
+      <div class="success-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </div>
+      <h2>{{ successMessage }}</h2>
+    </div>
+  </div>
+
+  <div class="checkout-container">
+    <!-- Left Side: Checkout Form -->
+    <div class="checkout-form-section">
+      <!-- Header -->
+      <div class="checkout-header">
+        <h1>Complete Your Purchase</h1>
+        <p class="subtitle">Join thousands of successful traders</p>
+      </div>
+
+      <!-- Error Message -->
+      <div class="error-alert" *ngIf="errorMessage">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span>{{ errorMessage }}</span>
+      </div>
+
+      <!-- Single Flow Form -->
+      <form class="checkout-form">
+        <!-- Account Information Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <div class="section-number">1</div>
+            <h2>Create Account</h2>
+          </div>
+
+          <div class="form-grid">
+            <!-- Full Name -->
+            <div class="form-group full-width">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" [(ngModel)]="fullName" name="fullName" placeholder="John Doe"
+                (blur)="validateName()" [class.error]="nameError" />
+              <span class="error-message" *ngIf="nameError">{{ nameError }}</span>
             </div>
-            <h2>{{ successMessage }}</h2>
+
+            <!-- Email -->
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="john@example.com"
+                (blur)="validateEmail()" [class.error]="emailError" />
+              <span class="error-message" *ngIf="emailError">{{ emailError }}</span>
+            </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <label for="password">Password (min. 8 characters)</label>
+              <input type="password" id="password" [(ngModel)]="password" name="password"
+                placeholder="Create a secure password" (blur)="validatePassword()" [class.error]="passwordError" />
+              <span class="error-message" *ngIf="passwordError">{{ passwordError }}</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Payment Information Section -->
+        <div class="form-section">
+          <div class="section-header">
+            <div class="section-number">2</div>
+            <h2>Payment Information</h2>
+          </div>
+
+          <!-- Stripe Card Number -->
+          <div class="form-group">
+            <label>Card Number</label>
+            <div class="card-element-wrapper">
+              <div #cardNumber class="card-element"></div>
+            </div>
+          </div>
+
+          <!-- Expiry and CVV -->
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Expiry Date</label>
+              <div class="card-element-wrapper">
+                <div #cardExpiry class="card-element"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>CVV</label>
+              <div class="card-element-wrapper">
+                <div #cardCvc class="card-element"></div>
+              </div>
+            </div>
+          </div>
+
+          <span class="error-message" *ngIf="cardError">{{ cardError }}</span>
+
+          <div class="payment-methods">
+            <!-- Visa -->
+            <svg viewBox="0 0 48 32" class="card-icon">
+              <rect width="48" height="32" rx="4" fill="#1434CB" />
+              <text x="24" y="21" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white"
+                text-anchor="middle">VISA</text>
+            </svg>
+            <!-- Mastercard -->
+            <svg viewBox="0 0 48 32" class="card-icon">
+              <rect width="48" height="32" rx="4" fill="#EB001B" />
+              <circle cx="18" cy="16" r="9" fill="#FF5F00" opacity="0.8" />
+              <circle cx="30" cy="16" r="9" fill="#F79E1B" opacity="0.8" />
+            </svg>
+            <!-- American Express -->
+            <svg viewBox="0 0 48 32" class="card-icon">
+              <rect width="48" height="32" rx="4" fill="#006FCF" />
+              <text x="24" y="21" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="white"
+                text-anchor="middle">AMEX</text>
+            </svg>
+            <!-- Discover -->
+            <svg viewBox="0 0 48 32" class="card-icon">
+              <rect width="48" height="32" rx="4" fill="#FF6000" />
+              <circle cx="40" cy="16" r="8" fill="#FFAA00" opacity="0.5" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Terms & Conditions -->
+        <div class="checkbox-group">
+          <input type="checkbox" id="terms" [(ngModel)]="agreeToTerms" name="terms" />
+          <label for="terms">
+            I agree to the <a href="/terms" target="_blank">Terms & Conditions</a> and
+            <a href="/privacy" target="_blank">Privacy Policy</a>
+          </label>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" class="btn-primary" (click)="processPayment()" [disabled]="isProcessing">
+          <div class="button-content">
+            <div class="button-main">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path fill-rule="evenodd"
+                  d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z"
+                  clip-rule="evenodd" />
+              </svg>
+              <span>Complete Purchase - ${{ coursePrice }}</span>
+            </div>
+            <span class="guarantee-text">30-day money-back guarantee</span>
+          </div>
+        </button>
+
+        <!-- Security Notice -->
+        <div class="security-notice">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          <span>Your payment information is secured by Stripe.</span>
+        </div>
+
+        <!-- Login Link -->
+        <p class="login-link">
+          Already have an account? <a routerLink="/login">Sign in here</a>
+        </p>
+      </form>
     </div>
 
-    <div class="checkout-container">
-        <!-- Left Side: Course Info -->
-        <div class="course-info-section">
-            <div class="course-card">
-                <div class="course-image">
-                    <img src="/assets/course-thumbnail.jpg" alt="{{ courseName }}" />
-                    <div class="price-badge">${{ coursePrice }}</div>
-                </div>
-                <div class="course-details">
-                    <h2>{{ courseName }}</h2>
-                    <p class="course-description">
-                        Master the art of Forex trading with our comprehensive course. Learn from industry experts and
-                        start your journey to financial freedom.
-                    </p>
+    <!-- Right Side: Order Summary -->
+    <div class="order-summary-section">
+      <div class="order-card">
+        <h3>Order Summary</h3>
 
-                    <div class="features-list">
-                        <div class="feature-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Lifetime Access</span>
-                        </div>
-                        <div class="feature-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Certificate of Completion</span>
-                        </div>
-                        <div class="feature-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>24/7 Support</span>
-                        </div>
-                        <div class="feature-item">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <polyline points="20 6 9 17 4 12"></polyline>
-                            </svg>
-                            <span>Access to Trading Tools</span>
-                        </div>
-                    </div>
-
-                    <div class="security-badges">
-                        <div class="badge">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                            </svg>
-                            <span>Secure Payment</span>
-                        </div>
-                        <div class="badge">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                stroke="currentColor" stroke-width="2">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
-                            </svg>
-                            <span>Money-Back Guarantee</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!-- Simple Course Info with Thumbnail -->
+        <div class="simple-course-info">
+          <img [src]="courseThumbnail" [alt]="courseName" class="course-thumb" />
+          <div class="course-details">
+            <h4>{{ courseName }}</h4>
+            <p>{{ courseDescription }}</p>
+          </div>
         </div>
 
-        <!-- Right Side: Checkout Form -->
-        <div class="checkout-form-section">
-            <!-- Progress Steps -->
-            <div class="progress-steps">
-                <div class="step" [class.active]="currentStep >= 1" [class.completed]="currentStep > 1">
-                    <div class="step-number">1</div>
-                    <div class="step-label">Account Info</div>
-                </div>
-                <div class="step-line" [class.active]="currentStep > 1"></div>
-                <div class="step" [class.active]="currentStep >= 2">
-                    <div class="step-number">2</div>
-                    <div class="step-label">Payment</div>
-                </div>
-            </div>
+        <div class="divider"></div>
 
-            <!-- Error Message -->
-            <div class="error-alert" *ngIf="errorMessage">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="8" x2="12" y2="12"></line>
-                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
-                </svg>
-                <span>{{ errorMessage }}</span>
-            </div>
-
-            <!-- Step 1: Account Information -->
-            <div class="form-container" *ngIf="currentStep === 1">
-                <h1>Create Your Account</h1>
-                <p class="subtitle">Start your Forex trading journey today</p>
-
-                <form class="checkout-form">
-                    <!-- Full Name -->
-                    <div class="form-group">
-                        <label for="fullName">Full Name</label>
-                        <input type="text" id="fullName" [(ngModel)]="fullName" name="fullName" placeholder="John Doe"
-                            (blur)="validateName()" [class.error]="nameError" />
-                        <span class="error-message" *ngIf="nameError">{{ nameError }}</span>
-                    </div>
-
-                    <!-- Email -->
-                    <div class="form-group">
-                        <label for="email">Email Address</label>
-                        <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="john@example.com"
-                            (blur)="validateEmail()" [class.error]="emailError" />
-                        <span class="error-message" *ngIf="emailError">{{ emailError }}</span>
-                    </div>
-
-                    <!-- Confirm Email -->
-                    <div class="form-group">
-                        <label for="confirmEmail">Confirm Email Address</label>
-                        <input type="email" id="confirmEmail" [(ngModel)]="confirmEmail" name="confirmEmail"
-                            placeholder="john@example.com" (blur)="validateEmail()" [class.error]="emailError" />
-                        <span class="hint">Please re-type your email to ensure accuracy</span>
-                    </div>
-
-                    <!-- Password -->
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" [(ngModel)]="password" name="password"
-                            placeholder="Min. 8 characters" (blur)="validatePassword()" [class.error]="passwordError" />
-                    </div>
-
-                    <!-- Confirm Password -->
-                    <div class="form-group">
-                        <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" [(ngModel)]="confirmPassword" name="confirmPassword"
-                            placeholder="Re-enter your password" (blur)="validatePassword()"
-                            [class.error]="passwordError" />
-                        <span class="error-message" *ngIf="passwordError">{{ passwordError }}</span>
-                    </div>
-
-                    <!-- Terms & Conditions -->
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="terms" [(ngModel)]="agreeToTerms" name="terms" />
-                        <label for="terms">
-                            I agree to the <a href="/terms" target="_blank">Terms & Conditions</a> and <a
-                                href="/privacy" target="_blank">Privacy Policy</a>
-                        </label>
-                    </div>
-
-                    <button type="button" class="btn-primary" (click)="goToPayment()" [disabled]="isProcessing">
-                        Continue to Payment
-                    </button>
-
-                    <p class="login-link">
-                        Already have an account? <a routerLink="/login">Login here</a>
-                    </p>
-                </form>
-            </div>
-
-            <!-- Step 2: Payment Information -->
-            <div class="form-container" *ngIf="currentStep === 2">
-                <button class="back-button" (click)="goBackToAccountInfo()">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2">
-                        <line x1="19" y1="12" x2="5" y2="12"></line>
-                        <polyline points="12 19 5 12 12 5"></polyline>
-                    </svg>
-                    Back
-                </button>
-
-                <h1>Payment Details</h1>
-                <p class="subtitle">Complete your enrollment</p>
-
-                <div class="order-summary">
-                    <div class="summary-row">
-                        <span>{{ courseName }}</span>
-                        <span class="price">${{ coursePrice }}</span>
-                    </div>
-                    <div class="summary-divider"></div>
-                    <div class="summary-row total">
-                        <span>Total</span>
-                        <span class="price">${{ coursePrice }}</span>
-                    </div>
-                </div>
-
-                <form class="checkout-form">
-                    <!-- Account Info Summary -->
-                    <div class="account-summary">
-                        <h3>Account Details</h3>
-                        <p><strong>Name:</strong> {{ fullName }}</p>
-                        <p><strong>Email:</strong> {{ email }}</p>
-                    </div>
-
-                    <!-- Stripe Card Element -->
-                    <div class="form-group">
-                        <label>Card Information</label>
-                        <div class="card-element-container">
-                            <div #cardElement class="card-element"></div>
-                        </div>
-                        <span class="error-message" *ngIf="cardError">{{ cardError }}</span>
-                    </div>
-
-                    <div class="secure-notice">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-                        </svg>
-                        <span>Your payment is secured by Stripe</span>
-                    </div>
-
-                    <button type="button" class="btn-primary" (click)="processPayment()" [disabled]="isProcessing">
-                        <span *ngIf="!isProcessing">Pay ${{ coursePrice }}</span>
-                        <span *ngIf="isProcessing" class="processing">
-                            <span class="spinner"></span>
-                            Processing...
-                        </span>
-                    </button>
-                </form>
-            </div>
+        <!-- Price Breakdown -->
+        <div class="price-section">
+          <div class="price-row">
+            <span>Course Price</span>
+            <span class="amount">${{ coursePrice }}</span>
+          </div>
+          <div class="price-row total">
+            <span>Total Due Today</span>
+            <span class="total-amount">${{ coursePrice }}</span>
+          </div>
         </div>
+
+        <!-- Trust Badges -->
+        <div class="trust-badges">
+          <div class="badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+            </svg>
+            <span>SSL Secure</span>
+          </div>
+          <div class="badge">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path
+                d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+              </path>
+              <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+              <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+              <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            <span>Verified by Stripe</span>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

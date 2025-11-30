@@ -23,6 +23,7 @@ export class PaymentService {
   private stripe: Stripe | null = null;
   private elements: StripeElements | null = null;
   private cardElement: StripeCardElement | null = null;
+  private cardNumberElement: any = null;
 
   constructor(private supabase: SupabaseService) {
     this.stripePromise = loadStripe(environment.stripe.publishableKey);
@@ -32,7 +33,11 @@ export class PaymentService {
     this.stripe = await this.stripePromise;
   }
 
-  async createCardElement(): Promise<StripeCardElement | null> {
+  async createSeparateCardElements(): Promise<{
+    cardNumber: any;
+    cardExpiry: any;
+    cardCvc: any;
+  } | null> {
     if (!this.stripe) {
       await this.initializeStripe();
     }
@@ -42,25 +47,45 @@ export class PaymentService {
       return null;
     }
 
-    this.elements = this.stripe.elements();
-    this.cardElement = this.elements.create('card', {
-      style: {
-        base: {
-          fontSize: '16px',
-          color: '#424770',
-          '::placeholder': {
-            color: '#aab7c4',
-          },
-          backgroundColor: '#ffffff',
+    // Detect current theme
+    const isDarkMode =
+      document.documentElement.getAttribute('data-theme') === 'dark';
+
+    const elementStyles = {
+      base: {
+        fontSize: '16px',
+        color: isDarkMode ? '#f1f5f9' : '#0f172a',
+        '::placeholder': {
+          color: isDarkMode ? '#64748b' : '#94a3b8',
         },
-        invalid: {
-          color: '#9e2146',
-        },
+        fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+        fontSmoothing: 'antialiased',
       },
-      hidePostalCode: true,
+      invalid: {
+        color: '#ef4444',
+        iconColor: '#ef4444',
+      },
+    };
+
+    this.elements = this.stripe.elements();
+
+    const cardNumber = this.elements.create('cardNumber', {
+      style: elementStyles,
+      showIcon: true, // Enable card brand icon display
     });
 
-    return this.cardElement;
+    const cardExpiry = this.elements.create('cardExpiry', {
+      style: elementStyles,
+    });
+
+    const cardCvc = this.elements.create('cardCvc', {
+      style: elementStyles,
+    });
+
+    // Store cardNumber for payment confirmation
+    this.cardNumberElement = cardNumber;
+
+    return { cardNumber, cardExpiry, cardCvc };
   }
 
   async createPaymentIntent(
@@ -88,7 +113,7 @@ export class PaymentService {
     email: string,
     name: string
   ): Promise<{ success: boolean; error?: string; paymentIntentId?: string }> {
-    if (!this.stripe || !this.cardElement) {
+    if (!this.stripe || !this.elements) {
       return { success: false, error: 'Stripe not initialized' };
     }
 
@@ -97,7 +122,7 @@ export class PaymentService {
         clientSecret,
         {
           payment_method: {
-            card: this.cardElement,
+            card: this.cardNumberElement,
             billing_details: {
               name: name,
               email: email,
@@ -151,24 +176,12 @@ export class PaymentService {
       const userId = authData.user.id;
 
       // Wait a moment for auth session to be established
-      await new Promise((resolve) => setTimeout(resolve, 500));
+      console.log('✅ [PaymentService] User created successfully:', userId);
 
-      // 2. Create profile (profile should auto-create via trigger, but insert manually as backup)
-      const { error: profileError } = await this.supabase.client
-        .from('profiles')
-        .insert({
-          id: userId,
-          email: email,
-          full_name: fullName,
-          is_admin: false, // Changed from 'role: student' to match schema
-        });
+      // Profile is automatically created via database trigger
+      // No manual insert needed
 
-      if (profileError) {
-        console.error('Profile creation error:', profileError);
-        // Don't throw - profile might already exist from trigger
-      }
-
-      // 3. Record payment with actual amount from course
+      // 2. Record payment with actual amount from course
       const { data: paymentData, error: paymentError } =
         await this.supabase.client
           .from('payments')
@@ -192,7 +205,7 @@ export class PaymentService {
         paymentData.id
       );
 
-      // 4. Enroll in course with the actual course ID from database
+      // 3. Enroll in course with the actual course ID from database
       console.log(
         '📚 [PaymentService] Creating enrollment for user:',
         userId,
