@@ -133,4 +133,32 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard, enrollmentGuard], // Check both auth AND enrollment
   },
+  {
+    path: 'terms',
+    loadComponent: () =>
+      import('./features/legal/terms/terms.component').then(
+        (m) => m.TermsComponent
+      ),
+  },
+  {
+    path: 'privacy-policy',
+    loadComponent: () =>
+      import('./features/legal/privacy-policy/privacy-policy.component').then(
+        (m) => m.PrivacyPolicyComponent
+      ),
+  },
+  {
+    path: 'refund-policy',
+    loadComponent: () =>
+      import('./features/legal/refund-policy/refund-policy.component').then(
+        (m) => m.RefundPolicyComponent
+      ),
+  },
+  {
+    path: 'risk-disclosure',
+    loadComponent: () =>
+      import('./features/legal/risk-disclosure/risk-disclosure.component').then(
+        (m) => m.RiskDisclosureComponent
+      ),
+  },
 ];

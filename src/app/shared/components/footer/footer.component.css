@@ -85,7 +85,15 @@
   transition: all 0.3s ease;
 }
 
-.social-link:hover lucide-icon {
+.social-link svg.social-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.social-link:hover lucide-icon,
+.social-link:hover svg.social-icon {
   color: white;
 }
 

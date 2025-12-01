@@ -53,11 +53,11 @@
             <h2>Create Account</h2>
           </div>
 
-          <div class="form-grid">
+          <div class="form-grid user-info">
             <!-- Full Name -->
             <div class="form-group full-width">
               <label for="fullName">Full Name</label>
-              <input type="text" id="fullName" [(ngModel)]="fullName" name="fullName" placeholder="John Doe"
+              <input type="text" id="fullName" [(ngModel)]="fullName" name="fullName" placeholder="Enter your name"
                 (blur)="validateName()" [class.error]="nameError" />
               <span class="error-message" *ngIf="nameError">{{ nameError }}</span>
             </div>
@@ -65,16 +65,16 @@
             <!-- Email -->
             <div class="form-group">
               <label for="email">Email Address</label>
-              <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="john@example.com"
+              <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Enter your email"
                 (blur)="validateEmail()" [class.error]="emailError" />
               <span class="error-message" *ngIf="emailError">{{ emailError }}</span>
             </div>
 
             <!-- Password -->
             <div class="form-group">
-              <label for="password">Password (min. 8 characters)</label>
-              <input type="password" id="password" [(ngModel)]="password" name="password"
-                placeholder="Create a secure password" (blur)="validatePassword()" [class.error]="passwordError" />
+              <label for="password">Password (min. 8 char)</label>
+              <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter a password"
+                (blur)="validatePassword()" [class.error]="passwordError" />
               <span class="error-message" *ngIf="passwordError">{{ passwordError }}</span>
             </div>
           </div>
@@ -203,7 +203,7 @@
             <span class="amount">${{ coursePrice }}</span>
           </div>
           <div class="price-row total">
-            <span>Total Due Today</span>
+            <span>Total</span>
             <span class="total-amount">${{ coursePrice }}</span>
           </div>
         </div>

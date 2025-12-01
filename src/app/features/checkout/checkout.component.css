@@ -249,13 +249,14 @@
 }
 
 .form-group input {
-  padding: 0.75rem 1rem;
+  padding: 1rem 1rem;
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   font-size: 0.9375rem;
   transition: all 0.2s ease;
   background: var(--bg-primary);
   color: var(--text-primary);
+  width: 100%;
 }
 
 .form-group input:focus {
@@ -685,11 +686,11 @@
   }
 
   .checkout-header {
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
   }
 
   .checkout-header h1 {
-    font-size: 1.25rem;
+    font-size: 1.4rem;
   }
 
   .checkout-header .subtitle {
@@ -735,5 +736,9 @@
 
   .simple-course-info p {
     font-size: 0.8125rem;
+  }
+
+  .user-info {
+    grid-template-columns: 1fr;
   }
 }
