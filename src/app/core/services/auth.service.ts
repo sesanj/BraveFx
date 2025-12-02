@@ -384,4 +384,46 @@ export class AuthService {
       throw error;
     }
   }
+
+  async checkEmailExists(
+    email: string
+  ): Promise<{ data: boolean; error?: string }> {
+    try {
+      // Try to check if email exists in profiles table
+      const { data, error } = await this.supabaseService.client
+        .from('profiles')
+        .select('email')
+        .eq('email', email)
+        .maybeSingle();
+
+      if (error) {
+        console.error('Error checking email:', error);
+        return { data: false, error: error.message };
+      }
+
+      return { data: !!data };
+    } catch (error: any) {
+      console.error('Failed to check email:', error);
+      return { data: false, error: error.message };
+    }
+  }
+
+  async signIn(email: string, password: string): Promise<User> {
+    try {
+      const { data, error } =
+        await this.supabaseService.client.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+      if (error) throw error;
+      if (!data.user) throw new Error('Login failed');
+
+      await this.loadUserProfile(data.user.id);
+      return this.currentUserSubject.value!;
+    } catch (error: any) {
+      console.error('Sign in error:', error);
+      throw error;
+    }
+  }
 }

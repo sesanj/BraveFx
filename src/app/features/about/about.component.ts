@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
@@ -17,6 +17,7 @@ import {
   ArrowRight,
   CheckCircle2,
 } from 'lucide-angular';
+import { SeoService } from '../../core/services/seo.service';
 
 @Component({
   selector: 'app-about',
@@ -25,7 +26,20 @@ import {
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css'],
 })
-export class AboutComponent {
+export class AboutComponent implements OnInit {
+  constructor(private seoService: SeoService) {}
+
+  ngOnInit() {
+    this.seoService.updateMetaTags({
+      title: 'About BraveFx - Expert Forex Trading Education',
+      description:
+        'Meet the team behind BraveFx. 6,247+ students, 108K+ social following, and a mission to provide practical forex trading education that works.',
+      keywords:
+        'about bravefx, forex educators, trading mentors, forex academy',
+      url: 'https://bravefx.io/about',
+      image: 'https://bravefx.io/assets/og-image.jpg',
+    });
+  }
   // Icons
   Target = Target;
   Users = Users;
