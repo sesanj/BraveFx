@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { ReviewService } from '../../core/services/review.service';
+import { SeoService } from '../../core/services/seo.service';
 import { forkJoin } from 'rxjs';
 import {
   LucideAngularModule,
@@ -62,9 +63,22 @@ export class ReviewsComponent implements OnInit {
   // Expose Math for template
   Math = Math;
 
-  constructor(private http: HttpClient, private reviewService: ReviewService) {}
+  constructor(
+    private http: HttpClient,
+    private reviewService: ReviewService,
+    private seoService: SeoService
+  ) {}
 
   ngOnInit(): void {
+    this.seoService.updateMetaTags({
+      title: 'Student Reviews - BraveFx Academy Forex Trading Course',
+      description:
+        'Read 1,700+ reviews from BraveFx students. 4.6★ average rating. See real success stories from traders who transformed their skills.',
+      keywords:
+        'bravefx reviews, forex course reviews, trading course testimonials, student feedback, forex trading reviews',
+      url: 'https://bravefx.io/reviews',
+      image: 'https://bravefx.io/assets/og-image.jpg',
+    });
     this.loadReviews();
   }
 

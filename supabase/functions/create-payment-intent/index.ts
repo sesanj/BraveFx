@@ -6,13 +6,28 @@ const stripe = new Stripe(Deno.env.get('STRIPE_SECRET_KEY') || '', {
   httpClient: Stripe.createFetchHttpClient(),
 });
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers':
-    'authorization, x-client-info, apikey, content-type',
-};
+// Allowed origins for CORS
+const allowedOrigins = [
+  'http://localhost:4200',
+  'http://localhost:4201',
+  'https://bravefx.io',
+  'https://www.bravefx.io',
+];
 
 serve(async (req) => {
+  // Get the origin from the request
+  const origin = req.headers.get('origin') || '';
+
+  // Check if origin is allowed
+  const isAllowed = allowedOrigins.includes(origin);
+
+  // Set CORS headers with the requesting origin if allowed, otherwise deny
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': isAllowed ? origin : 'https://bravefx.io',
+    'Access-Control-Allow-Headers':
+      'authorization, x-client-info, apikey, content-type',
+  };
+
   // Handle CORS preflight requests
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });

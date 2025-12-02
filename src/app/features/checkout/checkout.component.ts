@@ -11,6 +11,7 @@ import { Router, RouterModule } from '@angular/router';
 import { PaymentService } from '../../core/services/payment.service';
 import { AuthService } from '../../core/services/auth.service';
 import { CourseService } from '../../core/services/course.service';
+import { SeoService } from '../../core/services/seo.service';
 import { StripeCardElement } from '@stripe/stripe-js';
 
 @Component({
@@ -58,10 +59,21 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     private paymentService: PaymentService,
     private authService: AuthService,
     private courseService: CourseService,
-    private router: Router
+    private router: Router,
+    private seoService: SeoService
   ) {}
 
   async ngOnInit() {
+    this.seoService.updateMetaTags({
+      title: 'Enroll Now - BraveFx Forex Trading Course',
+      description:
+        'Join 6,000+ students mastering forex trading. $49.99 one-time payment for lifetime access. 30-day money-back guarantee.',
+      keywords:
+        'enroll forex course, buy forex course, forex training, trading education',
+      url: 'https://bravefx.io/checkout',
+      image: 'https://bravefx.io/assets/og-image.jpg',
+    });
+
     // Check if user is already logged in
     const user = await this.authService.getCurrentUser();
     if (user) {
