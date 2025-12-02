@@ -1,16 +1,24 @@
 <!-- Skeleton Loader -->
 <div *ngIf="isLoading">
-    <h1 class="page-title">My Courses</h1>
-    <p class="page-subtitle">Loading courses...</p>
-    <app-dashboard-skeleton type="courses" [count]="3"></app-dashboard-skeleton>
+  <h1 class="page-title">My Courses</h1>
+  <p class="page-subtitle">Loading courses...</p>
+  <app-dashboard-skeleton type="courses" [count]="3"></app-dashboard-skeleton>
 </div>
 
 <!-- Actual Content -->
 <div *ngIf="!isLoading">
-    <h1 class="page-title">My Courses</h1>
-    <p class="page-subtitle">{{ enrolledCourses.length }} courses enrolled</p>
-    <div class="courses-grid full">
-        <app-course-card *ngFor="let course of enrolledCourses" [course]="course" (continue)="continueCourse($event)">
-        </app-course-card>
-    </div>
+  <h1 class="page-title">My Courses</h1>
+  <p class="page-subtitle">{{ enrolledCourses.length }} courses enrolled</p>
+
+  <!-- No Enrollments Message -->
+  <div *ngIf="enrolledCourses.length === 0" class="empty-state">
+    <p>You haven't enrolled in any courses yet.</p>
+    <a routerLink="/checkout" class="enroll-btn">Enroll in BraveFX Course</a>
+  </div>
+
+  <!-- Courses Grid -->
+  <div class="courses-grid full" *ngIf="enrolledCourses.length > 0">
+    <app-course-card *ngFor="let course of enrolledCourses" [course]="course" (continue)="continueCourse($event)">
+    </app-course-card>
+  </div>
 </div>

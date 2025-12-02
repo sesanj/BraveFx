@@ -17,8 +17,14 @@
   <!-- Skeleton Loader -->
   <app-dashboard-skeleton *ngIf="isLoadingCourses" type="courses" [count]="3"></app-dashboard-skeleton>
 
+  <!-- No Enrollments Message -->
+  <div *ngIf="!isLoadingCourses && recentCourses.length === 0" class="empty-state">
+    <p>You haven't enrolled in any courses yet.</p>
+    <a routerLink="/checkout" class="enroll-btn">Enroll in BraveFX Course</a>
+  </div>
+
   <!-- Actual Content -->
-  <div class="courses-grid" *ngIf="!isLoadingCourses">
+  <div class="courses-grid" *ngIf="!isLoadingCourses && recentCourses.length > 0">
     <app-course-card *ngFor="let course of recentCourses" [course]="course" (continue)="continueCourse($event)">
     </app-course-card>
   </div>

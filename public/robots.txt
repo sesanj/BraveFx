@@ -1,0 +1,10 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and private routes
+Disallow: /admin-dashboard
+Disallow: /student-dashboard
+
+# Sitemap location
+Sitemap: https://bravefx.io/sitemap.xml

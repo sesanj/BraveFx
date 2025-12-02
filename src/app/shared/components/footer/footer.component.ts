@@ -5,7 +5,6 @@ import {
   LucideAngularModule,
   Instagram,
   Youtube,
-  Twitter,
   Mail,
   MapPin,
   Phone,
@@ -23,7 +22,6 @@ export class FooterComponent {
 
   readonly Instagram = Instagram;
   readonly Youtube = Youtube;
-  readonly Twitter = Twitter;
   readonly Mail = Mail;
   readonly MapPin = MapPin;
   readonly Phone = Phone;

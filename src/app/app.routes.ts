@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { adminGuard } from './core/guards/admin.guard';
 import { guestGuard } from './core/guards/guest.guard';
+import { enrollmentGuard } from './core/guards/enrollment.guard';
 
 export const routes: Routes = [
   {
@@ -130,6 +131,34 @@ export const routes: Routes = [
       import('./features/course-player/course-player.component').then(
         (m) => m.CoursePlayerComponent
       ),
-    canActivate: [authGuard],
+    canActivate: [authGuard, enrollmentGuard], // Check both auth AND enrollment
+  },
+  {
+    path: 'terms',
+    loadComponent: () =>
+      import('./features/legal/terms/terms.component').then(
+        (m) => m.TermsComponent
+      ),
+  },
+  {
+    path: 'privacy-policy',
+    loadComponent: () =>
+      import('./features/legal/privacy-policy/privacy-policy.component').then(
+        (m) => m.PrivacyPolicyComponent
+      ),
+  },
+  {
+    path: 'refund-policy',
+    loadComponent: () =>
+      import('./features/legal/refund-policy/refund-policy.component').then(
+        (m) => m.RefundPolicyComponent
+      ),
+  },
+  {
+    path: 'risk-disclosure',
+    loadComponent: () =>
+      import('./features/legal/risk-disclosure/risk-disclosure.component').then(
+        (m) => m.RiskDisclosureComponent
+      ),
   },
 ];
