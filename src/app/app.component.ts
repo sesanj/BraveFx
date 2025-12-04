@@ -20,10 +20,7 @@ export class AppComponent implements OnInit {
   showFooter = true;
   isInitializing = true; // Prevent flash of wrong header
 
-  constructor(
-    private router: Router,
-    private supabaseService: SupabaseService
-  ) {}
+  constructor(private router: Router, private supabase: SupabaseService) {}
 
   ngOnInit() {
     // Hide header/footer on course player and dashboard routes
@@ -62,7 +59,7 @@ export class AppComponent implements OnInit {
 
   private async testSupabaseConnection() {
     try {
-      const { data, error } = await this.supabaseService.client
+      const { data, error } = await this.supabase.client
         .from('courses')
         .select('count');
 

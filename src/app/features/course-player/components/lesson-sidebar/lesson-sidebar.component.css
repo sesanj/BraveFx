@@ -426,16 +426,16 @@
     display: flex;
     width: 40px;
     height: 40px;
-    margin: 0.75rem;
+    margin: 0rem;
   }
 
   /* Compact sidebar header */
   .sidebar-header {
-    padding: 1rem;
+    padding: 1.1rem;
   }
 
   .sidebar-title {
-    font-size: 1rem;
+    font-size: 1.15rem;
   }
 
   /* Module headers - better touch targets */

@@ -31,14 +31,6 @@ export const routes: Routes = [
     canActivate: [guestGuard],
   },
   {
-    path: 'register',
-    loadComponent: () =>
-      import('./features/auth/register/register.component').then(
-        (m) => m.RegisterComponent
-      ),
-    canActivate: [guestGuard],
-  },
-  {
     path: 'reset-password',
     loadComponent: () =>
       import('./features/auth/reset-password/reset-password.component').then(
@@ -159,6 +151,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/legal/risk-disclosure/risk-disclosure.component').then(
         (m) => m.RiskDisclosureComponent
+      ),
+  },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./features/not-found/not-found.component').then(
+        (m) => m.NotFoundComponent
       ),
   },
 ];

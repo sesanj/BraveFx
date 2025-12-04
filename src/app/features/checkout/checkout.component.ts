@@ -36,6 +36,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   isProcessing: boolean = false;
   errorMessage: string = '';
   successMessage: string = '';
+  showPassword: boolean = false;
 
   // Validation
   emailError: string = '';
@@ -177,6 +178,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     }
     this.nameError = '';
     return true;
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 
   async processPayment() {

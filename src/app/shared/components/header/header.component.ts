@@ -71,11 +71,4 @@ export class HeaderComponent {
   logout() {
     this.authService.logout();
   }
-
-  scrollToPricing() {
-    const pricingSection = document.getElementById('enroll');
-    if (pricingSection) {
-      pricingSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }
 }

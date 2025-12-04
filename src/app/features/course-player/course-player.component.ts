@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -143,7 +143,12 @@ export class CoursePlayerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    console.log('🎬 [CoursePlayer] ngOnInit called');
+    console.log('🎬 [CoursePlayer] Current URL:', this.router.url);
+
     const courseId = this.route.snapshot.paramMap.get('id');
+    console.log('🎬 [CoursePlayer] Course ID from route:', courseId);
+
     if (courseId) {
       this.loadCourse(courseId);
       this.checkExistingReview(courseId);
@@ -382,6 +387,17 @@ export class CoursePlayerComponent implements OnInit {
 
   toggleSidebar(): void {
     this.isSidebarOpen = !this.isSidebarOpen;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const userMenuWrapper = target.closest('.user-menu-wrapper');
+
+    // Close dropdown if clicked outside the entire user menu wrapper
+    if (!userMenuWrapper && this.isUserMenuOpen) {
+      this.isUserMenuOpen = false;
+    }
   }
 
   toggleUserMenu(): void {

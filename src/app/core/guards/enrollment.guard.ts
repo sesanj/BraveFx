@@ -3,6 +3,7 @@ import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { EnrollmentService } from '../services/enrollment.service';
 import { map, switchMap, take } from 'rxjs/operators';
+import { from } from 'rxjs';
 
 export const enrollmentGuard = (route: ActivatedRouteSnapshot) => {
   const authService = inject(AuthService);
@@ -12,7 +13,9 @@ export const enrollmentGuard = (route: ActivatedRouteSnapshot) => {
   const courseId = route.paramMap.get('id') || ''; // Get as string (UUID)
   console.log('🔒 [EnrollmentGuard] Checking access to course:', courseId);
 
-  return authService.currentUser$.pipe(
+  // Wait for auth to initialize first!
+  return from(authService.waitForAuthInit()).pipe(
+    switchMap(() => authService.currentUser$),
     take(1),
     switchMap(async (user) => {
       if (!user) {

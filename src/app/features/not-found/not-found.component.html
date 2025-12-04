@@ -1,0 +1,50 @@
+<div class="not-found-container">
+    <div class="not-found-content">
+        <!-- Animated 404 -->
+        <div class="error-code">
+            <span class="four">4</span>
+            <span class="zero">0</span>
+            <span class="four">4</span>
+        </div>
+
+        <!-- Message -->
+        <h1 class="title">Page Not Found</h1>
+        <p class="description">
+            Oops! The page you're looking for doesn't exist. It might have been moved or deleted.
+        </p>
+
+        <!-- Action Buttons -->
+        <div class="actions">
+            <button class="btn-primary" (click)="goHome()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Back to Home
+            </button>
+            <button class="btn-secondary" (click)="goBack()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Go Back
+            </button>
+        </div>
+
+        <!-- Helpful Links -->
+        <div class="helpful-links">
+            <p class="links-title">You might be looking for:</p>
+            <div class="links">
+                <a routerLink="/" class="link">Home</a>
+                <a routerLink="/about" class="link">About</a>
+                <a routerLink="/reviews" class="link">Reviews</a>
+                <a routerLink="/" fragment="enroll" class="link">Enroll Now</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background decoration -->
+    <div class="bg-decoration"></div>
+</div>
