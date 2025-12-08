@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
+import {
+  Router,
+  RouterOutlet,
+  NavigationEnd,
+  ActivatedRoute,
+} from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { filter } from 'rxjs/operators';
 import { HeaderComponent } from './shared/components/header/header.component';
@@ -20,9 +25,16 @@ export class AppComponent implements OnInit {
   showFooter = true;
   isInitializing = true; // Prevent flash of wrong header
 
-  constructor(private router: Router, private supabase: SupabaseService) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private supabase: SupabaseService
+  ) {}
 
   ngOnInit() {
+    // Capture coupon from URL on initial page load
+    this.captureCouponFromUrl();
+
     // Hide header/footer on course player and dashboard routes
     // Hide only footer on auth routes
     this.router.events
@@ -51,10 +63,36 @@ export class AppComponent implements OnInit {
           document.documentElement.scrollTop = 0;
           document.body.scrollTop = 0;
         }, 0);
+
+        // Check for coupon in URL after each navigation
+        this.captureCouponFromUrl();
       });
 
     // Test Supabase connection
     this.testSupabaseConnection();
+  }
+
+  /**
+   * Capture coupon code from URL query parameter and store in localStorage
+   */
+  private captureCouponFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const couponCode = urlParams.get('coupon');
+
+    if (couponCode) {
+      // Store in localStorage for later use at checkout
+      localStorage.setItem(
+        'bravefx_pending_coupon',
+        couponCode.trim().toUpperCase()
+      );
+      console.log('🎟️ [App] Coupon captured from URL:', couponCode);
+
+      // Optional: Clean URL to remove the coupon parameter
+      // This gives a cleaner URL while browsing
+      const url = new URL(window.location.href);
+      url.searchParams.delete('coupon');
+      window.history.replaceState({}, '', url.toString());
+    }
   }
 
   private async testSupabaseConnection() {

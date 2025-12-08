@@ -155,7 +155,12 @@ export class PaymentService {
     paymentIntentId: string,
     courseId: string, // Course UUID from database
     amount: number // Amount in cents
-  ): Promise<{ success: boolean; error?: string; userId?: string }> {
+  ): Promise<{
+    success: boolean;
+    error?: string;
+    userId?: string;
+    enrollmentId?: string;
+  }> {
     try {
       // 1. Create user account (skip email confirmation for paid users)
       const { data: authData, error: authError } =
@@ -212,13 +217,16 @@ export class PaymentService {
         'in course:',
         courseId
       );
-      const { error: enrollError } = await this.supabase.client
-        .from('enrollments')
-        .insert({
-          user_id: userId,
-          course_id: courseId, // Use the actual UUID from database
-          status: 'active',
-        });
+      const { data: enrollmentData, error: enrollError } =
+        await this.supabase.client
+          .from('enrollments')
+          .insert({
+            user_id: userId,
+            course_id: courseId, // Use the actual UUID from database
+            status: 'active',
+          })
+          .select()
+          .single();
 
       if (enrollError) {
         console.error('❌ [PaymentService] Enrollment error:', enrollError);
@@ -230,7 +238,7 @@ export class PaymentService {
         courseId
       );
 
-      return { success: true, userId };
+      return { success: true, userId, enrollmentId: enrollmentData.id };
     } catch (error: any) {
       console.error('User creation and enrollment error:', error);
       return {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeroComponent } from './components/hero/hero.component';
+import { CampaignBannerComponent } from './components/campaign-banner/campaign-banner.component';
 import { LearningOutcomesComponent } from './components/learning-outcomes/learning-outcomes.component';
 import { CourseCurriculumComponent } from './components/course-curriculum/course-curriculum.component';
 import { WhyBravefxComponent } from './components/why-bravefx/why-bravefx.component';
@@ -17,6 +18,7 @@ import { SeoService } from '../../core/services/seo.service';
     CommonModule,
     RouterModule,
     HeroComponent,
+    CampaignBannerComponent,
     LearningOutcomesComponent,
     CourseCurriculumComponent,
     WhyBravefxComponent,
