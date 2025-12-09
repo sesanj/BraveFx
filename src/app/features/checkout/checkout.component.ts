@@ -60,6 +60,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   // UI State
   isProcessing: boolean = false;
   errorMessage: string = '';
+  paymentError: string = ''; // Separate error for payment/card issues
   successMessage: string = '';
   showPassword: boolean = false;
 
@@ -398,6 +399,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
     this.isProcessing = true;
     this.errorMessage = '';
+    this.paymentError = '';
     this.cardError = '';
 
     try {
@@ -408,12 +410,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
       if (!emailValid || !passwordValid || !nameValid) {
         this.isProcessing = false;
+        this.scrollToTop(); // Scroll to top for form validation errors
         return;
       }
 
       if (!this.agreeToTerms) {
         this.errorMessage = 'Please accept the terms and conditions';
         this.isProcessing = false;
+        this.scrollToTop(); // Scroll to top for terms error
         return;
       }
 
@@ -424,6 +428,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       if (existingUser) {
         this.emailError = 'An account with this email already exists';
         this.isProcessing = false;
+        this.scrollToTop(); // Scroll to top for email error
         return;
       }
 
@@ -545,7 +550,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       }
     } catch (error: any) {
       console.error('Payment error:', error);
-      this.errorMessage =
+      this.paymentError =
         error.message || 'Payment processing failed. Please try again.';
     } finally {
       this.isProcessing = false;
@@ -555,6 +560,16 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.paymentService.destroyCardElement();
     this.stopCampaignCountdown();
+  }
+
+  /**
+   * Scroll to top of page smoothly
+   */
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
   }
 
   /**

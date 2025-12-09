@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
@@ -10,7 +10,10 @@ import {
   Mail,
   Shield,
   AlertCircle,
+  Monitor,
+  ArrowRight,
 } from 'lucide-angular';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-refund-policy',
@@ -19,7 +22,7 @@ import {
   templateUrl: './refund-policy.component.html',
   styleUrls: ['./refund-policy.component.css'],
 })
-export class RefundPolicyComponent {
+export class RefundPolicyComponent implements OnInit {
   DollarSign = DollarSign;
   CheckCircle2 = CheckCircle2;
   XCircle = XCircle;
@@ -27,6 +30,18 @@ export class RefundPolicyComponent {
   Mail = Mail;
   Shield = Shield;
   AlertCircle = AlertCircle;
+  Monitor = Monitor;
+  ArrowRight = ArrowRight;
 
-  lastUpdated = 'November 30, 2025';
+  lastUpdated = 'December 8, 2025';
+  isLoggedIn = false;
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    // Check if user is logged in to show dashboard link
+    this.authService.currentUser$.subscribe((user) => {
+      this.isLoggedIn = !!user;
+    });
+  }
 }
