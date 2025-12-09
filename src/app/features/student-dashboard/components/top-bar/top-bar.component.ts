@@ -1,4 +1,10 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  HostListener,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {
@@ -41,6 +47,17 @@ export class TopBarComponent {
   isUserMenuOpen = false;
 
   constructor(public theme: ThemeService, private router: Router) {}
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: MouseEvent): void {
+    const target = event.target as HTMLElement;
+    const userMenuWrapper = target.closest('.user-menu-wrapper');
+
+    // Close dropdown if clicked outside the entire user menu wrapper
+    if (!userMenuWrapper && this.isUserMenuOpen) {
+      this.isUserMenuOpen = false;
+    }
+  }
 
   toggleUserMenu(): void {
     this.isUserMenuOpen = !this.isUserMenuOpen;

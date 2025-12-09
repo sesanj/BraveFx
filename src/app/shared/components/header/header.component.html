@@ -39,7 +39,7 @@
 
           <ng-template #authLinks>
             <a routerLink="/login" class="btn-login">Login</a>
-            <button (click)="scrollToPricing()" class="btn-join-academy">Join Our Academy</button>
+            <a routerLink="/" fragment="enroll" class="btn-join-academy">Join Our Academy</a>
           </ng-template>
         </ng-container>
 
@@ -52,9 +52,9 @@
 
       <!-- Mobile controls -->
       <div class="mobile-controls">
-        <button *ngIf="!isAuthLoading && !(currentUser$ | async)" (click)="scrollToPricing()" class="btn-enroll-mobile">
+        <a *ngIf="!isAuthLoading && !(currentUser$ | async)" routerLink="/" fragment="enroll" class="btn-enroll-mobile">
           Enroll Now
-        </button>
+        </a>
         <button class="mobile-menu-btn" (click)="toggleMenu()" aria-label="Toggle Menu">
           <span class="hamburger-icon" [class.open]="isMenuOpen">
             <span></span>
@@ -136,9 +136,9 @@
             <lucide-icon [img]="LogIn" class="link-icon"></lucide-icon>
             <span>Login</span>
           </a>
-          <button (click)="scrollToPricing(); toggleMenu()" class="btn-join-mobile">
+          <a routerLink="/" fragment="enroll" (click)="toggleMenu()" class="btn-join-mobile">
             Join Our Academy
-          </button>
+          </a>
         </div>
       </ng-template>
     </ng-container>

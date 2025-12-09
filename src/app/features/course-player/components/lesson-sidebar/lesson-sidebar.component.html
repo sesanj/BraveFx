@@ -48,7 +48,7 @@
               <button *ngIf="currentLessonId === lesson.id && !isLessonCompleted(lesson.id)" class="btn-complete-inline"
                 (click)="onMarkComplete($event, lesson.id)" title="Mark as complete">
                 <lucide-icon [img]="Check" [size]="12"></lucide-icon>
-                <span>Complete</span>
+                <span>Mark as complete</span>
               </button>
             </div>
           </div>

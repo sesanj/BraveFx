@@ -1,5 +1,9 @@
 import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter, withInMemoryScrolling } from '@angular/router';
+import {
+  provideRouter,
+  withInMemoryScrolling,
+  withViewTransitions,
+} from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient } from '@angular/common/http';
 
@@ -11,9 +15,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(
       routes,
       withInMemoryScrolling({
-        scrollPositionRestoration: 'disabled',
-        anchorScrolling: 'disabled',
-      })
+        scrollPositionRestoration: 'top',
+        anchorScrolling: 'enabled',
+      }),
+      withViewTransitions()
     ),
     provideAnimationsAsync(),
     provideHttpClient(),

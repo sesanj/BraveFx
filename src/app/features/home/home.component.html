@@ -1,6 +1,15 @@
 <!-- Hero Section -->
 <app-hero (enrollClick)="scrollToEnroll()"></app-hero>
 
+<!-- Campaign Banner (only shows when site-wide campaign is active) -->
+<app-campaign-banner #campaignBannerRef></app-campaign-banner>
+
+<!-- Sticky Campaign Bar (appears on scroll) -->
+<app-sticky-campaign-bar *ngIf="campaignBannerRef.activeCampaign && campaignBannerRef.activeCampaign.expires_at"
+  [campaignCode]="campaignBannerRef.activeCampaign.code" [discountText]="campaignBannerRef.discountText"
+  [expiresAt]="campaignBannerRef.activeCampaign.expires_at">
+</app-sticky-campaign-bar>
+
 <!-- What You'll Learn Section -->
 <app-learning-outcomes (curriculumClick)="scrollToCurriculum()"></app-learning-outcomes>
 

@@ -130,58 +130,117 @@
     <section class="legal-section">
       <h2>4. How to Request a Refund</h2>
       <p>
-        Requesting a refund is simple and straightforward. Follow these steps:
+        Requesting a refund is simple and straightforward. You have two convenient options:
       </p>
 
-      <div class="process-steps">
-        <div class="process-step">
-          <div class="step-number">1</div>
-          <div class="step-content">
-            <h4>Contact Support</h4>
-            <p>
-              Send an email to <strong>academy&#64;bravefx.io</strong> with the subject line "Refund Request"
-            </p>
+      <div class="refund-options">
+        <div class="refund-option primary">
+          <div class="option-header">
+            <lucide-icon [img]="Monitor" [size]="28"></lucide-icon>
+            <h3>Option 1: Through Your Dashboard (Recommended)</h3>
           </div>
+          <p class="option-description">
+            The fastest and easiest way to request a refund is directly through your student dashboard.
+          </p>
+          <div class="option-steps">
+            <div class="mini-step">
+              <span class="mini-number">1</span>
+              <p>Log in to your BraveFx account</p>
+            </div>
+            <div class="mini-step">
+              <span class="mini-number">2</span>
+              <p>Go to <strong>Dashboard → Support</strong></p>
+            </div>
+            <div class="mini-step">
+              <span class="mini-number">3</span>
+              <p>Select <strong>"💰 Request A Refund"</strong> from the category dropdown</p>
+            </div>
+            <div class="mini-step">
+              <span class="mini-number">4</span>
+              <p>Provide course details and reason for refund</p>
+            </div>
+            <div class="mini-step">
+              <span class="mini-number">5</span>
+              <p>Submit your request - we'll respond within 1-2 business days!</p>
+            </div>
+          </div>
+          <a routerLink="/dashboard/support" class="dashboard-link" *ngIf="isLoggedIn">
+            <lucide-icon [img]="ArrowRight" [size]="18"></lucide-icon>
+            Go to Support Page
+          </a>
         </div>
 
-        <div class="process-step">
-          <div class="step-number">2</div>
-          <div class="step-content">
-            <h4>Provide Information</h4>
-            <p>
-              Include your full name, email address associated with your account, course name, and purchase date (if
-              available)
-            </p>
+        <div class="refund-option secondary">
+          <div class="option-header">
+            <lucide-icon [img]="Mail" [size]="28"></lucide-icon>
+            <h3>Option 2: Email Us Directly</h3>
           </div>
-        </div>
-
-        <div class="process-step">
-          <div class="step-number">3</div>
-          <div class="step-content">
-            <h4>Wait for Confirmation</h4>
-            <p>
-              We'll review your request and respond within 1-2 business days with confirmation
-            </p>
+          <p class="option-description">
+            Prefer email? You can also send us a refund request directly.
+          </p>
+          <div class="option-steps">
+            <div class="mini-step">
+              <span class="mini-number">1</span>
+              <p>Send an email to <strong>academy&#64;bravefx.io</strong></p>
+            </div>
+            <div class="mini-step">
+              <span class="mini-number">2</span>
+              <p>Use subject line: <strong>"Refund Request"</strong></p>
+            </div>
+            <div class="mini-step">
+              <span class="mini-number">3</span>
+              <p>Include: Full name, account email, course name, and purchase date</p>
+            </div>
+            <div class="mini-step">
+              <span class="mini-number">4</span>
+              <p>We'll respond within 1-2 business days</p>
+            </div>
           </div>
-        </div>
-
-        <div class="process-step">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h4>Receive Your Refund</h4>
-            <p>
-              Once approved, your refund will be processed within 5-7 business days to your original payment method
+          <div class="email-template-box">
+            <p class="template-label">📧 Email Template:</p>
+            <p class="template-text">
+              "Hello, I would like to request a refund for [Course Name] purchased on [Date]. My registered email is
+              [Your Email]. Thank you."
             </p>
           </div>
         </div>
       </div>
 
-      <div class="info-box">
-        <lucide-icon [img]="Mail" [size]="20"></lucide-icon>
-        <p>
-          <strong>Email Template:</strong> "Hello, I would like to request a refund for [Course Name] purchased on
-          [Date]. My registered email is [Your Email]. Thank you."
-        </p>
+      <div class="process-timeline">
+        <h4>What Happens Next?</h4>
+        <div class="timeline-steps">
+          <div class="timeline-step">
+            <div class="timeline-icon">✉️</div>
+            <div class="timeline-content">
+              <strong>Request Received</strong>
+              <span>Instant confirmation</span>
+            </div>
+          </div>
+          <div class="timeline-arrow">→</div>
+          <div class="timeline-step">
+            <div class="timeline-icon">🔍</div>
+            <div class="timeline-content">
+              <strong>Review</strong>
+              <span>1-2 business days</span>
+            </div>
+          </div>
+          <div class="timeline-arrow">→</div>
+          <div class="timeline-step">
+            <div class="timeline-icon">✅</div>
+            <div class="timeline-content">
+              <strong>Approval</strong>
+              <span>Email confirmation sent</span>
+            </div>
+          </div>
+          <div class="timeline-arrow">→</div>
+          <div class="timeline-step">
+            <div class="timeline-icon">💰</div>
+            <div class="timeline-content">
+              <strong>Refund Processed</strong>
+              <span>5-7 business days</span>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
