@@ -293,12 +293,12 @@
   );
   color: white;
   border: none;
-  border-radius: 0.625rem;
+  border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 600;
   white-space: nowrap;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(255, 107, 0, 0.2);
+  box-shadow: 0 2px 8px rgba(255, 106, 0, 0.074);
   cursor: pointer;
   font-family: inherit;
 }

@@ -1,162 +1,162 @@
 <div class="about-page">
-    <!-- Hero Section - Clean, No Background -->
-    <section class="hero-section">
-        <div class="container">
-            <div class="hero-content">
-                <span class="hero-label">About Us</span>
-                <h1 class="hero-title">Building the Future of Forex Education</h1>
-                <p class="hero-description">
-                    We're on a mission to empower traders worldwide with practical,
-                    proven strategies that work in real markets. Join thousands of
-                    students who have transformed their trading journey with BraveFx
-                    Academy.
-                </p>
-            </div>
+  <!-- Hero Section - Clean, No Background -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <span class="hero-label">About Us</span>
+        <h1 class="hero-title">Building the Future of Forex Education</h1>
+        <p class="hero-description">
+          We're on a mission to empower traders worldwide with practical,
+          proven strategies that work in real markets. Join thousands of
+          students who have transformed their trading journey with BraveFx
+          Academy.
+        </p>
+      </div>
 
-            <!-- Stats Grid -->
-            <div class="stats-grid">
-                <div class="stat-item" *ngFor="let stat of stats">
-                    <div class="stat-icon-box">
-                        <lucide-icon [img]="stat.icon"></lucide-icon>
-                    </div>
-                    <div class="stat-info">
-                        <div class="stat-number">{{ stat.number }}</div>
-                        <div class="stat-label">{{ stat.label }}</div>
-                    </div>
-                </div>
-            </div>
+      <!-- Stats Grid -->
+      <div class="stats-grid">
+        <div class="stat-item" *ngFor="let stat of stats">
+          <div class="stat-icon-box">
+            <lucide-icon [img]="stat.icon"></lucide-icon>
+          </div>
+          <div class="stat-info">
+            <div class="stat-number">{{ stat.number }}</div>
+            <div class="stat-label">{{ stat.label }}</div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Story Section -->
-    <section class="story-section">
-        <div class="container">
-            <div class="story-grid">
-                <div class="story-text">
-                    <span class="section-label">Our Story</span>
-                    <h2 class="section-title">From Passion to Purpose</h2>
-                    <p class="section-paragraph">
-                        BraveFx Academy was born from a passion for forex trading and a
-                        desire to help others succeed in the markets. With over 7 years of
-                        full-time trading experience, we've navigated the highs and lows
-                        that come with forex trading.
-                    </p>
-                    <p class="section-paragraph">
-                        What started as a personal journey has grown into a thriving
-                        community of over 6,000+ students across the globe. Our mission is
-                        simple: provide high-quality, practical forex education that
-                        actually works in real-world trading scenarios.
-                    </p>
-                </div>
-
-                <div class="story-features">
-                    <div class="feature-item">
-                        <lucide-icon [img]="CheckCircle2" class="feature-icon"></lucide-icon>
-                        <div class="feature-content">
-                            <h3 class="feature-title">7+ Years Experience</h3>
-                            <p class="feature-description">
-                                Full-time professional trading with proven track record
-                            </p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <lucide-icon [img]="CheckCircle2" class="feature-icon"></lucide-icon>
-                        <div class="feature-content">
-                            <h3 class="feature-title">Real-World Strategies</h3>
-                            <p class="feature-description">
-                                Practical methods we use daily in our own trading
-                            </p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <lucide-icon [img]="CheckCircle2" class="feature-icon"></lucide-icon>
-                        <div class="feature-content">
-                            <h3 class="feature-title">Continuous Support</h3>
-                            <p class="feature-description">
-                                Lifetime access to updates and community guidance
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <!-- Story Section -->
+  <section class="story-section">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-text">
+          <span class="section-label">Our Story</span>
+          <h2 class="section-title">From Passion to Purpose</h2>
+          <p class="section-paragraph">
+            BraveFx Academy was born from a passion for forex trading and a
+            desire to help others succeed in the markets. With over 7 years of
+            full-time trading experience, we've navigated the highs and lows
+            that come with forex trading.
+          </p>
+          <p class="section-paragraph">
+            What started as a personal journey has grown into a thriving
+            community of over 6,000+ students across the globe. Our mission is
+            simple: provide high-quality, practical forex education that
+            actually works in real-world trading scenarios.
+          </p>
         </div>
-    </section>
 
-    <!-- Values Section -->
-    <section class="values-section">
-        <div class="container">
-            <div class="values-header">
-                <span class="section-label">Core Values</span>
-                <h2 class="section-title">What Drives Us</h2>
-                <p class="section-description">
-                    These principles guide everything we do and shape the learning
-                    experience we provide to our students.
-                </p>
+        <div class="story-features">
+          <div class="feature-item">
+            <lucide-icon [img]="CheckCircle2" class="feature-icon"></lucide-icon>
+            <div class="feature-content">
+              <h3 class="feature-title">7+ Years Experience</h3>
+              <p class="feature-description">
+                Full-time professional trading with proven track record
+              </p>
             </div>
-
-            <div class="values-grid">
-                <div class="value-item" *ngFor="let value of values">
-                    <div class="value-icon-box">
-                        <lucide-icon [img]="value.icon"></lucide-icon>
-                    </div>
-                    <h3 class="value-title">{{ value.title }}</h3>
-                    <p class="value-description">{{ value.description }}</p>
-                </div>
+          </div>
+          <div class="feature-item">
+            <lucide-icon [img]="CheckCircle2" class="feature-icon"></lucide-icon>
+            <div class="feature-content">
+              <h3 class="feature-title">Real-World Strategies</h3>
+              <p class="feature-description">
+                Practical methods we use daily in our own trading
+              </p>
             </div>
+          </div>
+          <div class="feature-item">
+            <lucide-icon [img]="CheckCircle2" class="feature-icon"></lucide-icon>
+            <div class="feature-content">
+              <h3 class="feature-title">Continuous Support</h3>
+              <p class="feature-description">
+                Lifetime access to updates and community guidance
+              </p>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- Social Section -->
-    <section class="social-section">
-        <div class="container">
-            <div class="social-header">
-                <span class="section-label">Community</span>
-                <h2 class="section-title">Connect With Us</h2>
-                <p class="section-description">
-                    Join our growing community across social platforms and stay updated
-                    with daily trading insights.
-                </p>
-            </div>
+  <!-- Values Section -->
+  <section class="values-section">
+    <div class="container">
+      <div class="values-header">
+        <span class="section-label">Core Values</span>
+        <h2 class="section-title">What Drives Us</h2>
+        <p class="section-description">
+          These principles guide everything we do and shape the learning
+          experience we provide to our students.
+        </p>
+      </div>
 
-            <div class="social-grid">
-                <a class="social-item" *ngFor="let platform of socialPlatforms" [class]="platform.gradient" href="#"
-                    target="_blank">
-                    <div class="social-header-content">
-                        <div class="social-icon-box">
-                            <lucide-icon [img]="platform.icon"></lucide-icon>
-                        </div>
-                        <div class="social-info">
-                            <h3 class="social-name">{{ platform.name }}</h3>
-                            <div class="social-followers">{{ platform.followers }}</div>
-                        </div>
-                    </div>
-                    <p class="social-description">{{ platform.description }}</p>
-                    <div class="social-link">
-                        <span>Visit Platform</span>
-                        <lucide-icon [img]="ArrowRight"></lucide-icon>
-                    </div>
-                </a>
-            </div>
+      <div class="values-grid">
+        <div class="value-item" *ngFor="let value of values">
+          <div class="value-icon-box">
+            <lucide-icon [img]="value.icon"></lucide-icon>
+          </div>
+          <h3 class="value-title">{{ value.title }}</h3>
+          <p class="value-description">{{ value.description }}</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- CTA Section - Clean, No Background -->
-    <section class="cta-section">
-        <div class="container">
-            <div class="cta-box">
-                <div class="cta-content">
-                    <span class="cta-label">Ready to Start?</span>
-                    <h2 class="cta-title">Begin Your Trading Journey</h2>
-                    <p class="cta-description">
-                        Join thousands of successful traders and transform your financial
-                        future with our comprehensive forex course.
-                    </p>
-                </div>
-                <a routerLink="/" fragment="enroll" class="cta-button">
-                    <span>Explore Course</span>
-                    <lucide-icon [img]="ArrowRight"></lucide-icon>
-                </a>
+  <!-- Social Section -->
+  <section class="social-section">
+    <div class="container">
+      <div class="social-header">
+        <span class="section-label">Community</span>
+        <h2 class="section-title">Connect With Us</h2>
+        <p class="section-description">
+          Join our growing community across social platforms and stay updated
+          with daily trading insights.
+        </p>
+      </div>
+
+      <div class="social-grid">
+        <a class="social-item" *ngFor="let platform of socialPlatforms" [class]="platform.gradient" href="#"
+          target="_blank">
+          <div class="social-header-content">
+            <div class="social-icon-box">
+              <lucide-icon [img]="platform.icon"></lucide-icon>
             </div>
+            <div class="social-info">
+              <h3 class="social-name">{{ platform.name }}</h3>
+              <div class="social-followers">{{ platform.followers }}</div>
+            </div>
+          </div>
+          <p class="social-description">{{ platform.description }}</p>
+          <div class="social-link">
+            <span>Visit Platform</span>
+            <lucide-icon [img]="ArrowRight"></lucide-icon>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section - Clean, No Background -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-box">
+        <div class="cta-content">
+          <span class="cta-label">Ready to Start?</span>
+          <h2 class="cta-title">Begin Your Trading Journey</h2>
+          <p class="cta-description">
+            Join thousands of successful traders and transform your financial
+            future with our comprehensive forex course.
+          </p>
         </div>
-    </section>
+        <a routerLink="/" fragment="enroll" class="cta-button">
+          <span>Start Learning Today</span>
+          <lucide-icon [img]="ArrowRight"></lucide-icon>
+        </a>
+      </div>
+    </div>
+  </section>
 </div>

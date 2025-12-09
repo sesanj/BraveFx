@@ -19,22 +19,30 @@ export class LoginComponent {
   showForgotPassword = false;
   resetEmail = '';
   isResettingPassword = false;
+  isLoggingIn = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit() {
     this.errorMessage = '';
+    this.isLoggingIn = true;
+
     this.authService.login(this.email, this.password).subscribe({
       next: (user) => {
         if (user) {
           console.log('Login successful:', user);
-          this.router.navigate(['/dashboard']);
+          // Add a 1.5 second delay for loading animation before navigation
+          setTimeout(() => {
+            this.router.navigate(['/dashboard']);
+          }, 1500);
         } else {
           this.errorMessage = 'Invalid credentials';
+          this.isLoggingIn = false;
         }
       },
       error: (error) => {
         console.error('Login component error:', error);
+        this.isLoggingIn = false;
         // Show more specific error messages
         if (error.message?.includes('Email not confirmed')) {
           this.errorMessage =

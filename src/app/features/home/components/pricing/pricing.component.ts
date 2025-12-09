@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import {
@@ -19,7 +19,12 @@ import {
   ShieldCheck,
   Plus,
   Minus,
+  Tag,
 } from 'lucide-angular';
+import {
+  CouponService,
+  Coupon,
+} from '../../../../core/services/coupon.service';
 
 export interface FAQ {
   question: string;
@@ -34,7 +39,40 @@ export interface FAQ {
   templateUrl: './pricing.component.html',
   styleUrls: ['./pricing.component.css'],
 })
-export class PricingComponent {
+export class PricingComponent implements OnInit {
+  // Pricing
+  readonly originalPrice = 149; // Actual course price
+  activeCoupon: Coupon | null = null;
+  isCheckingCoupon = true;
+
+  // Computed pricing
+  get discountAmount(): number {
+    if (!this.activeCoupon) return 0;
+
+    if (this.activeCoupon.discount_type === 'percentage') {
+      return (this.originalPrice * this.activeCoupon.discount_value) / 100;
+    } else {
+      return Math.min(this.activeCoupon.discount_value, this.originalPrice);
+    }
+  }
+
+  get finalPrice(): number {
+    return Math.max(0, this.originalPrice - this.discountAmount);
+  }
+
+  get totalSavings(): number {
+    return this.discountAmount;
+  }
+
+  get discountBadgeText(): string {
+    if (!this.activeCoupon) return '';
+
+    if (this.activeCoupon.discount_type === 'percentage') {
+      return `${this.activeCoupon.discount_value}% OFF`;
+    } else {
+      return `$${this.activeCoupon.discount_value} OFF`;
+    }
+  }
   // Component owns its FAQs data and state
   faqs: FAQ[] = [
     {
@@ -86,6 +124,68 @@ export class PricingComponent {
   ShieldCheck = ShieldCheck;
   Plus = Plus;
   Minus = Minus;
+  Tag = Tag;
+
+  constructor(private couponService: CouponService) {}
+
+  async ngOnInit() {
+    await this.checkForActiveCoupon();
+  }
+
+  /**
+   * Check for active coupon with priority:
+   * 1. Site-wide campaign (is_default = true) - HIGHEST PRIORITY
+   * 2. Specific coupon from URL/localStorage
+   * 3. No discount
+   */
+  async checkForActiveCoupon() {
+    try {
+      // FIRST: Check for site-wide campaign (overrides everything)
+      const defaultCoupon = await this.couponService.getDefaultCoupon();
+
+      if (defaultCoupon) {
+        console.log(
+          '🎯 [Pricing] Site-wide campaign active:',
+          defaultCoupon.code
+        );
+        const result = await this.couponService.validateCoupon(
+          defaultCoupon.code,
+          this.originalPrice
+        );
+
+        if (result.valid && result.coupon) {
+          this.activeCoupon = result.coupon;
+          this.isCheckingCoupon = false;
+          return; // Site-wide campaign takes precedence
+        }
+      }
+
+      // SECOND: If no site-wide campaign, check for specific coupon in localStorage
+      const pendingCoupon = localStorage.getItem('bravefx_pending_coupon');
+
+      if (pendingCoupon) {
+        const result = await this.couponService.validateCoupon(
+          pendingCoupon,
+          this.originalPrice
+        );
+
+        if (result.valid && result.coupon) {
+          this.activeCoupon = result.coupon;
+          console.log(
+            '✅ [Pricing] Specific coupon found:',
+            this.activeCoupon.code
+          );
+        } else {
+          console.log('⚠️ [Pricing] Coupon in storage is invalid, removing...');
+          localStorage.removeItem('bravefx_pending_coupon');
+        }
+      }
+    } catch (error) {
+      console.error('❌ [Pricing] Error checking for coupons:', error);
+    } finally {
+      this.isCheckingCoupon = false;
+    }
+  }
 
   toggleFaq(index: number): void {
     this.faqs[index].isOpen = !this.faqs[index].isOpen;

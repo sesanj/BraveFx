@@ -44,7 +44,6 @@ export class SettingsComponent implements OnInit {
   // Profile form
   profileName = '';
   profileEmail = '';
-  profileBio = '';
 
   // Password form
   currentPassword = '';

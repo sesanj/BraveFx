@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {
   LucideAngularModule,
   BookOpen,
@@ -11,16 +12,27 @@ import {
   Video,
   Users,
   Download,
+  CheckCircle,
 } from 'lucide-angular';
+import { AuthService } from '../../../../core/services/auth.service';
+import { SupabaseService } from '../../../../core/services/supabase.service';
+
+interface SupportForm {
+  name: string;
+  email: string;
+  subjectCategory: string;
+  subject: string;
+  message: string;
+}
 
 @Component({
   selector: 'app-support',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, FormsModule, LucideAngularModule],
   templateUrl: './support.component.html',
   styleUrls: ['./support.component.css'],
 })
-export class SupportComponent {
+export class SupportComponent implements OnInit {
   // Icons
   BookOpen = BookOpen;
   Mail = Mail;
@@ -31,9 +43,167 @@ export class SupportComponent {
   Video = Video;
   Users = Users;
   Download = Download;
+  CheckCircle = CheckCircle;
 
   // FAQ data
   activeFaq: number | null = null;
+
+  // Subject categories for dropdown
+  subjectCategories = [
+    { value: '', label: 'Select a category...' },
+    { value: 'Course Content Question', label: 'Course Content Question' },
+    { value: 'Billing & Payments', label: 'Billing & Payments' },
+    { value: 'Request A Refund', label: 'Request A Refund' },
+    { value: 'Account & Login Issues', label: 'Account & Login Issues' },
+    { value: 'Technical Problem', label: 'Technical Problem' },
+    { value: 'Feature Request', label: 'Feature Request' },
+    { value: 'General Question', label: 'General Question' },
+    { value: 'Other', label: 'Other' },
+  ];
+
+  // Form model
+  formData: SupportForm = {
+    name: '',
+    email: '',
+    subjectCategory: '',
+    subject: '',
+    message: '',
+  };
+
+  // Form state
+  isSubmitting = false;
+  showSuccess = false;
+  errorMessage = '';
+  showOtherSubject = false;
+
+  constructor(
+    private authService: AuthService,
+    private supabaseService: SupabaseService
+  ) {}
+
+  ngOnInit() {
+    // Auto-populate name and email from logged-in user
+    this.authService.currentUser$.subscribe((user) => {
+      if (user) {
+        this.formData.email = user.email || '';
+        // Try to get name from user metadata or profile
+        this.loadUserProfile(user.id);
+      }
+    });
+  }
+
+  async loadUserProfile(userId: string) {
+    try {
+      const { data, error } = await this.supabaseService.client
+        .from('profiles')
+        .select('full_name')
+        .eq('id', userId)
+        .single();
+
+      if (data && !error) {
+        this.formData.name = data.full_name || '';
+      }
+    } catch (error) {
+      console.error('Error loading profile:', error);
+    }
+  }
+
+  onCategoryChange() {
+    this.showOtherSubject = this.formData.subjectCategory === 'Other';
+    // Clear custom subject when switching away from "Other"
+    if (!this.showOtherSubject) {
+      this.formData.subject = '';
+    }
+  }
+
+  async onSubmit() {
+    // Reset states
+    this.errorMessage = '';
+    this.showSuccess = false;
+
+    // Validation
+    if (!this.formData.name.trim()) {
+      this.errorMessage = 'Please enter your name';
+      return;
+    }
+
+    if (
+      !this.formData.email.trim() ||
+      !this.isValidEmail(this.formData.email)
+    ) {
+      this.errorMessage = 'Please enter a valid email address';
+      return;
+    }
+
+    if (!this.formData.subjectCategory) {
+      this.errorMessage = 'Please select a category';
+      return;
+    }
+
+    if (this.showOtherSubject && !this.formData.subject.trim()) {
+      this.errorMessage = 'Please enter a subject';
+      return;
+    }
+
+    if (!this.formData.message.trim()) {
+      this.errorMessage = 'Please enter your message';
+      return;
+    }
+
+    // Prepare subject
+    const finalSubject = this.showOtherSubject
+      ? this.formData.subject
+      : this.formData.subjectCategory;
+
+    try {
+      this.isSubmitting = true;
+
+      // Call Supabase Edge Function
+      const { data, error } =
+        await this.supabaseService.client.functions.invoke(
+          'send-support-email',
+          {
+            body: {
+              name: this.formData.name,
+              email: this.formData.email,
+              subjectCategory: this.formData.subjectCategory,
+              subject: finalSubject,
+              message: this.formData.message,
+            },
+          }
+        );
+
+      if (error) throw error;
+
+      // Success!
+      this.showSuccess = true;
+      this.resetForm();
+
+      // Hide success message after 5 seconds
+      setTimeout(() => {
+        this.showSuccess = false;
+      }, 5000);
+    } catch (error: any) {
+      console.error('Error sending support email:', error);
+      this.errorMessage =
+        'Failed to send message. Please try again or email us directly at support@bravefx.com';
+    } finally {
+      this.isSubmitting = false;
+    }
+  }
+
+  resetForm() {
+    // Keep name and email, reset rest
+    this.formData.subjectCategory = '';
+    this.formData.subject = '';
+    this.formData.message = '';
+    this.showOtherSubject = false;
+  }
+
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
 
   faqs = [
     {

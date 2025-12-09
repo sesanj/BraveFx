@@ -1,0 +1,56 @@
+<!-- Campaign Banner (only shows when site-wide campaign is active) -->
+<section class="campaign-banner" *ngIf="activeCampaign && !isLoading">
+    <div class="campaign-container">
+        <div class="campaign-glow"></div>
+
+        <div class="campaign-content">
+            <!-- Left: Campaign Info -->
+            <div class="campaign-info">
+                <div class="campaign-icon">
+                    <lucide-icon [img]="Zap" class="icon-zap"></lucide-icon>
+                </div>
+                <div class="campaign-text">
+                    <div class="campaign-badge">
+                        <span class="badge-text">{{ activeCampaign.code }}</span>
+                    </div>
+                    <h3 class="campaign-title">{{ discountText }} Everything</h3>
+                    <p class="campaign-subtitle">Limited Time Offer</p>
+                </div>
+            </div>
+
+            <!-- Center: Countdown Timer -->
+            <div class="campaign-countdown">
+                <div class="countdown-label">
+                    <lucide-icon [img]="Clock" class="icon-clock"></lucide-icon>
+                    <span>Ends In</span>
+                </div>
+                <div class="countdown-timer">
+                    <div class="time-unit" *ngIf="timeRemaining.days > 0">
+                        <span class="time-value">{{ formatTime(timeRemaining.days) }}</span>
+                        <span class="time-label">days</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value">{{ formatTime(timeRemaining.hours) }}</span>
+                        <span class="time-label">hrs</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value">{{ formatTime(timeRemaining.minutes) }}</span>
+                        <span class="time-label">min</span>
+                    </div>
+                    <div class="time-unit">
+                        <span class="time-value">{{ formatTime(timeRemaining.seconds) }}</span>
+                        <span class="time-label">sec</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right: CTA Button -->
+            <div class="campaign-cta">
+                <button class="btn-claim" (click)="scrollToPricing()">
+                    <span>Claim Discount</span>
+                    <lucide-icon [img]="Zap" class="btn-icon"></lucide-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>

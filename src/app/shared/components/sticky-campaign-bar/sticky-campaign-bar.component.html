@@ -1,0 +1,34 @@
+<div class="sticky-campaign-bar" [@slideDown]="isVisible ? 'visible' : 'hidden'" *ngIf="campaignCode">
+  <div class="bar-container">
+    <div class="bar-content">
+      <!-- Left: Campaign Icon & Message -->
+      <div class="bar-left">
+        <div class="icon-sparkles">
+          <lucide-icon [img]="Sparkles" [size]="18"></lucide-icon>
+        </div>
+        <span class="bar-text">
+          <strong>{{ discountText }}</strong> <span class="separator">•</span> <span class="offer-text">Limited Time
+            Offer</span>
+        </span>
+      </div>
+
+      <!-- Center: Compact Countdown -->
+      <div class="bar-countdown">
+        <lucide-icon [img]="Clock" [size]="16" class="clock-icon"></lucide-icon>
+        <span class="countdown-text" *ngIf="timeRemaining.days > 0">
+          {{ timeRemaining.days }}d {{ formatTime(timeRemaining.hours) }}h {{ formatTime(timeRemaining.minutes) }}m {{
+          formatTime(timeRemaining.seconds) }}s
+        </span>
+        <span class="countdown-text" *ngIf="timeRemaining.days === 0">
+          {{ formatTime(timeRemaining.hours) }}h {{ formatTime(timeRemaining.minutes) }}m {{
+          formatTime(timeRemaining.seconds) }}s
+        </span>
+      </div>
+
+      <!-- Right: CTA Button -->
+      <button class="btn-claim-compact" (click)="scrollToPricing()">
+        Claim Offer
+      </button>
+    </div>
+  </div>
+</div>
