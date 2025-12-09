@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeroComponent } from './components/hero/hero.component';
 import { CampaignBannerComponent } from './components/campaign-banner/campaign-banner.component';
+import { StickyCampaignBarComponent } from '../../shared/components/sticky-campaign-bar/sticky-campaign-bar.component';
 import { LearningOutcomesComponent } from './components/learning-outcomes/learning-outcomes.component';
 import { CourseCurriculumComponent } from './components/course-curriculum/course-curriculum.component';
 import { WhyBravefxComponent } from './components/why-bravefx/why-bravefx.component';
@@ -19,6 +20,7 @@ import { SeoService } from '../../core/services/seo.service';
     RouterModule,
     HeroComponent,
     CampaignBannerComponent,
+    StickyCampaignBarComponent,
     LearningOutcomesComponent,
     CourseCurriculumComponent,
     WhyBravefxComponent,
@@ -30,6 +32,8 @@ import { SeoService } from '../../core/services/seo.service';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(CampaignBannerComponent) campaignBanner!: CampaignBannerComponent;
+
   constructor(private seoService: SeoService) {}
 
   ngOnInit() {
