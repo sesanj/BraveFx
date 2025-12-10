@@ -1,5 +1,5 @@
 export const environment = {
-  production: false,
+  production: true, // ← CHANGED TO TRUE for live payments
   supabase: {
     url: 'https://ppbshpbicprzorjcilcn.supabase.co',
     anonKey:
@@ -7,7 +7,7 @@ export const environment = {
   },
   stripe: {
     publishableKey:
-      'pk_test_51SXUb6BT1NsJU1m05CzFIlFvrUNPa9jyHpnlMoDfJDVd1vcKs4JGfFsHxw6HOUOrusfm8jU1trtHNgz0QCrfEvHZ00WvV1AIUS', // ← Paste your pk_test_... key from Stripe
+      'pk_live_51SXUawB6m33aaawHscaFBtzzWXBVdX5MtLHj0FecjTqlqxB5K9oAKMZAFd8ct2N7MzK7gmAtFWcOmxJeh27Wbk6q00lcNM0YGX', // ← PASTE YOUR LIVE pk_live_... KEY
   },
-  coursePrice: 4999, // Price in cents ($49.99)
+  coursePrice: 14900, // Price in cents ($149.00)
 };

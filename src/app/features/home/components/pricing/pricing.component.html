@@ -68,7 +68,20 @@
           <p class="price-subtitle">One-time payment • Lifetime access</p>
         </div>
 
-        <button class="btn-enroll-epic" routerLink="/checkout">
+        <!-- Show "Start Learning" button if user is enrolled -->
+        <div *ngIf="isUserEnrolled && !isCheckingEnrollment">
+          <div class="enrollment-status">
+            <lucide-icon [img]="CheckCircle" class="enrollment-icon"></lucide-icon>
+            <span>You're already enrolled! 🎉</span>
+          </div>
+          <button class="btn-enroll-epic btn-enrolled" routerLink="/dashboard/courses">
+            <span>Start Learning</span>
+            <lucide-icon [img]="ArrowRight" class="btn-icon-epic"></lucide-icon>
+          </button>
+        </div>
+
+        <!-- Show "Enroll Now" button if user is NOT enrolled -->
+        <button *ngIf="!isUserEnrolled && !isCheckingEnrollment" class="btn-enroll-epic" routerLink="/checkout">
           <span *ngIf="activeCoupon">Enroll Now - Save ${{ totalSavings.toFixed(0) }}</span>
           <span *ngIf="!activeCoupon">Enroll Now</span>
           <lucide-icon [img]="ArrowRight" class="btn-icon-epic"></lucide-icon>

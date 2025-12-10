@@ -20,11 +20,9 @@ export class AuthService {
   ) {
     // Listen to Supabase auth state changes
     this.supabaseService.client.auth.onAuthStateChange((event, session) => {
-      console.log('Auth state change event:', event, session?.user?.email);
 
       // Handle email confirmation events
       if (event === 'USER_UPDATED' && session?.user) {
-        console.log('User updated, reloading profile...');
         this.loadUserProfile(session.user.id);
       } else if (session?.user) {
         this.loadUserProfile(session.user.id);
@@ -46,7 +44,6 @@ export class AuthService {
         await this.loadUserProfile(user.id);
       }
     } catch (error) {
-      console.error('Auth initialization error:', error);
     } finally {
       this.authInitialized = true;
     }
@@ -61,7 +58,6 @@ export class AuthService {
 
   private async loadUserProfile(userId: string) {
     try {
-      console.log('Attempting to load profile for user:', userId);
 
       const { data: profile, error } = await this.supabaseService.client
         .from('profiles')
@@ -69,15 +65,11 @@ export class AuthService {
         .eq('id', userId)
         .maybeSingle();
 
-      console.log('Profile query result:', { profile, error });
-
       if (error) {
-        console.error('Error loading profile:', error);
         throw error;
       }
 
       if (!profile) {
-        console.warn('No profile found for user:', userId);
         throw new Error('Profile not found in database');
       }
 
@@ -92,9 +84,7 @@ export class AuthService {
         createdAt: new Date(profile.created_at),
       };
       this.currentUserSubject.next(user);
-      console.log('Profile loaded successfully:', user);
     } catch (error) {
-      console.error('Failed to load user profile:', error);
       throw error;
     }
   }
@@ -127,7 +117,6 @@ export class AuthService {
         );
       }),
       catchError((error) => {
-        console.error('Login error:', error);
         throw error;
       })
     );
@@ -153,33 +142,23 @@ export class AuthService {
     ).pipe(
       switchMap(({ data, error }) => {
         if (error) {
-          console.error('Supabase signUp error:', error);
           throw error;
         }
         if (!data.user) {
-          console.error('No user returned from signUp');
           throw new Error('Registration failed');
         }
-
-        console.log('User created:', data.user.id);
-        console.log('Session created:', !!data.session);
-        console.log('User identities:', data.user.identities);
 
         // Check if user already exists
         // Supabase returns a user object but with empty identities array if email exists
         if (data.user.identities && data.user.identities.length === 0) {
-          console.error('User already exists');
           throw new Error(
             'This email is already registered. Please login instead.'
           );
         }
 
-        console.log('Profile will be auto-created by database trigger');
-
         // If there's no session (email confirmation required),
         // we can't load the profile due to RLS
         if (!data.session) {
-          console.warn('No session - email confirmation required');
           // Return a placeholder user for now
           const tempUser: User = {
             id: data.user.id,
@@ -196,7 +175,6 @@ export class AuthService {
         return this.loadProfileWithRetry(data.user.id, 3);
       }),
       catchError((error) => {
-        console.error('Registration error:', error);
         throw error;
       })
     );
@@ -209,19 +187,16 @@ export class AuthService {
     return from(this.loadUserProfile(userId)).pipe(
       map(() => {
         if (this.currentUserSubject.value) {
-          console.log('Profile loaded successfully');
           return this.currentUserSubject.value;
         }
         throw new Error('Profile not loaded');
       }),
       catchError((error) => {
         if (maxRetries > 0) {
-          console.log(`Retrying profile load... (${maxRetries} attempts left)`);
           return from(new Promise((resolve) => setTimeout(resolve, 1000))).pipe(
             switchMap(() => this.loadProfileWithRetry(userId, maxRetries - 1))
           );
         }
-        console.error('Failed to load profile after all retries');
         throw error;
       })
     );
@@ -236,8 +211,6 @@ export class AuthService {
     try {
       // Check if email is changing
       const isEmailChanging = email !== user.email;
-
-      console.log('Updating profile:', { name, email, isEmailChanging });
 
       // Update auth user metadata and email (this updates auth.users table)
       const updateData: any = {
@@ -254,10 +227,7 @@ export class AuthService {
       const { data: authData, error: authError } =
         await this.supabaseService.client.auth.updateUser(updateData);
 
-      console.log('Auth update result:', { authData, authError });
-
       if (authError) {
-        console.error('Error updating auth user:', authError);
         throw new Error(authError.message);
       }
 
@@ -280,17 +250,13 @@ export class AuthService {
         .update(profileUpdate)
         .eq('id', user.id);
 
-      console.log('Profile update result:', { profileError });
-
       if (profileError) {
-        console.error('Error updating profile:', profileError);
         throw new Error(profileError.message);
       }
 
       // Reload user profile to get updated data
       await this.loadUserProfile(user.id);
     } catch (error: any) {
-      console.error('Failed to update user profile:', error);
       throw error;
     }
   }
@@ -302,11 +268,9 @@ export class AuthService {
       });
 
       if (error) {
-        console.error('Error updating password:', error);
         throw new Error(error.message);
       }
     } catch (error: any) {
-      console.error('Failed to update password:', error);
       throw error;
     }
   }
@@ -321,15 +285,12 @@ export class AuthService {
         });
 
       if (error) {
-        console.error('Password verification failed:', error);
         throw error;
       }
 
       // Password is correct - sign in succeeded
       // Note: This creates a new session, but that's okay since the user is already logged in
-      console.log('Current password verified successfully');
     } catch (error: any) {
-      console.error('Failed to verify current password:', error);
       throw error;
     }
   }
@@ -346,11 +307,8 @@ export class AuthService {
       const { error } = await this.supabaseService.client.rpc('delete_user');
 
       if (error) {
-        console.error('Error deleting account:', error);
         throw new Error('Failed to delete account: ' + error.message);
       }
-
-      console.log('Account deleted successfully, cleaning up...');
 
       // Sign out to clear session and remove tokens from storage
       await this.supabaseService.client.auth.signOut();
@@ -361,7 +319,6 @@ export class AuthService {
       // Navigate to login
       this.router.navigate(['/login']);
     } catch (error: any) {
-      console.error('Failed to delete account:', error);
       throw error;
     }
   }
@@ -374,13 +331,9 @@ export class AuthService {
         });
 
       if (error) {
-        console.error('Error sending password reset:', error);
         throw new Error(error.message);
       }
-
-      console.log('Password reset email sent successfully');
     } catch (error: any) {
-      console.error('Failed to send password reset email:', error);
       throw error;
     }
   }
@@ -389,21 +342,21 @@ export class AuthService {
     email: string
   ): Promise<{ data: boolean; error?: string }> {
     try {
-      // Try to check if email exists in profiles table
+      // Normalize email to lowercase for case-insensitive comparison
+      const normalizedEmail = email.toLowerCase().trim();
+
+      // Try to check if email exists in profiles table (case-insensitive)
       const { data, error } = await this.supabaseService.client
         .from('profiles')
         .select('email')
-        .eq('email', email)
+        .ilike('email', normalizedEmail) // Case-insensitive match
         .maybeSingle();
 
       if (error) {
-        console.error('Error checking email:', error);
         return { data: false, error: error.message };
       }
-
       return { data: !!data };
     } catch (error: any) {
-      console.error('Failed to check email:', error);
       return { data: false, error: error.message };
     }
   }
@@ -422,7 +375,6 @@ export class AuthService {
       await this.loadUserProfile(data.user.id);
       return this.currentUserSubject.value!;
     } catch (error: any) {
-      console.error('Sign in error:', error);
       throw error;
     }
   }

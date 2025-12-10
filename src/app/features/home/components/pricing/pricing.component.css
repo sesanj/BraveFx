@@ -263,6 +263,49 @@
   box-shadow: 0 15px 40px rgba(139, 92, 246, 0.5);
 }
 
+.btn-enrolled {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4) !important;
+}
+
+.btn-enrolled:hover {
+  box-shadow: 0 15px 40px rgba(16, 185, 129, 0.5) !important;
+}
+
+.enrollment-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.1),
+    rgba(5, 150, 105, 0.1)
+  );
+  border: 2px solid rgba(16, 185, 129, 0.3);
+  border-radius: 0.75rem;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+[data-theme="light"] .enrollment-status {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.15),
+    rgba(5, 150, 105, 0.15)
+  );
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.enrollment-icon {
+  width: 20px;
+  height: 20px;
+  color: #10b981;
+}
+
 .btn-icon-epic {
   width: 24px;
   height: 24px;

@@ -90,11 +90,8 @@ export class ResourcesComponent implements OnInit {
     // Get all courses (user's enrolled courses)
     this.courseService.getAllCourses().subscribe({
       next: (courses: Course[]) => {
-        console.log('=== RESOURCES DEBUG ===');
-        console.log('Loaded courses:', courses.length);
 
         if (courses.length === 0) {
-          console.log('No enrolled courses found');
           this.isLoading = false;
           return;
         }
@@ -106,19 +103,16 @@ export class ResourcesComponent implements OnInit {
 
         forkJoin(courseDetailRequests).subscribe({
           next: (fullCourses) => {
-            console.log('Loaded full course details:', fullCourses.length);
             this.enrolledCourses = fullCourses;
             // Load resources for each course
             this.loadResourcesForCourses();
           },
           error: (error) => {
-            console.error('Error loading course details:', error);
             this.isLoading = false;
           },
         });
       },
       error: (error) => {
-        console.error('Error loading courses:', error);
         this.isLoading = false;
       },
     });
@@ -136,8 +130,6 @@ export class ResourcesComponent implements OnInit {
     const resourceRequests = this.enrolledCourses.map((course) =>
       this.resourceService.getCourseResources(course.id).pipe(
         map((resources) => {
-          console.log(`Resources for ${course.title}:`, resources.length);
-          console.log('Course modules:', course.modules?.length || 0);
 
           // Group resources by module
           const moduleMap = new Map<string, Resource[]>();
@@ -148,19 +140,6 @@ export class ResourcesComponent implements OnInit {
             }
             moduleMap.get(resource.moduleId)!.push(resource);
           });
-
-          console.log(
-            `Modules with resources for ${course.title}:`,
-            moduleMap.size
-          );
-          console.log(
-            'Module IDs from resources:',
-            Array.from(moduleMap.keys())
-          );
-          console.log(
-            'Module IDs from course:',
-            course.modules?.map((m) => m.id) || []
-          );
 
           // Get module details from course
           const modulesWithResources: ModuleWithResources[] = (
@@ -177,11 +156,6 @@ export class ResourcesComponent implements OnInit {
             })
             .filter((module) => module.resources.length > 0); // Only include modules with resources
 
-          console.log(
-            'Modules with resources after mapping:',
-            modulesWithResources.length
-          );
-
           const totalResources = resources.length;
 
           return {
@@ -191,7 +165,6 @@ export class ResourcesComponent implements OnInit {
           } as CourseWithResources;
         }),
         catchError((error) => {
-          console.error(`Error loading resources for ${course.title}:`, error);
           return of({
             course,
             modules: [],
@@ -203,19 +176,13 @@ export class ResourcesComponent implements OnInit {
 
     forkJoin(resourceRequests).subscribe({
       next: (coursesWithResources) => {
-        console.log('All courses with resources loaded:', coursesWithResources);
         this.coursesWithResources = coursesWithResources.filter(
           (c) => c.totalResources > 0
-        );
-        console.log(
-          'Filtered courses with resources:',
-          this.coursesWithResources.length
         );
         this.filteredCoursesWithResources = [...this.coursesWithResources];
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading resources:', error);
         this.isLoading = false;
       },
     });

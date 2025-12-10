@@ -130,7 +130,6 @@ export class SettingsComponent implements OnInit {
         this.profileSuccessMessage = 'Profile updated successfully!';
       }
     } catch (error: any) {
-      console.error('Error updating profile:', error);
       this.profileErrorMessage =
         error.message || 'Failed to update profile. Please try again.';
     } finally {
@@ -183,7 +182,6 @@ export class SettingsComponent implements OnInit {
       this.newPassword = '';
       this.confirmNewPassword = '';
     } catch (error: any) {
-      console.error('Error updating password:', error);
 
       // Show specific error for wrong current password
       if (error.message?.includes('Invalid login credentials')) {
@@ -220,7 +218,6 @@ export class SettingsComponent implements OnInit {
       await this.authService.deleteAccount();
       // Auth service will handle logout and redirect
     } catch (error: any) {
-      console.error('Error deleting account:', error);
       alert(error.message || 'Failed to delete account. Please try again.');
       this.isDeletingAccount = false;
       this.closeDeleteConfirmation();

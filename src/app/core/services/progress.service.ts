@@ -58,7 +58,6 @@ export class ProgressService {
         return progress;
       }),
       catchError((err) => {
-        console.error('Error fetching lesson progress:', err);
         return of(undefined);
       })
     );
@@ -101,7 +100,6 @@ export class ProgressService {
         this.progressSubject.next(this.progressCache);
       }),
       catchError((error) => {
-        console.error('Error saving progress:', error);
         return throwError(() => error);
       })
     );
@@ -220,7 +218,6 @@ export class ProgressService {
         if (error) throw error;
       }),
       catchError((error) => {
-        console.error('Error saving last watched lesson:', error);
         return throwError(() => error);
       })
     );
@@ -248,7 +245,6 @@ export class ProgressService {
         return data.last_watched_lesson_id || null;
       }),
       catchError((err) => {
-        console.error('Error fetching last watched lesson:', err);
         return of(null);
       })
     );
@@ -279,7 +275,6 @@ export class ProgressService {
         if (error) throw error;
       }),
       catchError((error) => {
-        console.error('Error saving active quiz:', error);
         return throwError(() => error);
       })
     );
@@ -307,7 +302,6 @@ export class ProgressService {
         return data.active_quiz_module_id || null;
       }),
       catchError((err) => {
-        console.error('Error fetching active quiz:', err);
         return of(null);
       })
     );
@@ -333,7 +327,6 @@ export class ProgressService {
         if (error) throw error;
       }),
       catchError((error) => {
-        console.error('Error clearing active quiz:', error);
         return throwError(() => error);
       })
     );

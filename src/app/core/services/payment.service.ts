@@ -43,7 +43,6 @@ export class PaymentService {
     }
 
     if (!this.stripe) {
-      console.error('Stripe failed to initialize');
       return null;
     }
 
@@ -89,21 +88,26 @@ export class PaymentService {
   }
 
   async createPaymentIntent(
-    amount: number
-  ): Promise<{ clientSecret: string } | null> {
+    courseId: string,
+    couponCode?: string
+  ): Promise<{
+    clientSecret: string;
+    verifiedAmount?: number;
+    couponApplied?: boolean;
+  } | null> {
     try {
       // Call Supabase Edge Function to create payment intent
+      // Send only courseId and couponCode - NEVER send amount from frontend
       const { data, error } = await this.supabase.client.functions.invoke(
         'create-payment-intent',
         {
-          body: { amount },
+          body: { courseId, couponCode },
         }
       );
 
       if (error) throw error;
       return data;
     } catch (error) {
-      console.error('Error creating payment intent:', error);
       return null;
     }
   }
@@ -175,13 +179,26 @@ export class PaymentService {
           },
         });
 
-      if (authError) throw authError;
-      if (!authData.user) throw new Error('User creation failed');
+      if (authError) {
+        throw authError;
+      }
+
+      if (!authData.user) {
+        throw new Error('User creation failed - no user returned');
+      }
+
+      // CRITICAL: Check if user already exists
+      // Supabase returns a user object but with empty identities array if email exists
+      if (authData.user.identities && authData.user.identities.length === 0) {
+        throw new Error(
+          'This email is already registered. Payment was processed. Please contact support with Payment ID: ' +
+            paymentIntentId
+        );
+      }
 
       const userId = authData.user.id;
 
       // Wait a moment for auth session to be established
-      console.log('✅ [PaymentService] User created successfully:', userId);
 
       // Profile is automatically created via database trigger
       // No manual insert needed
@@ -201,22 +218,10 @@ export class PaymentService {
           .single();
 
       if (paymentError) {
-        console.error('Payment record error:', paymentError);
         throw new Error('Failed to record payment: ' + paymentError.message);
       }
 
-      console.log(
-        '💳 [PaymentService] Payment recorded successfully:',
-        paymentData.id
-      );
-
       // 3. Enroll in course with the actual course ID from database
-      console.log(
-        '📚 [PaymentService] Creating enrollment for user:',
-        userId,
-        'in course:',
-        courseId
-      );
       const { data: enrollmentData, error: enrollError } =
         await this.supabase.client
           .from('enrollments')
@@ -229,18 +234,11 @@ export class PaymentService {
           .single();
 
       if (enrollError) {
-        console.error('❌ [PaymentService] Enrollment error:', enrollError);
         throw new Error('Failed to enroll in course: ' + enrollError.message);
       }
 
-      console.log(
-        '✅ [PaymentService] User successfully enrolled in course:',
-        courseId
-      );
-
       return { success: true, userId, enrollmentId: enrollmentData.id };
     } catch (error: any) {
-      console.error('User creation and enrollment error:', error);
       return {
         success: false,
         error: error.message || 'Account creation failed',
@@ -256,9 +254,10 @@ export class PaymentService {
     this.elements = null;
   }
 
-  // Legacy methods for compatibility
-  createStripePayment(amount: number, currency: string) {
-    return this.createPaymentIntent(amount);
+  // Legacy methods for compatibility (deprecated - do not use)
+  // Use createPaymentIntent(courseId, couponCode) instead
+  createStripePayment(courseId: string, couponCode?: string) {
+    return this.createPaymentIntent(courseId, couponCode);
   }
 
   verifyPayment(paymentId: string): Promise<boolean> {
