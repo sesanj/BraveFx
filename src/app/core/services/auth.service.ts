@@ -389,11 +389,14 @@ export class AuthService {
     email: string
   ): Promise<{ data: boolean; error?: string }> {
     try {
-      // Try to check if email exists in profiles table
+      // Normalize email to lowercase for case-insensitive comparison
+      const normalizedEmail = email.toLowerCase().trim();
+
+      // Try to check if email exists in profiles table (case-insensitive)
       const { data, error } = await this.supabaseService.client
         .from('profiles')
         .select('email')
-        .eq('email', email)
+        .ilike('email', normalizedEmail) // Case-insensitive match
         .maybeSingle();
 
       if (error) {
@@ -401,6 +404,12 @@ export class AuthService {
         return { data: false, error: error.message };
       }
 
+      console.log(
+        '📧 [AuthService] Email check result for',
+        normalizedEmail,
+        ':',
+        !!data
+      );
       return { data: !!data };
     } catch (error: any) {
       console.error('Failed to check email:', error);
