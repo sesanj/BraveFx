@@ -25,6 +25,8 @@ import {
   CouponService,
   Coupon,
 } from '../../../../core/services/coupon.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { EnrollmentService } from '../../../../core/services/enrollment.service';
 
 export interface FAQ {
   question: string;
@@ -44,6 +46,10 @@ export class PricingComponent implements OnInit {
   readonly originalPrice = 149; // Actual course price
   activeCoupon: Coupon | null = null;
   isCheckingCoupon = true;
+
+  // Enrollment state
+  isUserEnrolled = false;
+  isCheckingEnrollment = true;
 
   // Computed pricing
   get discountAmount(): number {
@@ -126,10 +132,61 @@ export class PricingComponent implements OnInit {
   Minus = Minus;
   Tag = Tag;
 
-  constructor(private couponService: CouponService) {}
+  constructor(
+    private couponService: CouponService,
+    private authService: AuthService,
+    private enrollmentService: EnrollmentService
+  ) {}
 
   async ngOnInit() {
-    await this.checkForActiveCoupon();
+    // Wait for auth to initialize before checking enrollment
+    await this.authService.waitForAuthInit();
+
+    await Promise.all([
+      this.checkForActiveCoupon(),
+      this.checkUserEnrollment(),
+    ]);
+  }
+
+  /**
+   * Check if the current user is enrolled in any course
+   */
+  async checkUserEnrollment() {
+    try {
+      const user = this.authService.getCurrentUser();
+
+      console.log(
+        '👤 [Pricing] Current user:',
+        user ? user.email : 'Not logged in'
+      );
+
+      if (!user) {
+        this.isUserEnrolled = false;
+        this.isCheckingEnrollment = false;
+        console.log(
+          '❌ [Pricing] No user logged in - showing Enroll Now button'
+        );
+        return;
+      }
+
+      // Check if user has any active enrollments
+      const enrollments = await this.enrollmentService.getUserEnrollments(
+        user.id
+      );
+      this.isUserEnrolled = enrollments.length > 0;
+
+      console.log('📚 [Pricing] User enrollment status:', this.isUserEnrolled);
+      console.log('📚 [Pricing] Enrollments found:', enrollments.length);
+      console.log(
+        '🎯 [Pricing] Will show:',
+        this.isUserEnrolled ? 'START LEARNING button' : 'ENROLL NOW button'
+      );
+    } catch (error) {
+      console.error('❌ [Pricing] Error checking enrollment:', error);
+      this.isUserEnrolled = false;
+    } finally {
+      this.isCheckingEnrollment = false;
+    }
   }
 
   /**
