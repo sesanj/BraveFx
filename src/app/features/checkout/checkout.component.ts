@@ -151,21 +151,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           this.coursePrice = courses[0].price;
           this.courseThumbnail = courses[0].thumbnail;
           this.courseDescription = courses[0].description;
-          console.log(
-            '📚 [Checkout] Loaded course:',
-            this.courseId,
-            this.courseName
-          );
 
           // Check for coupon in URL after course is loaded
           this.checkForCouponInUrl();
         } else {
-          console.error('❌ [Checkout] No courses found in database');
           this.errorMessage = 'Course not found. Please contact support.';
         }
       },
       error: (error) => {
-        console.error('❌ [Checkout] Error loading course:', error);
         this.errorMessage = 'Failed to load course. Please try again.';
       },
     });
@@ -254,17 +247,12 @@ export class CheckoutComponent implements OnInit, OnDestroy {
    * 3. No discount
    */
   async checkForCouponInUrl() {
-    console.log('🔍 [Checkout] Checking for active coupons...');
 
     try {
       // FIRST: Check for site-wide campaign (overrides everything)
       const defaultCoupon = await this.couponService.getDefaultCoupon();
 
       if (defaultCoupon) {
-        console.log(
-          '🎯 [Checkout] Site-wide campaign active:',
-          defaultCoupon.code
-        );
 
         // Mark as site-wide campaign and start countdown
         this.isSiteWideCampaign = true;
@@ -310,15 +298,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       const couponCode = pendingCoupon || urlCoupon;
 
       if (!couponCode) {
-        console.log('ℹ️ [Checkout] No pending coupon found');
         return;
       }
-
-      console.log(
-        '🎟️ [Checkout] Specific coupon code found:',
-        couponCode,
-        pendingCoupon ? '(from storage)' : '(from URL)'
-      );
 
       // Show loading overlay
       this.isValidatingCoupon = true;
@@ -348,15 +329,9 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           )}`,
           'success'
         );
-        console.log(
-          '✅ [Checkout] Coupon applied successfully:',
-          this.appliedCoupon
-        );
       } else {
         // Invalid coupon - remove from storage
-        console.warn('❌ [Checkout] Coupon validation failed:', result.error);
         localStorage.removeItem('bravefx_pending_coupon');
-        console.log('🗑️ [Checkout] Removed invalid coupon from localStorage');
 
         this.showCouponNotification(
           `⚠️ Coupon "${couponCode}" is invalid or expired`,
@@ -365,7 +340,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       }
     } catch (error) {
       this.isValidatingCoupon = false;
-      console.error('❌ [Checkout] Error checking for coupons:', error);
       this.showCouponNotification(
         `⚠️ Error validating coupon. Please refresh and try again.`,
         'error'
@@ -428,9 +402,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
       // CRITICAL: Double-check email doesn't exist BEFORE creating payment intent
       // This prevents charging the card for accounts that can't be created
-      console.log(
-        '🔍 [Checkout] Verifying email is available before payment processing...'
-      );
       const { data: existingUser } = await this.authService.checkEmailExists(
         this.email
       );
@@ -442,19 +413,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         return;
       }
 
-      console.log(
-        '✅ [Checkout] Email is available, proceeding with payment...'
-      );
-
       // SECURITY: Send only courseId and couponCode to backend
       // The backend will fetch the actual price and validate the coupon
       // NEVER trust price from frontend!
       const couponCode = this.appliedCoupon?.code;
-
-      console.log('💰 [Checkout] Creating payment intent with:', {
-        courseId: this.courseId,
-        couponCode: couponCode || 'none',
-      });
 
       // 1. Create Payment Intent (backend validates price and coupon)
       const paymentIntent = await this.paymentService.createPaymentIntent(
@@ -467,17 +429,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       }
 
       // Backend has calculated and verified the price - we trust it completely
-      console.log(
-        '✅ [Checkout] Payment intent created. Backend verified amount:',
-        paymentIntent.verifiedAmount
-          ? `$${(paymentIntent.verifiedAmount / 100).toFixed(2)}`
-          : 'N/A',
-        'Coupon applied:',
-        paymentIntent.couponApplied ? 'Yes' : 'No'
-      );
 
       // 2. Confirm Card Payment (charge the card)
-      console.log('💳 [Checkout] Charging card...');
 
       const paymentResult = await this.paymentService.confirmCardPayment(
         paymentIntent.clientSecret,
@@ -488,10 +441,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       if (!paymentResult.success) {
         throw new Error(paymentResult.error || 'Payment failed');
       }
-
-      console.log(
-        '✅ [Checkout] Payment successful! Creating account and enrollment...'
-      );
 
       // 3. Create User Account and Enroll (payment already succeeded)
       // Use verified amount from backend (not frontend calculation)
@@ -541,7 +490,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       // 4. Sign in the user first (needed for RLS policies)
       try {
         await this.authService.signIn(this.email, this.password);
-        console.log('✅ [Checkout] User signed in successfully');
 
         // 5. Record coupon redemption AFTER user is authenticated
         if (
@@ -549,12 +497,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           enrollResult.userId &&
           enrollResult.enrollmentId
         ) {
-          console.log('💾 [Checkout] Recording coupon redemption...', {
-            couponId: this.appliedCoupon.id,
-            userId: enrollResult.userId,
-            enrollmentId: enrollResult.enrollmentId,
-            amountSaved: this.discountAmount,
-          });
 
           const redemptionResult = await this.couponService.recordRedemption(
             this.appliedCoupon.id,
@@ -564,20 +506,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           );
 
           if (redemptionResult.success) {
-            console.log(
-              '✅ [Checkout] Coupon redemption recorded successfully'
-            );
 
             // NOW remove coupon from localStorage - payment successful, coupon redeemed
             localStorage.removeItem('bravefx_pending_coupon');
-            console.log(
-              '🗑️ [Checkout] Removed coupon from localStorage (payment successful)'
-            );
           } else {
-            console.error(
-              '❌ [Checkout] Failed to record coupon redemption:',
-              redemptionResult.error
-            );
           }
         }
 
@@ -593,7 +525,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         }, 2000);
       } catch (signInError: any) {
         // If sign-in fails (likely due to email confirmation requirement)
-        console.log('Sign-in after payment failed:', signInError);
         this.successMessage =
           'Payment successful! Please check your email to confirm your account, then sign in.';
         setTimeout(() => {
@@ -601,7 +532,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         }, 4000);
       }
     } catch (error: any) {
-      console.error('Payment error:', error);
       this.paymentError =
         error.message || 'Payment processing failed. Please try again.';
     } finally {

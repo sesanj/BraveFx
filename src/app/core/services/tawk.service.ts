@@ -131,7 +131,6 @@ export class TawkService {
           },
           (error: any) => {
             if (error) {
-              console.error('Error setting Tawk attributes:', error);
             }
           }
         );
@@ -169,7 +168,6 @@ export class TawkService {
         },
         (error: any) => {
           if (error) {
-            console.error('Error setting visitor info:', error);
           }
         }
       );

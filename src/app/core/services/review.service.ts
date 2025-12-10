@@ -48,7 +48,6 @@ export class ReviewService {
         }));
       }),
       catchError((error) => {
-        console.error('Error fetching course reviews:', error);
         return of([]);
       })
     );
@@ -94,7 +93,6 @@ export class ReviewService {
         }));
       }),
       catchError((error) => {
-        console.error('Error fetching featured reviews:', error);
         return of([]);
       })
     );
@@ -128,16 +126,7 @@ export class ReviewService {
       map((response) => {
         if (response.error) throw response.error;
 
-        console.log('=== REVIEW SERVICE getAllReviews DEBUG ===');
-        console.log('Raw Supabase response:', response.data);
-
         const mappedReviews = (response.data || []).map((review: any) => {
-          console.log('Processing review:', {
-            id: review.id,
-            review_text_raw: review.review_text,
-            review_text_type: typeof review.review_text,
-            review_text_length: review.review_text?.length || 0,
-          });
 
           return {
             id: review.id,
@@ -154,13 +143,9 @@ export class ReviewService {
           };
         });
 
-        console.log('Mapped reviews:', mappedReviews);
-        console.log('=== END REVIEW SERVICE DEBUG ===');
-
         return mappedReviews;
       }),
       catchError((error) => {
-        console.error('Error fetching all reviews:', error);
         return of([]);
       })
     );
@@ -206,7 +191,6 @@ export class ReviewService {
         };
       }),
       catchError((error) => {
-        console.error('Error fetching review stats:', error);
         return of({
           averageRating: 0,
           totalReviews: 0,
@@ -221,8 +205,6 @@ export class ReviewService {
    */
   async createReview(request: CreateReviewRequest): Promise<Review | null> {
     try {
-      console.log('=== CREATE REVIEW DEBUG ===');
-      console.log('Request:', request);
 
       // Get current user
       const userResponse = await this.supabase.client.auth.getUser();
@@ -240,8 +222,6 @@ export class ReviewService {
         is_featured: false,
       };
 
-      console.log('Data being inserted:', reviewData);
-
       // Insert the review
       const { data, error } = await this.supabase.client
         .from('reviews')
@@ -258,16 +238,12 @@ export class ReviewService {
         .single();
 
       if (error) {
-        console.error('Insert error:', error);
         // Check if it's a duplicate review
         if (error.code === '23505') {
           throw new Error('You have already reviewed this course');
         }
         throw error;
       }
-
-      console.log('Insert successful, returned data:', data);
-      console.log('=== END CREATE REVIEW DEBUG ===');
 
       const review = data as any;
       return {
@@ -283,7 +259,6 @@ export class ReviewService {
         updatedAt: review.updated_at,
       };
     } catch (error) {
-      console.error('Error creating review:', error);
       throw error;
     }
   }
@@ -297,10 +272,6 @@ export class ReviewService {
     reviewText: string
   ): Promise<Review | null> {
     try {
-      console.log('=== UPDATE REVIEW DEBUG ===');
-      console.log('Review ID:', reviewId);
-      console.log('New rating:', rating);
-      console.log('New text:', reviewText);
 
       const { data, error } = await this.supabase.client
         .from('reviews')
@@ -322,12 +293,8 @@ export class ReviewService {
         .single();
 
       if (error) {
-        console.error('Update error:', error);
         throw error;
       }
-
-      console.log('Update successful, returned data:', data);
-      console.log('=== END UPDATE REVIEW DEBUG ===');
 
       const review = data as any;
       return {
@@ -343,7 +310,6 @@ export class ReviewService {
         updatedAt: review.updated_at,
       };
     } catch (error) {
-      console.error('Error updating review:', error);
       throw error;
     }
   }
@@ -360,7 +326,6 @@ export class ReviewService {
         return true;
       }),
       catchError((error) => {
-        console.error('Error deleting review:', error);
         return of(false);
       })
     );
@@ -381,7 +346,6 @@ export class ReviewService {
       .maybeSingle();
 
     if (error) {
-      console.error('Error checking user review:', error);
       return false;
     }
 
@@ -411,7 +375,6 @@ export class ReviewService {
       .maybeSingle();
 
     if (error) {
-      console.error('Error fetching user review:', error);
       return null;
     }
 

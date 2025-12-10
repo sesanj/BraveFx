@@ -45,7 +45,6 @@ export class CoursesComponent implements OnInit {
       const userId = currentUser?.id;
 
       if (!userId) {
-        console.error('No user ID found');
         this.isLoading = false;
         return;
       }
@@ -54,12 +53,8 @@ export class CoursesComponent implements OnInit {
       this.enrollmentService
         .getUserCourseIds(userId)
         .then((enrolledCourseIds) => {
-          console.log('🔍 [Courses] Enrolled Course IDs:', enrolledCourseIds);
           if (enrolledCourseIds.length === 0) {
             // User not enrolled in any courses
-            console.log(
-              '⚠️ [Courses] User not enrolled in any courses - showing empty state'
-            );
             this.enrolledCourses = [];
             this.isLoading = false;
             return;
@@ -68,23 +63,11 @@ export class CoursesComponent implements OnInit {
           // Load all courses and filter by enrollment
           this.courseService.getAllCourses().subscribe({
             next: (allCourses: CourseModel[]) => {
-              console.log(
-                '🔍 [Courses] All courses loaded:',
-                allCourses.length
-              );
               // Filter to only show enrolled courses (course.id is now UUID string)
               const courses = allCourses.filter((course) => {
                 const isEnrolled = enrolledCourseIds.includes(course.id);
-                console.log(
-                  `🔍 [Courses] Course ${course.id} (${course.title}): isEnrolled=${isEnrolled}`
-                );
                 return isEnrolled;
               });
-
-              console.log(
-                '✅ [Courses] Filtered enrolled courses:',
-                courses.length
-              );
 
               // Load progress for each enrolled course
               const progressRequests = courses.map((course) =>
@@ -127,7 +110,6 @@ export class CoursesComponent implements OnInit {
                   this.isLoading = false;
                 },
                 error: (error) => {
-                  console.error('Error loading progress:', error);
                   // Still show courses even if progress fails
                   this.enrolledCourses = courses.map((course) => ({
                     id: course.id,
@@ -147,7 +129,6 @@ export class CoursesComponent implements OnInit {
               });
             },
             error: (error) => {
-              console.error('Error loading courses:', error);
               this.isLoading = false;
             },
           });

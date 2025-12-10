@@ -104,7 +104,6 @@ export class SupportComponent implements OnInit {
         this.formData.name = data.full_name || '';
       }
     } catch (error) {
-      console.error('Error loading profile:', error);
     }
   }
 
@@ -184,7 +183,6 @@ export class SupportComponent implements OnInit {
         this.showSuccess = false;
       }, 5000);
     } catch (error: any) {
-      console.error('Error sending support email:', error);
       this.errorMessage =
         'Failed to send message. Please try again or email us directly at support@bravefx.com';
     } finally {

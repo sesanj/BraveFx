@@ -126,7 +126,6 @@ export class ReviewsComponent implements OnInit {
         this.isLoading = false;
       },
       error: (error) => {
-        console.error('Error loading reviews:', error);
         this.isLoading = false;
         this.loadFallbackData();
       },

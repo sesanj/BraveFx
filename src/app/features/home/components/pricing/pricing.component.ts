@@ -25,6 +25,8 @@ import {
   CouponService,
   Coupon,
 } from '../../../../core/services/coupon.service';
+import { AuthService } from '../../../../core/services/auth.service';
+import { EnrollmentService } from '../../../../core/services/enrollment.service';
 
 export interface FAQ {
   question: string;
@@ -44,6 +46,10 @@ export class PricingComponent implements OnInit {
   readonly originalPrice = 149; // Actual course price
   activeCoupon: Coupon | null = null;
   isCheckingCoupon = true;
+
+  // Enrollment state
+  isUserEnrolled = false;
+  isCheckingEnrollment = true;
 
   // Computed pricing
   get discountAmount(): number {
@@ -126,10 +132,45 @@ export class PricingComponent implements OnInit {
   Minus = Minus;
   Tag = Tag;
 
-  constructor(private couponService: CouponService) {}
+  constructor(
+    private couponService: CouponService,
+    private authService: AuthService,
+    private enrollmentService: EnrollmentService
+  ) {}
 
   async ngOnInit() {
-    await this.checkForActiveCoupon();
+    // Wait for auth to initialize before checking enrollment
+    await this.authService.waitForAuthInit();
+
+    await Promise.all([
+      this.checkForActiveCoupon(),
+      this.checkUserEnrollment(),
+    ]);
+  }
+
+  /**
+   * Check if the current user is enrolled in any course
+   */
+  async checkUserEnrollment() {
+    try {
+      const user = this.authService.getCurrentUser();
+
+      if (!user) {
+        this.isUserEnrolled = false;
+        this.isCheckingEnrollment = false;
+        return;
+      }
+
+      // Check if user has any active enrollments
+      const enrollments = await this.enrollmentService.getUserEnrollments(
+        user.id
+      );
+      this.isUserEnrolled = enrollments.length > 0;
+    } catch (error) {
+      this.isUserEnrolled = false;
+    } finally {
+      this.isCheckingEnrollment = false;
+    }
   }
 
   /**
@@ -144,10 +185,6 @@ export class PricingComponent implements OnInit {
       const defaultCoupon = await this.couponService.getDefaultCoupon();
 
       if (defaultCoupon) {
-        console.log(
-          '🎯 [Pricing] Site-wide campaign active:',
-          defaultCoupon.code
-        );
         const result = await this.couponService.validateCoupon(
           defaultCoupon.code,
           this.originalPrice
@@ -171,17 +208,11 @@ export class PricingComponent implements OnInit {
 
         if (result.valid && result.coupon) {
           this.activeCoupon = result.coupon;
-          console.log(
-            '✅ [Pricing] Specific coupon found:',
-            this.activeCoupon.code
-          );
         } else {
-          console.log('⚠️ [Pricing] Coupon in storage is invalid, removing...');
           localStorage.removeItem('bravefx_pending_coupon');
         }
       }
     } catch (error) {
-      console.error('❌ [Pricing] Error checking for coupons:', error);
     } finally {
       this.isCheckingCoupon = false;
     }

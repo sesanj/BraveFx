@@ -151,13 +151,11 @@ export class ProgressComponent implements OnInit {
             this.loadQuizPerformance(courses);
           },
           error: (error) => {
-            console.error('Error loading progress:', error);
             this.loading = false;
           },
         });
       },
       error: (error) => {
-        console.error('Error loading courses:', error);
         this.loading = false;
       },
     });
@@ -175,7 +173,6 @@ export class ProgressComponent implements OnInit {
       .eq('has_quiz', true);
 
     if (error) {
-      console.error('Error counting quizzes:', error);
       return 0;
     }
 
@@ -234,7 +231,6 @@ export class ProgressComponent implements OnInit {
         this.loading = false;
       },
       error: (error) => {
-        console.error('Error loading quiz performance:', error);
         this.loading = false;
       },
     });
@@ -249,7 +245,6 @@ export class ProgressComponent implements OnInit {
     this.quizService.getQuizAttemptById(quiz.attemptId).subscribe({
       next: (attempt: any) => {
         if (!attempt) {
-          console.error('Quiz attempt not found');
           this.closeQuizReview();
           return;
         }
@@ -258,7 +253,6 @@ export class ProgressComponent implements OnInit {
         this.quizService.getModuleQuiz(quiz.moduleId).subscribe({
           next: (fullQuiz) => {
             if (!fullQuiz) {
-              console.error('Quiz not found');
               this.closeQuizReview();
               return;
             }
@@ -297,13 +291,11 @@ export class ProgressComponent implements OnInit {
             this.loadingQuizReview = false;
           },
           error: (error: any) => {
-            console.error('Error loading quiz details:', error);
             this.closeQuizReview();
           },
         });
       },
       error: (error: any) => {
-        console.error('Error loading quiz attempt:', error);
         this.closeQuizReview();
       },
     });
