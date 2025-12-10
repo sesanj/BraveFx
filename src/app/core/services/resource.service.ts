@@ -65,7 +65,6 @@ export class ResourceService {
     ).pipe(
       map(({ data, error }) => {
         if (error) {
-          console.error('Error fetching course resources:', error);
           return [];
         }
 
@@ -79,7 +78,6 @@ export class ResourceService {
         }));
       }),
       catchError((error) => {
-        console.error('Error in getCourseResources:', error);
         return of([]);
       })
     );

@@ -30,7 +30,6 @@ export class LoginComponent {
     this.authService.login(this.email, this.password).subscribe({
       next: (user) => {
         if (user) {
-          console.log('Login successful:', user);
           // Add a 1.5 second delay for loading animation before navigation
           setTimeout(() => {
             this.router.navigate(['/dashboard']);
@@ -41,7 +40,6 @@ export class LoginComponent {
         }
       },
       error: (error) => {
-        console.error('Login component error:', error);
         this.isLoggingIn = false;
         // Show more specific error messages
         if (error.message?.includes('Email not confirmed')) {
@@ -103,7 +101,6 @@ export class LoginComponent {
         this.closeForgotPassword();
       }, 3000);
     } catch (error: any) {
-      console.error('Password reset error:', error);
       this.errorMessage =
         error.message || 'Failed to send reset email. Please try again.';
     } finally {

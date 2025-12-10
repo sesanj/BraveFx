@@ -11,7 +11,6 @@ export const enrollmentGuard = (route: ActivatedRouteSnapshot) => {
   const router = inject(Router);
 
   const courseId = route.paramMap.get('id') || ''; // Get as string (UUID)
-  console.log('🔒 [EnrollmentGuard] Checking access to course:', courseId);
 
   // Wait for auth to initialize first!
   return from(authService.waitForAuthInit()).pipe(
@@ -20,19 +19,11 @@ export const enrollmentGuard = (route: ActivatedRouteSnapshot) => {
     switchMap(async (user) => {
       if (!user) {
         // Not logged in - redirect to login
-        console.log(
-          '⚠️ [EnrollmentGuard] No user found - redirecting to login'
-        );
         router.navigate(['/login'], {
           queryParams: { returnUrl: route.url.join('/') },
         });
         return false;
       }
-
-      console.log(
-        '🔍 [EnrollmentGuard] Checking enrollment for user:',
-        user.email
-      );
 
       // Check if user is enrolled in this course
       const isEnrolled = await enrollmentService.isEnrolledInCourse(
@@ -42,18 +33,11 @@ export const enrollmentGuard = (route: ActivatedRouteSnapshot) => {
 
       if (!isEnrolled) {
         // Not enrolled - redirect to checkout
-        console.log(
-          `❌ [EnrollmentGuard] User ${user.email} is NOT enrolled in course ${courseId} - redirecting to checkout`
-        );
         router.navigate(['/checkout'], {
           queryParams: { course: courseId },
         });
         return false;
       }
-
-      console.log(
-        `✅ [EnrollmentGuard] User ${user.email} IS enrolled in course ${courseId} - access granted`
-      );
 
       // Update last accessed time
       enrollmentService.updateLastAccessed(user.id, courseId);

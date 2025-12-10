@@ -43,7 +43,6 @@ export class PaymentService {
     }
 
     if (!this.stripe) {
-      console.error('Stripe failed to initialize');
       return null;
     }
 
@@ -109,7 +108,6 @@ export class PaymentService {
       if (error) throw error;
       return data;
     } catch (error) {
-      console.error('Error creating payment intent:', error);
       return null;
     }
   }
@@ -182,7 +180,6 @@ export class PaymentService {
         });
 
       if (authError) {
-        console.error('❌ [PaymentService] Auth error:', authError);
         throw authError;
       }
 
@@ -193,7 +190,6 @@ export class PaymentService {
       // CRITICAL: Check if user already exists
       // Supabase returns a user object but with empty identities array if email exists
       if (authData.user.identities && authData.user.identities.length === 0) {
-        console.error('❌ [PaymentService] Email already exists:', email);
         throw new Error(
           'This email is already registered. Payment was processed. Please contact support with Payment ID: ' +
             paymentIntentId
@@ -201,10 +197,8 @@ export class PaymentService {
       }
 
       const userId = authData.user.id;
-      console.log('✅ [PaymentService] User created with ID:', userId);
 
       // Wait a moment for auth session to be established
-      console.log('✅ [PaymentService] User created successfully:', userId);
 
       // Profile is automatically created via database trigger
       // No manual insert needed
@@ -224,22 +218,10 @@ export class PaymentService {
           .single();
 
       if (paymentError) {
-        console.error('Payment record error:', paymentError);
         throw new Error('Failed to record payment: ' + paymentError.message);
       }
 
-      console.log(
-        '💳 [PaymentService] Payment recorded successfully:',
-        paymentData.id
-      );
-
       // 3. Enroll in course with the actual course ID from database
-      console.log(
-        '📚 [PaymentService] Creating enrollment for user:',
-        userId,
-        'in course:',
-        courseId
-      );
       const { data: enrollmentData, error: enrollError } =
         await this.supabase.client
           .from('enrollments')
@@ -252,18 +234,11 @@ export class PaymentService {
           .single();
 
       if (enrollError) {
-        console.error('❌ [PaymentService] Enrollment error:', enrollError);
         throw new Error('Failed to enroll in course: ' + enrollError.message);
       }
 
-      console.log(
-        '✅ [PaymentService] User successfully enrolled in course:',
-        courseId
-      );
-
       return { success: true, userId, enrollmentId: enrollmentData.id };
     } catch (error: any) {
-      console.error('User creation and enrollment error:', error);
       return {
         success: false,
         error: error.message || 'Account creation failed',
@@ -282,9 +257,6 @@ export class PaymentService {
   // Legacy methods for compatibility (deprecated - do not use)
   // Use createPaymentIntent(courseId, couponCode) instead
   createStripePayment(courseId: string, couponCode?: string) {
-    console.warn(
-      '⚠️ Deprecated method. Use createPaymentIntent(courseId, couponCode) instead'
-    );
     return this.createPaymentIntent(courseId, couponCode);
   }
 

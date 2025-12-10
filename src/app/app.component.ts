@@ -109,7 +109,6 @@ export class AppComponent implements OnInit {
         'bravefx_pending_coupon',
         couponCode.trim().toUpperCase()
       );
-      console.log('🎟️ [App] Coupon captured from URL:', couponCode);
 
       // Optional: Clean URL to remove the coupon parameter
       // This gives a cleaner URL while browsing
@@ -126,13 +125,9 @@ export class AppComponent implements OnInit {
         .select('count');
 
       if (error) {
-        console.error('❌ Supabase connection failed:', error);
       } else {
-        console.log('✅ Supabase connected successfully!');
-        console.log('📊 Courses table is accessible');
       }
     } catch (err) {
-      console.error('❌ Supabase connection error:', err);
     }
   }
 }

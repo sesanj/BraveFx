@@ -17,8 +17,6 @@ Deno.serve(async (req) => {
   try {
     const payload: EnrollmentPayload = await req.json();
 
-    console.log('📧 Welcome email trigger received:', payload);
-
     // Get user details from profiles table
     const supabaseClient = createClient(
       Deno.env.get('SUPABASE_URL')!,
@@ -45,10 +43,6 @@ Deno.serve(async (req) => {
     if (courseError || !course) {
       throw new Error(`Failed to fetch course: ${courseError?.message}`);
     }
-
-    console.log(
-      `📧 Sending welcome email to ${profile.email} for course: ${course.title}`
-    );
 
     // Send email via Resend
     const res = await fetch('https://api.resend.com/emails', {
@@ -159,13 +153,10 @@ Deno.serve(async (req) => {
       throw new Error(`Resend API error: ${JSON.stringify(data)}`);
     }
 
-    console.log('✅ Welcome email sent successfully:', data);
-
     return new Response(JSON.stringify({ success: true, emailId: data.id }), {
       headers: { 'Content-Type': 'application/json' },
     });
   } catch (error) {
-    console.error('❌ Error sending welcome email:', error);
     return new Response(
       JSON.stringify({
         success: false,

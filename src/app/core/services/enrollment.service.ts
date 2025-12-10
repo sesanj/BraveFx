@@ -54,7 +54,6 @@ export class EnrollmentService {
 
       return true;
     } catch (error) {
-      console.error('Error checking enrollment:', error);
       return false;
     }
   }
@@ -74,7 +73,6 @@ export class EnrollmentService {
       if (error) throw error;
       return data || [];
     } catch (error) {
-      console.error('Error fetching enrollments:', error);
       return [];
     }
   }
@@ -97,7 +95,6 @@ export class EnrollmentService {
       if (error) throw error;
       return data;
     } catch (error) {
-      console.error('Error fetching enrollment:', error);
       return null;
     }
   }
@@ -123,7 +120,6 @@ export class EnrollmentService {
       if (error) throw error;
       return true;
     } catch (error) {
-      console.error('Error updating progress:', error);
       return false;
     }
   }
@@ -150,7 +146,6 @@ export class EnrollmentService {
       if (error) throw error;
       return true;
     } catch (error) {
-      console.error('Error marking course completed:', error);
       return false;
     }
   }
@@ -168,7 +163,6 @@ export class EnrollmentService {
         .eq('user_id', userId)
         .eq('course_id', courseId);
     } catch (error) {
-      console.error('Error updating last accessed:', error);
     }
   }
 
@@ -177,17 +171,10 @@ export class EnrollmentService {
    */
   async getUserCourseIds(userId: string): Promise<string[]> {
     try {
-      console.log(
-        '🔍 [EnrollmentService] Getting course IDs for user:',
-        userId
-      );
       const enrollments = await this.getUserEnrollments(userId);
-      console.log('🔍 [EnrollmentService] Found enrollments:', enrollments);
       const courseIds = enrollments.map((e) => e.course_id);
-      console.log('🔍 [EnrollmentService] Returning course IDs:', courseIds);
       return courseIds;
     } catch (error) {
-      console.error('❌ [EnrollmentService] Error fetching course IDs:', error);
       return [];
     }
   }

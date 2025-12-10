@@ -34,7 +34,6 @@ export class QuizService {
     ).pipe(
       map(({ data, error }) => {
         if (error) {
-          console.error('Error fetching quiz:', error);
           throw error;
         }
         return data;
@@ -47,7 +46,6 @@ export class QuizService {
       // Flatten the nested observable
       switchMap((obs) => obs || of(null)),
       catchError((error) => {
-        console.error('Error in getModuleQuiz:', error);
         return of(null);
       })
     );
@@ -88,10 +86,6 @@ export class QuizService {
     ).pipe(
       map(([quizResult, questionsResult]) => {
         if (quizResult.error || questionsResult.error) {
-          console.error(
-            'Error fetching quiz data:',
-            quizResult.error || questionsResult.error
-          );
           return null;
         }
 
@@ -132,7 +126,6 @@ export class QuizService {
         return quiz;
       }),
       catchError((error) => {
-        console.error('Error in getQuizWithQuestions:', error);
         return of(null);
       })
     );
@@ -159,7 +152,6 @@ export class QuizService {
     ).pipe(
       map(({ data, error }) => {
         if (error) {
-          console.error('Error fetching quiz attempts:', error);
           return [];
         }
 
@@ -178,7 +170,6 @@ export class QuizService {
         }));
       }),
       catchError((error) => {
-        console.error('Error in getUserAttempts:', error);
         return of([]);
       })
     );
@@ -191,7 +182,6 @@ export class QuizService {
     const user = this.authService.getCurrentUser();
 
     if (!user) {
-      console.error('No user logged in');
       return throwError(() => new Error('User not authenticated'));
     }
 
@@ -217,7 +207,6 @@ export class QuizService {
     ).pipe(
       map(({ data, error }) => {
         if (error) {
-          console.error('Error saving quiz attempt:', error);
           throw error;
         }
 
@@ -236,7 +225,6 @@ export class QuizService {
         };
       }),
       catchError((error) => {
-        console.error('Error in saveQuizAttempt:', error);
         return throwError(() => error);
       })
     );
@@ -264,13 +252,11 @@ export class QuizService {
     ).pipe(
       map(({ data, error }) => {
         if (error) {
-          console.error('Error checking if quiz passed:', error);
           return false;
         }
         return (data && data.length > 0) || false;
       }),
       catchError((error) => {
-        console.error('Error in hasPassedQuiz:', error);
         return of(false);
       })
     );
@@ -303,7 +289,6 @@ export class QuizService {
     ).pipe(
       map(({ data, error }) => {
         if (error) {
-          console.error('Error fetching passed quiz result:', error);
           return null;
         }
 
@@ -319,7 +304,6 @@ export class QuizService {
         };
       }),
       catchError((error) => {
-        console.error('Error in getPassedQuizResult:', error);
         return of(null);
       })
     );
@@ -358,7 +342,6 @@ export class QuizService {
     ).pipe(
       map(({ data, error }) => {
         if (error) {
-          console.error('Error fetching all quiz attempts:', error);
           return [];
         }
 
@@ -380,7 +363,6 @@ export class QuizService {
         }));
       }),
       catchError((error) => {
-        console.error('Error in getAllUserAttempts:', error);
         return of([]);
       })
     );
@@ -399,7 +381,6 @@ export class QuizService {
     ).pipe(
       map(({ data, error }) => {
         if (error) {
-          console.error('Error fetching quiz attempt:', error);
           return null;
         }
 
@@ -420,7 +401,6 @@ export class QuizService {
         };
       }),
       catchError((error) => {
-        console.error('Error in getQuizAttemptById:', error);
         return of(null);
       })
     );

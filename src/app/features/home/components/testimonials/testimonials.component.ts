@@ -130,29 +130,15 @@ export class TestimonialsComponent implements OnInit, OnDestroy {
         // Now fetch reviews from database and merge them
         this.reviewService.getAllReviews(1, 100).subscribe({
           next: (dbReviews) => {
-            console.log('=== DATABASE REVIEWS DEBUG ===');
-            console.log('Total DB reviews fetched:', dbReviews.length);
-            console.log('Raw database reviews:', dbReviews);
 
             // Log each review text field specifically
             dbReviews.forEach((review, index) => {
-              console.log(`Review ${index + 1}:`, {
-                id: review.id,
-                userName: review.userName,
-                rating: review.rating,
-                reviewText: review.reviewText,
-                reviewTextLength: review.reviewText?.length || 0,
-                reviewTextType: typeof review.reviewText,
-              });
             });
 
             // Transform database reviews to match UI format
             const transformedDbReviews = dbReviews.map(
               this.transformReviewToUI.bind(this)
             );
-
-            console.log('Transformed DB reviews:', transformedDbReviews);
-            console.log('=== END DEBUG ===');
 
             // Merge: Database reviews first (newest), then JSON reviews
             this.allReviews = [...transformedDbReviews, ...jsonAllReviews];
@@ -172,17 +158,12 @@ export class TestimonialsComponent implements OnInit, OnDestroy {
                 ];
               },
               error: (error) => {
-                console.error(
-                  'Error loading featured reviews from database:',
-                  error
-                );
                 // Use only JSON featured reviews if database fails
                 this.featuredReviews = jsonFeaturedReviews;
               },
             });
           },
           error: (error) => {
-            console.error('Error loading reviews from database:', error);
             // Fall back to only JSON reviews if database fails
             this.allReviews = jsonAllReviews;
             this.filteredReviews = [...this.allReviews];
@@ -191,7 +172,6 @@ export class TestimonialsComponent implements OnInit, OnDestroy {
         });
       },
       error: (error) => {
-        console.error('Error loading reviews from JSON:', error);
         // If JSON fails, try to load only from database
         this.loadOnlyFromDatabase();
       },
@@ -215,7 +195,6 @@ export class TestimonialsComponent implements OnInit, OnDestroy {
         });
       },
       error: (error) => {
-        console.error('Error loading reviews from database:', error);
       },
     });
   }

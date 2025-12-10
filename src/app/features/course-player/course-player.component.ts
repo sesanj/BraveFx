@@ -143,11 +143,8 @@ export class CoursePlayerComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('🎬 [CoursePlayer] ngOnInit called');
-    console.log('🎬 [CoursePlayer] Current URL:', this.router.url);
 
     const courseId = this.route.snapshot.paramMap.get('id');
-    console.log('🎬 [CoursePlayer] Course ID from route:', courseId);
 
     if (courseId) {
       this.loadCourse(courseId);
@@ -499,7 +496,6 @@ export class CoursePlayerComponent implements OnInit {
           }
         },
         error: (error) => {
-          console.error('Error marking lesson as complete:', error);
         },
       });
   }
@@ -598,7 +594,6 @@ export class CoursePlayerComponent implements OnInit {
           // Quiz attempt saved successfully
         },
         error: (error) => {
-          console.error('Error saving quiz attempt:', error);
         },
       });
     }
@@ -770,7 +765,6 @@ export class CoursePlayerComponent implements OnInit {
         this.reviewText = userReview.reviewText;
       }
     } catch (error) {
-      console.error('Error checking for existing review:', error);
     }
   }
 
@@ -789,7 +783,6 @@ export class CoursePlayerComponent implements OnInit {
     }
 
     if (!this.course?.id) {
-      console.error('No course ID available');
       return;
     }
 
@@ -819,7 +812,6 @@ export class CoursePlayerComponent implements OnInit {
         this.reviewSuccessMessage = '';
       }, 5000);
     } catch (error: any) {
-      console.error('Error submitting review:', error);
       if (error.message === 'You have already reviewed this course') {
         this.reviewErrorMessage =
           'You have already reviewed this course. Please refresh the page.';
