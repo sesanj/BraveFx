@@ -421,47 +421,64 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         return;
       }
 
-      // Check if email already exists
+      // Verify we have a course loaded
+      if (!this.courseId) {
+        throw new Error('Course not loaded. Please refresh the page.');
+      }
+
+      // CRITICAL: Double-check email doesn't exist BEFORE creating payment intent
+      // This prevents charging the card for accounts that can't be created
+      console.log(
+        '🔍 [Checkout] Verifying email is available before payment processing...'
+      );
       const { data: existingUser } = await this.authService.checkEmailExists(
         this.email
       );
       if (existingUser) {
-        this.emailError = 'An account with this email already exists';
+        this.emailError =
+          'An account with this email already exists. Please sign in instead.';
         this.isProcessing = false;
-        this.scrollToTop(); // Scroll to top for email error
+        this.scrollToTop();
         return;
       }
 
-      // Verify we have a course loaded with a valid price
-      if (!this.courseId || !this.coursePrice) {
-        throw new Error('Course not loaded. Please refresh the page.');
-      }
-
-      // Use final price (with discount applied if coupon exists)
-      const amountInCents = Math.round(this.finalPrice * 100);
       console.log(
-        '💰 [Checkout] Processing payment:',
-        'Original:',
-        this.coursePrice,
-        'Final:',
-        this.finalPrice,
-        'Discount:',
-        this.discountAmount,
-        '(',
-        amountInCents,
-        'cents)'
+        '✅ [Checkout] Email is available, proceeding with payment...'
       );
 
-      // 1. Create Payment Intent with actual course price from database
+      // SECURITY: Send only courseId and couponCode to backend
+      // The backend will fetch the actual price and validate the coupon
+      // NEVER trust price from frontend!
+      const couponCode = this.appliedCoupon?.code;
+
+      console.log('💰 [Checkout] Creating payment intent with:', {
+        courseId: this.courseId,
+        couponCode: couponCode || 'none',
+      });
+
+      // 1. Create Payment Intent (backend validates price and coupon)
       const paymentIntent = await this.paymentService.createPaymentIntent(
-        amountInCents
+        this.courseId,
+        couponCode
       );
 
       if (!paymentIntent || !paymentIntent.clientSecret) {
         throw new Error('Failed to initialize payment. Please try again.');
       }
 
-      // 2. Confirm Card Payment
+      // Backend has calculated and verified the price - we trust it completely
+      console.log(
+        '✅ [Checkout] Payment intent created. Backend verified amount:',
+        paymentIntent.verifiedAmount
+          ? `$${(paymentIntent.verifiedAmount / 100).toFixed(2)}`
+          : 'N/A',
+        'Coupon applied:',
+        paymentIntent.couponApplied ? 'Yes' : 'No'
+      );
+
+      // 2. Confirm Card Payment (charge the card)
+      console.log('💳 [Checkout] Charging card...');
+
       const paymentResult = await this.paymentService.confirmCardPayment(
         paymentIntent.clientSecret,
         this.email,
@@ -472,18 +489,53 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         throw new Error(paymentResult.error || 'Payment failed');
       }
 
-      // 3. Create User Account and Enroll with actual course price
+      console.log(
+        '✅ [Checkout] Payment successful! Creating account and enrollment...'
+      );
+
+      // 3. Create User Account and Enroll (payment already succeeded)
+      // Use verified amount from backend (not frontend calculation)
+      const verifiedAmount =
+        paymentIntent.verifiedAmount || Math.round(this.finalPrice * 100);
+
       const enrollResult = await this.paymentService.createUserAndEnroll(
         this.email,
         this.password,
         this.fullName,
         paymentResult.paymentIntentId!,
         this.courseId,
-        amountInCents
+        verifiedAmount
       );
 
       if (!enrollResult.success) {
-        throw new Error(enrollResult.error || 'Account creation failed');
+        // Payment succeeded but account creation failed
+        // This is a critical error - payment went through but user can't access course
+        const errorMsg = enrollResult.error || 'Account creation failed';
+
+        // Check if it's a duplicate email error
+        if (
+          errorMsg.includes('already registered') ||
+          errorMsg.includes('already exists')
+        ) {
+          throw new Error(
+            '⚠️ Payment Processed but Account Already Exists\n\n' +
+              'Your card was charged successfully, but an account with this email already exists.\n\n' +
+              '📧 Payment ID: ' +
+              paymentResult.paymentIntentId +
+              '\n\n' +
+              '✅ Next Steps:\n' +
+              '1. Sign in with your existing account\n' +
+              '2. Contact support@bravefx.io with the Payment ID above\n' +
+              '3. We will either enroll you or process a full refund within 24 hours'
+          );
+        }
+
+        throw new Error(
+          'Payment processed successfully but account creation failed. ' +
+            'Please contact support with your payment confirmation email. ' +
+            'Payment ID: ' +
+            paymentResult.paymentIntentId
+        );
       }
 
       // 4. Sign in the user first (needed for RLS policies)

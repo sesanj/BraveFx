@@ -89,14 +89,20 @@ export class PaymentService {
   }
 
   async createPaymentIntent(
-    amount: number
-  ): Promise<{ clientSecret: string } | null> {
+    courseId: string,
+    couponCode?: string
+  ): Promise<{
+    clientSecret: string;
+    verifiedAmount?: number;
+    couponApplied?: boolean;
+  } | null> {
     try {
       // Call Supabase Edge Function to create payment intent
+      // Send only courseId and couponCode - NEVER send amount from frontend
       const { data, error } = await this.supabase.client.functions.invoke(
         'create-payment-intent',
         {
-          body: { amount },
+          body: { courseId, couponCode },
         }
       );
 
@@ -175,10 +181,27 @@ export class PaymentService {
           },
         });
 
-      if (authError) throw authError;
-      if (!authData.user) throw new Error('User creation failed');
+      if (authError) {
+        console.error('❌ [PaymentService] Auth error:', authError);
+        throw authError;
+      }
+
+      if (!authData.user) {
+        throw new Error('User creation failed - no user returned');
+      }
+
+      // CRITICAL: Check if user already exists
+      // Supabase returns a user object but with empty identities array if email exists
+      if (authData.user.identities && authData.user.identities.length === 0) {
+        console.error('❌ [PaymentService] Email already exists:', email);
+        throw new Error(
+          'This email is already registered. Payment was processed. Please contact support with Payment ID: ' +
+            paymentIntentId
+        );
+      }
 
       const userId = authData.user.id;
+      console.log('✅ [PaymentService] User created with ID:', userId);
 
       // Wait a moment for auth session to be established
       console.log('✅ [PaymentService] User created successfully:', userId);
@@ -256,9 +279,13 @@ export class PaymentService {
     this.elements = null;
   }
 
-  // Legacy methods for compatibility
-  createStripePayment(amount: number, currency: string) {
-    return this.createPaymentIntent(amount);
+  // Legacy methods for compatibility (deprecated - do not use)
+  // Use createPaymentIntent(courseId, couponCode) instead
+  createStripePayment(courseId: string, couponCode?: string) {
+    console.warn(
+      '⚠️ Deprecated method. Use createPaymentIntent(courseId, couponCode) instead'
+    );
+    return this.createPaymentIntent(courseId, couponCode);
   }
 
   verifyPayment(paymentId: string): Promise<boolean> {
