@@ -58,12 +58,6 @@ serve(async (req) => {
       throw new Error('Course not found');
     }
 
-    console.log(
-      '📚 [Payment Intent] Course:',
-      course.title,
-      'Price: $' + course.price
-    );
-
     // Start with the actual course price from database
     let finalAmount = Math.round(course.price * 100); // Convert dollars to cents
     let discountAmount = 0;
@@ -112,23 +106,11 @@ serve(async (req) => {
             // Subtract discount from final amount
             finalAmount = Math.max(0, finalAmount - discountAmount);
             appliedCoupon = coupon;
-
-            console.log('🎟️ [Payment Intent] Coupon applied:', {
-              code: coupon.code,
-              type: coupon.discount_type,
-              value: coupon.discount_value,
-              originalPrice: '$' + course.price,
-              discountAmount: '$' + (discountAmount / 100).toFixed(2),
-              finalPrice: '$' + (finalAmount / 100).toFixed(2),
-            });
           } else {
-            console.warn('⚠️ [Payment Intent] Coupon usage limit reached');
           }
         } else {
-          console.warn('⚠️ [Payment Intent] Coupon expired');
         }
       } else {
-        console.warn('⚠️ [Payment Intent] Invalid coupon code');
       }
     }
 
@@ -136,16 +118,6 @@ serve(async (req) => {
     if (finalAmount < 50) {
       throw new Error('Invalid amount. Minimum $0.50 required.');
     }
-
-    console.log('💰 [Payment Intent] Final calculation:', {
-      coursePrice: '$' + course.price,
-      discountApplied: appliedCoupon
-        ? '$' + (discountAmount / 100).toFixed(2)
-        : '$0.00',
-      finalAmount:
-        '$' + (finalAmount / 100).toFixed(2) + ' (' + finalAmount + ' cents)',
-      couponCode: appliedCoupon?.code || 'none',
-    });
 
     // 4. Create Stripe Payment Intent with verified amount
     const paymentIntent = await stripe.paymentIntents.create({
@@ -177,7 +149,6 @@ serve(async (req) => {
       }
     );
   } catch (error) {
-    console.error('❌ [Payment Intent] Error:', error);
 
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },

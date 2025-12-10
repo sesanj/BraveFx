@@ -94,7 +94,6 @@ export class CouponService {
         discountAmount: Number(discountAmount.toFixed(2)),
       };
     } catch (error) {
-      console.error('Error validating coupon:', error);
       return {
         valid: false,
         error: 'Failed to validate coupon',
@@ -123,7 +122,6 @@ export class CouponService {
         });
 
       if (redemptionError) {
-        console.error('Error recording redemption:', redemptionError);
         return { success: false, error: redemptionError.message };
       }
 
@@ -134,13 +132,11 @@ export class CouponService {
       );
 
       if (updateError) {
-        console.error('Error incrementing coupon usage:', updateError);
         // Don't fail the redemption if this fails, just log it
       }
 
       return { success: true };
     } catch (error: any) {
-      console.error('Error in recordRedemption:', error);
       return { success: false, error: error.message };
     }
   }
@@ -158,13 +154,11 @@ export class CouponService {
         .limit(1);
 
       if (error) {
-        console.error('Error checking coupon usage:', error);
         return false;
       }
 
       return data && data.length > 0;
     } catch (error) {
-      console.error('Error in hasUserUsedCoupon:', error);
       return false;
     }
   }
@@ -181,7 +175,7 @@ export class CouponService {
         .select('*')
         .eq('is_default', true)
         .eq('active', true)
-        .single();
+        .maybeSingle();
 
       if (error || !data) {
         return null;
@@ -203,7 +197,6 @@ export class CouponService {
 
       return data;
     } catch (error) {
-      console.error('Error fetching default coupon:', error);
       return null;
     }
   }

@@ -54,10 +54,8 @@ export class CampaignBannerComponent implements OnInit, OnDestroy {
 
       if (campaign && campaign.expires_at) {
         this.activeCampaign = campaign;
-        console.log('🎯 [Campaign Banner] Active campaign:', campaign.code);
       }
     } catch (error) {
-      console.error('❌ [Campaign Banner] Error loading campaign:', error);
     } finally {
       this.isLoading = false;
     }

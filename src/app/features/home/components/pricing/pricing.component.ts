@@ -155,17 +155,9 @@ export class PricingComponent implements OnInit {
     try {
       const user = this.authService.getCurrentUser();
 
-      console.log(
-        '👤 [Pricing] Current user:',
-        user ? user.email : 'Not logged in'
-      );
-
       if (!user) {
         this.isUserEnrolled = false;
         this.isCheckingEnrollment = false;
-        console.log(
-          '❌ [Pricing] No user logged in - showing Enroll Now button'
-        );
         return;
       }
 
@@ -174,15 +166,7 @@ export class PricingComponent implements OnInit {
         user.id
       );
       this.isUserEnrolled = enrollments.length > 0;
-
-      console.log('📚 [Pricing] User enrollment status:', this.isUserEnrolled);
-      console.log('📚 [Pricing] Enrollments found:', enrollments.length);
-      console.log(
-        '🎯 [Pricing] Will show:',
-        this.isUserEnrolled ? 'START LEARNING button' : 'ENROLL NOW button'
-      );
     } catch (error) {
-      console.error('❌ [Pricing] Error checking enrollment:', error);
       this.isUserEnrolled = false;
     } finally {
       this.isCheckingEnrollment = false;
@@ -201,10 +185,6 @@ export class PricingComponent implements OnInit {
       const defaultCoupon = await this.couponService.getDefaultCoupon();
 
       if (defaultCoupon) {
-        console.log(
-          '🎯 [Pricing] Site-wide campaign active:',
-          defaultCoupon.code
-        );
         const result = await this.couponService.validateCoupon(
           defaultCoupon.code,
           this.originalPrice
@@ -228,17 +208,11 @@ export class PricingComponent implements OnInit {
 
         if (result.valid && result.coupon) {
           this.activeCoupon = result.coupon;
-          console.log(
-            '✅ [Pricing] Specific coupon found:',
-            this.activeCoupon.code
-          );
         } else {
-          console.log('⚠️ [Pricing] Coupon in storage is invalid, removing...');
           localStorage.removeItem('bravefx_pending_coupon');
         }
       }
     } catch (error) {
-      console.error('❌ [Pricing] Error checking for coupons:', error);
     } finally {
       this.isCheckingCoupon = false;
     }

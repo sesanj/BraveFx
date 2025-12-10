@@ -38,13 +38,10 @@ export class ResetPasswordComponent implements OnInit {
       if (session) {
         // Valid recovery session exists - show the form
         this.isValidToken = true;
-        console.log('Valid password reset session detected');
       } else {
         this.errorMessage = 'Invalid or expired password reset link.';
-        console.error('No session found - invalid or expired reset token');
       }
     } catch (error) {
-      console.error('Error validating token:', error);
       this.errorMessage = 'Invalid or expired password reset link.';
     }
   }
@@ -95,7 +92,6 @@ export class ResetPasswordComponent implements OnInit {
         window.location.href = '/login';
       }, 2000);
     } catch (error: any) {
-      console.error('Password reset error:', error);
       this.errorMessage =
         error.message || 'Failed to reset password. Please try again.';
       this.isResetting = false;
