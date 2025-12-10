@@ -1,4 +1,3 @@
-import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
 import Stripe from 'https://esm.sh/stripe@14.25.0?target=deno';
 import { createClient } from 'jsr:@supabase/supabase-js@2';
 
@@ -20,7 +19,7 @@ const allowedOrigins = [
   'https://www.bravefx.io',
 ];
 
-serve(async (req) => {
+Deno.serve(async (req) => {
   // Get the origin from the request
   const origin = req.headers.get('origin') || '';
 
@@ -149,7 +148,6 @@ serve(async (req) => {
       }
     );
   } catch (error) {
-
     return new Response(JSON.stringify({ error: error.message }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       status: 400,
