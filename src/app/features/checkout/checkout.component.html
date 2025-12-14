@@ -32,8 +32,9 @@
           <circle class="path" cx="25" cy="25" r="20" fill="none" stroke-width="4"></circle>
         </svg>
       </div>
-      <h3>Processing Payment</h3>
-      <p>Please wait while we securely process your payment...</p>
+      <h3>{{ isFreeEnrollment ? 'Creating Your Account' : 'Processing Payment' }}</h3>
+      <p>{{ isFreeEnrollment ? 'Please wait while we set up your free access...' : 'Please wait while we securely
+        process your payment...' }}</p>
     </div>
   </div>
 
@@ -156,8 +157,22 @@
           </div>
         </div>
 
-        <!-- Payment Information Section -->
-        <div class="form-section">
+        <!-- Free Enrollment Message -->
+        <div class="free-enrollment-banner" *ngIf="isFreeEnrollment">
+          <div class="free-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M9.375 3a1.875 1.875 0 000 3.75h1.875v4.5H3.375A1.875 1.875 0 011.5 9.375v-.75c0-1.036.84-1.875 1.875-1.875h3.193A3.375 3.375 0 0112 2.753a3.375 3.375 0 015.432 3.997h3.943c1.035 0 1.875.84 1.875 1.875v.75c0 1.036-.84 1.875-1.875 1.875H12.75v-4.5h1.875a1.875 1.875 0 100-3.75h-5.25zM10.5 13.5h3v.75a1.5 1.5 0 001.5 1.5h3a1.5 1.5 0 001.5-1.5V13.5h1.875c1.035 0 1.875.84 1.875 1.875v.375c0 1.035-.84 1.875-1.875 1.875h-2.625A.375.375 0 0118.375 18v.75c0 1.035-.84 1.875-1.875 1.875h-8.25A1.875 1.875 0 016.375 18.75v-.75a.375.375 0 00-.375-.375H3.375A1.875 1.875 0 011.5 15.75v-.375c0-1.035.84-1.875 1.875-1.875H10.5z" />
+            </svg>
+          </div>
+          <div class="free-content">
+            <h3>🎉 This course is FREE with your coupon!</h3>
+            <p>No payment required. Just create your account to get started.</p>
+          </div>
+        </div>
+
+        <!-- Payment Information Section (Hidden for 100% discount) -->
+        <div class="form-section" *ngIf="!isFreeEnrollment">
           <div class="section-header">
             <div class="section-number">2</div>
             <h2>Payment Information</h2>
@@ -237,17 +252,26 @@
         </div>
 
         <!-- Submit Button -->
-        <button type="button" class="btn-primary" (click)="processPayment()" [disabled]="isProcessing">
+        <button type="button" class="btn-primary"
+          (click)="isFreeEnrollment ? processFreeEnrollment() : processPayment()" [disabled]="isProcessing">
           <div class="button-content">
             <div class="button-main">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" *ngIf="!isFreeEnrollment">
                 <path fill-rule="evenodd"
                   d="M12 1.5a5.25 5.25 0 00-5.25 5.25v3a3 3 0 00-3 3v6.75a3 3 0 003 3h10.5a3 3 0 003-3v-6.75a3 3 0 00-3-3v-3c0-2.9-2.35-5.25-5.25-5.25zm3.75 8.25v-3a3.75 3.75 0 10-7.5 0v3h7.5z"
                   clip-rule="evenodd" />
               </svg>
-              <span>Complete Purchase - ${{ finalPrice.toFixed(2) }}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" *ngIf="isFreeEnrollment">
+                <path
+                  d="M11.7 2.805a.75.75 0 01.6 0A60.65 60.65 0 0122.83 8.72a.75.75 0 01-.231 1.337 49.949 49.949 0 00-9.902 3.912l-.003.002-.34.18a.75.75 0 01-.707 0A50.009 50.009 0 007.5 12.174v-.224c0-.131.067-.248.172-.311a54.614 54.614 0 014.653-2.52.75.75 0 00-.65-1.352 56.129 56.129 0 00-4.78 2.589 1.858 1.858 0 00-.859 1.228 49.803 49.803 0 00-4.634-1.527.75.75 0 01-.231-1.337A60.653 60.653 0 0111.7 2.805z" />
+                <path
+                  d="M13.06 15.473a48.45 48.45 0 017.666-3.282c.134 1.414.22 2.843.255 4.285a.75.75 0 01-.46.71 47.878 47.878 0 00-8.105 4.342.75.75 0 01-.832 0 47.877 47.877 0 00-8.104-4.342.75.75 0 01-.461-.71c.035-1.442.121-2.87.255-4.286A48.4 48.4 0 0111 15.473c.37-.065.714-.084 1.03-.084.315 0 .658.019 1.028.084z" />
+              </svg>
+              <span *ngIf="!isFreeEnrollment">Complete Purchase - ${{ finalPrice.toFixed(2) }}</span>
+              <span *ngIf="isFreeEnrollment">Complete Free Enrollment</span>
             </div>
-            <span class="guarantee-text">30-day money-back guarantee</span>
+            <span class="guarantee-text" *ngIf="!isFreeEnrollment">30-day money-back guarantee</span>
+            <span class="guarantee-text" *ngIf="isFreeEnrollment">No payment required • 100% Free</span>
           </div>
         </button>
 

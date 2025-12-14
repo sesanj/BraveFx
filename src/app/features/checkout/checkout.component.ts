@@ -20,6 +20,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { CourseService } from '../../core/services/course.service';
 import { CouponService, Coupon } from '../../core/services/coupon.service';
 import { SeoService } from '../../core/services/seo.service';
+import { SupabaseService } from '../../core/services/supabase.service';
 import { StripeCardElement } from '@stripe/stripe-js';
 
 @Component({
@@ -114,11 +115,17 @@ export class CheckoutComponent implements OnInit, OnDestroy {
     return Math.max(0, this.coursePrice - this.discountAmount);
   }
 
+  // Check if the course is 100% free (no payment needed)
+  get isFreeEnrollment(): boolean {
+    return this.finalPrice === 0;
+  }
+
   constructor(
     private paymentService: PaymentService,
     private authService: AuthService,
     private courseService: CourseService,
     private couponService: CouponService,
+    private supabaseService: SupabaseService,
     private router: Router,
     private route: ActivatedRoute,
     private seoService: SeoService
@@ -168,8 +175,10 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   async ngAfterViewInit() {
-    // Mount card elements after view is ready
-    await this.mountCardElements();
+    // Only mount card elements if payment is required
+    if (!this.isFreeEnrollment) {
+      await this.mountCardElements();
+    }
   }
 
   async mountCardElements() {
@@ -247,13 +256,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
    * 3. No discount
    */
   async checkForCouponInUrl() {
-
     try {
       // FIRST: Check for site-wide campaign (overrides everything)
       const defaultCoupon = await this.couponService.getDefaultCoupon();
 
       if (defaultCoupon) {
-
         // Mark as site-wide campaign and start countdown
         this.isSiteWideCampaign = true;
         this.startCampaignCountdown(defaultCoupon.expires_at);
@@ -366,6 +373,112 @@ export class CheckoutComponent implements OnInit, OnDestroy {
    */
   dismissCouponNotification() {
     this.showCouponMessage = false;
+  }
+
+  /**
+   * Handle free enrollment (100% discount, no payment needed)
+   */
+  async processFreeEnrollment() {
+    if (this.isProcessing) return;
+
+    this.isProcessing = true;
+    this.errorMessage = '';
+
+    try {
+      // Validate all fields
+      const emailValid = this.validateEmail();
+      const passwordValid = this.validatePassword();
+      const nameValid = this.validateName();
+
+      if (!emailValid || !passwordValid || !nameValid) {
+        this.isProcessing = false;
+        this.scrollToTop();
+        return;
+      }
+
+      if (!this.agreeToTerms) {
+        this.errorMessage = 'Please accept the terms and conditions';
+        this.isProcessing = false;
+        this.scrollToTop();
+        return;
+      }
+
+      // Verify course is loaded
+      if (!this.courseId) {
+        throw new Error('Course not loaded. Please refresh the page.');
+      }
+
+      // Check if email already exists
+      const { data: existingUser } = await this.authService.checkEmailExists(
+        this.email
+      );
+      if (existingUser) {
+        this.emailError =
+          'An account with this email already exists. Please sign in instead.';
+        this.isProcessing = false;
+        this.scrollToTop();
+        return;
+      }
+
+      // Create user account (no payment needed)
+      const registerObservable = this.authService.register(
+        this.email,
+        this.password,
+        this.fullName
+      );
+
+      const user = await new Promise<any>((resolve, reject) => {
+        registerObservable.subscribe({
+          next: (user) => resolve(user),
+          error: (error) => reject(error),
+        });
+      });
+
+      if (!user || !user.id) {
+        throw new Error('Failed to create account. Please try again.');
+      }
+
+      const userId = user.id;
+
+      // Create enrollment directly (no payment record)
+      const { data: enrollmentData, error: enrollError } =
+        await this.supabaseService.client
+          .from('enrollments')
+          .insert({
+            user_id: userId,
+            course_id: this.courseId,
+            status: 'active',
+          })
+          .select('id')
+          .single();
+
+      if (enrollError || !enrollmentData) {
+        throw new Error('Failed to enroll in course. Please contact support.');
+      }
+
+      // Record coupon redemption if used
+      if (this.appliedCoupon) {
+        await this.couponService.recordRedemption(
+          this.appliedCoupon.id,
+          userId,
+          enrollmentData.id, // Use actual enrollment ID
+          this.coursePrice // Amount saved = full course price
+        );
+      }
+
+      // Success! Show message and redirect
+      this.successMessage =
+        '🎉 Account created! Redirecting to your dashboard...';
+
+      setTimeout(() => {
+        this.router.navigate(['/dashboard']);
+      }, 2000);
+    } catch (error: any) {
+      this.errorMessage =
+        error.message || 'Something went wrong. Please try again.';
+      this.isProcessing = false;
+      this.scrollToTop();
+    }
   }
 
   async processPayment() {
@@ -497,7 +610,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           enrollResult.userId &&
           enrollResult.enrollmentId
         ) {
-
           const redemptionResult = await this.couponService.recordRedemption(
             this.appliedCoupon.id,
             enrollResult.userId,
@@ -506,7 +618,6 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           );
 
           if (redemptionResult.success) {
-
             // NOW remove coupon from localStorage - payment successful, coupon redeemed
             localStorage.removeItem('bravefx_pending_coupon');
           } else {
