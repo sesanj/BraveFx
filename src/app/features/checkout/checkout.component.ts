@@ -117,9 +117,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   // Check if the course is 100% free (no payment needed)
-  get isFreeEnrollment(): boolean {
-    return this.finalPrice === 0;
-  }
+  isFreeEnrollment: boolean = false;
 
   constructor(
     private paymentService: PaymentService,
@@ -176,10 +174,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   async ngAfterViewInit() {
-    // Only mount card elements if payment is required
-    if (!this.isFreeEnrollment) {
-      await this.mountCardElements();
-    }
+    // Mount card elements after view is ready
+    await this.mountCardElements();
   }
 
   async mountCardElements() {
@@ -286,6 +282,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           let discountText = '';
           if (result.coupon.discount_type === 'percentage') {
             discountText = `${result.coupon.discount_value}% Off`;
+
+            if (this.appliedCoupon.discount_value === 100) {
+              this.isFreeEnrollment = true;
+              console.log('Free Enrollment 2: ', this.isFreeEnrollment);
+            }
           } else {
             discountText = `$${result.coupon.discount_value} Off`;
           }
