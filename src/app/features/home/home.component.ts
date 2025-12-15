@@ -10,6 +10,7 @@ import { WhyBravefxComponent } from './components/why-bravefx/why-bravefx.compon
 import { TestimonialsComponent } from './components/testimonials/testimonials.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { CtaComponent } from './components/cta/cta.component';
+import { TawkChatComponent } from '../../shared/components/tawk-chat/tawk-chat.component';
 import { SeoService } from '../../core/services/seo.service';
 
 @Component({
@@ -27,6 +28,7 @@ import { SeoService } from '../../core/services/seo.service';
     TestimonialsComponent,
     PricingComponent,
     CtaComponent,
+    TawkChatComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
