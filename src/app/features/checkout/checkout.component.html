@@ -33,8 +33,8 @@
         </svg>
       </div>
       <h3>{{ isFreeEnrollment ? 'Creating Your Account' : 'Processing Payment' }}</h3>
-      <p>{{ isFreeEnrollment ? 'Please wait while we set up your free access...' : 'Please wait while we securely
-        process your payment...' }}</p>
+      <p>{{ isFreeEnrollment ? 'Please wait while we set up your free access...'
+        : 'Please wait while we securely process your payment...' }}</p>
     </div>
   </div>
 
@@ -236,7 +236,7 @@
           <input type="checkbox" id="terms" [(ngModel)]="agreeToTerms" name="terms" />
           <label for="terms">
             I agree to the <a href="/terms" target="_blank">Terms & Conditions</a> and
-            <a href="/privacy" target="_blank">Privacy Policy</a>
+            <a href="/privacy-policy" target="_blank">Privacy Policy</a>
           </label>
         </div>
 
@@ -370,3 +370,6 @@
     </div>
   </div>
 </div>
+
+<!-- Tawk.to Live Chat -->
+<app-tawk-chat></app-tawk-chat>

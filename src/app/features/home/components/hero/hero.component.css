@@ -478,6 +478,17 @@
   overflow: hidden;
 }
 
+/* Extra HTML STYLES FOR SMALL SCREENS */
+
+.stat-mobile-label,
+.stat-mobile-number {
+  display: none;
+}
+
+.mobile-social {
+  display: none;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .hero-content {
@@ -537,6 +548,7 @@
   .stat-icon-bg {
     width: 40px;
     height: 40px;
+    border-radius: 0.5rem;
   }
 
   .stat-icon {
@@ -659,24 +671,40 @@
 }
 
 @media (max-width: 390px) {
+  .hero-cta {
+    flex-wrap: wrap;
+  }
+
   .hero-stats {
     gap: 1.5rem;
-    flex-direction: column;
+    /* flex-direction: grid; */
     align-items: flex-start;
   }
 
+  .desktop-social,
+  .stat-label,
+  .stat-desktop-number {
+    display: none;
+  }
+
+  .mobile-social,
+  .stat-mobile-label,
+  .stat-mobile-number {
+    display: block;
+  }
+
   .stat-icon-bg {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 
   .stat-icon {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
   }
 
   .stat-number {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
   }
 
   .stat-label {
@@ -684,7 +712,7 @@
   }
 
   .social-proof {
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
   }
 }
 

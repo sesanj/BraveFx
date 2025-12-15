@@ -22,11 +22,12 @@ import { CouponService, Coupon } from '../../core/services/coupon.service';
 import { SeoService } from '../../core/services/seo.service';
 import { SupabaseService } from '../../core/services/supabase.service';
 import { StripeCardElement } from '@stripe/stripe-js';
+import { TawkChatComponent } from '../../shared/components/tawk-chat/tawk-chat.component';
 
 @Component({
   selector: 'app-checkout',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, RouterModule, TawkChatComponent],
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
   animations: [

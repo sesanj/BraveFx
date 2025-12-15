@@ -18,11 +18,12 @@ import {
   CheckCircle2,
 } from 'lucide-angular';
 import { SeoService } from '../../core/services/seo.service';
+import { TawkChatComponent } from '../../shared/components/tawk-chat/tawk-chat.component';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule, RouterModule, LucideAngularModule],
+  imports: [CommonModule, RouterModule, LucideAngularModule, TawkChatComponent],
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.css'],
 })
