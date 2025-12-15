@@ -17,11 +17,12 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-angular';
+import { TawkChatComponent } from '../../shared/components/tawk-chat/tawk-chat.component';
 
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [CommonModule, LucideAngularModule, FormsModule],
+  imports: [CommonModule, LucideAngularModule, FormsModule, TawkChatComponent],
   templateUrl: './reviews.component.html',
   styleUrls: ['./reviews.component.css'],
 })
