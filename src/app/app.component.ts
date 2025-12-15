@@ -10,7 +10,7 @@ import { filter } from 'rxjs/operators';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FooterComponent } from './shared/components/footer/footer.component';
 import { SupabaseService } from './core/services/supabase.service';
-import { TawkService } from './core/services/tawk.service';
+// import { TawkService } from './core/services/tawk.service';
 import { AuthService } from './core/services/auth.service';
 
 @Component({
@@ -31,30 +31,27 @@ export class AppComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private supabase: SupabaseService,
-    private tawkService: TawkService,
+    // private tawkService: TawkService,
     private authService: AuthService
   ) {}
 
   ngOnInit() {
-    // Initialize Tawk.to chat widget
-    this.tawkService.initTawk();
-
-    // Set visitor info when user logs in
-    this.authService.currentUser$.subscribe((user) => {
-      if (user && user.email) {
-        // Get user's name from profile if available
-        this.supabase.client
-          .from('profiles')
-          .select('full_name')
-          .eq('id', user.id)
-          .single()
-          .then(({ data }) => {
-            const name =
-              data?.full_name || user.email?.split('@')[0] || 'Student';
-            this.tawkService.setVisitor(name, user.email!);
-          });
-      }
-    });
+    // // Set visitor info when user logs in
+    // this.authService.currentUser$.subscribe((user) => {
+    //   if (user && user.email) {
+    //     // Get user's name from profile if available
+    //     this.supabase.client
+    //       .from('profiles')
+    //       .select('full_name')
+    //       .eq('id', user.id)
+    //       .single()
+    //       .then(({ data }) => {
+    //         const name =
+    //           data?.full_name || user.email?.split('@')[0] || 'Student';
+    //         this.tawkService.setVisitor(name, user.email!);
+    //       });
+    //   }
+    // });
 
     // Capture coupon from URL on initial page load
     this.captureCouponFromUrl();
@@ -127,7 +124,6 @@ export class AppComponent implements OnInit {
       if (error) {
       } else {
       }
-    } catch (err) {
-    }
+    } catch (err) {}
   }
 }
