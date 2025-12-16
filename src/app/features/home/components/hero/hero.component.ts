@@ -24,7 +24,7 @@ export class HeroComponent {
   @Output() enrollClick = new EventEmitter<void>();
 
   isPreviewOpen = false;
-  private previewBaseUrl = 'https://www.youtube.com/embed/dQw4w9WgXcQ';
+  private vimeoVideoId = '1147117107';
   sanitizedPreviewUrl!: SafeResourceUrl;
 
   // Icons
@@ -45,7 +45,8 @@ export class HeroComponent {
 
   openPreview() {
     this.isPreviewOpen = true;
-    const url = `${this.previewBaseUrl}?autoplay=1&modestbranding=1&rel=0`;
+    // Vimeo embed URL with autoplay
+    const url = `https://player.vimeo.com/video/${this.vimeoVideoId}?autoplay=1&title=0&byline=0&portrait=0`;
     this.sanitizedPreviewUrl =
       this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
