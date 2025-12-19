@@ -10,4 +10,5 @@ export const environment = {
       'pk_live_51SXUawB6m33aaawHscaFBtzzWXBVdX5MtLHj0FecjTqlqxB5K9oAKMZAFd8ct2N7MzK7gmAtFWcOmxJeh27Wbk6q00lcNM0YGX', // ← PASTE YOUR LIVE pk_live_... KEY
   },
   coursePrice: 14900, // Price in cents ($149.00)
+  googleAnalyticsId: 'G-NS385BTZ9V',
 };
