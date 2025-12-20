@@ -263,4 +263,41 @@ export class PaymentService {
   verifyPayment(paymentId: string): Promise<boolean> {
     return Promise.resolve(true);
   }
+
+  /**
+   * Admin: Get all payments with user profiles
+   */
+  async getAllPayments(): Promise<any[]> {
+    try {
+      const { data, error } = await this.supabase.client
+        .from('payments')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      if (!data || data.length === 0) return [];
+
+      // Fetch profiles separately
+      const paymentsWithProfiles = await Promise.all(
+        data.map(async (payment) => {
+          const { data: profile } = await this.supabase.client
+            .from('profiles')
+            .select('email, full_name')
+            .eq('id', payment.user_id)
+            .single();
+
+          return {
+            ...payment,
+            profiles: profile,
+          };
+        })
+      );
+
+      return paymentsWithProfiles;
+    } catch (error) {
+      console.error('Error fetching all payments:', error);
+      return [];
+    }
+  }
 }

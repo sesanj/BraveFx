@@ -116,6 +116,69 @@ export const routes: Routes = [
         (m) => m.AdminDashboardComponent
       ),
     canActivate: [authGuard, adminGuard],
+    children: [
+      {
+        path: '',
+        redirectTo: 'overview',
+        pathMatch: 'full',
+      },
+      {
+        path: 'overview',
+        loadComponent: () =>
+          import(
+            './features/admin-dashboard/admin-overview/admin-overview.component'
+          ).then((m) => m.AdminOverviewComponent),
+      },
+      {
+        path: 'revenue',
+        loadComponent: () =>
+          import(
+            './features/admin-dashboard/admin-payments/admin-payments.component'
+          ).then((m) => m.AdminPaymentsComponent),
+      },
+      {
+        path: 'students',
+        loadComponent: () =>
+          import(
+            './features/admin-dashboard/admin-students/admin-students.component'
+          ).then((m) => m.AdminStudentsComponent),
+      },
+      {
+        path: 'reviews',
+        loadComponent: () =>
+          import(
+            './features/admin-dashboard/admin-reviews/admin-reviews.component'
+          ).then((m) => m.AdminReviewsComponent),
+      },
+      {
+        path: 'content',
+        loadComponent: () =>
+          import(
+            './features/admin-dashboard/admin-content/admin-content.component'
+          ).then((m) => m.AdminContentComponent),
+      },
+      {
+        path: 'coupons',
+        loadComponent: () =>
+          import(
+            './features/admin-dashboard/admin-coupons/admin-coupons.component'
+          ).then((m) => m.AdminCouponsComponent),
+      },
+      {
+        path: 'email',
+        loadComponent: () =>
+          import(
+            './features/admin-dashboard/admin-email/admin-email.component'
+          ).then((m) => m.AdminEmailComponent),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import(
+            './features/admin-dashboard/admin-settings/admin-settings.component'
+          ).then((m) => m.AdminSettingsComponent),
+      },
+    ],
   },
   {
     path: 'course/:id',

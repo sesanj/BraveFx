@@ -127,7 +127,6 @@ export class ReviewService {
         if (response.error) throw response.error;
 
         const mappedReviews = (response.data || []).map((review: any) => {
-
           return {
             id: review.id,
             courseId: review.course_id,
@@ -205,7 +204,6 @@ export class ReviewService {
    */
   async createReview(request: CreateReviewRequest): Promise<Review | null> {
     try {
-
       // Get current user
       const userResponse = await this.supabase.client.auth.getUser();
       if (userResponse.error || !userResponse.data.user) {
@@ -272,7 +270,6 @@ export class ReviewService {
     reviewText: string
   ): Promise<Review | null> {
     try {
-
       const { data, error } = await this.supabase.client
         .from('reviews')
         .update({
@@ -392,5 +389,39 @@ export class ReviewService {
       createdAt: data.created_at,
       updatedAt: data.updated_at,
     };
+  }
+
+  /**
+   * Admin: Update review status (approve/reject)
+   */
+  async updateReviewStatus(reviewId: string, status: string): Promise<void> {
+    try {
+      const { error } = await this.supabase.client
+        .from('reviews')
+        .update({ status })
+        .eq('id', reviewId);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error updating review status:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Admin: Delete a review (async version for admin dashboard)
+   */
+  async adminDeleteReview(reviewId: string): Promise<void> {
+    try {
+      const { error } = await this.supabase.client
+        .from('reviews')
+        .delete()
+        .eq('id', reviewId);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error deleting review:', error);
+      throw error;
+    }
   }
 }

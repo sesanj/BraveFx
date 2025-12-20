@@ -1,0 +1,41 @@
+<div class="page-container">
+  <div class="page-head">
+    <div>
+      <h1>Reviews Management</h1>
+      <p class="subtitle">Moderate and manage course reviews</p>
+    </div>
+  </div>
+
+  <div class="reviews-grid" *ngIf="!loading">
+    <div class="review-card" *ngFor="let review of reviews">
+      <div class="review-top">
+        <div class="stars">
+          <lucide-angular *ngFor="let _ of getStarsArray(review.rating)" [img]="StarIcon" [size]="16"
+            class="star"></lucide-angular>
+        </div>
+        <span class="date-text">{{ formatDate(review.createdAt) }}</span>
+      </div>
+
+      <p class="review-text">{{ review.reviewText }}</p>
+
+      <div class="review-footer">
+        <div class="user-info">
+          <div class="avatar-sm">{{ review.userName.charAt(0).toUpperCase() }}</div>
+          <span class="user-name">{{ review.userName }}</span>
+        </div>
+        <button class="btn-delete" (click)="deleteReview(review.id)">
+          <lucide-angular [img]="Trash2Icon" [size]="16"></lucide-angular>
+        </button>
+      </div>
+    </div>
+
+    <div class="empty-message" *ngIf="reviews.length === 0">
+      <p>No reviews yet</p>
+    </div>
+  </div>
+
+  <div class="loading" *ngIf="loading">
+    <div class="loader"></div>
+    <p>Loading reviews...</p>
+  </div>
+</div>

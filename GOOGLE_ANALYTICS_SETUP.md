@@ -40,6 +40,7 @@
 ### Step 5: Get Your Measurement ID
 
 You'll see a screen showing:
+
 ```
 Measurement ID: G-XXXXXXXXXX
 ```
@@ -55,6 +56,7 @@ Open these two files and replace `G-XXXXXXXXXX` with your actual Measurement ID:
 3. **src/environments/environment.development.ts** - Line 11
 
 Example:
+
 ```typescript
 // Before
 googleAnalyticsId: 'G-XXXXXXXXXX',
@@ -64,17 +66,18 @@ googleAnalyticsId: 'G-ABC123XYZ', // Your actual ID
 ```
 
 And in index.html:
+
 ```html
 <!-- Before -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
 <script>
-  gtag('config', 'G-XXXXXXXXXX');
+  gtag("config", "G-XXXXXXXXXX");
 </script>
 
 <!-- After -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-ABC123XYZ"></script>
 <script>
-  gtag('config', 'G-ABC123XYZ');
+  gtag("config", "G-ABC123XYZ");
 </script>
 ```
 
@@ -99,38 +102,50 @@ And in index.html:
 ## Where to View Your Data
 
 ### 1. Real-time Data
+
 **Reports > Realtime**
+
 - See visitors on your site right now
 - Which pages they're viewing
 - Where they're from
 
 ### 2. Page Views
+
 **Reports > Engagement > Pages and screens**
+
 - Most popular pages
 - Time on page
 - Bounce rate
 
 ### 3. Traffic Sources
+
 **Reports > Acquisition > Traffic acquisition**
+
 - Organic (Google search)
 - Direct (typed URL)
 - Referral (from other sites)
 - Social (Instagram, YouTube, etc.)
 
 ### 4. Geographic Data
+
 **Reports > User > Demographics > Demographics detail**
+
 - Countries
 - Cities
 - Languages
 
 ### 5. Conversions (Purchases)
+
 **Reports > Monetization > Purchases**
+
 - Total revenue
 - Number of purchases
 - Average order value
 
 ### 6. User Behavior
+
 **Reports > Engagement > Events**
+
 - All tracked events
 - Purchase events will show here
 
@@ -138,15 +153,15 @@ And in index.html:
 
 ### Key Metrics to Watch:
 
-| Metric | What It Means | Where to Find It |
-|--------|---------------|------------------|
-| **Users** | Unique visitors | Home screen |
-| **Sessions** | Total visits (users can have multiple) | Home screen |
-| **Bounce Rate** | % who leave after 1 page | Engagement > Pages |
-| **Avg Session Duration** | How long people stay | Home screen |
-| **Traffic Source** | Where visitors come from | Acquisition |
-| **Conversion Rate** | % who purchase | Monetization |
-| **Revenue** | Total sales | Monetization |
+| Metric                   | What It Means                          | Where to Find It   |
+| ------------------------ | -------------------------------------- | ------------------ |
+| **Users**                | Unique visitors                        | Home screen        |
+| **Sessions**             | Total visits (users can have multiple) | Home screen        |
+| **Bounce Rate**          | % who leave after 1 page               | Engagement > Pages |
+| **Avg Session Duration** | How long people stay                   | Home screen        |
+| **Traffic Source**       | Where visitors come from               | Acquisition        |
+| **Conversion Rate**      | % who purchase                         | Monetization       |
+| **Revenue**              | Total sales                            | Monetization       |
 
 ### Important Pages to Track:
 
@@ -160,7 +175,7 @@ Add this to your footer (already done if you have a privacy policy):
 
 ```html
 <p class="text-sm text-gray-500">
-  We use Google Analytics to improve your experience. 
+  We use Google Analytics to improve your experience.
   <a href="/privacy-policy">Privacy Policy</a>
 </p>
 ```
@@ -170,16 +185,19 @@ For US-based sites, this is sufficient. No popup banner needed.
 ## Troubleshooting
 
 ### "No data showing"
+
 - Wait 24-48 hours for full data
 - Real-time should show within minutes
 - Make sure you replaced `G-XXXXXXXXXX` with your actual ID
 
 ### "Can't see conversions"
+
 - Go to **Reports > Monetization > Purchases**
 - Make a test purchase to verify tracking
 - Check if `gtag` function exists: Open browser console, type `gtag` and press Enter
 
 ### "Wrong measurement ID"
+
 - Check both `index.html` (2 places) and environment files
 - Make sure all 3 places have the SAME ID
 - Redeploy after changes
@@ -192,19 +210,19 @@ Add custom tracking anywhere in your components:
 
 ```typescript
 // Track button click
-(window as any).gtag('event', 'button_click', {
-  button_name: 'Start Free Trial',
-  page_location: window.location.href
+(window as any).gtag("event", "button_click", {
+  button_name: "Start Free Trial",
+  page_location: window.location.href,
 });
 
 // Track video play
-(window as any).gtag('event', 'video_play', {
-  video_title: 'Course Preview'
+(window as any).gtag("event", "video_play", {
+  video_title: "Course Preview",
 });
 
 // Track form submission
-(window as any).gtag('event', 'form_submit', {
-  form_name: 'Contact Form'
+(window as any).gtag("event", "form_submit", {
+  form_name: "Contact Form",
 });
 ```
 

@@ -56,24 +56,26 @@ export class AppComponent implements OnInit {
     // Capture coupon from URL on initial page load
     this.captureCouponFromUrl();
 
-    // Hide header/footer on course player and dashboard routes
+    // Hide header/footer on course player, dashboard, and admin routes
     // Hide only footer on auth routes
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: any) => {
         const isCoursePage = event.url.includes('/course/');
         const isDashboard = event.url.includes('/dashboard');
+        const isAdminPage = event.url.includes('/admin');
         const isAuthPage =
           event.url.includes('/login') ||
           event.url.includes('/register') ||
           event.url.includes('/reset-password');
 
-        // Hide both header and footer on course player and dashboard
-        this.showHeaderFooter = !isCoursePage && !isDashboard;
+        // Hide both header and footer on course player, dashboard, and admin
+        this.showHeaderFooter = !isCoursePage && !isDashboard && !isAdminPage;
 
         // Show header on auth pages, but hide footer
-        this.showHeader = !isCoursePage && !isDashboard;
-        this.showFooter = !isCoursePage && !isDashboard && !isAuthPage;
+        this.showHeader = !isCoursePage && !isDashboard && !isAdminPage;
+        this.showFooter =
+          !isCoursePage && !isDashboard && !isAuthPage && !isAdminPage;
 
         // Mark initialization complete after first navigation
         this.isInitializing = false;

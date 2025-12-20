@@ -1,0 +1,106 @@
+<div class="overview">
+    <!-- Loading -->
+    <div class="loading" *ngIf="loading">
+        <div class="loader"></div>
+        <p>Loading dashboard...</p>
+    </div>
+
+    <!-- Content -->
+    <div *ngIf="!loading">
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+            <div class="stat-card" *ngFor="let stat of stats">
+                <div class="stat-header">
+                    <div class="stat-icon" [style.background]="stat.color">
+                        <lucide-angular [img]="stat.icon" [size]="20"></lucide-angular>
+                    </div>
+                    <span class="stat-label">{{ stat.title }}</span>
+                </div>
+                <div class="stat-value">{{ stat.value }}</div>
+                <div class="stat-change">{{ stat.subValue }}</div>
+            </div>
+        </div>
+
+        <!-- Revenue Chart -->
+        <div class="chart-card">
+            <div class="chart-header">
+                <div>
+                    <h3>Revenue Trend</h3>
+                    <p>Last 6 months performance</p>
+                </div>
+                <div class="total-revenue">
+                    <span class="label">Total</span>
+                    <span class="amount">${{ totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 })
+                        }}</span>
+                </div>
+            </div>
+            <div class="chart-body">
+                <div class="chart-grid">
+                    <div class="bar-group" *ngFor="let data of revenueData">
+                        <div class="bar-container">
+                            <span class="bar-amount">${{ data.amount.toFixed(0) }}</span>
+                            <div class="bar-bg">
+                                <div class="bar-fill" [style.height]="(data.amount / getMaxRevenue() * 100) + '%'">
+                                </div>
+                            </div>
+                        </div>
+                        <span class="bar-month">{{ data.month }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Tables -->
+        <div class="activity-grid">
+            <!-- Enrollments -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <h3>Recent Enrollments</h3>
+                    <span class="count">{{ recentEnrollments.length }} students</span>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item" *ngFor="let enrollment of recentEnrollments">
+                        <div class="item-left">
+                            <div class="item-avatar">{{ enrollment.email.charAt(0).toUpperCase() }}</div>
+                            <div class="item-info">
+                                <span class="item-name">{{ enrollment.email }}</span>
+                                <span class="item-time">{{ formatDate(enrollment.date) }} at {{
+                                    formatTime(enrollment.date) }}</span>
+                            </div>
+                        </div>
+                        <span class="item-badge active">{{ enrollment.status }}</span>
+                    </div>
+                    <div class="empty" *ngIf="recentEnrollments.length === 0">
+                        No enrollments yet
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payments -->
+            <div class="activity-card">
+                <div class="activity-header">
+                    <h3>Recent Payments</h3>
+                    <span class="count">{{ recentPayments.length }} transactions</span>
+                </div>
+                <div class="activity-list">
+                    <div class="activity-item" *ngFor="let payment of recentPayments">
+                        <div class="item-left">
+                            <div class="item-avatar money">$</div>
+                            <div class="item-info">
+                                <span class="item-name money">${{ payment.amount.toFixed(2) }}</span>
+                                <span class="item-time">{{ formatDate(payment.date) }} at {{ formatTime(payment.date)
+                                    }}</span>
+                            </div>
+                        </div>
+                        <span class="item-badge success">{{ payment.status }}</span>
+                    </div>
+                    <div class="empty" *ngIf="recentPayments.length === 0">
+                        No payments yet
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
