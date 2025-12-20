@@ -132,7 +132,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     this.seoService.updateMetaTags({
-      title: 'Enroll Now - BraveFx Forex Trading Course',
+      title: 'Checkout - BraveFx Forex Trading Course',
       description:
         'Join 6,000+ students mastering forex trading. $49.99 one-time payment for lifetime access. 30-day money-back guarantee.',
       keywords:
@@ -626,7 +626,24 @@ export class CheckoutComponent implements OnInit, OnDestroy {
           }
         }
 
-        // 6. Show success and redirect
+        // 6. Track conversion in Google Analytics
+        if (typeof (window as any).gtag === 'function') {
+          (window as any).gtag('event', 'purchase', {
+            transaction_id: paymentResult.paymentIntentId,
+            value: this.finalPrice / 100,
+            currency: 'USD',
+            items: [
+              {
+                item_id: this.courseId,
+                item_name: this.courseName,
+                price: this.finalPrice / 100,
+                quantity: 1,
+              },
+            ],
+          });
+        }
+
+        // 7. Show success and redirect
         this.successMessage =
           'Payment successful! Redirecting to your dashboard...';
 

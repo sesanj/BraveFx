@@ -1,17 +1,12 @@
-.admin-container {
-  padding: 4rem 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  background: #f8f9fa;
 }
 
-h1 {
-  font-size: 2rem;
-  color: #1a202c;
-  margin-bottom: 1rem;
-}
-
-p {
-  color: #718096;
-  font-size: 1.125rem;
+.admin-main {
+  flex: 1;
+  margin-left: 280px;
+  margin-top: 50px;
+  overflow-y: auto;
 }
