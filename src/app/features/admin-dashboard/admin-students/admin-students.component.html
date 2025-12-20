@@ -1,0 +1,55 @@
+<div class="page-container">
+    <div class="page-head">
+        <div>
+            <h1>Students Management</h1>
+            <p class="subtitle">View and manage all enrolled students</p>
+        </div>
+        <div class="search-box">
+            <lucide-angular [img]="SearchIcon" [size]="18"></lucide-angular>
+            <input type="text" placeholder="Search students..." [(ngModel)]="searchTerm" (input)="filterStudents()" />
+        </div>
+    </div>
+
+    <div class="card" *ngIf="!loading">
+        <div class="table-wrap">
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Student</th>
+                        <th>Enrolled Date</th>
+                        <th>Progress</th>
+                        <th>Last Active</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let student of filteredStudents">
+                        <td>
+                            <div class="user-cell">
+                                <div class="avatar">{{ student.email.charAt(0).toUpperCase() }}</div>
+                                <span>{{ student.email }}</span>
+                            </div>
+                        </td>
+                        <td class="date-cell">{{ formatDate(student.enrolledAt) }}</td>
+                        <td>
+                            <div class="progress-wrapper">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" [style.width.%]="student.progress"></div>
+                                </div>
+                                <span class="progress-text">{{ student.progress }}%</span>
+                            </div>
+                        </td>
+                        <td class="date-cell">{{ formatDate(student.lastActive) }}</td>
+                    </tr>
+                    <tr *ngIf="filteredStudents.length === 0">
+                        <td colspan="4" class="no-data">No students found</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+        <div class="loader"></div>
+        <p>Loading students...</p>
+    </div>
+</div>

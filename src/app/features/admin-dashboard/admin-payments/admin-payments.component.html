@@ -1,0 +1,202 @@
+<div class="revenue-page">
+  <!-- Loading -->
+  <div class="loading" *ngIf="loading">
+    <div class="loader"></div>
+    <p>Loading revenue data...</p>
+  </div>
+
+  <!-- Content -->
+  <div *ngIf="!loading">
+
+    <!-- Top Bar: Time Range Filter & Chart Toggle -->
+    <div class="control-bar">
+      <div class="time-filters">
+        <button class="filter-btn" [class.active]="selectedTimeRange === '7d'" (click)="changeTimeRange('7d')">
+          7 Days
+        </button>
+        <button class="filter-btn" [class.active]="selectedTimeRange === '1m'" (click)="changeTimeRange('1m')">
+          1 Month
+        </button>
+        <button class="filter-btn" [class.active]="selectedTimeRange === '12m'" (click)="changeTimeRange('12m')">
+          12 Months
+        </button>
+        <button class="filter-btn" [class.active]="selectedTimeRange === 'all'" (click)="changeTimeRange('all')">
+          All Time
+        </button>
+      </div>
+      <button class="chart-toggle-btn" (click)="toggleChartType()">
+        <lucide-angular *ngIf="chartType === 'bar'" [img]="ActivityIcon" [size]="18"></lucide-angular>
+        <lucide-angular *ngIf="chartType === 'line'" [img]="BarChart3Icon" [size]="18"></lucide-angular>
+        <span>{{ chartType === 'bar' ? 'Line Chart' : 'Bar Chart' }}</span>
+      </button>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let stat of stats">
+        <div class="stat-header">
+          <div class="stat-icon" [style.background]="stat.color">
+            <lucide-angular [img]="stat.icon" [size]="20"></lucide-angular>
+          </div>
+          <span class="stat-label">{{ stat.title }}</span>
+        </div>
+        <div class="stat-value">{{ stat.value }}</div>
+        <div class="stat-change">{{ stat.change }}</div>
+      </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="charts-row">
+
+      <!-- Main Chart: Bar or Line -->
+      <div class="chart-card main-chart">
+        <div class="chart-header">
+          <div>
+            <h3>Revenue Trend</h3>
+            <p>{{ getTimeRangeLabel() }}</p>
+          </div>
+          <div class="total-display">
+            <span class="label">Total</span>
+            <span class="amount">${{ totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 }) }}</span>
+          </div>
+        </div>
+
+        <!-- Bar Chart -->
+        <div class="chart-body" *ngIf="chartType === 'bar'">
+          <div class="chart-grid">
+            <div class="bar-group" *ngFor="let data of revenueData">
+              <div class="bar-container">
+                <div class="bar-amount" *ngIf="data.amount > 0">${{ data.amount.toLocaleString('en-US', {
+                  maximumFractionDigits: 0 }) }}</div>
+                <div class="bar-bg">
+                  <div class="bar-fill" [style.height.%]="getBarHeight(data.amount)"></div>
+                </div>
+                <div class="bar-label">{{ data.month }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Line Chart -->
+        <div class="chart-body line-chart-body" *ngIf="chartType === 'line'">
+          <svg class="line-chart" viewBox="0 0 1000 300" preserveAspectRatio="none">
+            <!-- Grid lines -->
+            <line *ngFor="let i of [0, 1, 2, 3, 4]" [attr.x1]="0" [attr.y1]="i * 75" [attr.x2]="1000" [attr.y2]="i * 75"
+              stroke="#f3f4f6" stroke-width="1" />
+
+            <!-- Line path -->
+            <polyline [attr.points]="getLineChartPoints()" fill="none" stroke="#10b981" stroke-width="3"
+              stroke-linecap="round" stroke-linejoin="round" />
+
+            <!-- Area fill -->
+            <polygon [attr.points]="getAreaFillPoints()" fill="url(#areaGradient)" opacity="0.3" />
+
+            <!-- Points -->
+            <circle *ngFor="let data of revenueData; let i = index" [attr.cx]="getXPosition(i)"
+              [attr.cy]="getYPosition(data.amount)" r="4" fill="#10b981" stroke="#fff" stroke-width="2"
+              class="chart-point" />
+
+            <defs>
+              <linearGradient id="areaGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#10b981;stop-opacity:0" />
+              </linearGradient>
+            </defs>
+          </svg>
+          <div class="line-chart-labels">
+            <span *ngFor="let data of revenueData" class="label-item">{{ data.month }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Donut Chart -->
+      <div class="chart-card pie-chart-card">
+        <div class="chart-header">
+          <h3>Revenue Breakdown</h3>
+        </div>
+        <div class="pie-chart-body">
+          <div class="donut-container">
+            <svg class="donut-chart" viewBox="0 0 200 200">
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#f3f4f6" stroke-width="20" />
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#10b981" stroke-width="20"
+                [attr.stroke-dasharray]="getFirstHalfCircumference() + ' ' + getCircumference()" stroke-dashoffset="0"
+                transform="rotate(-90 100 100)" />
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#3b82f6" stroke-width="20"
+                [attr.stroke-dasharray]="getSecondHalfCircumference() + ' ' + getCircumference()"
+                [attr.stroke-dashoffset]="-getFirstHalfCircumference()" transform="rotate(-90 100 100)" />
+            </svg>
+            <div class="donut-center">
+              <div class="donut-value">${{ totalRevenue.toLocaleString('en-US', { maximumFractionDigits: 0 }) }}</div>
+              <div class="donut-label">Total</div>
+            </div>
+          </div>
+          <div class="pie-legend">
+            <div class="legend-item">
+              <div class="legend-color" style="background: #10b981;"></div>
+              <div class="legend-info">
+                <span class="legend-label">First Half</span>
+                <span class="legend-value">${{ getFirstHalfRevenue().toLocaleString('en-US', { maximumFractionDigits: 0
+                  }) }}</span>
+              </div>
+            </div>
+            <div class="legend-item">
+              <div class="legend-color" style="background: #3b82f6;"></div>
+              <div class="legend-info">
+                <span class="legend-label">Second Half</span>
+                <span class="legend-value">${{ getSecondHalfRevenue().toLocaleString('en-US', { maximumFractionDigits: 0
+                  }) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Transaction Details -->
+    <div class="transactions-card">
+      <div class="section-header">
+        <h3>Transaction Details</h3>
+        <span class="count">{{ filteredPayments.length }} transactions</span>
+      </div>
+      <div class="section-body">
+        <div class="transaction-table">
+          <div class="table-header">
+            <div class="col-student">Student</div>
+            <div class="col-email">Email</div>
+            <div class="col-transaction">Transaction ID</div>
+            <div class="col-date">Date & Time</div>
+            <div class="col-amount">Amount</div>
+          </div>
+          <div class="table-body">
+            <div class="table-row" *ngFor="let payment of filteredPayments.slice().reverse()">
+              <div class="col-student">
+                <div class="student-info">
+                  <div class="student-avatar">{{ getInitials(getStudentName(payment)) }}</div>
+                  <span class="student-name">{{ getStudentName(payment) }}</span>
+                </div>
+              </div>
+              <div class="col-email">
+                <span class="email-text">{{ getStudentEmail(payment) }}</span>
+              </div>
+              <div class="col-transaction">
+                <code class="transaction-id">{{ payment.stripe_payment_intent_id }}</code>
+              </div>
+              <div class="col-date">
+                <span class="date-text">{{ formatDate(payment.created_at) }}</span>
+                <span class="time-text">{{ formatTime(payment.created_at) }}</span>
+              </div>
+              <div class="col-amount">
+                <span class="amount-value">{{ formatAmount(payment.amount) }}</span>
+              </div>
+            </div>
+            <div class="empty-row" *ngIf="filteredPayments.length === 0">
+              <p>No transactions found for this time period</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

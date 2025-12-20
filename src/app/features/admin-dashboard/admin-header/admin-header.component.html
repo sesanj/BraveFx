@@ -1,0 +1,23 @@
+<header class="admin-header">
+    <div class="header-content">
+        <div class="header-left">
+            <h2 class="page-title">Admin Dashboard</h2>
+        </div>
+
+        <div class="header-right">
+            <div class="user-menu" *ngIf="currentUser$ | async as user">
+                <div class="user-info">
+                    <lucide-angular [img]="UserIcon" [size]="20" class="user-icon"></lucide-angular>
+                    <div class="user-details">
+                        <span class="user-name">{{ user.name }}</span>
+                        <span class="user-role">Administrator</span>
+                    </div>
+                </div>
+                <button class="logout-btn" (click)="logout()">
+                    <lucide-angular [img]="LogOutIcon" [size]="18"></lucide-angular>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</header>

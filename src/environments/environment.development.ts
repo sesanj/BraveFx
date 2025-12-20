@@ -10,4 +10,5 @@ export const environment = {
       'pk_test_51SXUb6BT1NsJU1m05CzFIlFvrUNPa9jyHpnlMoDfJDVd1vcKs4JGfFsHxw6HOUOrusfm8jU1trtHNgz0QCrfEvHZ00WvV1AIUS', // ← Paste your pk_test_... key from Stripe
   },
   coursePrice: 4999, // Price in cents ($49.99)
+  googleAnalyticsId: 'G-NS385BTZ9V',
 };

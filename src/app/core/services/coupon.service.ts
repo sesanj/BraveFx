@@ -200,4 +200,79 @@ export class CouponService {
       return null;
     }
   }
+
+  /**
+   * Admin: Get all coupons
+   */
+  async getAllCoupons(): Promise<any[]> {
+    try {
+      const { data, error } = await this.supabase.client
+        .from('coupons')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      console.error('Error fetching all coupons:', error);
+      return [];
+    }
+  }
+
+  /**
+   * Admin: Create a new coupon
+   */
+  async createCoupon(
+    code: string,
+    discountPercent: number,
+    isActive: boolean
+  ): Promise<void> {
+    try {
+      const { error } = await this.supabase.client.from('coupons').insert({
+        code: code.toUpperCase(),
+        discount_type: 'percentage',
+        discount_value: discountPercent,
+        active: isActive,
+      });
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error creating coupon:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Admin: Update coupon status
+   */
+  async updateCouponStatus(couponId: string, isActive: boolean): Promise<void> {
+    try {
+      const { error } = await this.supabase.client
+        .from('coupons')
+        .update({ active: isActive })
+        .eq('id', couponId);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error updating coupon status:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Admin: Delete a coupon
+   */
+  async deleteCoupon(couponId: string): Promise<void> {
+    try {
+      const { error } = await this.supabase.client
+        .from('coupons')
+        .delete()
+        .eq('id', couponId);
+
+      if (error) throw error;
+    } catch (error) {
+      console.error('Error deleting coupon:', error);
+      throw error;
+    }
+  }
 }

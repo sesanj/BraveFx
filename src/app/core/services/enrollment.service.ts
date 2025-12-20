@@ -162,8 +162,7 @@ export class EnrollmentService {
         })
         .eq('user_id', userId)
         .eq('course_id', courseId);
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
   /**
@@ -175,6 +174,31 @@ export class EnrollmentService {
       const courseIds = enrollments.map((e) => e.course_id);
       return courseIds;
     } catch (error) {
+      return [];
+    }
+  }
+
+  /**
+   * Admin: Get all enrollments with user profiles
+   */
+  async getAllEnrollments(): Promise<any[]> {
+    try {
+      const { data, error } = await this.supabase.client
+        .from('enrollments')
+        .select(
+          `
+          *,
+          profiles:user_id (
+            email
+          )
+        `
+        )
+        .order('enrolled_at', { ascending: false });
+
+      if (error) throw error;
+      return data || [];
+    } catch (error) {
+      console.error('Error fetching all enrollments:', error);
       return [];
     }
   }

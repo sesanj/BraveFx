@@ -1,0 +1,66 @@
+<div class="page-container">
+    <div class="page-head">
+        <div>
+            <h1>Coupons Management</h1>
+            <p class="subtitle">Create and manage discount codes</p>
+        </div>
+        <button class="btn-primary" (click)="toggleCreateForm()">
+            <lucide-angular [img]="PlusIcon" [size]="18"></lucide-angular>
+            <span>Create Coupon</span>
+        </button>
+    </div>
+
+    <div class="form-card" *ngIf="showCreateForm">
+        <h3>Create New Coupon</h3>
+        <div class="form-row">
+            <div class="form-field">
+                <label>Coupon Code</label>
+                <input type="text" [(ngModel)]="newCoupon.code" placeholder="e.g., SUMMER25" />
+            </div>
+            <div class="form-field">
+                <label>Discount Percent</label>
+                <input type="number" [(ngModel)]="newCoupon.discount_percent" min="1" max="100" />
+            </div>
+            <div class="form-field checkbox-field">
+                <label>
+                    <input type="checkbox" [(ngModel)]="newCoupon.is_active" />
+                    <span>Active</span>
+                </label>
+            </div>
+        </div>
+        <div class="form-actions">
+            <button class="btn-secondary" (click)="toggleCreateForm()">Cancel</button>
+            <button class="btn-primary" (click)="createCoupon()">Create Coupon</button>
+        </div>
+    </div>
+
+    <div class="coupons-grid" *ngIf="!loading">
+        <div class="coupon-card" *ngFor="let coupon of coupons">
+            <div class="coupon-top">
+                <lucide-angular [img]="TagIcon" [size]="22"></lucide-angular>
+                <span class="status-badge" [class.active]="coupon.active">
+                    {{ coupon.active ? 'Active' : 'Inactive' }}
+                </span>
+            </div>
+
+            <h3 class="code">{{ coupon.code }}</h3>
+
+            <p class="discount">Discount: <strong>{{ coupon.discount_percent }}%</strong></p>
+
+            <div class="coupon-actions">
+                <button class="action-btn toggle" (click)="toggleCouponStatus(coupon)">
+                    <lucide-angular [img]="coupon.active ? PauseIcon : PlayIcon" [size]="16"></lucide-angular>
+                    <span>{{ coupon.active ? 'Deactivate' : 'Activate' }}</span>
+                </button>
+                <button class="action-btn delete" (click)="deleteCoupon(coupon.id)">
+                    <lucide-angular [img]="Trash2Icon" [size]="16"></lucide-angular>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="loading" *ngIf="loading">
+        <div class="loader"></div>
+        <p>Loading coupons...</p>
+    </div>
+</div>
