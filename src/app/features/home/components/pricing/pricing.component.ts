@@ -20,6 +20,9 @@ import {
   Plus,
   Minus,
   Tag,
+  CreditCard,
+  Mail,
+  GraduationCap,
 } from 'lucide-angular';
 import {
   CouponService,
@@ -42,6 +45,9 @@ export interface FAQ {
   styleUrls: ['./pricing.component.css'],
 })
 export class PricingComponent implements OnInit {
+  // Expose Math for template
+  Math = Math;
+
   // Pricing
   readonly originalPrice = 149; // Actual course price
   activeCoupon: Coupon | null = null;
@@ -131,6 +137,9 @@ export class PricingComponent implements OnInit {
   Plus = Plus;
   Minus = Minus;
   Tag = Tag;
+  CreditCard = CreditCard;
+  Mail = Mail;
+  GraduationCap = GraduationCap;
 
   constructor(
     private couponService: CouponService,

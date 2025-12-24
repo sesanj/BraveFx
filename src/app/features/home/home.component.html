@@ -10,8 +10,20 @@
   [expiresAt]="campaignBannerRef.activeCampaign.expires_at">
 </app-sticky-campaign-bar>
 
+<!-- Who Is This Course For Section -->
+<app-who-is-this-for (enrollClick)="scrollToEnroll()"></app-who-is-this-for>
+
+<!-- Why Traders Fail Section -->
+<app-why-traders-fail></app-why-traders-fail>
+
 <!-- What You'll Learn Section -->
-<app-learning-outcomes (curriculumClick)="scrollToCurriculum()"></app-learning-outcomes>
+<app-learning-outcomes></app-learning-outcomes>
+
+<!-- Course Process Section -->
+<app-course-process (enrollClick)="scrollToEnroll()"></app-course-process>
+
+<!-- Student Progress Section -->
+<app-student-progress (enrollClick)="scrollToEnroll()"></app-student-progress>
 
 <!-- Course Curriculum Section -->
 <app-course-curriculum></app-course-curriculum>
@@ -19,11 +31,22 @@
 <!-- Why BraveFX Section -->
 <app-why-bravefx></app-why-bravefx>
 
+<!-- Instructor Section -->
+<app-instructor></app-instructor>
+
 <!-- Testimonials/Reviews Section -->
 <app-testimonials></app-testimonials>
 
+<!-- Guarantee Section -->
+<app-guarantee></app-guarantee>
+
+<!-- What's Included Section -->
+<app-whats-included [originalPrice]="pricingRef?.originalPrice || 149" [finalPrice]="pricingRef?.finalPrice || 149"
+  [discountBadgeText]="pricingRef?.discountBadgeText || '85% OFF Limited Time'" (enrollClick)="scrollToEnroll()">
+</app-whats-included>
+
 <!-- Pricing Section -->
-<app-pricing></app-pricing>
+<app-pricing #pricingRef></app-pricing>
 
 <!-- Final CTA Section -->
 <app-cta (enrollClick)="scrollToEnroll()"></app-cta>

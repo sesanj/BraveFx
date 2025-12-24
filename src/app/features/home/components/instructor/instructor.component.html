@@ -1,0 +1,98 @@
+<!-- Instructor Section -->
+<section class="instructor-section">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">
+        <lucide-icon [img]="Award" class="badge-icon"></lucide-icon>
+        <span>Your Instructor</span> <!-- UPDATE: Keep as is or change badge text -->
+      </div>
+      <h2 class="section-title">
+        Meet Your <span class="gradient-text">Forex Mentor</span> <!-- UPDATE: Change title if needed -->
+      </h2>
+    </div>
+
+    <div class="instructor-split">
+      <!-- Left: Image Side -->
+      <div class="image-side">
+        <div class="image-wrapper">
+          <!-- UPDATE: Replace with your actual image -->
+          <img src="instructor.jpeg" alt="Instructor" class="instructor-image" />
+          <!-- UPDATE: Or use this placeholder if you don't have an image yet -->
+          <!-- <div class="image-placeholder">
+            <lucide-icon [img]="Users" class="placeholder-icon"></lucide-icon>
+            <p>Your Photo Here</p>
+          </div> -->
+
+          <!-- Floating Stats Cards -->
+          <div class="floating-card card-1">
+            <lucide-icon [img]="Users" class="card-icon"></lucide-icon>
+            <div class="card-content">
+              <div class="card-number">6,000+</div> <!-- UPDATE: Your student count -->
+              <div class="card-label">Students</div>
+            </div>
+          </div>
+          <div class="floating-card card-2">
+            <lucide-icon [img]="TrendingUp" class="card-icon"></lucide-icon>
+            <div class="card-content">
+              <div class="card-number">10+</div> <!-- UPDATE: Years of experience -->
+              <div class="card-label">Years</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Content Side -->
+      <div class="content-side">
+        <!-- UPDATE: Your name and title -->
+        <h3 class="instructor-name">Sesan Joel</h3> <!-- UPDATE: Your actual name -->
+        <p class="instructor-title">Professional Forex Trader & Educator</p> <!-- UPDATE: Your title -->
+
+        <!-- UPDATE: Your bio/story -->
+        <div class="bio">
+          <p>
+            <!-- UPDATE: First paragraph - Your background -->
+            I started my forex trading journey over 10 years ago, and like many traders, I struggled in the beginning.
+            In 2014, there wasn't a lot of reliable resources available to new forex traders. It took me 5+ years of
+            losses and blown accounts to figure out the secretes to forex trading. After years of learning, testing
+            strategies, and refining my approach, I became consistently profitable.
+          </p>
+          <p>
+            <!-- UPDATE: Second paragraph - Why you teach -->
+            I created BraveFX Academy because I believe anyone can learn to trade successfully with the right guidance.
+            My mission is to help you avoid the mistakes I made and fast-track your journey to becoming a confident,
+            profitable trader.
+          </p>
+          <p>
+            <!-- UPDATE: Third paragraph - Your approach/philosophy -->
+            My teaching philosophy is simple: I focus on practical, no-nonsense education focused on real-world trading,
+            built on a solid foundation.
+            No get-rich-quick schemes, just
+            proven strategies, risk management, and the discipline needed to succeed.
+          </p>
+        </div>
+
+        <!-- Credentials List -->
+        <div class="credentials">
+          <div class="credential-item" *ngFor="let credential of credentials">
+            <lucide-icon [img]="CheckCircle" class="check-icon"></lucide-icon>
+            <span>{{ credential.text }}</span> <!-- UPDATE: Edit in TypeScript file -->
+          </div>
+        </div>
+
+        <!-- Social Proof -->
+        <div class="social-proof">
+          <div class="social-item" *ngFor="let item of social">
+            <div class="social-icon-wrapper" [style.background]="item.color + '15'">
+              <lucide-icon [img]="item.icon" class="social-icon" [style.color]="item.color"></lucide-icon>
+            </div>
+            <div class="social-content">
+              <div class="social-count" [style.color]="item.color">{{ item.count }}</div>
+              <!-- UPDATE: Edit in TypeScript file -->
+              <div class="social-label">{{ item.label }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

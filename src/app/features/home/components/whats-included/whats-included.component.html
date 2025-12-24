@@ -1,0 +1,70 @@
+<!-- What's Included Section -->
+<section class="whats-included">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">
+        <lucide-icon [img]="Package" class="badge-icon"></lucide-icon>
+        <span>Complete Package</span>
+      </div>
+      <h2 class="section-title">
+        <span class="gradient-text">Everything You Get</span> Inside
+      </h2>
+      <p class="section-description">
+        One payment. Lifetime access. Everything you need to become a successful forex trader.
+      </p>
+    </div>
+
+    <!-- 3 Course Classes -->
+    <div class="course-classes">
+      <h3 class="subsection-title">3 Complete Trading Classes</h3>
+      <div class="classes-grid">
+        <div class="class-card" *ngFor="let course of courses">
+          <div class="class-icon-wrapper" [style.background]="course.color + '15'">
+            <lucide-icon [img]="course.icon" class="class-icon" [style.color]="course.color"></lucide-icon>
+          </div>
+          <h4 class="class-title" [style.color]="course.color">{{ course.title }}</h4>
+          <p class="class-description">{{ course.description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- All Features Grid -->
+    <div class="features-section">
+      <h3 class="subsection-title">Plus Everything You Need to Succeed</h3>
+      <div class="features-grid">
+        <div class="feature-card" *ngFor="let feature of features">
+          <div class="feature-icon-wrapper">
+            <lucide-icon [img]="feature.icon" class="feature-icon"></lucide-icon>
+          </div>
+          <div class="feature-content">
+            <h4 class="feature-title">{{ feature.title }}</h4>
+            <p class="feature-description">{{ feature.description }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Highlight -->
+    <div class="bottom-highlight">
+      <div class="highlight-icon">
+        <lucide-icon [img]="Infinity" class="infinity-icon"></lucide-icon>
+      </div>
+      <div class="highlight-content">
+        <h4 class="highlight-title">One-Time Payment. Lifetime Access.</h4>
+        <p class="highlight-text">No monthly fees. No hidden costs. Pay once, learn forever.</p>
+      </div>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="section-cta">
+      <button class="cta-button" (click)="enrollClick.emit()">
+        <span>Get Started</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
