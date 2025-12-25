@@ -15,7 +15,9 @@
 .checkout-wrapper {
   min-height: 100vh;
   background: var(--bg-secondary);
-  padding: 4rem 1rem;
+  margin-top: -55px;
+
+  padding: 2rem 1rem;
 }
 
 .checkout-container {

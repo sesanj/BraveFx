@@ -625,7 +625,7 @@
   }
 
   .hero-description {
-    font-size: 0.9rem;
+    font-size: 1.1rem;
   }
 
   .stat-icon-bg {
@@ -677,8 +677,11 @@
 
   .hero-stats {
     gap: 1.5rem;
-    /* flex-direction: grid; */
     align-items: flex-start;
+  }
+
+  .hero-description {
+    font-size: 1rem;
   }
 
   .desktop-social,

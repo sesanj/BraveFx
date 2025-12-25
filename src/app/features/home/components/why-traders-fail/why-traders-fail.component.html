@@ -1,0 +1,53 @@
+<section class="why-traders-fail">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Why Most Traders Fail (And How We Fix It)</h2>
+      <p class="section-description">
+        Most traders fail not because of lack of intelligence, but because they repeat the same critical mistakes.
+        Here's how we help you avoid them.
+      </p>
+    </div>
+
+    <div class="mistakes-grid">
+      <div class="mistake-card" *ngFor="let mistake of mistakes">
+        <div class="mistake-icon-wrapper">
+          <lucide-icon [img]="mistake.icon" class="mistake-icon"></lucide-icon>
+        </div>
+
+        <div class="mistake-content">
+          <h3 class="mistake-title">{{ mistake.mistake }}</h3>
+
+          <div class="mistake-item">
+            <div class="icon-wrapper problem">
+              <lucide-icon [img]="X" class="item-icon"></lucide-icon>
+            </div>
+            <div class="item-content">
+              <p class="item-label">The Problem</p>
+              <p class="item-text">{{ mistake.description }}</p>
+            </div>
+          </div>
+
+          <div class="mistake-item">
+            <div class="icon-wrapper solution">
+              <lucide-icon [img]="CheckCircle" class="item-icon"></lucide-icon>
+            </div>
+            <div class="item-content">
+              <p class="item-label">Our Solution</p>
+              <p class="item-text">{{ mistake.solution }}</p>
+            </div>
+          </div>
+
+          <div class="mistake-item">
+            <div class="icon-wrapper result">
+              <lucide-icon [img]="Lightbulb" class="item-icon"></lucide-icon>
+            </div>
+            <div class="item-content">
+              <p class="item-label">Your Result</p>
+              <p class="item-text">{{ mistake.result }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

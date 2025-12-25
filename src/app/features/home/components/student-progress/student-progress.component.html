@@ -1,0 +1,72 @@
+<!-- Student Progress Section -->
+<section class="student-progress">
+    <div class="container">
+        <div class="section-header">
+            <div class="badge">
+                <lucide-icon [img]="TrendingUp" class="badge-icon"></lucide-icon>
+                <span>Real Progress</span>
+            </div>
+            <h2 class="section-title">
+                <span class="gradient-text">Real Students,</span> Real Growth
+            </h2>
+            <p class="section-description">
+                See how students develop from complete beginners to confident traders in just a few months.
+            </p>
+        </div>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar">
+            <div class="stat-item" *ngFor="let stat of stats">
+                <div class="stat-number">{{ stat.number }}</div>
+                <div class="stat-label">{{ stat.label }}</div>
+            </div>
+        </div>
+
+        <!-- Progress Timeline -->
+        <div class="progress-timeline">
+            <div class="timeline-card" *ngFor="let story of progressStories">
+                <div class="timeline-header">
+                    <div class="student-avatar" [style.background]="story.color">
+                        {{ story.avatar }}
+                    </div>
+                    <div class="student-info">
+                        <h3 class="student-name">{{ story.name }}</h3>
+                        <div class="timeframe-badge" [style.background]="story.color + '20'"
+                            [style.color]="story.color">
+                            <lucide-icon [img]="Clock" class="clock-icon"></lucide-icon>
+                            <span>{{ story.timeframe }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="milestones">
+                    <div class="milestone-item" *ngFor="let milestone of story.milestones">
+                        <lucide-icon [img]="CheckCircle" class="check-icon" [style.color]="story.color"></lucide-icon>
+                        <span>{{ milestone }}</span>
+                    </div>
+                </div>
+
+                <div class="quote">
+                    <div class="quote-mark">"</div>
+                    <p class="quote-text">{{ story.quote }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom CTA -->
+        <div class="bottom-cta">
+            <p class="cta-text">
+                <lucide-icon [img]="Users" class="inline-icon"></lucide-icon>
+                Join thousands of students building real trading skills
+            </p>
+            <button class="cta-button" (click)="enrollClick.emit()">
+                <span>Join 6,000+ Students</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                </svg>
+            </button>
+        </div>
+    </div>
+</section>

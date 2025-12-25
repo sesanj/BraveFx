@@ -1,0 +1,44 @@
+<!-- Course Process Section -->
+<section class="course-process">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">
+        <lucide-icon [img]="Sparkles" class="badge-icon"></lucide-icon>
+        <span>A Simplified Process</span>
+      </div>
+      <h2 class="section-title">
+        The Complete <span class="gradient-text">3 In 1 Course</span>
+      </h2>
+      <p class="section-description">
+        This course is divided into 3 different classes to make the learning process easy, smooth and effective.
+      </p>
+    </div>
+
+    <div class="process-grid">
+      <div class="process-card" *ngFor="let course of courses; let i = index" [attr.data-step]="i + 1">
+        <div class="step-badge" [style.background]="course.color">
+          {{ course.step }}
+        </div>
+        <div class="process-icon-wrapper" [style.background]="course.color + '15'">
+          <lucide-icon [img]="course.icon" class="process-icon" [style.color]="course.color"></lucide-icon>
+        </div>
+        <h3 class="process-title">{{ course.title }}</h3>
+        <p class="process-description">{{ course.description }}</p>
+      </div>
+    </div>
+
+    <!-- Simplified Section -->
+    <div class="simplified-section">
+      <h3 class="simplified-title">Simplified!</h3>
+      <p class="simplified-description">
+        This course has been simplified and carefully crafted and curated in the right order to cover in
+        detail, all the important topics, concepts and trade techniques you would ever need to become a successful
+        trader in any market condition.
+      </p>
+      <button class="btn-primary" (click)="onEnrollClick()">
+        <span>Start Your Journey Now</span>
+        <lucide-icon [img]="ChevronRight" class="btn-icon"></lucide-icon>
+      </button>
+    </div>
+  </div>
+</section>

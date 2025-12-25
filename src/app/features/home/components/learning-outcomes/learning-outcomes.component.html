@@ -1,36 +1,29 @@
 <!-- What You'll Learn Section -->
 <section class="what-youll-learn">
-    <div class="container">
-        <div class="section-header">
-            <div class="badge">
-                <lucide-icon [img]="Target" class="badge-icon"></lucide-icon>
-                <span>Learning Outcomes</span>
-            </div>
-            <h2 class="section-title">
-                What You'll Learn<br />
-                <span class="gradient-text">From Zero to Profitable Trader</span>
-            </h2>
-            <p class="section-description">
-                Everything you need to go from complete beginner to confident, profitable trader.
-            </p>
-        </div>
-
-        <div class="learning-grid">
-            <div class="learning-card" *ngFor="let outcome of learningOutcomes">
-                <div class="learning-icon-wrapper">
-                    <div class="learning-icon-glow"></div>
-                    <lucide-icon [img]="outcome.icon" class="learning-icon"></lucide-icon>
-                </div>
-                <h3 class="learning-title">{{ outcome.title }}</h3>
-                <p class="learning-description">{{ outcome.description }}</p>
-            </div>
-        </div>
-
-        <div class="cta-inline">
-            <button class="btn-secondary" (click)="scrollToCurriculum()">
-                <span>See Course Curriculum</span>
-                <lucide-icon [img]="ChevronRight" class="btn-icon"></lucide-icon>
-            </button>
-        </div>
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">
+        <lucide-icon [img]="Target" class="badge-icon"></lucide-icon>
+        <span>What To Expect</span>
+      </div>
+      <h2 class="section-title">
+        No Experience Needed<br />
+        <span class="gradient-text">Here's What You Will Learn</span>
+      </h2>
+      <p class="section-description">
+        After completing this course, you will be able to:
+      </p>
     </div>
+
+    <div class="learning-grid">
+      <div class="learning-card" *ngFor="let outcome of learningOutcomes">
+        <div class="learning-icon-wrapper">
+          <div class="learning-icon-glow"></div>
+          <lucide-icon [img]="outcome.icon" class="learning-icon"></lucide-icon>
+        </div>
+        <h3 class="learning-title">{{ outcome.title }}</h3>
+        <p class="learning-description">{{ outcome.description }}</p>
+      </div>
+    </div>
+  </div>
 </section>

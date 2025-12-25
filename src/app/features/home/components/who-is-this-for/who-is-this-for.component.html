@@ -1,0 +1,61 @@
+<!-- Who Is This Course For Section -->
+<section class="who-is-this-for">
+  <div class="container">
+    <div class="section-header">
+      <div class="badge">
+        <lucide-icon [img]="Users" class="badge-icon"></lucide-icon>
+        <span>Perfect For You</span>
+      </div>
+      <h2 class="section-title">
+        Is This Course <span class="gradient-text">Right For You?</span>
+      </h2>
+      <p class="section-description">
+        This complete forex trading course is designed for anyone who fall in one of these categories.
+      </p>
+    </div>
+
+    <!-- Ideal For Cards -->
+    <div class="ideal-grid">
+      <div class="ideal-card" *ngFor="let profile of idealFor">
+        <div class="ideal-icon-wrapper">
+          <div class="ideal-icon-glow"></div>
+          <lucide-icon [img]="profile.icon" class="ideal-icon"></lucide-icon>
+        </div>
+        <h3 class="ideal-title">{{ profile.title }}</h3>
+        <p class="ideal-description">{{ profile.description }}</p>
+        <div class="highlights">
+          <div class="highlight-item" *ngFor="let highlight of profile.highlights">
+            <lucide-icon [img]="CheckCircle" class="check-icon"></lucide-icon>
+            <span>{{ highlight }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Not For Section -->
+    <div class="not-for-section">
+      <div class="not-for-header">
+        <h3 class="not-for-title">This Course Is NOT For:</h3>
+        <p class="not-for-subtitle">We believe in setting the right expectations and mindset from the start.</p>
+      </div>
+      <div class="not-for-grid">
+        <div class="not-for-item" *ngFor="let item of notFor">
+          <lucide-icon [img]="X" class="x-icon"></lucide-icon>
+          <span>{{ item }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="section-cta">
+      <button class="cta-button" (click)="enrollClick.emit()">
+        <span>Start Learning Today</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M5 12h14" />
+          <path d="m12 5 7 7-7 7" />
+        </svg>
+      </button>
+    </div>
+  </div>
+</section>
