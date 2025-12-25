@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { RouterModule, ActivatedRoute } from '@angular/router';
 import {
   LucideAngularModule,
   Sparkles,
@@ -20,6 +20,9 @@ import {
   Plus,
   Minus,
   Tag,
+  CreditCard,
+  Mail,
+  GraduationCap,
 } from 'lucide-angular';
 import {
   CouponService,
@@ -42,6 +45,9 @@ export interface FAQ {
   styleUrls: ['./pricing.component.css'],
 })
 export class PricingComponent implements OnInit {
+  // Expose Math for template
+  Math = Math;
+
   // Pricing
   readonly originalPrice = 149; // Actual course price
   activeCoupon: Coupon | null = null;
@@ -131,11 +137,15 @@ export class PricingComponent implements OnInit {
   Plus = Plus;
   Minus = Minus;
   Tag = Tag;
+  CreditCard = CreditCard;
+  Mail = Mail;
+  GraduationCap = GraduationCap;
 
   constructor(
     private couponService: CouponService,
     private authService: AuthService,
-    private enrollmentService: EnrollmentService
+    private enrollmentService: EnrollmentService,
+    private route: ActivatedRoute
   ) {}
 
   async ngOnInit() {
@@ -175,13 +185,53 @@ export class PricingComponent implements OnInit {
 
   /**
    * Check for active coupon with priority:
-   * 1. Site-wide campaign (is_default = true) - HIGHEST PRIORITY
-   * 2. Specific coupon from URL/localStorage
-   * 3. No discount
+   * 1. URL parameter (freshest intent from ads/links) - HIGHEST PRIORITY
+   * 2. localStorage (return visitor with saved code)
+   * 3. Site-wide campaign (fallback for special occasions)
    */
   async checkForActiveCoupon() {
     try {
-      // FIRST: Check for site-wide campaign (overrides everything)
+      // FIRST: Check URL for coupon parameter
+      const urlCoupon = this.route.snapshot.queryParamMap.get('coupon');
+
+      if (urlCoupon) {
+        const result = await this.couponService.validateCoupon(
+          urlCoupon,
+          this.originalPrice
+        );
+
+        if (result.valid && result.coupon) {
+          // Save to localStorage (overwrites any existing coupon)
+          localStorage.setItem('bravefx_pending_coupon', urlCoupon);
+          this.activeCoupon = result.coupon;
+          this.isCheckingCoupon = false;
+          return; // URL coupon takes highest priority
+        } else {
+          // Invalid URL coupon - remove from localStorage if it exists
+          localStorage.removeItem('bravefx_pending_coupon');
+        }
+      }
+
+      // SECOND: Check localStorage for saved coupon
+      const savedCoupon = localStorage.getItem('bravefx_pending_coupon');
+
+      if (savedCoupon) {
+        const result = await this.couponService.validateCoupon(
+          savedCoupon,
+          this.originalPrice
+        );
+
+        if (result.valid && result.coupon) {
+          this.activeCoupon = result.coupon;
+          this.isCheckingCoupon = false;
+          return; // localStorage coupon takes second priority
+        } else {
+          // Invalid saved coupon - remove it
+          localStorage.removeItem('bravefx_pending_coupon');
+        }
+      }
+
+      // THIRD: Fall back to site-wide campaign (if neither URL nor localStorage exist)
       const defaultCoupon = await this.couponService.getDefaultCoupon();
 
       if (defaultCoupon) {
@@ -192,27 +242,10 @@ export class PricingComponent implements OnInit {
 
         if (result.valid && result.coupon) {
           this.activeCoupon = result.coupon;
-          this.isCheckingCoupon = false;
-          return; // Site-wide campaign takes precedence
-        }
-      }
-
-      // SECOND: If no site-wide campaign, check for specific coupon in localStorage
-      const pendingCoupon = localStorage.getItem('bravefx_pending_coupon');
-
-      if (pendingCoupon) {
-        const result = await this.couponService.validateCoupon(
-          pendingCoupon,
-          this.originalPrice
-        );
-
-        if (result.valid && result.coupon) {
-          this.activeCoupon = result.coupon;
-        } else {
-          localStorage.removeItem('bravefx_pending_coupon');
         }
       }
     } catch (error) {
+      console.error('Error checking for active coupon:', error);
     } finally {
       this.isCheckingCoupon = false;
     }

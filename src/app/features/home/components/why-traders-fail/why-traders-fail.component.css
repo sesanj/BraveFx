@@ -1,0 +1,273 @@
+.why-traders-fail {
+  padding: 5rem 0;
+  background: var(--bg-primary);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Section Header */
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+}
+
+.section-description {
+  font-size: 1.0625rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* Mistakes Grid */
+.mistakes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+
+.mistake-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 1rem;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.mistake-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="light"] .mistake-card {
+  background: #ffffff;
+}
+
+[data-theme="light"] .mistake-card:hover {
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+}
+
+/* Mistake Icon */
+.mistake-icon-wrapper {
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(239, 68, 68, 0.1);
+  border-radius: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.mistake-icon {
+  width: 28px;
+  height: 28px;
+  color: #ef4444;
+}
+
+/* Mistake Content */
+.mistake-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.mistake-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 0.5rem 0;
+}
+
+/* Mistake Items */
+.mistake-item {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.icon-wrapper {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  flex-shrink: 0;
+}
+
+.icon-wrapper.problem {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+.icon-wrapper.solution {
+  background: rgba(34, 197, 94, 0.1);
+}
+
+.icon-wrapper.result {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.item-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.icon-wrapper.problem .item-icon {
+  color: #ef4444;
+}
+
+.icon-wrapper.solution .item-icon {
+  color: #22c55e;
+}
+
+.icon-wrapper.result .item-icon {
+  color: var(--color-primary);
+}
+
+.item-content {
+  flex: 1;
+}
+
+.item-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+  margin: 0 0 0.25rem 0;
+}
+
+.item-text {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Light Mode Adjustments */
+[data-theme="light"] .mistake-icon-wrapper {
+  background: #fee2e2;
+}
+
+[data-theme="light"] .mistake-icon {
+  color: #dc2626;
+}
+
+[data-theme="light"] .icon-wrapper.problem {
+  background: #fee2e2;
+}
+
+[data-theme="light"] .icon-wrapper.problem .item-icon {
+  color: #dc2626;
+}
+
+[data-theme="light"] .icon-wrapper.solution {
+  background: #dcfce7;
+}
+
+[data-theme="light"] .icon-wrapper.solution .item-icon {
+  color: #16a34a;
+}
+
+[data-theme="light"] .icon-wrapper.result {
+  background: #e0e7ff;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .why-traders-fail {
+    padding: 4rem 0;
+  }
+
+  .section-header {
+    margin-bottom: 3rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .mistakes-grid {
+    gap: 1.5rem;
+  }
+
+  .mistake-card {
+    padding: 1.75rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mistakes-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+  }
+
+  .section-description {
+    font-size: 1rem;
+  }
+
+  .mistake-card {
+    padding: 1.5rem;
+  }
+
+  .mistake-title {
+    font-size: 1.125rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .why-traders-fail {
+    padding: 3rem 0;
+  }
+
+  .section-title {
+    font-size: 1.5rem;
+  }
+
+  .mistake-icon-wrapper {
+    width: 48px;
+    height: 48px;
+  }
+
+  .mistake-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .icon-wrapper {
+    width: 28px;
+    height: 28px;
+  }
+
+  .item-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .item-text {
+    font-size: 0.875rem;
+  }
+}

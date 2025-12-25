@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  Input,
+  SimpleChanges,
+  OnChanges,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LucideAngularModule, Zap, Clock } from 'lucide-angular';
 import {
@@ -13,7 +20,8 @@ import {
   templateUrl: './campaign-banner.component.html',
   styleUrls: ['./campaign-banner.component.css'],
 })
-export class CampaignBannerComponent implements OnInit, OnDestroy {
+export class CampaignBannerComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() appliedCoupon: Coupon | null = null;
   activeCampaign: Coupon | null = null;
   isLoading = true;
 
@@ -41,19 +49,36 @@ export class CampaignBannerComponent implements OnInit, OnDestroy {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    // Update banner when applied coupon changes from pricing component
+    if (changes['appliedCoupon'] && changes['appliedCoupon'].currentValue) {
+      this.activeCampaign = changes['appliedCoupon'].currentValue;
+      this.stopCountdown();
+      if (this.activeCampaign?.expires_at) {
+        this.startCountdown();
+      }
+    }
+  }
+
   ngOnDestroy() {
     this.stopCountdown();
   }
 
   /**
-   * Load active site-wide campaign
+   * Load active campaign - prioritizes input coupon from pricing
    */
   async loadCampaign() {
     try {
-      const campaign = await this.couponService.getDefaultCoupon();
+      // If coupon is provided via input (from pricing component), use it
+      if (this.appliedCoupon && this.appliedCoupon.expires_at) {
+        this.activeCampaign = this.appliedCoupon;
+      } else {
+        // Otherwise, fall back to site-wide default campaign
+        const campaign = await this.couponService.getDefaultCoupon();
 
-      if (campaign && campaign.expires_at) {
-        this.activeCampaign = campaign;
+        if (campaign && campaign.expires_at) {
+          this.activeCampaign = campaign;
+        }
       }
     } catch (error) {
     } finally {

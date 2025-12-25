@@ -22,50 +22,51 @@
       </p>
     </div>
 
-    <!-- 2-Column Bento Grid -->
-    <div class="pricing-bento-grid">
-      <!-- Left Column: Price Card -->
+    <!-- Centered Price Card -->
+    <div class="pricing-centered">
+      <!-- Price Card -->
       <div class="pricing-price-card glass-card">
         <div class="pricing-glow"></div>
 
-        <!-- Dynamic Discount Badge (shows if coupon active) -->
-        <div class="pricing-badge-epic" *ngIf="activeCoupon">
-          <lucide-icon [img]="Tag" class="badge-icon-sm"></lucide-icon>
-          <span>{{ discountBadgeText }} - {{ activeCoupon.code }}</span>
-        </div>
-
-        <!-- Default Badge (shows if no coupon) -->
-        <div class="pricing-badge-epic" *ngIf="!activeCoupon && !isCheckingCoupon">
-          <lucide-icon [img]="Award" class="badge-icon-sm"></lucide-icon>
-          <span>Limited Offer</span>
-        </div>
-
         <h3 class="pricing-plan-title">Complete Forex Mastery</h3>
 
+        <!-- Price Comparison -->
+        <div class="price-comparison">
+          <div class="comparison-item">
+            <span class="comparison-label">What Others Charge</span>
+            <span class="comparison-price others">$499</span>
+          </div>
+          <div class="comparison-divider">
+            <lucide-icon [img]="ArrowRight" class="comparison-arrow"></lucide-icon>
+          </div>
+          <div class="comparison-item">
+            <span class="comparison-label">What We Charge</span>
+            <span class="comparison-price ours">${{ originalPrice }}</span>
+          </div>
+        </div>
+
         <div class="price-display">
-          <!-- WITH COUPON: Show $149 → $XX.XX -->
+          <!-- WITH COUPON: Show final price -->
           <div *ngIf="activeCoupon">
-            <div class="price-old">
-              <span class="strike-through">${{ originalPrice }}</span>
-              <span class="save-badge">Save ${{ totalSavings.toFixed(0) }}</span>
-            </div>
+            <div class="price-label">You Only Pay</div>
             <div class="price-current">
               <span class="currency">$</span>
-              <span class="amount">{{ finalPrice.toFixed(0) }}</span>
-              <span class="period">.{{ (finalPrice % 1 * 100).toFixed(0).padStart(2, '0') }}</span>
+              <span class="amount">{{ Math.floor(finalPrice) }}</span>
+              <span class="period">.{{ ((finalPrice % 1) * 100).toFixed(0).padStart(2, '0') }}</span>
             </div>
+            <p class="price-subtitle">One payment. Own it forever. No subscriptions.</p>
           </div>
 
           <!-- WITHOUT COUPON: Show $149 -->
           <div *ngIf="!activeCoupon">
+            <div class="price-label">You Only Pay</div>
             <div class="price-current">
               <span class="currency">$</span>
               <span class="amount">{{ originalPrice }}</span>
               <span class="period">.00</span>
             </div>
+            <p class="price-subtitle">One payment. Own it forever. No subscriptions.</p>
           </div>
-
-          <p class="price-subtitle">One-time payment • Lifetime access</p>
         </div>
 
         <!-- Show "Start Learning" button if user is enrolled -->
@@ -81,11 +82,12 @@
         </div>
 
         <!-- Show "Enroll Now" button if user is NOT enrolled -->
-        <button *ngIf="!isUserEnrolled && !isCheckingEnrollment" class="btn-enroll-epic" routerLink="/checkout">
-          <span *ngIf="activeCoupon">Enroll Now - Save ${{ totalSavings.toFixed(0) }}</span>
+        <a *ngIf="!isUserEnrolled && !isCheckingEnrollment" class="btn-enroll-epic" href="/checkout" target="_blank"
+          rel="noopener">
+          <span *ngIf="activeCoupon">Enroll Now - Save ${{ totalSavings.toFixed(2) }}</span>
           <span *ngIf="!activeCoupon">Enroll Now</span>
           <lucide-icon [img]="ArrowRight" class="btn-icon-epic"></lucide-icon>
-        </button>
+        </a>
 
         <div class="trust-signals">
           <div class="trust-item">
@@ -102,89 +104,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Right Column: Value Grid (2x4) -->
-      <div class="pricing-value-grid">
-        <div class="value-card glass-card">
-          <div class="value-icon-wrapper">
-            <lucide-icon [img]="PlayCircle" class="value-icon"></lucide-icon>
-          </div>
-          <div class="value-text">
-            <div class="value-title">200+ HD Video Lessons</div>
-            <div class="value-description">Comprehensive education</div>
-          </div>
-        </div>
-
-        <div class="value-card glass-card">
-          <div class="value-icon-wrapper">
-            <lucide-icon [img]="Infinity" class="value-icon"></lucide-icon>
-          </div>
-          <div class="value-text">
-            <div class="value-title">Lifetime Access</div>
-            <div class="value-description">Learn at your own pace</div>
-          </div>
-        </div>
-
-        <div class="value-card glass-card">
-          <div class="value-icon-wrapper">
-            <lucide-icon [img]="MessageCircle" class="value-icon"></lucide-icon>
-          </div>
-          <div class="value-text">
-            <div class="value-title">24/7 Learning Support</div>
-            <div class="value-description">Help whenever you need</div>
-          </div>
-        </div>
-
-        <div class="value-card glass-card">
-          <div class="value-icon-wrapper">
-            <lucide-icon [img]="ClipboardCheck" class="value-icon"></lucide-icon>
-          </div>
-          <div class="value-text">
-            <div class="value-title">Trading Plan Templates</div>
-            <div class="value-description">Risk management tools</div>
-          </div>
-        </div>
-
-        <div class="value-card glass-card">
-          <div class="value-icon-wrapper">
-            <lucide-icon [img]="FileText" class="value-icon"></lucide-icon>
-          </div>
-          <div class="value-text">
-            <div class="value-title">45+ Downloadable PDFs</div>
-            <div class="value-description">Reference guides & checklists</div>
-          </div>
-        </div>
-
-        <div class="value-card glass-card">
-          <div class="value-icon-wrapper">
-            <lucide-icon [img]="CheckCircle" class="value-icon"></lucide-icon>
-          </div>
-          <div class="value-text">
-            <div class="value-title">Skill Tests & Quizzes</div>
-            <div class="value-description">Track your progress</div>
-          </div>
-        </div>
-
-        <div class="value-card glass-card">
-          <div class="value-icon-wrapper">
-            <lucide-icon [img]="Award" class="value-icon"></lucide-icon>
-          </div>
-          <div class="value-text">
-            <div class="value-title">Certificate of Completion</div>
-            <div class="value-description">Showcase your achievement</div>
-          </div>
-        </div>
-
-        <div class="value-card glass-card">
-          <div class="value-icon-wrapper">
-            <lucide-icon [img]="Smartphone" class="value-icon"></lucide-icon>
-          </div>
-          <div class="value-text">
-            <div class="value-title">Access on Any Device</div>
-            <div class="value-description">Desktop, tablet, or mobile</div>
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Money-Back Guarantee -->
@@ -196,6 +115,46 @@
         <h4>100% Risk-Free 30-Day Money-Back Guarantee</h4>
         <p>Try the course for 30 days. If you're not completely satisfied, get a full refund. No questions
           asked.</p>
+      </div>
+    </div>
+
+    <!-- Enrollment Process -->
+    <div class="enrollment-process-wrapper">
+      <h4 class="enrollment-heading">What Happens After Payment?</h4>
+      <div class="enrollment-process">
+        <div class="process-step">
+          <div class="process-icon">
+            <lucide-icon [img]="CreditCard" class="step-icon"></lucide-icon>
+          </div>
+          <div class="process-content">
+            <h5 class="process-title">1. Complete Purchase</h5>
+            <p class="process-text">Secure checkout in 2 minutes</p>
+          </div>
+        </div>
+        <div class="process-arrow">
+          <lucide-icon [img]="ArrowRight" class="arrow-icon"></lucide-icon>
+        </div>
+        <div class="process-step">
+          <div class="process-icon">
+            <lucide-icon [img]="Mail" class="step-icon"></lucide-icon>
+          </div>
+          <div class="process-content">
+            <h5 class="process-title">2. Get Instant Access</h5>
+            <p class="process-text">Confirmation sent to your email</p>
+          </div>
+        </div>
+        <div class="process-arrow">
+          <lucide-icon [img]="ArrowRight" class="arrow-icon"></lucide-icon>
+        </div>
+        <div class="process-step">
+          <div class="process-icon">
+            <lucide-icon [img]="GraduationCap" class="step-icon"></lucide-icon>
+          </div>
+          <div class="process-content">
+            <h5 class="process-title">3. Start Learning</h5>
+            <p class="process-text">Start the Beginners Class</p>
+          </div>
+        </div>
       </div>
     </div>
 
