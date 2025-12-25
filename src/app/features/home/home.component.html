@@ -1,8 +1,8 @@
 <!-- Hero Section -->
 <app-hero (enrollClick)="scrollToEnroll()"></app-hero>
 
-<!-- Campaign Banner (only shows when site-wide campaign is active) -->
-<app-campaign-banner #campaignBannerRef></app-campaign-banner>
+<!-- Campaign Banner (shows when any coupon is active) -->
+<app-campaign-banner #campaignBannerRef [appliedCoupon]="pricingRef?.activeCoupon || null"></app-campaign-banner>
 
 <!-- Sticky Campaign Bar (appears on scroll) -->
 <app-sticky-campaign-bar *ngIf="campaignBannerRef.activeCampaign && campaignBannerRef.activeCampaign.expires_at"

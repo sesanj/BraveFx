@@ -53,9 +53,6 @@ export class AppComponent implements OnInit {
     //   }
     // });
 
-    // Capture coupon from URL on initial page load
-    this.captureCouponFromUrl();
-
     // Hide header/footer on course player, dashboard, and admin routes
     // Hide only footer on auth routes
     this.router.events
@@ -64,18 +61,25 @@ export class AppComponent implements OnInit {
         const isCoursePage = event.url.includes('/course/');
         const isDashboard = event.url.includes('/dashboard');
         const isAdminPage = event.url.includes('/admin');
+        const isCheckoutPage = event.url.includes('/checkout');
         const isAuthPage =
           event.url.includes('/login') ||
           event.url.includes('/register') ||
           event.url.includes('/reset-password');
 
-        // Hide both header and footer on course player, dashboard, and admin
-        this.showHeaderFooter = !isCoursePage && !isDashboard && !isAdminPage;
+        // Hide both header and footer on course player, dashboard, admin, and checkout
+        this.showHeaderFooter =
+          !isCoursePage && !isDashboard && !isAdminPage && !isCheckoutPage;
 
-        // Show header on auth pages, but hide footer
-        this.showHeader = !isCoursePage && !isDashboard && !isAdminPage;
+        // Show header on auth pages, but hide on checkout, course, dashboard, and admin
+        this.showHeader =
+          !isCoursePage && !isDashboard && !isAdminPage && !isCheckoutPage;
         this.showFooter =
-          !isCoursePage && !isDashboard && !isAuthPage && !isAdminPage;
+          !isCoursePage &&
+          !isDashboard &&
+          !isAuthPage &&
+          !isAdminPage &&
+          !isCheckoutPage;
 
         // Mark initialization complete after first navigation
         this.isInitializing = false;
@@ -86,35 +90,10 @@ export class AppComponent implements OnInit {
           document.documentElement.scrollTop = 0;
           document.body.scrollTop = 0;
         }, 0);
-
-        // Check for coupon in URL after each navigation
-        this.captureCouponFromUrl();
       });
 
     // Test Supabase connection
     this.testSupabaseConnection();
-  }
-
-  /**
-   * Capture coupon code from URL query parameter and store in localStorage
-   */
-  private captureCouponFromUrl() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const couponCode = urlParams.get('coupon');
-
-    if (couponCode) {
-      // Store in localStorage for later use at checkout
-      localStorage.setItem(
-        'bravefx_pending_coupon',
-        couponCode.trim().toUpperCase()
-      );
-
-      // Optional: Clean URL to remove the coupon parameter
-      // This gives a cleaner URL while browsing
-      const url = new URL(window.location.href);
-      url.searchParams.delete('coupon');
-      window.history.replaceState({}, '', url.toString());
-    }
   }
 
   private async testSupabaseConnection() {

@@ -157,10 +157,6 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
-  .sticky-campaign-bar {
-    top: 52px; /* Mobile header height */
-  }
-
   .bar-container {
     padding: 0 1rem;
   }

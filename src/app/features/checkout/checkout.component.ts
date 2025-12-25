@@ -174,6 +174,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
           // Check for coupon in URL after course is loaded
           this.checkForCouponInUrl();
+          console.log('We got here');
         } else {
           this.errorMessage = 'Course not found. Please contact support.';
         }
@@ -262,13 +263,119 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
   /**
    * Check for pending coupon with priority:
-   * 1. Site-wide campaign (is_default = true) - HIGHEST PRIORITY
-   * 2. Specific coupon from localStorage or URL
-   * 3. No discount
+   * 1. URL parameter (freshest intent from ads/links) - HIGHEST PRIORITY
+   * 2. localStorage (return visitor with saved code)
+   * 3. Site-wide campaign (fallback for special occasions)
    */
   async checkForCouponInUrl() {
     try {
-      // FIRST: Check for site-wide campaign (overrides everything)
+      // FIRST: Check URL for coupon parameter
+      const urlCoupon = this.route.snapshot.queryParamMap.get('coupon');
+
+      if (urlCoupon) {
+        // Show loading overlay
+        this.isValidatingCoupon = true;
+
+        // Validate with minimum 2-second delay for UX
+        const [result] = await Promise.all([
+          this.couponService.validateCoupon(urlCoupon, this.coursePrice),
+          new Promise((resolve) => setTimeout(resolve, 2000)),
+        ]);
+
+        this.isValidatingCoupon = false;
+
+        if (result.valid && result.coupon) {
+          // Save to localStorage (overwrites any existing coupon)
+          localStorage.setItem('bravefx_pending_coupon', urlCoupon);
+          this.appliedCoupon = result.coupon;
+
+          // Start countdown if coupon has expiry date
+          if (result.coupon.expires_at) {
+            this.isSiteWideCampaign = true;
+            this.startCampaignCountdown(result.coupon.expires_at);
+          }
+
+          let discountText = '';
+          if (result.coupon.discount_type === 'percentage') {
+            discountText = `${result.coupon.discount_value}% Off`;
+
+            if (this.appliedCoupon.discount_value === 100) {
+              this.isFreeEnrollment = true;
+              console.log('Free Enrollment: ', this.isFreeEnrollment);
+            }
+          } else {
+            discountText = `$${result.coupon.discount_value} Off`;
+          }
+
+          this.showCouponNotification(
+            `🎉 ${discountText} Applied! You save $${result.discountAmount?.toFixed(
+              2
+            )}`,
+            'success'
+          );
+          return; // URL coupon takes highest priority
+        } else {
+          // Invalid URL coupon - remove from localStorage if it exists
+          localStorage.removeItem('bravefx_pending_coupon');
+          this.showCouponNotification(
+            `⚠️ Coupon "${urlCoupon}" is invalid or expired`,
+            'error'
+          );
+          // Don't return - continue to check localStorage and site-wide
+        }
+      }
+
+      // SECOND: Check localStorage for saved coupon
+      const savedCoupon = localStorage.getItem('bravefx_pending_coupon');
+
+      if (savedCoupon) {
+        // Show loading overlay
+        this.isValidatingCoupon = true;
+
+        // Validate with minimum 2-second delay for UX
+        const [result] = await Promise.all([
+          this.couponService.validateCoupon(savedCoupon, this.coursePrice),
+          new Promise((resolve) => setTimeout(resolve, 2000)),
+        ]);
+
+        this.isValidatingCoupon = false;
+
+        if (result.valid && result.coupon) {
+          this.appliedCoupon = result.coupon;
+
+          // Start countdown if coupon has expiry date
+          if (result.coupon.expires_at) {
+            this.isSiteWideCampaign = true;
+            this.startCampaignCountdown(result.coupon.expires_at);
+          }
+
+          let discountText = '';
+          if (result.coupon.discount_type === 'percentage') {
+            discountText = `${result.coupon.discount_value}% Off`;
+
+            if (this.appliedCoupon.discount_value === 100) {
+              this.isFreeEnrollment = true;
+              console.log('Free Enrollment: ', this.isFreeEnrollment);
+            }
+          } else {
+            discountText = `$${result.coupon.discount_value} Off`;
+          }
+
+          this.showCouponNotification(
+            `🎉 ${discountText} Applied! You save $${result.discountAmount?.toFixed(
+              2
+            )}`,
+            'success'
+          );
+          return; // localStorage coupon takes second priority
+        } else {
+          // Invalid saved coupon - remove it
+          localStorage.removeItem('bravefx_pending_coupon');
+          // Don't show error for expired saved coupons - just continue to site-wide
+        }
+      }
+
+      // THIRD: Fall back to site-wide campaign (if neither URL nor localStorage exist)
       const defaultCoupon = await this.couponService.getDefaultCoupon();
 
       if (defaultCoupon) {
@@ -299,7 +406,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
             if (this.appliedCoupon.discount_value === 100) {
               this.isFreeEnrollment = true;
-              console.log('Free Enrollment 2: ', this.isFreeEnrollment);
+              console.log('Free Enrollment: ', this.isFreeEnrollment);
             }
           } else {
             discountText = `$${result.coupon.discount_value} Off`;
@@ -311,55 +418,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
             )}`,
             'success'
           );
-          return; // Site-wide campaign takes precedence
         }
-      }
-
-      // SECOND: If no site-wide campaign, check for specific coupon
-      const pendingCoupon = localStorage.getItem('bravefx_pending_coupon');
-      const urlCoupon = this.route.snapshot.queryParamMap.get('coupon');
-      const couponCode = pendingCoupon || urlCoupon;
-
-      if (!couponCode) {
-        return;
-      }
-
-      // Show loading overlay
-      this.isValidatingCoupon = true;
-
-      // Start validation and minimum delay in parallel
-      const [result] = await Promise.all([
-        this.couponService.validateCoupon(couponCode, this.coursePrice),
-        new Promise((resolve) => setTimeout(resolve, 2000)),
-      ]);
-
-      this.isValidatingCoupon = false;
-
-      if (result.valid && result.coupon) {
-        // Success - Apply coupon
-        this.appliedCoupon = result.coupon;
-
-        let discountText = '';
-        if (result.coupon.discount_type === 'percentage') {
-          discountText = `${result.coupon.discount_value}% Off`;
-        } else {
-          discountText = `$${result.coupon.discount_value} Off`;
-        }
-
-        this.showCouponNotification(
-          `🎉 ${discountText} Applied! You save $${result.discountAmount?.toFixed(
-            2
-          )}`,
-          'success'
-        );
-      } else {
-        // Invalid coupon - remove from storage
-        localStorage.removeItem('bravefx_pending_coupon');
-
-        this.showCouponNotification(
-          `⚠️ Coupon "${couponCode}" is invalid or expired`,
-          'error'
-        );
       }
     } catch (error) {
       this.isValidatingCoupon = false;

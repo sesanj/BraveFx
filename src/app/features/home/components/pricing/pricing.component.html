@@ -82,11 +82,12 @@
         </div>
 
         <!-- Show "Enroll Now" button if user is NOT enrolled -->
-        <button *ngIf="!isUserEnrolled && !isCheckingEnrollment" class="btn-enroll-epic" routerLink="/checkout">
+        <a *ngIf="!isUserEnrolled && !isCheckingEnrollment" class="btn-enroll-epic" href="/checkout" target="_blank"
+          rel="noopener">
           <span *ngIf="activeCoupon">Enroll Now - Save ${{ totalSavings.toFixed(2) }}</span>
           <span *ngIf="!activeCoupon">Enroll Now</span>
           <lucide-icon [img]="ArrowRight" class="btn-icon-epic"></lucide-icon>
-        </button>
+        </a>
 
         <div class="trust-signals">
           <div class="trust-item">
