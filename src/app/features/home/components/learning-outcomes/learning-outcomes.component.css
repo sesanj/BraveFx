@@ -268,8 +268,12 @@
     font-size: 1.375rem;
   }
 
+  .gradient-text {
+    font-size: 1.6rem;
+  }
+
   .section-description {
-    font-size: 0.875rem;
+    font-size: 1rem;
   }
 
   .learning-card {
@@ -282,11 +286,11 @@
   }
 
   .learning-title {
-    font-size: 0.9375rem;
+    font-size: 1.1rem;
   }
 
   .learning-description {
-    font-size: 0.8125rem;
+    font-size: 1rem;
   }
 
   .learning-grid {

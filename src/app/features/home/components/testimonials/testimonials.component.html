@@ -12,7 +12,7 @@
       </h2>
       <p class="section-description" *ngIf="reviewsData">
         {{ reviewsData.stats.totalReviews | number }} total reviews •
-        {{ reviewsData.stats.averageRating }} <span class="star-inline">★</span> average rating
+        {{ reviewsData.stats.averageRating + .1}} <span class="star-inline">★</span> average rating
       </p>
     </div>
 

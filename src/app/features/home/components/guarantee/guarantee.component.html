@@ -1,0 +1,58 @@
+<!-- Guarantee Section -->
+<section class="guarantee-section">
+  <div class="container">
+    <div class="guarantee-card">
+      <!-- Main Guarantee Badge -->
+      <div class="guarantee-badge">
+        <div class="badge-icon-wrapper">
+          <lucide-icon [img]="Shield" class="badge-icon"></lucide-icon>
+        </div>
+        <div class="badge-content">
+          <h3 class="guarantee-title">30-Day Money-Back Guarantee</h3>
+          <p class="guarantee-subtitle">100% Risk-Free. You Have Nothing to Lose.</p>
+        </div>
+      </div>
+
+      <!-- Main Message -->
+      <div class="guarantee-message">
+        <h4 class="message-title">Try It, Love It, Or Get Your Money Back</h4>
+        <p class="message-text">
+          We're confident you'll love this course. If for any reason you're not completely satisfied within
+          30 days, simply request a full refund, no questions asked. Your success is our priority, and we
+          stand behind our training 100%.
+        </p>
+      </div>
+
+      <!-- Refund Steps -->
+      <div class="refund-steps">
+        <h5 class="steps-title">Getting Your Refund is Simple</h5>
+        <div class="steps-grid">
+          <div class="step-card" *ngFor="let step of refundSteps; let i = index">
+            <div class="step-number">{{ i + 1 }}</div>
+            <div class="step-icon-wrapper">
+              <lucide-icon [img]="step.icon" class="step-icon"></lucide-icon>
+            </div>
+            <h6 class="step-title">{{ step.title }}</h6>
+            <p class="step-description">{{ step.description }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Policy Link -->
+      <div class="policy-link">
+        <p>
+          For complete details, view our
+          <a routerLink="/refund-policy" class="link">Refund Policy</a>.
+        </p>
+      </div>
+
+      <!-- Trust Badges -->
+      <div class="trust-badges">
+        <div class="trust-badge" *ngFor="let badge of trustBadges">
+          <lucide-icon [img]="Lock" class="trust-icon"></lucide-icon>
+          <span>{{ badge.text }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
