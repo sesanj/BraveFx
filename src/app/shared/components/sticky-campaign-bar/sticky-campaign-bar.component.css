@@ -1,6 +1,6 @@
 .sticky-campaign-bar {
   position: fixed;
-  top: 70px; /* Below main header */
+  top: 0; /* Stick to top since header hides on scroll */
   left: 0;
   right: 0;
   z-index: 900; /* Below header (1000) but above content */

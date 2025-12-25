@@ -14,6 +14,7 @@ import {
   CheckCircle,
   Smartphone,
   Sparkles,
+  Monitor,
 } from 'lucide-angular';
 
 @Component({
@@ -53,6 +54,7 @@ export class WhatsIncludedComponent {
   readonly CheckCircle = CheckCircle;
   readonly Smartphone = Smartphone;
   readonly Sparkles = Sparkles;
+  readonly Monitor = Monitor;
 
   courses = [
     {

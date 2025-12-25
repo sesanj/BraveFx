@@ -24,6 +24,10 @@ import { SupabaseService } from '../../core/services/supabase.service';
 import { StripeCardElement } from '@stripe/stripe-js';
 import { TawkChatComponent } from '../../shared/components/tawk-chat/tawk-chat.component';
 
+// Declare global tracking functions
+declare const fbq: any;
+declare const gtag: any;
+
 @Component({
   selector: 'app-checkout',
   standalone: true,
@@ -140,6 +144,16 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       url: 'https://bravefx.io/checkout',
       image: 'https://bravefx.io/assets/og-image.jpg',
     });
+
+    // Track checkout page view in Facebook Pixel
+    if (typeof fbq !== 'undefined') {
+      fbq('track', 'InitiateCheckout', {
+        content_name: 'Forex Trading Course',
+        content_category: 'Online Course',
+        value: 149,
+        currency: 'USD',
+      });
+    }
 
     // Check if user is already logged in
     const user = await this.authService.getCurrentUser();
@@ -646,6 +660,32 @@ export class CheckoutComponent implements OnInit, OnDestroy {
         // 7. Show success and redirect
         this.successMessage =
           'Payment successful! Redirecting to your dashboard...';
+
+        // Track purchase in Facebook Pixel
+        if (typeof fbq !== 'undefined') {
+          fbq('track', 'Purchase', {
+            content_name: 'Forex Trading Course',
+            content_category: 'Online Course',
+            value: this.finalPrice,
+            currency: 'USD',
+          });
+        }
+
+        // Track purchase in Google Analytics
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'purchase', {
+            value: this.finalPrice,
+            currency: 'USD',
+            items: [
+              {
+                item_name: 'Forex Trading Course',
+                item_category: 'Online Course',
+                price: this.finalPrice,
+                quantity: 1,
+              },
+            ],
+          });
+        }
 
         // Clear coupon from localStorage even if no coupon was used (cleanup)
         localStorage.removeItem('bravefx_pending_coupon');

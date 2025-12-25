@@ -25,10 +25,15 @@ import {
   imports: [CommonModule, RouterModule, LucideAngularModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
+  host: {
+    '[class.header-hidden]': 'isHeaderHidden',
+  },
 })
 export class HeaderComponent {
   isMenuOpen = false;
   isAuthLoading = true;
+  isHeaderHidden = false;
+  private lastScrollTop = 0;
   readonly Moon = Moon;
   readonly Sun = Sun;
   readonly Menu = Menu;
@@ -50,6 +55,28 @@ export class HeaderComponent {
     this.authService.waitForAuthInit().then(() => {
       this.isAuthLoading = false;
     });
+
+    // Add scroll listener to hide header after hero section
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', () => this.handleScroll(), {
+        passive: true,
+      });
+    }
+  }
+
+  private handleScroll() {
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const heroHeight = window.innerHeight * 0.85; // Approximate hero section height
+
+    // Hide header when scrolled past hero section
+    if (scrollTop > heroHeight && scrollTop > this.lastScrollTop) {
+      this.isHeaderHidden = true;
+    } else if (scrollTop < 100) {
+      // Show header when near top
+      this.isHeaderHidden = false;
+    }
+
+    this.lastScrollTop = scrollTop;
   }
 
   get currentUser$() {
