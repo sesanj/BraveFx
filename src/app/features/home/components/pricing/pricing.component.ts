@@ -49,7 +49,7 @@ export class PricingComponent implements OnInit {
   Math = Math;
 
   // Pricing
-  readonly originalPrice = 149; // Actual course price
+  readonly originalPrice = 99; // Actual course price
   activeCoupon: Coupon | null = null;
   isCheckingCoupon = true;
 
